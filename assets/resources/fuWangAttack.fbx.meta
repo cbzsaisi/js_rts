@@ -1,0 +1,228 @@
+{
+  "ver": "1.1.1",
+  "uuid": "93e6dd50-8a5d-433b-8623-5f2e9c88f448",
+  "scaleFactor": 1,
+  "boneCount": 45,
+  "precomputeJointMatrix": false,
+  "animationFrameRate": 30,
+  "subMetas": {
+    "buffer.bin": {
+      "ver": "1.0.0",
+      "uuid": "bf1cf130-b15b-4612-b0fb-765ffa255f30",
+      "name": "buffer.bin",
+      "subMetas": {}
+    },
+    "Box01.mesh": {
+      "ver": "1.0.1",
+      "uuid": "f070319a-c4c8-43f1-9794-dfde93f7ff2e",
+      "verts": 571,
+      "tris": 658,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_joints",
+          "a_normal",
+          "a_position",
+          "a_uv0",
+          "a_weights"
+        ]
+      ],
+      "minPos": {
+        "x": -0.505892753601074,
+        "y": -1.07430124282837,
+        "z": -0.136710286140442
+      },
+      "maxPos": {
+        "x": 0.505893111228943,
+        "y": 1.07430136203766,
+        "z": 0.136710271239281
+      },
+      "name": "Box01.mesh",
+      "subMetas": {}
+    },
+    "Box02.mesh": {
+      "ver": "1.0.1",
+      "uuid": "f574355c-5026-4e44-ae2f-7fda612e8c0b",
+      "verts": 3174,
+      "tris": 5002,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_joints",
+          "a_normal",
+          "a_position",
+          "a_uv0",
+          "a_weights"
+        ]
+      ],
+      "minPos": {
+        "x": -0.794436752796173,
+        "y": -0.00288970931433141,
+        "z": -0.321272313594818
+      },
+      "maxPos": {
+        "x": 0.794540524482727,
+        "y": 1.65016460418701,
+        "z": 0.510855197906494
+      },
+      "name": "Box02.mesh",
+      "subMetas": {}
+    },
+    "fuWangAttack-0.skeleton": {
+      "ver": "1.0.1",
+      "uuid": "85af45ac-18d5-4e20-baa5-7f95c594a081",
+      "name": "fuWangAttack-0.skeleton",
+      "subMetas": {}
+    },
+    "fuWangAttack-1.skeleton": {
+      "ver": "1.0.1",
+      "uuid": "f2afda2e-30e9-43eb-996a-572b8f9eca98",
+      "name": "fuWangAttack-1.skeleton",
+      "subMetas": {}
+    },
+    "Take 001.sac": {
+      "ver": "1.0.1",
+      "uuid": "7a4cbd1e-bc13-41fc-a15d-4b20991f5972",
+      "modelUuid": "93e6dd50-8a5d-433b-8623-5f2e9c88f448",
+      "animationID": 0,
+      "name": "Take 001.sac",
+      "maxFrameCount": 113,
+      "totalFrameCount": 4148,
+      "duration": 4.666666507720947,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "fuWangAttack.prefab": {
+      "ver": "1.2.9",
+      "uuid": "862fd2e8-d11c-4f27-b964-ce0fbb9780cc",
+      "optimizationPolicy": "AUTO",
+      "asyncLoadAssets": false,
+      "readonly": true,
+      "content": [
+        {
+          "__type__": "cc.Prefab",
+          "_name": "",
+          "_objFlags": 0,
+          "data": {
+            "__id__": 1
+          }
+        },
+        {
+          "__type__": "cc.Node",
+          "_name": "Sprite",
+          "_objFlags": 0,
+          "_opacity": 255,
+          "_color": {
+            "__type__": "cc.Color",
+            "r": 255,
+            "g": 255,
+            "b": 255,
+            "a": 255
+          },
+          "_cascadeOpacityEnabled": true,
+          "_parent": null,
+          "_anchorPoint": {
+            "__type__": "cc.Vec2",
+            "x": 0.5,
+            "y": 0.5
+          },
+          "_contentSize": {
+            "__type__": "cc.Size",
+            "width": 40,
+            "height": 36
+          },
+          "_children": [],
+          "_skewX": 0,
+          "_skewY": 0,
+          "_localZOrder": 0,
+          "_globalZOrder": 0,
+          "_tag": -1,
+          "_opacityModifyRGB": false,
+          "_reorderChildDirty": false,
+          "_id": "",
+          "_active": true,
+          "_components": [
+            {
+              "__id__": 2
+            }
+          ],
+          "_prefab": {
+            "__id__": 3
+          },
+          "_eulerAngles": {
+            "__type__": "cc.Vec3",
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "_trs": {
+            "__type__": "TypedArray",
+            "ctor": "Float64Array",
+            "array": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "__type__": "cc.Sprite",
+          "_name": "",
+          "_objFlags": 0,
+          "node": {
+            "__id__": 1
+          },
+          "_enabled": true,
+          "_spriteFrame": {
+            "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
+          },
+          "_type": 0,
+          "_sizeMode": 1,
+          "_fillType": 0,
+          "_fillCenter": {
+            "__type__": "cc.Vec2",
+            "x": 0,
+            "y": 0
+          },
+          "_fillStart": 0,
+          "_fillRange": 0,
+          "_isTrimmedMode": true,
+          "_srcBlendFactor": 770,
+          "_dstBlendFactor": 771,
+          "_atlas": null
+        },
+        {
+          "__type__": "cc.PrefabInfo",
+          "root": {
+            "__id__": 1
+          },
+          "asset": null,
+          "fileId": "d7118yAG5lKybkFOAh8koPL"
+        }
+      ],
+      "name": "fuWangAttack.prefab",
+      "subMetas": {}
+    },
+    "Material #49.mtl": {
+      "ver": "1.0.3",
+      "uuid": "69245964-8b0c-4b14-8994-55aeaf7a3411",
+      "dataAsSubAsset": null,
+      "name": "Material #49.mtl",
+      "subMetas": {}
+    },
+    "Material #48.mtl": {
+      "ver": "1.0.3",
+      "uuid": "f6d6bb8a-8e0b-44b1-bf7a-c0236b68b2f4",
+      "dataAsSubAsset": null,
+      "name": "Material #48.mtl",
+      "subMetas": {}
+    }
+  }
+}
