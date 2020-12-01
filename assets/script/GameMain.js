@@ -58,6 +58,7 @@ cc.Class({
     start() {
         cc.view.enableAntiAlias(false);
         cc.view.enableRetina(true);
+        cc.game.canvas.style.cursor = "none";
 
         let fps = (cc.sys.os == cc.sys.OS_IOS) ? 30 : 30
         cc.game.setFrameRate(30);
@@ -187,7 +188,7 @@ cc.Class({
             if (!this.SceenCreate) {
                 var Rolenum = 0;
                 for (let i = 0; i < 1; i++) {
-                    for (let j = 0; j < 4; j++) {
+                    for (let j = 0; j < 2; j++) {
                         var role = new RoleClass.New("role1", 1, GamePublic.s_Vec2d(i, j), ++Rolenum);
                     }
                 }
