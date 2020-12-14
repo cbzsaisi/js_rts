@@ -92,7 +92,7 @@ cc.Class({
         GamePublic.g_MainCamera = this.mainCamera;
         GamePublic.g_UiCamera = this.UiCamera;
         this.map_sceen_root = new cc.Node();
-        var qu = cc.quat(0, 0, 0).fromEuler({ x: -20, y: 0, z: 0 });
+        //var qu = cc.quat(0, 0, 0).fromEuler({ x: -20, y: 0, z: 0 });
         this.node.is3DNode = true;
         this.map_sceen_root.is3DNode = true;
         //this.map_sceen_root.position={x:-480,y:-320,z:0};
@@ -187,8 +187,8 @@ cc.Class({
         } else {
             if (!this.SceenCreate) {
                 var Rolenum = 0;
-                for (let i = 0; i < 1; i++) {
-                    for (let j = 0; j < 2; j++) {
+                for (let i = 0; i < 2; i++) {
+                    for (let j = 0; j < 1; j++) {
                         var role = new RoleClass.New("role1", 1, GamePublic.s_Vec2d(i, j), ++Rolenum);
                     }
                 }

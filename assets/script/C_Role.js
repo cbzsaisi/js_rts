@@ -87,12 +87,13 @@ var C_Role = {
             },
 
             //初始化
-            node.RoleInfo.v_RoleNumber = _RoleNumber;
+        node.RoleInfo.v_RoleNumber = _RoleNumber;
         node.RoleInfo.v_RoleMapPos = GamePublic.s_Vec2d(_MapPoint.x, _MapPoint.y);
         node.RoleInfo.v_RoleBagSize = 20, //当前背包大小
         node.RoleInfo.v_CurrentMapNum = _MapNum;
         node.RoleInfo.v_RoleBag = Array(50),//背包
         node.RoleInfo.v_RolePassStatu = "land";
+        node.RoleInfo.v_RoleEquip = Array(7),//装备背包
 
         node.RoleGameInfo.v_SpriteType = GamePublic.e_SpriteType.model;
         node.RoleGameInfo.v_RoleAttackType = {AttackType:"hand",Skill:"Left"};
@@ -100,7 +101,6 @@ var C_Role = {
         node.RoleGameInfo.v_CurrentMap = GamePublic.g_GameDataResManger.GetMap(_MapNum); //当前地图实体
         node.RoleGameInfo.v_SpriteShow = false;
         node.RoleGameInfo.v_MapOffset = GamePublic.s_Vec2d(0, 0);
-        node.RoleInfo.v_RoleEquip = Array(7),//装备背包
 
         node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
         node.RoleCommand.v_ActionConsoleType = 1;
@@ -110,7 +110,7 @@ var C_Role = {
             
         node.RoleGameInfo.v_DrawNode = new cc.Node();
         node.RoleGameInfo.v_DrawNode.is3DNode = false;
-        var qu = cc.quat(0, 0, 0).fromEuler({ x: -15, y: 0, z: 0 });
+        //var qu = cc.quat(0, 0, 0).fromEuler({ x: -15, y: 0, z: 0 });
         //node.RoleGameInfo.v_DrawNode.setRotation(qu);
         node.RoleGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.RoleGameInfo.v_DrawNode, 2000);
 
@@ -225,6 +225,16 @@ var C_Role = {
             node.RoleCommand.v_RoleActionCommandArray.splice(0, node.RoleCommand.v_RoleActionCommandArray.length);
         }
 
+        node.ShowSprite = function (_show){
+            if(_show){
+                if (node.RoleGameInfo.v_RoleSprite && !node.RoleGameInfo.v_RoleSprite.v_Sprite.active) node.RoleGameInfo.v_RoleSprite.v_Sprite.active = true;
+                node.RoleGameInfo.v_SpriteShow = true;
+            }else{
+                if(node.RoleGameInfo.v_RoleSprite && node.RoleGameInfo.v_RoleSprite.v_Sprite.active)node.RoleGameInfo.v_RoleSprite.v_Sprite.active = false;
+                node.RoleGameInfo.v_SpriteShow = false;
+            }
+        }
+
         node.MyUpdate = function () {
             if (node.RoleGameInfo.v_RoleSpriteLoad) {
                 if (!node.RoleGameInfo.v_RoleSprite) {
@@ -312,13 +322,12 @@ var C_Role = {
             node.SetSceenPos(node.RoleInfo.v_RoleMapPos);
             var sceen = GamePublic.s_Vec2d(node.RoleGameInfo.v_SpritePos.x + GamePublic.g_MoveOff.x, node.RoleGameInfo.v_SpritePos.y + GamePublic.g_MoveOff.y);
             if (node.RoleGameInfo.v_SpriteShow) {
+                //console.log('sceen.x = %d sceen.y = %d',sceen.x,sceen.y);
                 if (sceen.x > GamePublic.g_winSize.width || sceen.x < 0 || sceen.y > GamePublic.g_winSize.height || sceen.y < 0) {
-                    //if(node.RoleGameInfo.v_RoleSprite)node.RoleGameInfo.v_RoleSprite.v_Sprite.active = false;
-                    //node.RoleGameInfo.v_SpriteShow = false;
+                    node.ShowSprite(false);
                 }
             } else if (sceen.x < GamePublic.g_winSize.width && sceen.x > 0 && sceen.y < GamePublic.g_winSize.height && sceen.y > 0) {
-                if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.v_Sprite.active = true;
-                node.RoleGameInfo.v_SpriteShow = true;
+                node.ShowSprite(true);
             }
         };
 
