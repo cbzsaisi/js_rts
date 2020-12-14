@@ -26,7 +26,7 @@ var GameRunUiClass = require("./C_GameRunUi");
 var GameResManager = require("./F_GameResManager");
 var BuildManager = require("./C_BuildManager");
 //var g_Random = g_MathLib.Random;
-//test
+//te
 var g_temp = 0;
 cc.Class({
     extends: cc.Component,
