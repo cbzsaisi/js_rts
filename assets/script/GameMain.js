@@ -26,7 +26,6 @@ var GameRunUiClass = require("./C_GameRunUi");
 var GameResManager = require("./F_GameResManager");
 var BuildManager = require("./C_BuildManager");
 //var g_Random = g_MathLib.Random;
-//te
 var g_temp = 0;
 cc.Class({
     extends: cc.Component,
@@ -61,7 +60,7 @@ cc.Class({
         cc.game.canvas.style.cursor = "none";
 
         let fps = (cc.sys.os == cc.sys.OS_IOS) ? 30 : 30
-        cc.game.setFrameRate(30);
+        cc.game.setFrameRate(fps);
         if (CC_WECHATGAME) wx.setPreferredFramesPerSecond(30)
 
         var self = this;

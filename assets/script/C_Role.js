@@ -131,7 +131,7 @@ var C_Role = {
             //var src = new GamePublic.s_RoleScript({Info:1,Name:"RoleMove"},{Num:node.RoleInfo.v_RoleNumber,Array:"22",Pos:123},{Num:0,Array:"22",Pos:GamePublic.s_Vec2d(1,1)});
             //node.RoleCommand.v_RoleActionCommandArray.push(src);
 
-            node.RoleGameInfo.v_FrontDrawFlag = true;
+            //node.RoleGameInfo.v_FrontDrawFlag = true;
             node.RoleGameInfo.v_FrontDraw = RoleFrontDraw.New(node, node.RoleGameInfo.v_DrawNode, 1);
 
             node.RoleInfo.v_RoleRaceType = GamePublic.e_RoleRaceType.Human;

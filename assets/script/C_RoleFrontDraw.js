@@ -23,6 +23,13 @@ var C_RoleFrontDraw = {
 
         node.update = function () {
             node.ShowNodeSelect.clear();
+            node.ShowNode.setScale(0.01 * node.MainNode.RoleGameInfo.v_SpriteScale);
+            if (node.MainNode.RoleGameInfo.v_SpriteShow && !node.ShowNode.active){
+                node.ShowNode.active = true;
+            }else if(!node.MainNode.RoleGameInfo.v_SpriteShow && node.ShowNode.active){
+                node.ShowNode.active = false;
+                return;
+            }
             if(node.MainNode.RoleGameInfo.v_RoleSelectFlag){
                 
                 //if(node.ShowNodeSelectFlag){
@@ -59,12 +66,7 @@ var C_RoleFrontDraw = {
             } 
             //node.ShowNode.setPosition(node.MainNode.RoleGameInfo.v_SpritePos);
             //node.ShowNode.setRotation(cc.quat(88,0,0));
-            node.ShowNode.setScale(1 / node.MainNode.RoleGameInfo.v_SpriteScale);
-            if (node.MainNode.RoleGameInfo.v_SpriteShow && !node.ShowNode.active){
-                node.ShowNode.active = true;
-            }else if(!node.MainNode.RoleGameInfo.v_SpriteShow && node.ShowNode.active){
-                node.ShowNode.active = false;
-            }
+            
         }
         return node;
     }

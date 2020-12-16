@@ -219,9 +219,9 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
     if(GamePublic.g_TipPage.SetShow)GamePublic.g_TipPage.SetShow(false);
     if (GamePublic.g_Cursor) GamePublic.g_Cursor.SetPos(_pos);
     if (GamePublic.g_TipPage) GamePublic.g_TipPage.SetPos(_pos);
-    if(Math.abs(GamePublic.g_MouseMoveLastPos.x - _pos.x) < 1 || Math.abs(GamePublic.g_MouseMoveLastPos.y - _pos.y) < 1){
-        return false;
-    }
+    // if(Math.abs(GamePublic.g_MouseMoveLastPos.x - _pos.x) < 1 || Math.abs(GamePublic.g_MouseMoveLastPos.y - _pos.y) < 1){
+    //     return false;
+    // }
     if (GamePublic.g_GameMenuManager.MenuNumber) {
         GamePublic.g_GameMenuManager.MenuButtonCheck(_pos, GamePublic.e_ClickType.Move);
     } else if (GamePublic.g_GamePageManager.PageNumber) {

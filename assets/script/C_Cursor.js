@@ -49,15 +49,15 @@ var C_Cursor = {
                         renderer = node.Node.addComponent(cc.Sprite);
                     }
                     renderer.spriteFrame = GamePublic.g_resources1[i].FileData;
-                    node.ButtonWidth = renderer.spriteFrame._rect.width;
-                    node.ButtonHeight = renderer.spriteFrame._rect.height;
+                    node.ButtonWidth = renderer.spriteFrame._rect.width * 0.5;
+                    node.ButtonHeight = renderer.spriteFrame._rect.height * 0.5;
                     node.LoadWellDone = true;
                 }
             }
         }
 
         node.Update = function () {
-            node.Node.setPosition({ x: node.Pos.x + node.ButtonWidth * 0.5, y: node.Pos.y - node.ButtonHeight * 0.5, });
+            node.Node.setPosition({ x: node.Pos.x + node.ButtonWidth, y: node.Pos.y - node.ButtonHeight, });
         }
         node.SetImage("Cursor01");
         return node;
