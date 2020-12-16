@@ -15,7 +15,7 @@ var C_GameDataResManager = {
                 /* if (GameDataRes.MapArray[i].v_MapNumber == _num) {
                     return GameDataRes.MapArray[i];
                 } */
-                if (GameDataRes.MapArray[i].number == _num) {
+                if (GameDataRes.MapArray[i].obj.GetNumber() == _num) {
                     return GameDataRes.MapArray[i].obj;
                 }
             }
@@ -24,7 +24,7 @@ var C_GameDataResManager = {
         
         GameDataRes.GetRole = function (_num) {
             for (var i = 0; i < GameDataRes.RoleArray.length; i++) {
-                if (GameDataRes.RoleArray[i].number == _num) {
+                if (GameDataRes.RoleArray[i].obj.GetNumber() == _num) {
                     return GameDataRes.RoleArray[i].obj;
                 }
             }

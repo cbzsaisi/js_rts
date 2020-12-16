@@ -208,7 +208,7 @@ C_GameControl.ControlMouseRightUpCall = function (_pos) {
 }
 
 C_GameControl.ControlMouseMoveCall = function (_pos) {
-    //console.log(_pos);
+    //console.log(_pos.x,_pos.y);
     //var pos = GamePublic.s_Vec2d(0, 0);
     //let camera = cc.find('New Camera').getComponent(cc.Camera);
     //GamePublic.g_MainCamera.getComponent(cc.Camera).getCameraToWorldPoint(_pos,pos); //converToWorldSpaceAR
@@ -222,6 +222,9 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
     // if(Math.abs(GamePublic.g_MouseMoveLastPos.x - _pos.x) < 1 || Math.abs(GamePublic.g_MouseMoveLastPos.y - _pos.y) < 1){
     //     return false;
     // }
+    if(GamePublic.g_MouseMoveLastPos.x == _pos.x && GamePublic.g_MouseMoveLastPos.y == _pos.y){
+        return false;
+    }
     if (GamePublic.g_GameMenuManager.MenuNumber) {
         GamePublic.g_GameMenuManager.MenuButtonCheck(_pos, GamePublic.e_ClickType.Move);
     } else if (GamePublic.g_GamePageManager.PageNumber) {

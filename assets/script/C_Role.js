@@ -28,63 +28,63 @@ var C_Role = {
             v_RoleEquip: null,
         },
 
-            node.RoleGameInfo = { //基本不写入保存数据
-                v_RoleSprite: null,
-                v_RoleSpriteLoad: false,
-                v_SpriteSize: null,
-                v_SpriteScale: null,
-                v_SpritePos: null,
-                v_SpriteType: null,
-                v_CurrentMap: null,
-                v_SpriteData: null,
-                v_ActionStage: null, //动作状态
-                v_DtNumber: 0, //帧执行次数
-                v_RoleCurAction: null,
-                v_ActionNodeNumber: null, //当前动画总帧数
-                v_SpriteNumber: null, //当前精灵动画执行到的帧数
-                v_RoleCurActionSpriteNum: null,//当前角色动画累计执行帧数
-                //移动相关
-                v_MapOffset: null, //移动偏移量？ 
-                v_SpriteBoundingBox: null,
-                //记录遇到的阻碍点
-                v_MoveBlockPos: null,//被阻挡的移动点
-                v_BlockType: null,//阻挡类型
-                v_SpriteShow: null,//是否显示
-                v_RoleSelectFlag: null,//是否被选中
-                v_RoleAttackType: null,//攻击类型
-                v_FrontDraw: null,
-                v_FrontDrawFlag: null,
-                v_DrawNode: null,
-                v_RoleCreate: false,
-            },
-            node.RoleCommand = { //写入保存数据
-                //指令
-                v_RoleActionArray: null,
-                v_RoleActionCurScriptArray: null,
-                v_RoleActionCommandArray: [],
-                v_RoleActionCommandState: null,
-                v_RoleActionCommandArray1: [],
-                v_RoleActionCommandState1: null,
-                v_RoleActionCommandArray1Number: null,
-                v_RoleActionCommandArray2: [],
-                v_RoleActionCommandState2: null,
-                v_RoleActionCommandArray2Number: null,
-                v_RoleActionCommandPassive:[],
-                v_RoleActionCommandPassiveState:null,
-                //脚本执行
-                v_ActionCommand: null,
-                v_ActionScriptFail: null,  //脚本失败次数
-                v_ActionScriptFailType: null,//脚本失败原因
-                v_ActionEvent: null,//事件
-                v_ActionRunStage: null,
-                v_ActionLoop: null,
-                v_ActionConsoleType: null, //命令控制类型 1：倒计时控制，2：动画播放控制
-                v_ActionWaitTime: 0,//动作消耗帧
+        node.RoleGameInfo = { //基本不写入保存数据
+            v_RoleSprite: null,
+            v_RoleSpriteLoad: false,
+            v_SpriteSize: null,
+            v_SpriteScale: null,
+            v_SpritePos: null,
+            v_SpriteType: null,
+            v_CurrentMap: null,
+            v_SpriteData: null,
+            v_ActionStage: null, //动作状态
+            v_DtNumber: 0, //帧执行次数
+            v_RoleCurAction: null,
+            v_ActionNodeNumber: null, //当前动画总帧数
+            v_SpriteNumber: null, //当前精灵动画执行到的帧数
+            v_RoleCurActionSpriteNum: null,//当前角色动画累计执行帧数
+            //移动相关
+            v_MapOffset: null, //移动偏移量？ 
+            v_SpriteBoundingBox: null,
+            //记录遇到的阻碍点
+            v_MoveBlockPos: null,//被阻挡的移动点
+            v_BlockType: null,//阻挡类型
+            v_SpriteShow: null,//是否显示
+            v_RoleSelectFlag: null,//是否被选中
+            v_RoleAttackType: null,//攻击类型
+            v_FrontDraw: null,
+            v_FrontDrawFlag: null,
+            v_DrawNode: null,
+            v_RoleCreate: false,
+        },
+        node.RoleCommand = { //写入保存数据
+            //指令
+            v_RoleActionArray: null,
+            v_RoleActionCurScriptArray: null,
+            v_RoleActionCommandArray: [],
+            v_RoleActionCommandState: null,
+            v_RoleActionCommandArray1: [],
+            v_RoleActionCommandState1: null,
+            v_RoleActionCommandArray1Number: null,
+            v_RoleActionCommandArray2: [],
+            v_RoleActionCommandState2: null,
+            v_RoleActionCommandArray2Number: null,
+            v_RoleActionCommandPassive:[],
+            v_RoleActionCommandPassiveState:null,
+            //脚本执行
+            v_ActionCommand: null,
+            v_ActionScriptFail: null,  //脚本失败次数
+            v_ActionScriptFailType: null,//脚本失败原因
+            v_ActionEvent: null,//事件
+            v_ActionRunStage: null,
+            v_ActionLoop: null,
+            v_ActionConsoleType: null, //命令控制类型 1：倒计时控制，2：动画播放控制
+            v_ActionWaitTime: 0,//动作消耗帧
 
-                v_RoleTarNum: null,
-                v_RoleTrarArray: [],
-                v_RoleTradeShopNum: 0,//交易商店编号
-            },
+            v_RoleTarNum: null,
+            v_RoleTrarArray: [],
+            v_RoleTradeShopNum: 0,//交易商店编号
+        },
 
             //初始化
         node.RoleInfo.v_RoleNumber = _RoleNumber;
@@ -119,7 +119,7 @@ var C_Role = {
         //node.RoleInfo.v_RoleBag[3] = GamePublic.g_ItemManager.CreateItem(GamePublic.e_ItemName.Sword1);
         //node.RoleInfo.v_RoleBag[2] = GamePublic.g_ItemManager.CreateItem(GamePublic.e_ItemName.Gold);
         node.Create = function () {
-            var obj = GamePublic.s_ObjInfo("Role", 1, node.RoleInfo.v_RoleNumber, node);
+            var obj = GamePublic.s_ObjInfo("Role", 1, node);
             GamePublic.g_GameDataResManger.AddRole(obj);
             node.RoleGameInfo.v_RoleSprite.v_Sprite.opacity = 100;
             //node.RoleGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.RoleGameInfo.v_RoleSprite, 2);
@@ -164,6 +164,9 @@ var C_Role = {
             } */
 
         };
+        node.GetNumber = function(){
+            return node.RoleInfo.v_RoleNumber;
+        }
 
         node.SetSceenPos = function (_pos) {
             node.RoleInfo.v_RoleMapPos = _pos;

@@ -38,6 +38,9 @@ var GamePublic = require("./F_GamePublic");
                 }
             }
         }
+        node.GetNumber = function(){
+            return node.v_MapNumber;
+        }
         //var qu = cc.quat(0,0,0).fromEuler({x:100,y:110,z:0});
         return node;
     } 

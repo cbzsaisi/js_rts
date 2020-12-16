@@ -89,7 +89,7 @@ cc.Class({
 
         GamePublic.g_GameMain = this;
         GamePublic.g_MainCamera = this.mainCamera;
-        GamePublic.g_UiCamera = this.UiCamera;
+        //GamePublic.g_UiCamera = this.UiCamera;
         this.map_sceen_root = new cc.Node();
         //var qu = cc.quat(0, 0, 0).fromEuler({ x: -20, y: 0, z: 0 });
         this.node.is3DNode = true;
@@ -106,7 +106,7 @@ cc.Class({
         this.node.addChild(this.Draw_sceen_root, 7);
 
         var map = MapData.New(GamePublic.s_Vec2d(GamePublic.e_MapSizeType1.width, GamePublic.e_MapSizeType1.height), 1, this.map_sceen_root);
-        GamePublic.g_GameDataResManger.AddMap(GamePublic.s_ObjInfo("Map", 1, map.v_MapNumber, map));
+        GamePublic.g_GameDataResManger.AddMap(GamePublic.s_ObjInfo("Map", 1, map));
         GamePublic.g_Active_Map = map;
 
         this.Page_sceen_root = new cc.Node();
@@ -201,7 +201,7 @@ cc.Class({
             GamePublic.g_MouseStopTick > 1000 ? GamePublic.g_MouseStopTick = 0 : GamePublic.g_MouseStopTick++;
             this.DrawNode.clear();
             if (GamePublic.g_MouseLeftFlag && GamePublic.g_MouseMoveFlag && GamePublic.g_GameMenuManager && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_GamePageManager && GamePublic.g_GamePageManager.PageNumber == 0) {
-                this.DrawNode.lineWidth = 1;
+                this.DrawNode.lineWidth = 2;
                 this.DrawNode.strokeColor = cc.Color.WHITE;
                 this.DrawNode.rect(GamePublic.g_MoveStartPos.x, GamePublic.g_MoveStartPos.y,
                     GamePublic.g_MoveEndPos.x - GamePublic.g_MoveStartPos.x, GamePublic.g_MoveEndPos.y - GamePublic.g_MoveStartPos.y);

@@ -468,12 +468,12 @@ var G_Public = {
         Move:6
     },
 
-    s_ObjInfo:function (_type,_level,_number,_obj)  //节点对象
+    s_ObjInfo:function (_type,_level,_obj)  //节点对象
     {
         var ObjInfo = {};
         ObjInfo.type = _type;
         ObjInfo.level = _level;
-        ObjInfo.number = _number;
+        //ObjInfo.number = _number;
         ObjInfo.obj = _obj;
         return ObjInfo;
     },
