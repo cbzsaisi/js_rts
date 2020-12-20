@@ -231,8 +231,8 @@ cc.Class({
                         var Role = null;
                         //GamePublic.g_TipPage.Show
                         for (var i = 0; i < GamePublic.g_GameDataResManger.RoleArray.length; i++) {
-                            if (GameControl.RoleRayCheck(GamePublic.g_MoveEndPos, GamePublic.g_GameDataResManger.RoleArray[i].number)) {
-                                Role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_GameDataResManger.RoleArray[i].number);
+                            if (GameControl.RoleRayCheck(GamePublic.g_MoveEndPos, GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber())) {
+                                Role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber());
                                 break;
                             }
                         }

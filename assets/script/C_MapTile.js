@@ -120,10 +120,10 @@ var C_MapTile = {
             node.SetSceenPos(node.v_NodeMapPos);
             var sceen = GamePublic.s_Vec2d(node.v_SpritePos.x + GamePublic.g_MoveOff.x, node.v_SpritePos.y + GamePublic.g_MoveOff.y);
             if (node.v_Show) {
-                if (node.v_TileSprite && sceen.x > GamePublic.g_winSize.width * 1.2 || sceen.x < -130 || sceen.y > GamePublic.g_winSize.height * 1.6 || sceen.y < 0) {
+                if (node.v_TileSprite && sceen.x > GamePublic.g_winSize.width + 70 || sceen.x < -70 || sceen.y > GamePublic.g_winSize.height + 70 || sceen.y < -70) {
                     this.UnLoadSpriteRes();
                 }
-            } else if (!node.v_TileSprite && sceen.x < GamePublic.g_winSize.width * 1.2 && sceen.x > -130 && sceen.y < GamePublic.g_winSize.height * 1.6 && sceen.y > 0) {
+            } else if (!node.v_TileSprite && sceen.x < GamePublic.g_winSize.width + 70 && sceen.x > -70 && sceen.y < GamePublic.g_winSize.height + 70 && sceen.y > -70) {
                 this.LoadSpriteRes();
             }
             for (var i = 0; i < node.v_TileResArray.length; i++) {
