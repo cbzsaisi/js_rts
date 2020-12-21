@@ -13,23 +13,23 @@ var C_Cursor = {
         node.Node = new cc.Node();
         node.MainNode.Page_sceen_root.addChild(node.Node, 15);
 
-        node.LoadSpriteRes = function (_Image) {
-            cc.loader.loadRes(node.Image, cc.SpriteFrame, function (err, spriteFrame) {
-                let renderer = node.Node.getComponent(cc.Sprite);
-                if (!renderer) {
-                    renderer = node.Node.addComponent(cc.Sprite);
-                }
-                renderer.spriteFrame = spriteFrame;
+        // node.LoadSpriteRes = function (_Image) {
+        //     cc.loader.loadRes(node.Image, cc.SpriteFrame, function (err, spriteFrame) {
+        //         let renderer = node.Node.getComponent(cc.Sprite);
+        //         if (!renderer) {
+        //             renderer = node.Node.addComponent(cc.Sprite);
+        //         }
+        //         renderer.spriteFrame = spriteFrame;
 
-                //node.Node.setPosition({x:node.ButtonInfo.Pos.x - node.MainPage.SccenHW.Width * 0.5,y:node.ButtonInfo.Pos.y - node.MainPage.SccenHW.Height * 0.5});
-                node.ButtonWidth = spriteFrame._rect.width;
-                node.ButtonHeight = spriteFrame._rect.height;
-                node.LoadWellDone = true;
-                //node.Pos = GamePublic.s_Vec2d(0,0);
-                //node.Rect = GamePublic.s_Rect(pos.x,pos.y,pos.x + node.ButtonWidth,pos.y + node.ButtonHeight);
-            });
-            node.LoadWellDone = false;
-        };
+        //         //node.Node.setPosition({x:node.ButtonInfo.Pos.x - node.MainPage.SccenHW.Width * 0.5,y:node.ButtonInfo.Pos.y - node.MainPage.SccenHW.Height * 0.5});
+        //         node.ButtonWidth = spriteFrame._rect.width;
+        //         node.ButtonHeight = spriteFrame._rect.height;
+        //         node.LoadWellDone = true;
+        //         //node.Pos = GamePublic.s_Vec2d(0,0);
+        //         //node.Rect = GamePublic.s_Rect(pos.x,pos.y,pos.x + node.ButtonWidth,pos.y + node.ButtonHeight);
+        //     });
+        //     node.LoadWellDone = false;
+        // };
 
         node.Delete = function () {
             node.Node.destroy();

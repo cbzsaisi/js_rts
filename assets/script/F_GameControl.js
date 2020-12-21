@@ -87,7 +87,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
     }
     if (ControlState == GamePublic.e_ControlState.MouseLeftNoMove) {
          GamePublic.g_ButtonUsingFlag = false;
-        if(GamePublic.g_GameRunUi.ClickCheck(_pos,GamePublic.e_ClickType.LeftUp)){
+        if(GamePublic.g_GameRunUi && GamePublic.g_GameRunUi.ClickCheck(_pos,GamePublic.e_ClickType.LeftUp)){
             GamePublic.g_ButtonUsingFlag = true;
         }
         if (GamePublic.g_Active_Map && !GamePublic.g_ButtonUsingFlag) {
@@ -231,17 +231,13 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
         GamePublic.g_GamePageManager.PageButtonCheck(_pos, GamePublic.e_ClickType.Move);
     } else if (GamePublic.g_MouseLeftFlag) {
         var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map);
-        console.log(mappos);
         if (mappos.x >= 0 && mappos.y >= 0 && mappos.x < GamePublic.g_Active_Map.v_MapSize.x && mappos.y < GamePublic.g_Active_Map.v_MapSize.y) {
-            console.log(GamePublic.g_MoveSelectStartPos);
             if (!GamePublic.g_MoveSelectStartPos) {
-                console.log("1");
                 GamePublic.g_MoveSelectStartPos = GamePublic.s_Vec2d(mappos.x, mappos.y);
                 GamePublic.g_MoveSelectEndPos = GamePublic.s_Vec2d(mappos.x, mappos.y);
             } else //if (GamePublic.g_MoveSelectStartPos.x != mappos.x || GamePublic.g_MoveSelectStartPos.y != mappos.y) {
               {  
                 GamePublic.g_MoveSelectEndPos = GamePublic.s_Vec2d(mappos.x, mappos.y);
-                console.log("2");
                 var RightTop = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x > GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y > GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
                 var LeftDown = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x < GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y < GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
                 for (var i = 0; i < GamePublic.g_Active_Map.v_MapSize.x; i++) {

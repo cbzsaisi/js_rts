@@ -6,7 +6,7 @@ var C_MapTile = {
         var node = {};
         node.v_TileSprite = null,
             node.v_TileType = null,
-            node.v_MapPassStatus = null,
+            node.v_MapPassStatus = GamePublic.e_RolePassStatu.pass,
             node.v_TileResType = null,
             node.v_TileResSprite = null,
             node.v_TileResArray = [],
@@ -63,12 +63,12 @@ var C_MapTile = {
             for (var i in GamePublic.g_resources3d1) {
                 if (GamePublic.g_resources3d1[i].FileName == node.v_TileName) {
                     node.v_TileSprite = cc.instantiate(GamePublic.g_resources3d1[i].FileData);
+                    //node.v_TileSprite.getComponent(cc.MeshRenderer).opacity = 100;
                     //node.v_TileSprite = GamePublic.g_resources3d1[i].FileData;
                     node.v_TileType = GamePublic.e_ObjType.MapTileLand;
                     node.k_SpriteSize.x = GamePublic.e_MapTilePixel.width;
                     node.k_SpriteSize.y = GamePublic.e_MapTilePixel.height;
                     node.SetSceenPos(node.v_NodeMapPos);
-                    node.v_TileSprite.getComponent(cc.MeshRenderer).opacity = 100;
                     node.v_MainMap.v_MapShowNode.addChild(node.v_TileSprite, node.v_ShowLevel);
                     //node.v_TileSprite.color.a = 100;
                     node.v_Show = true;
@@ -134,7 +134,7 @@ var C_MapTile = {
 
         node.SetSelectFlag = function (_bool,_color) {
             if (!node.v_TileSprite) return;
-            if (_bool) {
+            if (_bool) { //是否被选中
                 if (node.v_SelectSprite) return;
                 node.v_SelectSprite = new cc.Node;
                 var Img = node.v_SelectSprite.addComponent(cc.Graphics);

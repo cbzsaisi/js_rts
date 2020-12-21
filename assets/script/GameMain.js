@@ -117,7 +117,6 @@ cc.Class({
 
         GamePublic.g_GameMenuManager = MenuManager.New(this.Page_sceen_root);
         //GamePublic.g_GameMenuManager.AddMenu({ x: 300, y: 400 }, 'type');
-        //GamePublic.g_Cursor = CursorClass.New(this);
         GamePublic.g_TipPage = TipPageClass.New(this.Page_sceen_root);
         GamePublic.g_ShopManager = ShopManager.New();
         GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 1, GamePublic.g_ShopManager.StoreNum, "Shop");
@@ -125,7 +124,7 @@ cc.Class({
         GamePublic.g_BuildManager = BuildManager.New();
         //console.log(GamePublic.g_BuildManager.GetBuildSize(GamePublic.e_BuildName.SmallHumanBuild));
 
-        //GamePublic.g_GameRunUi = GameRunUiClass.New({ x: 20, y: 20 }, "GameRunUi", 0, {}, {}, this.Page_sceen_root, 8);
+        GamePublic.g_GameRunUi = null;
         //this.Page_sceen_root.group ="default";
         this.Page_sceen_root.group = "ui";
         this.Draw_sceen_root.group = "ui";
@@ -191,7 +190,7 @@ cc.Class({
                         var role = new RoleClass.New("role1", 1, GamePublic.s_Vec2d(i, j), ++Rolenum);
                     }
                 }
-                GamePublic.g_GameRunUi = GameRunUiClass.New({ x: 20, y: 20 }, "GameRunUi", 0, {}, {}, this.Page_sceen_root, 8);
+                //GamePublic.g_GameRunUi = GameRunUiClass.New({ x: 20, y: 20 }, "GameRunUi", 0, {}, {}, this.Page_sceen_root, 8);
                 this.SceenCreate = true;
             }
         }
