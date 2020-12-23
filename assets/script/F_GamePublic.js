@@ -344,8 +344,8 @@ var G_Public = {
 
 
     e_MapSizeType1: {
-        width: 128,
-        height: 128,
+        width: 15,
+        height: 15,
     },
 
 
