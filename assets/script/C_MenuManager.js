@@ -30,6 +30,7 @@ var C_MenuManager = {
                 }
             }
             if(node.MenuArray.length)node.MenuArray.splice(0,node.MenuArray.length);
+            node.CurMenuNumber = 0;
         }
 
         node.MenuButtonMoveCheck = function (_Pos,_ClickType){
@@ -59,9 +60,9 @@ var C_MenuManager = {
                             if (node.MenuArray[i].ClickCheck(_Pos,_ClickType)) {
                             } else {
                                 node.DelMenu(node.CurMenuNumber);
-                                if (node.MenuArray.length) {
-                                    node.CurMenuNumber = node.MenuArray.length;
-                                }
+                                // if (node.MenuArray.length) {
+                                //     node.CurMenuNumber = node.MenuArray.length;
+                                // }
                             }
                         }
                     }

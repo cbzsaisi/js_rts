@@ -50,15 +50,14 @@ var C_Shop = {
         }
 
         node.SubGoldToStore = function(_Store,_GoldNum){
-            var Empty = null;
             for(var i=0;i<_Store.length;i++){
-                if(_Store[i] == null){
-                    Empty = i;
-                }else
-                if(_Store[i].Name == GamePublic.e_ItemName.Gold){
+
+                if(_Store[i].Name == GamePublic.e_ItemName.Gold && _Store[i].ItemNum >= _GoldNum){
                     _Store[i].ItemNum -= _GoldNum;
+                    return true;
                 }
             }
+            return false;
         }
 
         node.ShopTradeCalc = function(_s_Store,_s_Num,_d_Store,_d_Num,_Discount){
