@@ -190,7 +190,7 @@ cc.Class({
                         var role = new RoleClass.New("role1", 1, GamePublic.s_Vec2d(i, j), ++Rolenum);
                     }
                 }
-                //GamePublic.g_GameRunUi = GameRunUiClass.New({ x: 20, y: 20 }, "GameRunUi", 0, {}, {}, this.Page_sceen_root, 8);
+                GamePublic.g_GameRunUi = GameRunUiClass.New({ x: 20, y: 20 }, "GameRunUi", 0, {}, {}, this.Page_sceen_root, 8);
                 this.SceenCreate = true;
             }
         }

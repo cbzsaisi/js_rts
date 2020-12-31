@@ -101,7 +101,7 @@ var G_Public = {
         return s_ButtonObjInfo;
     }, 
 
-    s_MenuInfo: function (_pos,_Str,_Image,_MainNumber,_number,_Menutype,_command,_array) //游戏坐标
+    s_MenuInfo: function (_pos,_Str,_Image,_MainNumber,_number,_Menutype,_command,_array,_isMove) //游戏坐标
     {
         var s_MenuInfo = {};
         s_MenuInfo.Pos = _pos;
@@ -112,6 +112,7 @@ var G_Public = {
         s_MenuInfo.Menutype = _Menutype;
         s_MenuInfo.Command = _command;
         s_MenuInfo.array = _array;
+        s_MenuInfo.isMove = _isMove;
         return s_MenuInfo;
     },
 
