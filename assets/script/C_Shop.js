@@ -55,10 +55,12 @@ var C_Shop = {
                 if(_Store[i] == null){
                     Empty = i;
                 }else
-                if(_Store[i].Name == GamePublic.e_ItemName.Gold){
+                if(_Store[i].Name == GamePublic.e_ItemName.Gold && _Store[i].ItemNum >= _GoldNum){
                     _Store[i].ItemNum -= _GoldNum;
+                    return true;
                 }
             }
+            return false;
         }
 
         node.ShopTradeCalc = function(_s_Store,_s_Num,_d_Store,_d_Num,_Discount){
