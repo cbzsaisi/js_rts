@@ -22,14 +22,13 @@ var C_PageManager = {
             }
         }
 
-        node.UpdateText = function(){
-            for(var i=0;i<node.PageArray.length;i++){
-                if(node.PageArray[i].PageNumber == node.CurPageNumber && node.PageArray[i].CreateDone)
-                node.PageArray[i].ShowRoleItemArray();
-            }
-        }
+        // node.UpdateText = function(){
+        //     for(var i=0;i<node.PageArray.length;i++){
+        //         if(node.PageArray[i].PageNumber == node.CurPageNumber && node.PageArray[i].CreateDone)
+        //         node.PageArray[i].ShowRoleItemArray();
+        //     }
+        // }
 
-       
 
         node.DelPage = function (_PageNumber){
             for(var i=0;i<node.PageArray.length;i++){

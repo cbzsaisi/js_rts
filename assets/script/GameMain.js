@@ -187,7 +187,7 @@ cc.Class({
                 var Rolenum = 0;
                 for (let i = 0; i < 2; i++) {
                     for (let j = 0; j < 1; j++) {
-                        var role = new RoleClass.New("role1", 1, GamePublic.s_Vec2d(i, j), ++Rolenum);
+                        var role = new RoleClass.New("role1", 1, GamePublic.s_Vec2d(i+5, j+5), ++Rolenum);
                     }
                 }
                 GamePublic.g_GameRunUi = GameRunUiClass.New({ x: 20, y: 20 }, "GameRunUi", 0, {}, {}, this.Page_sceen_root, 8);
