@@ -263,34 +263,22 @@ var G_Public = {
 
     g_InputNumber : 0,
 
-    //游戏状态枚举
-    e_GameStage: {
-        Run: 0,
-        Stop: 1,
-        Exit: 2,
+
+    //脚本执行状态
+    e_ActionCommandState: {
+        New: 0,
+        Run: 1,
+        Stop: 2,
+        End: 3,
     },
-
-
-    e_RoleAction: {
-        def: 0,
-        walk: 1,
-        run: 2,
-        jump: 3,
-        attack: 4,
-    },
-
-    e_SpriteActionName: {
-        def: 0,
-        walk: 1,
-        run: 2,
-        jump: 3,
-    },
-
-    e_SpriteActionDirection: {
-        top: 0,
-        dwon: 1,
-        left: 2,
-        right: 3,
+    
+    //执行脚本失败原因
+    e_ActionScriptFailType: {
+        undefined: 0,
+        Success: 1,
+        Fail: 2,
+        RoleBlock: 3,
+        MapBlock: 4,
     },
 
     e_Buttontype: {
@@ -298,23 +286,12 @@ var G_Public = {
         UiStaticButton:2,
     },
 
-    e_SpriteActionRunStage: {
-        play: 0,
-        stop: 1,
+    //阻挡类型
+    e_BlockType: {
+        Short: 1,
+        Long: 2,
     },
 
-
-
-    e_SpriteType: {
-        img: 0,
-        spine: 1,
-        model: 2
-    },
-
-    e_PublicVal: {
-        iRandomMax: 100,
-    },
-    
     e_BuildName: {
         SmallHumanBuild: 0,
     },
@@ -330,31 +307,36 @@ var G_Public = {
         Lv1: 11,
     },
 
+    //脚本解释状态
+    e_CommandSrcipt: {
+        undefined: 0,
+        Success: 1,
+        Fail: 2,
+    },
+    
+    e_CommandType: {
+        RoleGoToPos: 0,
+        RoleAttackHure:1,
+        RoleAttacking:2,
+        RoleAttac:3,
+    },
+
+    //游戏状态枚举
+    e_GameStage: {
+        Run: 0,
+        Stop: 1,
+        Exit: 2,
+    },
+
     e_MapTilePixel: {
         width: 64,
         height: 64,
     },
 
-
-
-    e_SceneSize: {
-        width: 960,
-        height: 640,
-    },
-
-
-
     e_MapSizeType1: {
         width: 15,
         height: 15,
     },
-
-
-    e_RoleSpeed: {
-        fps: 1,
-        scpfps: 10,
-    },
-
 
     e_ObjType: {
         MapTileLand: 1,
@@ -364,55 +346,8 @@ var G_Public = {
         MapTileTree: 5,
     },
 
-    //阻挡类型
-    e_BlockType: {
-        Short: 1,
-        Long: 2,
-    },
-
-
-
-    //脚本解释状态
-    e_CommandSrcipt: {
-        undefined: 0,
-        Success: 1,
-        Fail: 2,
-    },
-
-
-
-    //脚本执行状态
-    e_ActionCommandState: {
-        New: 0,
-        Run: 1,
-        Stop: 2,
-        End: 3,
-    },
-
-    e_CommandType: {
-        RoleGoToPos: 0,
-        RoleAttackHure:1,
-        RoleAttacking:2,
-        RoleAttac:3,
-    },
-    
-
-    //执行脚本失败原因
-    e_ActionScriptFailType: {
-        undefined: 0,
-        Success: 1,
-        Fail: 2,
-        RoleBlock: 3,
-        MapBlock: 4,
-    },
-
-    //选取状态
-    e_SelectStaus: {
-        NonSelect: 0,
-        SingleRole: 1,
-        MultiRole: 2,
-        GroupRole: 3,
-        Build: 4,
+    e_PublicVal: {
+        iRandomMax: 100,
     },
 
     //地形通行
@@ -431,6 +366,57 @@ var G_Public = {
     e_RoleOccupationType: {
         All:0,
         Warrior: 1,
+    },
+
+    e_RoleAction: {
+        def: 0,
+        walk: 1,
+        run: 2,
+        jump: 3,
+        attack: 4,
+    },
+
+    e_RoleSpeed: {
+        fps: 1,
+        scpfps: 10,
+    },
+
+    e_SpriteActionName: {
+        def: 0,
+        walk: 1,
+        run: 2,
+        jump: 3,
+    },
+
+    e_SpriteActionDirection: {
+        top: 0,
+        dwon: 1,
+        left: 2,
+        right: 3,
+    },
+
+    e_SpriteActionRunStage: {
+        play: 0,
+        stop: 1,
+    },
+
+    e_SpriteType: {
+        img: 0,
+        spine: 1,
+        model: 2
+    },
+
+    e_SceneSize: {
+        width: 960,
+    },
+
+    //选取状态
+    e_SelectStaus: {
+        NonSelect: 0,
+        SingleRole: 1,
+        MultiRole: 2,
+        GroupRole: 3,
+        Build: 4,
     },
 
     s_MapTilePassLand: [
@@ -459,6 +445,13 @@ var G_Public = {
         CallRoleStatePage:21,
     },
 
+    e_BarType:
+    {
+        ItemBar:0,
+        EquipBar:1,
+        ShopStoreBar:2,
+    },
+    
     e_ClickType:{
         LeftDown: 0,
         RightDown: 1,
@@ -522,12 +515,6 @@ var G_Public = {
         Body:1,
     },
 
-    e_BarType:
-    {
-        ItemBar:0,
-        EquipBar:1,
-        ShopStoreBar:2,
-    },
     
     e_UserControlType:
     {

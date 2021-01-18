@@ -38,6 +38,7 @@ var C_BuildManager = {
                     return node.BuildInfoArray[i].Size;
                 }
             }
+            return null;
         }
 
         node.CreateBuildInfoArray();

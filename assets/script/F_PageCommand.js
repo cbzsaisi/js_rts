@@ -88,8 +88,10 @@ F_PageCommandProc.PageCommandProc = function (_Info) {
         break;
         case GamePublic.e_ButtonCommand.BuildPlace:
         var Buildsize = GamePublic.g_BuildManager.GetBuildSize(GamePublic.g_BuildManager.BuildButtonArray[_Info.Array]);
-        GamePublic.g_UserPicklObj = {Num:_Info.Array,Size:Buildsize};
-        GamePublic.g_UserControlType = GamePublic.e_UserControlType.BuildPlace;
+        if (Buildsize){
+            GamePublic.g_UserPicklObj = {Num:_Info.Array,Size:Buildsize};
+            GamePublic.g_UserControlType = GamePublic.e_UserControlType.BuildPlace;
+        }
         break;        
     }
 }
