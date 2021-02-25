@@ -88,7 +88,8 @@ var C_Role = {
 
             //初始化
         node.RoleInfo.v_RoleNumber = _RoleNumber;
-        node.RoleInfo.v_RoleMapPos = GamePublic.s_Vec2d(_MapPoint.x, _MapPoint.y);
+        //node.RoleInfo.v_RoleMapPos = GamePublic.s_Vec2d(_MapPoint.x, _MapPoint.y);
+        node.RoleInfo.v_RoleMapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y,1,1);
         node.RoleInfo.v_RoleBagSize = 20, //当前背包大小
         node.RoleInfo.v_CurrentMapNum = _MapNum;
         node.RoleInfo.v_RoleBag = Array(50),//背包

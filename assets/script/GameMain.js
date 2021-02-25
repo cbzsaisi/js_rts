@@ -57,7 +57,7 @@ cc.Class({
     start() {
         cc.view.enableAntiAlias(false);
         cc.view.enableRetina(true);
-        cc.game.canvas.style.cursor = "none";
+        //cc.game.canvas.style.cursor = "none";
 
         let fps = (cc.sys.os == cc.sys.OS_IOS) ? 30 : 30
         cc.game.setFrameRate(fps);
@@ -126,9 +126,8 @@ cc.Class({
 
         GamePublic.g_GameRunUi = null;
         //this.Page_sceen_root.group ="default";
-        this.Page_sceen_root.group = "ui";
-        this.Draw_sceen_root.group = "ui";
-
+        this.Page_sceen_root.group = "Ui";
+        this.Draw_sceen_root.group = "Ui";
         GamePublic.g_UserControlType = GamePublic.e_UserControlType.Non;
 
         GameResManager.LoadResToFile(GamePublic.g_resources1, "2d");

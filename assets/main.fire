@@ -419,7 +419,7 @@
       "__id__": 8
     },
     "_enabled": true,
-    "_cullingMask": -3,
+    "_cullingMask": 0,
     "_clearFlags": 7,
     "_backgroundColor": {
       "__type__": "cc.Color",
@@ -449,7 +449,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Camera2",
+    "_name": "New 3D Camera",
     "_objFlags": 0,
     "_parent": {
       "__id__": 7
@@ -486,7 +486,7 @@
       "array": [
         480,
         320,
-        245.08518927099615,
+        500,
         0,
         0,
         0,
@@ -504,10 +504,10 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_is3DNode": false,
+    "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "_id": "15xuWUdRRG55NiGY3aPho3"
+    "_id": "5bMOqGaZtKs4d13n4q5NZi"
   },
   {
     "__type__": "cc.Camera",
@@ -517,8 +517,8 @@
       "__id__": 10
     },
     "_enabled": true,
-    "_cullingMask": 2,
-    "_clearFlags": 6,
+    "_cullingMask": -7,
+    "_clearFlags": 7,
     "_backgroundColor": {
       "__type__": "cc.Color",
       "r": 0,
@@ -531,9 +531,9 @@
     "_targetTexture": null,
     "_fov": 60,
     "_orthoSize": 10,
-    "_nearClip": 0.1,
-    "_farClip": 4096,
-    "_ortho": true,
+    "_nearClip": 1,
+    "_farClip": 1024,
+    "_ortho": false,
     "_rect": {
       "__type__": "cc.Rect",
       "x": 0,
@@ -542,12 +542,12 @@
       "height": 1
     },
     "_renderStages": 1,
-    "_alignWithScreen": true,
-    "_id": "f6f4fSN3xMvYCBoKM1sJDc"
+    "_alignWithScreen": false,
+    "_id": "67UUZbv39J5IcwC/iZkhki"
   },
   {
     "__type__": "cc.Node",
-    "_name": "New 3D Camera",
+    "_name": "New 3D Camera2",
     "_objFlags": 0,
     "_parent": {
       "__id__": 7
@@ -605,7 +605,7 @@
     "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "_id": "5bMOqGaZtKs4d13n4q5NZi"
+    "_id": "2fbAinllFA0L0YV+vWUrMG"
   },
   {
     "__type__": "cc.Camera",
@@ -615,8 +615,8 @@
       "__id__": 12
     },
     "_enabled": true,
-    "_cullingMask": -3,
-    "_clearFlags": 7,
+    "_cullingMask": -2,
+    "_clearFlags": 6,
     "_backgroundColor": {
       "__type__": "cc.Color",
       "r": 0,
@@ -640,8 +640,8 @@
       "height": 1
     },
     "_renderStages": 1,
-    "_alignWithScreen": false,
-    "_id": "67UUZbv39J5IcwC/iZkhki"
+    "_alignWithScreen": true,
+    "_id": "1augE59oFPSZjaZHo+kGlB"
   },
   {
     "__type__": "6a4efBbHLpIM4HH4heLAeV5",
@@ -658,11 +658,9 @@
       "__id__": 15
     },
     "mainCamera": {
-      "__id__": 12
-    },
-    "UiCamera": {
       "__id__": 10
     },
+    "UiCamera": null,
     "_id": "8boXNMbHZHYaS6+1szN/5K"
   },
   {

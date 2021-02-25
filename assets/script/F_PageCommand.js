@@ -92,7 +92,7 @@ F_PageCommandProc.PageCommandProc = function (_Info) {
             GamePublic.g_UserPicklObj = {Num:_Info.Array,Size:Buildsize};
             GamePublic.g_UserControlType = GamePublic.e_UserControlType.BuildPlace;
         }
-        break;        
+        break;
     }
 }
 
