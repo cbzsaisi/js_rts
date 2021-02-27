@@ -91,6 +91,16 @@ C_MathLibStar.AddWayPoint = function(_Map,_sWayPos,_dPos,_OpenList,_CloseList,_R
         if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile)){
             left = true;
             var WayPos = GamePublic.s_WayPoint(tpos,_dPos,_sWayPos,GamePublic.e_WayPointType.Type1);
+            for(var i=0;i < _dPos.w;i++){
+                for(var j=0;i < _dPos.h;i++){
+                    if(WayPos.oPos.x == _dPos.x + _dPos.w && WayPos.oPos.y == _dPos.y + _dPos.h) //如果是目标点 添加到开放列表最后  返回真
+                    {
+                        _OpenList.push(WayPos);
+                        //console.log("找到目标点");
+                        return true;
+                    }
+                }
+            }
             if(WayPos.oPos.x == _dPos.x && WayPos.oPos.y == _dPos.y) //如果是目标点 添加到开放列表最后  返回真
             {
                 _OpenList.push(WayPos);
