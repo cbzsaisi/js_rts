@@ -196,9 +196,9 @@ C_GameControl.ControlMouseRightUpCall = function (_pos) {
         ControlState = GamePublic.e_ControlState.MouseRightMove;
     }
 
-    if(ControlState == GamePublic.e_ControlState.MouseRightNoMove && GamePublic.g_UserControlType == GamePublic.e_UserControlType.BuildPlace){
+    if(ControlState == GamePublic.e_ControlState.MouseRightNoMove && GamePublic.g_UserPicklObj.Type == GamePublic.e_UserControlType.BuildPlace){
         GamePublic.g_Active_Map.MapTiledColorShow(false,null);
-        GamePublic.g_UserControlType = GamePublic.e_UserControlType.Non;
+        GamePublic.g_UserPicklObj.Type = GamePublic.e_UserControlType.Non;
     }   
 
     GamePublic.g_MouseMoveFlag = false;
@@ -251,7 +251,7 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
                 }
             }
         }
-    }else if(GamePublic.g_UserControlType == GamePublic.e_UserControlType.BuildPlace){
+    }else if(GamePublic.g_UserPicklObj.Type == GamePublic.e_UserControlType.BuildPlace){
         GamePublic.g_Active_Map.MapTiledColorShow(false,null);
         if(this.MapTiledCoverCheck(_pos,GamePublic.g_Active_Map,GamePublic.g_UserPicklObj.Size)){          
             GamePublic.g_Active_Map.MapTiledColorShow(true,cc.color(0,255, 0, 95));

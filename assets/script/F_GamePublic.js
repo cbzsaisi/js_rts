@@ -635,7 +635,7 @@ var G_Public = {
     g_GameRunUi:null,
     g_BuildManager:null,
     
-    g_UserControlType: null,
+    //g_UserControlType: null,
     g_UserPicklObj : null,
     g_Cursor : false,
     g_GameResLoadFinish:false,
