@@ -128,7 +128,7 @@ cc.Class({
         //this.Page_sceen_root.group ="default";
         this.Page_sceen_root.group = "Ui";
         this.Draw_sceen_root.group = "Ui";
-        GamePublic.g_UserControlType = GamePublic.e_UserControlType.Non;
+        GamePublic.g_UserPicklObj = {Type:GamePublic.e_UserControlType.Non};
 
         GameResManager.LoadResToFile(GamePublic.g_resources1, "2d");
         GameResManager.LoadResToFile(GamePublic.g_resources3d1, "3d");

@@ -23,7 +23,7 @@ var C_BuildManager = {
         node.CreateBuildInfoArray = function(){
             var Image = [
                 {Name:GamePublic.e_BuildImage.Building,FileName:"111"}
-            ]
+            ];
             var ResNeeds = [
                 {Name:"Wood",Value:"10"}
             ];
