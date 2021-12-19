@@ -216,7 +216,7 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
 
     //camera.getWorldToCameraPoint(_pos, pos);
     //console.log(pos);
-    if(GamePublic.g_TipPage.SetShow)GamePublic.g_TipPage.SetShow(false);
+    if (GamePublic.g_TipPage.SetShow)GamePublic.g_TipPage.SetShow(false);
     if (GamePublic.g_Cursor) GamePublic.g_Cursor.SetPos(_pos);
     if (GamePublic.g_TipPage) GamePublic.g_TipPage.SetPos(_pos);
     // if(Math.abs(GamePublic.g_MouseMoveLastPos.x - _pos.x) < 1 || Math.abs(GamePublic.g_MouseMoveLastPos.y - _pos.y) < 1){
@@ -229,8 +229,8 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
         GamePublic.g_GameMenuManager.MenuButtonCheck(_pos, GamePublic.e_ClickType.Move);
     } else if (GamePublic.g_GamePageManager.PageNumber) {
         GamePublic.g_GamePageManager.PageButtonCheck(_pos, GamePublic.e_ClickType.Move);
-    } else if (GamePublic.g_MouseLeftFlag) {
-        var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map);
+    } else if (GamePublic.g_MouseLeftFlag) { //鼠标按下状态
+        var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map); //检测点击的地图块
         if (mappos.x >= 0 && mappos.y >= 0 && mappos.x < GamePublic.g_Active_Map.v_MapSize.x && mappos.y < GamePublic.g_Active_Map.v_MapSize.y) {
             if (!GamePublic.g_MoveSelectStartPos) {
                 GamePublic.g_MoveSelectStartPos = GamePublic.s_Vec2d(mappos.x, mappos.y);
@@ -251,7 +251,7 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
                 }
             }
         }
-    }else if(GamePublic.g_UserPicklObj.Type == GamePublic.e_UserControlType.BuildPlace){
+    }else if(GamePublic.g_UserPicklObj.Type == GamePublic.e_UserControlType.BuildPlace){//建筑物建造 地形检测
         GamePublic.g_Active_Map.MapTiledColorShow(false,null);
         if(this.MapTiledCoverCheck(_pos,GamePublic.g_Active_Map,GamePublic.g_UserPicklObj.Size)){          
             GamePublic.g_Active_Map.MapTiledColorShow(true,cc.color(0,255, 0, 95));

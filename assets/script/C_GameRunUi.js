@@ -276,7 +276,6 @@ var C_GameRunUi = {
                         case GamePublic.e_ClickType.LeftUp:
                             PageCommand.PageCommandProc(node.StaticButton[i].ButtonInfo);
                             return true;
-                            break;
                     }
                 }
             }
@@ -286,7 +285,6 @@ var C_GameRunUi = {
                         case GamePublic.e_ClickType.LeftUp:
                             PageCommand.PageCommandProc(node.DynamicButton[i].ButtonInfo);
                             return true;
-                            break;
                     }
                 }
             }
