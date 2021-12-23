@@ -6,9 +6,9 @@ var s_BuildInfo = function (_Name,_Image,_Type,_Size,_ResNeeds,_TechNeeds,_RoomL
     BuildInfo.Image = _Image;
     BuildInfo.Type = _Type;
     BuildInfo.Size = _Size;
-    BuildInfo.ResNeeds = _ResNeeds;
-    BuildInfo.TechNeeds = _TechNeeds;
-    BuildInfo.RoomLimit = _RoomLimit;
+    BuildInfo.ResNeeds = _ResNeeds; //需要的资源
+    BuildInfo.TechNeeds = _TechNeeds; //需要的科技
+    BuildInfo.RoomLimit = _RoomLimit; 
     return BuildInfo;
 }
 
