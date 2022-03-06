@@ -1,7 +1,7 @@
 var GamePublic = require("./F_GamePublic");
 
 var C_Cursor = {
-    New: function (_MainNode) {
+    New: function(_MainNode) {
         var node = {};
 
         node.MainNode = _MainNode;
@@ -31,15 +31,15 @@ var C_Cursor = {
         //     node.LoadWellDone = false;
         // };
 
-        node.Delete = function () {
+        node.Delete = function() {
             node.Node.destroy();
             node.MainNode.Page_sceen_root.removeChild(node.Node);
         }
-        node.SetPos = function (_Pos) {
+        node.SetPos = function(_Pos) {
             node.Pos.x = _Pos.x;
             node.Pos.y = _Pos.y;
         }
-        node.SetImage = function (_Image) {
+        node.SetImage = function(_Image) {
             node.Image = _Image;
             //node.LoadSpriteRes();
             for (var i in GamePublic.g_resources1) {
@@ -56,7 +56,7 @@ var C_Cursor = {
             }
         }
 
-        node.Update = function () {
+        node.Update = function() {
             node.Node.setPosition({ x: node.Pos.x + node.ButtonWidth, y: node.Pos.y - node.ButtonHeight, });
         }
         node.SetImage("Cursor01");
