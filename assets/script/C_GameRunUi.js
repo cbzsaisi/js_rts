@@ -7,10 +7,10 @@ var PageFront = require("./C_PageFront");
 
 
 var C_GameRunUi = {
-    New: function (_Pos, _PageType, _RoleNumber, _SRcArray, _DesArray, _MainNode, _PageNumber) {
+    New: function(_Pos, _PageType, _RoleNumber, _SRcArray, _DesArray, _MainNode, _PageNumber) {
         var node = {};
 
-        node.SccenPoint = GamePublic.s_Vec2d(_Pos.x, _Pos.y);//GamePublic.s_Vec2d(0,0);//起点坐标
+        node.SccenPoint = GamePublic.s_Vec2d(_Pos.x, _Pos.y); //GamePublic.s_Vec2d(0,0);//起点坐标
         node.SccenHW = {};
         node.MainNode = _MainNode;
         node.PageType = _PageType;
@@ -31,25 +31,26 @@ var C_GameRunUi = {
         node.DynamicButton = [];
 
         switch (node.PageType) {
-            case 'GameRunUi':{
-                var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 150, y: 150 }, GamePublic.s_ButtonObjInfo("Itemimage001", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.UiStaticButton, GamePublic.e_ButtonCommand.CallMainMenu, [], null), node, { Button: true, Move: false });
-                node.StaticButton.push(Button);
-                var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 750, y: 150 }, GamePublic.s_ButtonObjInfo("Itemimage001", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.UiStaticButton, GamePublic.e_ButtonCommand.BuildPlace,GamePublic.e_BuildName.SmallHumanBuild, null), node, { Button: true, Move: false });
-                node.DynamicButton.push(Button);
-                break;
-            }
+            case 'GameRunUi':
+                {
+                    var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 150, y: 150 }, GamePublic.s_ButtonObjInfo("Itemimage001", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.UiStaticButton, GamePublic.e_ButtonCommand.CallMainMenu, [], null), node, { Button: true, Move: false });
+                    node.StaticButton.push(Button);
+                    var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 750, y: 150 }, GamePublic.s_ButtonObjInfo("Itemimage001", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.UiStaticButton, GamePublic.e_ButtonCommand.BuildPlace, GamePublic.e_BuildName.SmallHumanBuild, null), node, { Button: true, Move: false });
+                    node.DynamicButton.push(Button);
+                    break;
+                }
         }
 
-        node.CreatePage = function () {
+        node.CreatePage = function() {
             GamePublic.AddChild(node.MainNode, node.Node, node.PageNumber);
-            node.SccenHW.Width = 0;//node.PageBackDrop.BackDropWidth;
-            node.SccenHW.Height = 0;//node.PageBackDrop.BackDropHeight;
+            node.SccenHW.Width = 0; //node.PageBackDrop.BackDropWidth;
+            node.SccenHW.Height = 0; //node.PageBackDrop.BackDropHeight;
             //修正坐标
 
             var pos = GamePublic.s_Vec2d(node.SccenPoint.x - (node.SccenHW.Width / 2), node.SccenPoint.y - (node.SccenHW.Height / 2));
             node.Rect = GamePublic.s_Rect(pos.x, pos.y, pos.x + node.SccenHW.Width, pos.y + node.SccenHW.Height);
         }
-        node.FixPos = function () {
+        node.FixPos = function() {
             if (node.SccenPoint.x < node.SccenHW.Width * 0.5) node.SccenPoint.x = node.SccenHW.Width * 0.5;
             if (node.SccenPoint.y < node.SccenHW.Height * 0.5) node.SccenPoint.y = node.SccenHW.Height * 0.5;
 
@@ -57,7 +58,7 @@ var C_GameRunUi = {
             if (node.SccenPoint.y > GamePublic.g_winSize.height - node.SccenHW.Height * 0.5) node.SccenPoint.y = GamePublic.g_winSize.height - node.SccenHW.Height * 0.5;
         }
 
-        node.Delete = function () {
+        node.Delete = function() {
             if (!node.CreateDone) return;
             node.CleanPick();
             for (var i = 0; i < node.StaticButton.length; i++) {
@@ -78,7 +79,7 @@ var C_GameRunUi = {
             node.Node.destroy();
         }
 
-        node.Update = function () {
+        node.Update = function() {
             //if (!node.PageBackDrop.LoadWellDone) return;
             for (var i = 0; i < node.ButtonArray.length; i++) {
                 if (!node.ButtonArray[i].LoadWellDone) return;
@@ -106,7 +107,7 @@ var C_GameRunUi = {
             }
         }
 
-        node.CleanPick = function () {
+        node.CleanPick = function() {
             //GamePublic.g_PickObj = false;
             node.PickObj = null;
             if (node.PickObjPage) {
@@ -114,7 +115,7 @@ var C_GameRunUi = {
                 node.PickObjPage = null;
             }
         }
-        node.ShowRoleItemArray = function () {
+        node.ShowRoleItemArray = function() {
             var Role = GamePublic.g_GameDataResManger.GetRole(node.RoleNumber);
             for (var i = 0; i < node.StaticButton.length; i++) {
                 node.StaticButton[i].Delete();
@@ -130,15 +131,16 @@ var C_GameRunUi = {
             }
             node.TextArray.splice(0, node.TextArray.length);
             switch (node.PageType) {
-                case 'GameRunUi':{
-                    var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 50, y: 50 }, GamePublic.s_ButtonObjInfo("Itemimage001", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.UiStaticButton, GamePublic.e_ButtonCommand.ClosePage, [], null), node, { Button: true, Move: false });
-                    node.StaticButton.push(Button);
-                    break;
-                }
+                case 'GameRunUi':
+                    {
+                        var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 50, y: 50 }, GamePublic.s_ButtonObjInfo("Itemimage001", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.UiStaticButton, GamePublic.e_ButtonCommand.ClosePage, [], null), node, { Button: true, Move: false });
+                        node.StaticButton.push(Button);
+                        break;
+                    }
             }
         }
 
-        node.ClickCheck = function (_pos, _ClickType) {
+        node.ClickCheck = function(_pos, _ClickType) {
             var pos = GamePublic.s_Vec2d(_pos.x - node.Rect.x, _pos.y - node.Rect.y);
             switch (_ClickType) {
                 case GamePublic.e_ClickType.LeftDown:
@@ -266,7 +268,7 @@ var C_GameRunUi = {
                     } */
                     break;
                 case GamePublic.e_ClickType.Move:
-  
+
                     break;
             }
 
