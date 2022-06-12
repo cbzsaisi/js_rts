@@ -79,13 +79,13 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
     } else if (GamePublic.g_GamePageManager && GamePublic.g_GamePageManager.PageNumber) {
         GamePublic.g_GamePageManager.PageButtonCheck(_pos, GamePublic.e_ClickType.LeftUp);
     } else if (GamePublic.g_MouseLeftFlag == true && _pos.x >= 0 && _pos.x <= GamePublic.g_winSize.width && _pos.y >= 0 && _pos.y <= GamePublic.g_winSize.height) {
-        if (GamePublic.g_MouseMoveFlag == false) {
-            ControlState = GamePublic.e_ControlState.MouseLeftNoMove;
-        } else {
-            ControlState = GamePublic.e_ControlState.MouseLeftMove;
-        }
+        // if (GamePublic.g_MouseMoveFlag == false) {
+        //     ControlState = GamePublic.e_ControlState.MouseLeftNoMove;
+        // } else {
+        //     ControlState = GamePublic.e_ControlState.MouseLeftMove;
+        // }
     }
-    if (ControlState == GamePublic.e_ControlState.MouseLeftNoMove) {
+    if (GamePublic.g_MouseMoveFlag == false) {
          GamePublic.g_ButtonUsingFlag = false;
         if(GamePublic.g_GameRunUi && GamePublic.g_GameRunUi.ClickCheck(_pos,GamePublic.e_ClickType.LeftUp)){
             GamePublic.g_ButtonUsingFlag = true;
@@ -141,7 +141,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
         }
 
     } else
-        if (ControlState == GamePublic.e_ControlState.MouseLeftMove) {
+        if (GamePublic.g_MouseMoveFlag != false) {
             var MoveOffLast = GamePublic.g_LeftKeyStartPos;
             var SelectFlag = false;
 
