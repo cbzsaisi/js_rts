@@ -25,6 +25,8 @@ var ShopManager = require("./C_Shop");
 var GameRunUiClass = require("./C_GameRunUi");
 var GameResManager = require("./F_GameResManager");
 var BuildManager = require("./C_BuildManager");
+var Building = require("./C_Building");
+
 //var g_Random = g_MathLib.Random;
 var g_temp = 0;
 cc.Class({
@@ -122,6 +124,7 @@ cc.Class({
         GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 1, GamePublic.g_ShopManager.StoreNum, "Shop");
         GamePublic.g_ShopManager.AddGoldToStore(GamePublic.g_ShopManager.GetStore(1).ItemBar, 200);
         GamePublic.g_BuildManager = BuildManager.New();
+        GamePublic.g_Build = Building.New();
         //console.log(GamePublic.g_BuildManager.GetBuildSize(GamePublic.e_BuildName.SmallHumanBuild));
 
         GamePublic.g_GameRunUi = null;

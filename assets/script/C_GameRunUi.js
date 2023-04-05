@@ -115,30 +115,30 @@ var C_GameRunUi = {
                 node.PickObjPage = null;
             }
         }
-        node.ShowRoleItemArray = function() {
-            var Role = GamePublic.g_GameDataResManger.GetRole(node.RoleNumber);
-            for (var i = 0; i < node.StaticButton.length; i++) {
-                node.StaticButton[i].Delete();
-            }
-            node.StaticButton.splice(0, node.StaticButton.length);
-            for (var i = 0; i < node.DynamicButton.length; i++) {
-                node.DynamicButton[i].Delete();
-            }
-            node.DynamicButton.splice(0, node.DynamicButton.length);
+        // node.ShowRoleItemArray = function() {
+        //     var Role = GamePublic.g_GameDataResManger.GetRole(node.RoleNumber);
+        //     for (var i = 0; i < node.StaticButton.length; i++) {
+        //         node.StaticButton[i].Delete();
+        //     }
+        //     node.StaticButton.splice(0, node.StaticButton.length);
+        //     for (var i = 0; i < node.DynamicButton.length; i++) {
+        //         node.DynamicButton[i].Delete();
+        //     }
+        //     node.DynamicButton.splice(0, node.DynamicButton.length);
 
-            for (var i = 0; i < node.TextArray.length; i++) {
-                node.TextArray[i].Delete();
-            }
-            node.TextArray.splice(0, node.TextArray.length);
-            switch (node.PageType) {
-                case 'GameRunUi':
-                    {
-                        var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 50, y: 50 }, GamePublic.s_ButtonObjInfo("Itemimage001", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.UiStaticButton, GamePublic.e_ButtonCommand.ClosePage, [], null), node, { Button: true, Move: false });
-                        node.StaticButton.push(Button);
-                        break;
-                    }
-            }
-        }
+        //     for (var i = 0; i < node.TextArray.length; i++) {
+        //         node.TextArray[i].Delete();
+        //     }
+        //     node.TextArray.splice(0, node.TextArray.length);
+        //     switch (node.PageType) {
+        //         case 'GameRunUi':
+        //             {
+        //                 var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 50, y: 50 }, GamePublic.s_ButtonObjInfo("Itemimage001", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.UiStaticButton, GamePublic.e_ButtonCommand.ClosePage, [], null), node, { Button: true, Move: false });
+        //                 node.StaticButton.push(Button);
+        //                 break;
+        //             }
+        //     }
+        // }
 
         node.ClickCheck = function(_pos, _ClickType) {
             var pos = GamePublic.s_Vec2d(_pos.x - node.Rect.x, _pos.y - node.Rect.y);

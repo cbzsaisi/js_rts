@@ -634,6 +634,7 @@ var G_Public = {
     g_ShopManager:null,
     g_GameRunUi:null,
     g_BuildManager:null,
+    g_Build:null,
     
     g_UserPicklObj : null,
     g_Cursor : false,
