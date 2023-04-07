@@ -124,7 +124,7 @@ cc.Class({
         GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 1, GamePublic.g_ShopManager.StoreNum, "Shop");
         GamePublic.g_ShopManager.AddGoldToStore(GamePublic.g_ShopManager.GetStore(1).ItemBar, 200);
         GamePublic.g_BuildManager = BuildManager.New();
-        GamePublic.g_Build = Building.New();
+        //GamePublic.g_Build = Building.New();
         //console.log(GamePublic.g_BuildManager.GetBuildSize(GamePublic.e_BuildName.SmallHumanBuild));
 
         GamePublic.g_GameRunUi = null;
@@ -187,11 +187,14 @@ cc.Class({
         } else {
             if (!this.SceenCreate) {
                 var Rolenum = 0;
+                var Buildnum = 0;
                 for (let i = 0; i < 2; i++) {
                     for (let j = 0; j < 1; j++) {
                         var role = new RoleClass.New("role1", 1, GamePublic.s_Vec2d(i+5, j+5), ++Rolenum);
                     }
                 }
+                var build = new Building.New("role1", ++Buildnum, 1, GamePublic.s_Vec2d(10, 5), []);
+
                 GamePublic.g_GameRunUi = GameRunUiClass.New({ x: 20, y: 20 }, "GameRunUi", 0, {}, {}, this.Page_sceen_root, 8);
                 this.SceenCreate = true;
             }

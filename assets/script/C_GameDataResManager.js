@@ -3,11 +3,15 @@ var C_GameDataResManager = {
         var GameDataRes = {};
         GameDataRes.MapArray = [];
         GameDataRes.RoleArray = [];
+        GameDataRes.BuildArray = [];
         GameDataRes.AddMap = function(_obj) {
             GameDataRes.MapArray.push(_obj);
         }
         GameDataRes.AddRole = function(_obj) {
             GameDataRes.RoleArray.push(_obj);
+        }
+        GameDataRes.AddBuild = function(_obj) {
+            GameDataRes.BuildArray.push(_obj);
         }
 
         GameDataRes.GetMap = function(_num) {
