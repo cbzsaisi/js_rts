@@ -1,22 +1,17 @@
 {
-  "assets-sort-type": "name",
+  "group-list": [
+    "default",
+    "ui"
+  ],
   "collision-matrix": [
     [
-      true,
       true
     ],
     [
-      true,
-      true
-    ],
-    [
-      false,
       false,
       false
     ]
   ],
-  "design-resolution-height": 640,
-  "design-resolution-width": 960,
   "excluded-modules": [
     "Action",
     "Animation",
@@ -24,12 +19,11 @@
     "Collider",
     "Dynamic Atlas",
     "DragonBones",
-    "Label Effect",
+    "Intersection",
+    "Layout",
     "Mask",
-    "Mesh",
     "MotionStreak",
     "NodePool",
-    "Native Socket",
     "Physics",
     "PageView",
     "PageViewIndicator",
@@ -40,46 +34,40 @@
     "Slider",
     "ScrollBar",
     "ScrollView",
-    "Spine Skeleton",
     "StudioComponent",
     "Toggle",
     "TiledMap",
     "VideoPlayer",
-    "3D",
+    "WebView",
     "3D Primitive",
     "3D Physics/cannon.js",
     "3D Physics/Builtin",
     "3D Particle",
     "SafeArea"
   ],
+  "preview-port": 7456,
+  "design-resolution-width": 960,
+  "design-resolution-height": 640,
+  "fit-width": false,
+  "fit-height": false,
+  "use-project-simulator-setting": false,
+  "simulator-orientation": false,
+  "use-customize-simulator": true,
+  "simulator-resolution": {
+    "width": 960,
+    "height": 640
+  },
+  "clear-simulator-cache": true,
   "facebook": {
+    "enable": false,
     "appID": "",
-    "audience": {
+    "live": {
       "enable": false
     },
-    "enable": false,
-    "live": {
+    "audience": {
       "enable": false
     }
   },
-  "fit-height": true,
-  "fit-width": false,
-  "group-list": [
-    "default",
-    "Ui",
-    "ui2"
-  ],
-  "last-module-event-record-time": 1613879054580,
-  "simulator-orientation": false,
-  "simulator-resolution": {
-    "height": 640,
-    "width": 960
-  },
-  "use-customize-simulator": true,
-  "use-project-simulator-setting": false,
-  "migrate-history": [
-    "cloud-function"
-  ],
-  "preview-port": 7456,
-  "clear-simulator-cache": true
+  "last-module-event-record-time": 1680959080995,
+  "start-scene": "0a10e791-ad21-4a73-b854-ce1a2c9ed394"
 }

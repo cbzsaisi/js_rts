@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "9c1240ef-deab-4000-a585-a9de384f7d77",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "Cursor01": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "9910986b-a800-4def-932d-0f5d81d6b7b1",
+      "importer": "sprite-frame",
       "rawTextureUuid": "9c1240ef-deab-4000-a585-a9de384f7d77",
       "trimType": "custom",
       "trimThreshold": 1,

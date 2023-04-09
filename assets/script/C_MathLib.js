@@ -3,12 +3,11 @@ var C_Random = {
         var node = {};
         node.RandomTable = [];
         node.RandomIndex = 0;
-        node.iRandomMax = 100;
+        node.iRandomMax = 1000;
 
         node.GenerateRandom = function(){
             for(var i=0;i<node.iRandomMax;i++){
                 var j = Math.floor(Math.random()*(node.iRandomMax-1));
-                
                 if(i == j)continue;
                 var temp = node.RandomTable[j];
                 node.RandomTable[j] = node.RandomTable[i];
@@ -22,11 +21,10 @@ var C_Random = {
         }
 
         for(var i=0;i < node.iRandomMax;i++){
-            
             node.RandomTable[i]=i+1;
         }
         node.GenerateRandom();
-        return node;    　　　
+        return node;
     }
 };
 

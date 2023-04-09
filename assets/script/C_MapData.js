@@ -11,9 +11,8 @@ var GamePublic = require("./F_GamePublic");
         node.v_MapSize = _MapSize,
         node.v_MapNumber = _MapNumber,
         node.v_MapSeccn = _MapSeccn;
-        //node.v_MapShowNode.is3DNode = true;
         node.v_MapSeccn.addChild(node.v_MapShowNode);
-        node.v_MapTiledSize = {x : 64,y : 64};
+        //node.v_MapTiledSize = {x : 64,y : 64};
         node.v_MapTabArray = [];
         
         for(var i=0;i<node.v_MapSize.x;i++){

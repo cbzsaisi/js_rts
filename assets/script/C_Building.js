@@ -122,16 +122,16 @@ var C_Building = {
                 node.RoleGameInfo.v_BuildSprite.v_Sprite.setPosition(node.RoleGameInfo.v_SpritePos);
                 node.RoleGameInfo.v_DrawNode.setPosition(node.RoleGameInfo.v_SpritePos);
             }
-            if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.v_Sprite.setScale(node.RoleGameInfo.v_SpriteScale);
+            if (node.RoleGameInfo.v_BuildSprite) node.RoleGameInfo.v_BuildSprite.v_Sprite.setScale(node.RoleGameInfo.v_SpriteScale);
         };
 
         node.Create = function () {
             var obj = GamePublic.s_ObjInfo("Build", 1, node);
             GamePublic.g_GameDataResManger.AddBuild(obj);
             node.RoleGameInfo.v_BuildSprite.v_Sprite.opacity = 100;
+            node.RoleGameInfo.v_SpriteScale = 20;
             node.SetSceenPos(node.RoleInfo.v_BuildMapPos);
             node.RoleGameInfo.v_SpriteShow = true;
-            node.RoleGameInfo.v_SpriteScale = 10;
 
             //node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_BuildMapPos.x][node.RoleInfo.v_BuildMapPos.y].MoveInBuild(node.RoleInfo.v_BuildNumber);
             node.RoleGameInfo.v_BuildCreate = true;
@@ -149,7 +149,7 @@ var C_Building = {
         node.RoleGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.RoleGameInfo.v_DrawNode, 2000);
         
         node.LoadSpriteRes();
-        node.SetSceenPos(node.RoleInfo.v_BuildMapPos);
+        //node.SetSceenPos(node.RoleInfo.v_BuildMapPos);
         return node;
     }
 }

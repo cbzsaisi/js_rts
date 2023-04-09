@@ -35,8 +35,8 @@ var C_GameRunUi = {
                 {
                     var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 150, y: 150 }, GamePublic.s_ButtonObjInfo("Itemimage001", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.UiStaticButton, GamePublic.e_ButtonCommand.CallMainMenu, [], null), node, { Button: true, Move: false });
                     node.StaticButton.push(Button);
-                    var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 750, y: 150 }, GamePublic.s_ButtonObjInfo("Itemimage001", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.UiStaticButton, GamePublic.e_ButtonCommand.BuildPlace, GamePublic.e_BuildName.SmallHumanBuild, null), node, { Button: true, Move: false });
-                    node.DynamicButton.push(Button);
+                    // var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 750, y: 150 }, GamePublic.s_ButtonObjInfo("Itemimage001", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.UiStaticButton, GamePublic.e_ButtonCommand.BuildPlace, GamePublic.e_BuildName.SmallHumanBuild, null), node, { Button: true, Move: false });
+                    // node.DynamicButton.push(Button);
                     break;
                 }
         }
@@ -158,114 +158,7 @@ var C_GameRunUi = {
                     } */
                     break;
                 case GamePublic.e_ClickType.LeftUp:
-                    /* for (var i = 0; i < node.RoleItemArray.length; i++) {
-                        if (node.RoleItemArray[i].ClickType.Button && GamePublic.CollideRect(pos, node.RoleItemArray[i].Rect)) {
-                            if (node.PickObj && node.PickObj.PickNum != i) {
-                                var Role = GamePublic.g_GameDataResManger.GetRole(node.RoleNumber);
-                                var BarNum = node.RoleItemArray[i].ButtonInfo.BarNum;
-                                var PickBarNum = node.RoleItemArray[node.PickObj.PickNum].ButtonInfo.BarNum;
-                                var item = null;
-                                switch (node.PageType) {
-                                    case 'RoleItemPage': {
-                                        switch (node.RoleItemArray[i].ButtonInfo.BarType) {
-                                            case GamePublic.e_BarType.ItemBar:
-                                                if (node.PickObj.PickType == GamePublic.e_BarType.ItemBar) {
-                                                    if (Role.RoleInfo.v_RoleBag[BarNum]) {
-                                                        item = Role.RoleInfo.v_RoleBag[BarNum];
-                                                        if (item.Name == Role.RoleInfo.v_RoleBag[PickBarNum].Name) { //相同物品合并
-                                                            item.ItemNum += Role.RoleInfo.v_RoleBag[PickBarNum].ItemNum;
-                                                            Role.RoleInfo.v_RoleBag[PickBarNum].ItemNum = null;
-                                                        } else {
-                                                            Role.RoleInfo.v_RoleBag[BarNum] = Role.RoleInfo.v_RoleBag[PickBarNum];
-                                                            Role.RoleInfo.v_RoleBag[PickBarNum] = item;
-                                                        }
 
-                                                    } else {
-                                                        Role.RoleInfo.v_RoleBag[BarNum] = Role.RoleInfo.v_RoleBag[PickBarNum];
-                                                        Role.RoleInfo.v_RoleBag[PickBarNum] = null;
-                                                    }
-
-                                                }
-                                                if (node.PickObj.PickType == GamePublic.e_BarType.EquipBar) {
-                                                    if (!Role.RoleInfo.v_RoleBag[BarNum]) {
-                                                        GamePublic.g_ItemManager.RoleUnEquip(Role.RoleInfo.v_RoleNumber, PickBarNum, BarNum);
-                                                    }
-                                                    console.log("卸装备");
-                                                }
-                                                break;
-                                            case GamePublic.e_BarType.EquipBar:
-                                                if (node.PickObj.PickType == GamePublic.e_BarType.ItemBar) {
-                                                    item = Role.RoleInfo.v_RoleBag[PickBarNum];
-                                                    if (item.EquipType == BarNum) { //匹配格子
-                                                        console.log("装备");
-                                                        GamePublic.g_ItemManager.RoleEquip(Role.RoleInfo.v_RoleNumber, PickBarNum);
-                                                    } else {
-                                                        console.log("不匹配格子");
-                                                    }
-                                                }
-                                                if (node.PickObj.PickType == GamePublic.e_BarType.EquipBar) {
-                                                    console.log("无法移动装备");
-                                                }
-                                                break;
-                                        }
-                                        break;
-                                    }
-                                    case 'RoleAndShopTradePage': {
-                                        var Bag = null;
-                                        var PickBag = null;
-                                        //var BagNum = 0;
-                                        switch (node.RoleItemArray[i].ButtonInfo.BarType) {
-                                            case GamePublic.e_BarType.ItemBar:
-                                                Bag = Role.RoleInfo.v_RoleBag;
-                                                switch (node.PickObj.PickType) {
-                                                    case GamePublic.e_BarType.ItemBar:
-                                                        PickBag = Bag;
-                                                        if (Bag[BarNum]) {
-                                                            item = Bag[BarNum];
-                                                            if (item.Name == PickBag[PickBarNum].Name) {
-                                                                item.ItemNum += PickBag[PickBarNum].ItemNum;
-                                                                PickBag[PickBarNum].ItemNum = null;
-                                                            } else {
-                                                                Bag[BarNum] = PickBag[PickBarNum];
-                                                                PickBag[PickBarNum] = item;
-                                                            }
-
-                                                        } else {
-                                                            Bag[BarNum] = PickBag[PickBarNum];
-                                                            PickBag[PickBarNum] = null;
-                                                        }
-                                                        break;
-                                                    case GamePublic.e_BarType.ShopStoreBar: {
-                                                        PickBag = GamePublic.g_ShopManager.GetStore(Role.RoleCommand.v_RoleTradeShopNum).ItemBar;
-                                                        GamePublic.g_ShopManager.ShopTradeCalc(PickBag, PickBarNum, Bag, BarNum, 1);
-                                                        break;
-                                                    }
-                                                }
-                                                break;
-                                            case GamePublic.e_BarType.ShopStoreBar:
-                                                Bag = GamePublic.g_ShopManager.GetStore(Role.RoleCommand.v_RoleTradeShopNum).ItemBar;
-                                                switch (node.PickObj.PickType) {
-                                                    case GamePublic.e_BarType.ItemBar:
-                                                        PickBag = Role.RoleInfo.v_RoleBag;
-                                                        GamePublic.g_ShopManager.ShopTradeCalc(PickBag, PickBarNum, Bag, BarNum, 1);
-                                                        break;
-                                                    case GamePublic.e_BarType.ShopStoreBar:
-                                                        PickBag = GamePublic.g_ShopManager.GetStore(Role.RoleCommand.v_RoleTradeShopNum).ItemBar;
-                                                        if (Bag[BarNum]) item = Bag[BarNum];
-                                                        Bag[BarNum] = PickBag[PickBarNum];
-                                                        PickBag[PickBarNum] = item;
-                                                        break;
-                                                }
-                                                break;
-                                        }
-                                    }
-                                }
-
-                                node.ShowRoleItemArray();
-                            }
-                            return true;
-                        }
-                    } */
                     break;
                 case GamePublic.e_ClickType.Move:
 

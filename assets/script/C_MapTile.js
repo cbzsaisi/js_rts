@@ -5,26 +5,27 @@ var C_MapTile = {
     New: function (_TileName, _MainMap, _pos) {
         var node = {};
         node.v_TileSprite = null,
-            node.v_TileType = null,
-            node.v_MapPassStatus = GamePublic.e_RolePassStatu.pass,
-            node.v_TileResType = null,
-            node.v_TileResSprite = null,
-            node.v_TileResArray = [],
-            node.v_ExistRoleArray = [],
-            node.v_DtNumber = 0,
-            node.v_NodeCurAction = null,
-            node.v_NodeMapPos = _pos,
-            node.v_SpritePos = null,
-            node.k_SpriteSize = { x: 64, y: 64 },
-            node.v_MainMap = null,
-            node.v_Show = false,
-            node.v_HeigthOffset = 0,
-            node.v_ShowLevel = 1,
-            node.v_Text = null,
-            node.v_TileName = _TileName;
+        node.v_TileType = null,
+        node.v_MapPassStatus = GamePublic.e_RolePassStatu.pass,
+        node.v_TileResType = null,
+        node.v_TileResSprite = null,
+        node.v_TileResArray = [],
+        node.v_ExistRoleArray = [],
+        node.v_DtNumber = 0,
+        node.v_NodeCurAction = null,
+        node.v_NodeMapPos = _pos,
+        node.v_SpritePos = null,
+        node.k_SpriteSize = { x: 64, y: 64 },
+        node.v_MainMap = null,
+        node.v_Show = false,
+        node.v_HeigthOffset = 0,
+        node.v_ShowLevel = 1,
+        node.v_Text = null,
+        node.v_TileName = _TileName;
         node.v_MainMap = _MainMap;
         node.v_Rect = GamePublic.s_Rect(0, 0, 0, 0);
         node.v_SelectSprite = null;
+
         node.MoveInRole = function (_RoleNumber) {
             for (var i = 0; i < node.v_ExistRoleArray.length; i++) {
                 if (node.v_ExistRoleArray[i] == _RoleNumber) {
@@ -59,12 +60,12 @@ var C_MapTile = {
             }
         }
         node.LoadSpriteRes = function () {
-
+            //console.log(node.v_TileName);
             for (var i in GamePublic.g_resources3d1) {
                 if (GamePublic.g_resources3d1[i].FileName == node.v_TileName) {
+                    //console.log(GamePublic.g_resources3d1[i].FileName);
                     node.v_TileSprite = cc.instantiate(GamePublic.g_resources3d1[i].FileData);
                     //node.v_TileSprite.getComponent(cc.MeshRenderer).opacity = 100;
-                    //node.v_TileSprite = GamePublic.g_resources3d1[i].FileData;
                     node.v_TileType = GamePublic.e_ObjType.MapTileLand;
                     node.k_SpriteSize.x = GamePublic.e_MapTilePixel.width;
                     node.k_SpriteSize.y = GamePublic.e_MapTilePixel.height;
@@ -96,7 +97,7 @@ var C_MapTile = {
             if (node.v_TileSprite) {
                 node.v_TileSprite.destroy();
                 //node.v_TileSprite.removeFromParent(false);
-                //node.v_MainMap.v_MapShowNode.removeChild(node.v_TileSprite);
+                node.v_MainMap.v_MapShowNode.removeChild(node.v_TileSprite);
                 node.v_TileSprite = null;
                 node.v_Show = false;
             }
@@ -110,15 +111,15 @@ var C_MapTile = {
                 //if(node.v_ShowLevel > 1)
                 //this.v_TileSprite.zIndex=((node.v_MainMap.v_MapSize.x * node.v_MainMap.v_MapSize.y)-(node.v_NodeMapPos.x + node.v_NodeMapPos.y));
             }
-            node.v_Rect.x = GamePublic.s_Rect(node.v_SpritePos.x, node.v_SpritePos.y, node.v_SpritePos.x + node.k_SpriteSize.x, node.v_SpritePos.y + node.k_SpriteSize.y);
+            node.v_Rect = GamePublic.s_Rect(node.v_SpritePos.x, node.v_SpritePos.y, node.v_SpritePos.x + node.k_SpriteSize.x, node.v_SpritePos.y + node.k_SpriteSize.y);
             //if (this.v_TileSprite) this.v_TileSprite.setScale(g_MapScale);
 
         };
 
         node.MyUpdate = function () {
-            var vbool = false;
             node.SetSceenPos(node.v_NodeMapPos);
             var sceen = GamePublic.s_Vec2d(node.v_SpritePos.x + GamePublic.g_MoveOff.x, node.v_SpritePos.y + GamePublic.g_MoveOff.y);
+            //console.log(node.v_Show,node.v_TileSprite,"x:",sceen.x,"y:",sceen.y);
             if (node.v_Show) {
                 if (node.v_TileSprite && sceen.x > GamePublic.g_winSize.width + 70 || sceen.x < -70 || sceen.y > GamePublic.g_winSize.height + 70 || sceen.y < -70) {
                     this.UnLoadSpriteRes();
@@ -129,7 +130,6 @@ var C_MapTile = {
             for (var i = 0; i < node.v_TileResArray.length; i++) {
                 node.v_TileResArray[i].MyUpdate();
             }
-            return vbool;
         };
 
         node.SetSelectFlag = function (_bool,_color) {

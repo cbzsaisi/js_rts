@@ -1,49 +1,55 @@
 {
-  "android-instant": {
-    "REMOTE_SERVER_ROOT": "",
-    "host": "",
-    "pathPattern": "",
-    "recordPath": "",
-    "scheme": "https",
-    "skipRecord": false
-  },
-  "appBundle": false,
-  "baidugame": {
-    "REMOTE_SERVER_ROOT": "",
-    "appid": "testappid",
-    "orientation": "portrait",
-    "subContext": ""
-  },
-  "encryptJs": true,
+  "title": "NewProject",
+  "packageName": "org.cocos2d.demo",
+  "startScene": "0a10e791-ad21-4a73-b854-ce1a2c9ed394",
   "excludeScenes": [],
-  "fb-instant-games": {},
-  "includeSDKBox": false,
-  "inlineSpriteFrames": true,
-  "inlineSpriteFrames_native": true,
-  "md5Cache": false,
-  "mergeStartScene": false,
-  "optimizeHotUpdate": false,
   "orientation": {
-    "landscapeLeft": true,
     "landscapeRight": true,
+    "landscapeLeft": true,
     "portrait": false,
     "upsideDown": false
   },
-  "packageName": "org.cocos2d.mygame2",
-  "qqplay": {
-    "REMOTE_SERVER_ROOT": "",
-    "orientation": "portrait",
-    "zip": false
-  },
-  "startScene": "ed825c0f-6c86-4099-8c66-ae54df2eafd0",
-  "title": "mygame2",
   "webOrientation": "auto",
-  "wechatgame": {
-    "REMOTE_SERVER_ROOT": "",
-    "appid": "wx6ac3f5090a6b99c5",
-    "orientation": "portrait",
-    "subContext": ""
+  "inlineSpriteFrames": true,
+  "inlineSpriteFrames_native": true,
+  "mainCompressionType": "subpackage",
+  "mainIsRemote": false,
+  "optimizeHotUpdate": false,
+  "md5Cache": true,
+  "nativeMd5Cache": true,
+  "encryptJs": true,
+  "xxteaKey": "62135aee-f8d0-4f",
+  "zipCompressJs": true,
+  "fb-instant-games": {},
+  "android": {
+    "packageName": "org.cocos2d.demo",
+    "REMOTE_SERVER_ROOT": ""
   },
-  "xxteaKey": "4e1c6e0a-9e57-49",
-  "zipCompressJs": true
+  "ios": {
+    "packageName": "org.cocos2d.demo",
+    "REMOTE_SERVER_ROOT": "",
+    "ios_enable_jit": true
+  },
+  "mac": {
+    "packageName": "org.cocos2d.demo",
+    "REMOTE_SERVER_ROOT": "",
+    "width": 1280,
+    "height": 720
+  },
+  "win32": {
+    "REMOTE_SERVER_ROOT": "",
+    "width": 1280,
+    "height": 720
+  },
+  "android-instant": {
+    "packageName": "org.cocos2d.demo",
+    "REMOTE_SERVER_ROOT": "",
+    "pathPattern": "",
+    "scheme": "https",
+    "host": "",
+    "skipRecord": false,
+    "recordPath": ""
+  },
+  "appBundle": false,
+  "agreements": {}
 }

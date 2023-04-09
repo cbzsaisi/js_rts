@@ -32,7 +32,7 @@ F_GameResManage.FileResData = function(_Info,_Type) {
     switch (_Type){
         case "2d":{
             s_FileResData.LoadRes = function(){
-                cc.loader.loadRes(s_FileResData.Info.FileName, cc.SpriteFrame,function (err, prefab) {
+                cc.resources.load(s_FileResData.Info.FileName, cc.SpriteFrame,function (err, prefab) {
                     s_FileResData.Info.FileData = prefab;
                     s_FileResData.Info.LoadDone = true; 
                 });
@@ -41,7 +41,7 @@ F_GameResManage.FileResData = function(_Info,_Type) {
         }
         case "3d":{
             s_FileResData.LoadRes = function(){
-                cc.loader.loadRes(s_FileResData.Info.FileName,function (err, prefab) {
+                cc.resources.load(s_FileResData.Info.FileName,function (err, prefab) {
                     s_FileResData.Info.FileData = prefab;
                     s_FileResData.Info.LoadDone = true; 
                 });
