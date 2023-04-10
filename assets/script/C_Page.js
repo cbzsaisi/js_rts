@@ -5,11 +5,9 @@ var PageCommand = require("./F_PageCommand");
 var C_Text = require("./C_Text");
 var PageFront = require("./C_PageFront");
 
-
 var C_Page = {
     New: function (_Pos, _PageType, _RoleNumber, _SRcArray, _DesArray, _MainNode, _PageNumber) {
         var node = {};
-
         node.SccenPoint = GamePublic.s_Vec2d(_Pos.x, _Pos.y);//GamePublic.s_Vec2d(0,0);//起点坐标
         node.SccenHW = {};//GamePublic.s_Vec2d(0,0);//页面长宽
         node.MainNode = _MainNode;
@@ -17,14 +15,11 @@ var C_Page = {
         node.PageNumber = _PageNumber;
         node.CreateDone = false;
         node.Rect = null;
-        console.log(_RoleNumber);
         for (var i = 0; i < _RoleNumber.length; i++){
             node.RoleNumber = _RoleNumber[i];
         }
-        console.log(node.RoleNumber);
         node.SRcArray = _SRcArray;
         node.DesArray = _DesArray;
-
         node.Node = new cc.Node();
         node.PageBackDrop = null;
         node.ButtonArray = [];
@@ -102,7 +97,7 @@ var C_Page = {
             case 'RoleStatePage': {
                 node.PageBackDrop = PageSprite.New("StatePage", node, { x: 0, y: 0 }, null, null);
                 node.ButtonArray.push(CloseButton);
-                var Text = C_Text.New(GamePublic.s_Rect(100, 200, 200, 120), "1test 测试 2test 测试 3test 测试 4test 测试 5test 测试 6test 测试", cc.Color.WHITE, 13, node, node.Node, false);
+                var Text = C_Text.New(GamePublic.s_Rect(50, 200, 200, 120), "1test 测试 2test 测试 3test 测试 4test 测试 5test 测试 6test 测试", cc.Color.WHITE, 13, node, node.Node, false);
                 node.ButtonArray.push(Text);
                 break;
             }
@@ -119,6 +114,7 @@ var C_Page = {
                 }
                 var Text = C_Text.New(GamePublic.s_Rect(100, 200, 200, 120),GamePublic.g_InputNumber, cc.Color.WHITE, 18, node, node.Node, false);
                 node.TextArray.push(Text);
+                break;
             }
         }
         if (!node.PageBackDrop) console.log(node.PageType + "无对应页面背景");
@@ -137,7 +133,6 @@ var C_Page = {
             //label.string = "test测试";
             //label.node.zIndex = 10;
             //node.MainNode.addChild(txt,30);
-
         }
         node.FixPos = function () {
             if (node.SccenPoint.x < node.SccenHW.Width * 0.5) node.SccenPoint.x = node.SccenHW.Width * 0.5;
@@ -146,7 +141,6 @@ var C_Page = {
             if (node.SccenPoint.x > GamePublic.g_winSize.width - node.SccenHW.Width * 0.5) node.SccenPoint.x = GamePublic.g_winSize.width - node.SccenHW.Width * 0.5;
             if (node.SccenPoint.y > GamePublic.g_winSize.height - node.SccenHW.Height * 0.5) node.SccenPoint.y = GamePublic.g_winSize.height - node.SccenHW.Height * 0.5;
         }
-
         node.Delete = function () {
             if (!node.CreateDone) return;
             node.CleanPick();
@@ -258,7 +252,6 @@ var C_Page = {
                             }
                         }
                     }
-
                     var offx = 100; var offy = 350; var offw = 50; var offh = 40;
                     var Store = GamePublic.g_ShopManager.GetStore(Role.RoleCommand.v_RoleTradeShopNum);
                     for (var i = 0; i < Store.ItemBar.length / 5; i++) {
@@ -293,7 +286,7 @@ var C_Page = {
             } */
             var Role = GamePublic.g_GameDataResManger.GetRole(node.RoleNumber);
             switch (_ClickType) {
-                case GamePublic.e_ClickType.LeftDown:
+                case GamePublic.e_ClickType.LeftDown:{
                     for (var i = 0; i < node.RoleItemArray.length; i++) {
                         if (node.RoleItemArray[i].ClickType.Button && node.RoleItemArray[i].ButtonInfo.ObjInfo.Image != "Itemimage000" && GamePublic.CollideRect(pos, node.RoleItemArray[i].Rect)) {
                             if (node.RoleItemArray[i].ClickType.Move) { //支持拖放
@@ -307,7 +300,8 @@ var C_Page = {
                         }
                     }
                     break;
-                case GamePublic.e_ClickType.LeftUp:
+                }
+                case GamePublic.e_ClickType.LeftUp:{
                     for (var i = 0; i < node.RoleItemArray.length; i++) {
                         if (node.RoleItemArray[i].ClickType.Button && GamePublic.CollideRect(pos, node.RoleItemArray[i].Rect)) {
                             if (node.PickObj && node.PickObj.PickNum != i) {
@@ -407,7 +401,6 @@ var C_Page = {
                                         }
                                         /* if (node.PickObj.PickType == GamePublic.e_BarType.ItemBar) {
                                             GamePublic.g_ShopManager.ShopTradeCalc();
-
                                         }
                                         if (node.PickObj.PickType == GamePublic.e_BarType.ShopStoreBar) {
                                             GamePublic.g_ShopManager.ShopTradeCalc();
@@ -421,7 +414,8 @@ var C_Page = {
                         }
                     }
                     break;
-                case GamePublic.e_ClickType.Move:
+                }
+                case GamePublic.e_ClickType.Move:{
                     var CheckButtonFlag = false;
                     if (node.PickObjPage) {
                         node.PickObjPage.SetPos(pos); //拖放物品
@@ -444,8 +438,8 @@ var C_Page = {
                         //GamePublic.g_TipPage.SetShow(false);
                     }
                     break;
+                }
             }
-
             for (var i = 0; i < node.ButtonArray.length; i++) {
                 if (node.ButtonArray[i].ClickType.Button && !GamePublic.g_MouseMoveFlag && GamePublic.CollideRect(pos, node.ButtonArray[i].Rect)) {
                     switch (_ClickType) {
@@ -453,14 +447,14 @@ var C_Page = {
                             PageCommand.PageCommandProc(node.ButtonArray[i].ButtonInfo);
                             //node.ShowRoleItemArray();
                             return true;
-                    }
+                        };
                     break;
                 }
             }
             return false;
         }
-        return node;
+        return node;    
     }
 }
-
+    
 module.exports = C_Page;
