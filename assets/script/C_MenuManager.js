@@ -67,11 +67,9 @@ var C_MenuManager = {
                         }
                     }
                     break;
-
             }
 
         }
-
         return node;
     }
 }

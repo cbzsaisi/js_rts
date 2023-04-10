@@ -22,7 +22,6 @@ var C_MenuButton = {
         //node.ClickType = _ClickType;
         node.Rect = GamePublic.s_Rect(node.MenuInfo.Pos.x, node.MenuInfo.Pos.y, node.MainPage.MenuButtonWidth, node.MainPage.MenuButtonHeight);
 
-
         node.Delete = function () {
             node.ShowSelectNode.removeChild(node.Node);
             node.MainPage.Node.removeChild(node.ShowSelectNode);
@@ -97,15 +96,15 @@ var C_Menu = {
             //var Text = C_Text.New(GamePublic.s_Rect(0,0,100,20),"1test",cc.Color.WHITE,13,node,false);
             //node.ObjArray.push(Text);
 
-            var MenuButton = C_MenuButton.New(GamePublic.s_MenuInfo({ x: 0, y: 0 }, "物品栏", "close", node.MenuNumber, node.MenuButtonNumber++, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.CallRoleItemPage, [], false), node);
+            var MenuButton = C_MenuButton.New(GamePublic.s_MenuInfo({ x: 0, y: 0 }, "物品栏", "close", node.MenuNumber, node.MenuButtonNumber++, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.CallRoleItemPage, [1], [], [], false), node);
             node.ObjArray.push(MenuButton);
 
-            var MenuButton2 = C_MenuButton.New(GamePublic.s_MenuInfo({ x: 0, y: 0 }, "角色属性", "close", node.MenuNumber, node.MenuButtonNumber++, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.CallRoleStatePage, [], false), node);
+            var MenuButton2 = C_MenuButton.New(GamePublic.s_MenuInfo({ x: 0, y: 0 }, "角色属性", "close", node.MenuNumber, node.MenuButtonNumber++, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.CallRoleStatePage, [1], [], [], false), node);
             node.ObjArray.push(MenuButton2);
 
-            var MenuButton3 = C_MenuButton.New(GamePublic.s_MenuInfo({ x: 0, y: 0 }, "商店交易", "close", node.MenuNumber, node.MenuButtonNumber++, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.CallRoleAndShopTradePage, [], false), node);
+            var MenuButton3 = C_MenuButton.New(GamePublic.s_MenuInfo({ x: 0, y: 0 }, "商店交易", "close", node.MenuNumber, node.MenuButtonNumber++, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.CallRoleAndShopTradePage, [1], [], [], false), node);
             node.ObjArray.push(MenuButton3);
-            var MenuButton4 = C_MenuButton.New(GamePublic.s_MenuInfo({ x: 0, y: 0 }, "测试测试测试测试", "close", node.MenuNumber, node.MenuButtonNumber++, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.CloseMenu, [], false), node);
+            var MenuButton4 = C_MenuButton.New(GamePublic.s_MenuInfo({ x: 0, y: 0 }, "测试测试测试测试", "close", node.MenuNumber, node.MenuButtonNumber++, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.CloseMenu, [1], [], [], false), node);
             node.ObjArray.push(MenuButton4);
 
 

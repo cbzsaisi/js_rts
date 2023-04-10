@@ -29,18 +29,18 @@ F_PageCommandProc.PageCommandProc = function(_Info) {
             break;
         case GamePublic.e_ButtonCommand.CallRoleItemPage:
             GamePublic.g_GameMenuManager.DelMenu(_Info.MainNumber);
-            GamePublic.g_GamePageManager.AddPage({ x: 400, y: 300 }, 'RoleItemPage', 1, {}, {});
+            GamePublic.g_GamePageManager.AddPage({ x: 400, y: 300 }, 'RoleItemPage', _Info.role_array, _Info.s_array, _Info.d_array);
             break;
         case GamePublic.e_ButtonCommand.CallRoleStatePage:
             GamePublic.g_GameMenuManager.DelMenu(_Info.MainNumber);
-            GamePublic.g_GamePageManager.AddPage({ x: 400, y: 300 }, 'RoleStatePage', 1, {}, {});
+            GamePublic.g_GamePageManager.AddPage({ x: 400, y: 300 }, 'RoleStatePage', _Info.role_array, _Info.s_array, _Info.d_array);
             break;
         case GamePublic.e_ButtonCommand.CallRoleAndShopTradePage:
             GamePublic.g_GameMenuManager.DelMenu(_Info.MainNumber);
-            GamePublic.g_GamePageManager.AddPage({ x: 400, y: 300 }, 'RoleAndShopTradePage', 1, {}, {});
+            GamePublic.g_GamePageManager.AddPage({ x: 400, y: 300 }, 'RoleAndShopTradePage', _Info.role_array, _Info.s_array, _Info.d_array);
             break;
         case GamePublic.e_ButtonCommand.CallInputValuePage:
-            GamePublic.g_GamePageManager.AddPage({ x: 500, y: 300 }, 'InputValuePage', 1, {}, {});
+            GamePublic.g_GamePageManager.AddPage({ x: 500, y: 300 }, 'InputValuePage', _Info.role_array, _Info.s_array, _Info.d_array);
             break;
         case GamePublic.e_ButtonCommand.CallMainMenu:
             if (GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0) GamePublic.g_GameMenuManager.AddMenu({ x: 300, y: 400 }, 'type');

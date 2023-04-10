@@ -35,8 +35,8 @@ var C_GameRunUi = {
                 {
                     var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 150, y: 150 }, GamePublic.s_ButtonObjInfo("Itemimage001", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.UiStaticButton, GamePublic.e_ButtonCommand.CallMainMenu, [], null), node, { Button: true, Move: false });
                     node.StaticButton.push(Button);
-                    // var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 750, y: 150 }, GamePublic.s_ButtonObjInfo("Itemimage001", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.UiStaticButton, GamePublic.e_ButtonCommand.BuildPlace, GamePublic.e_BuildName.SmallHumanBuild, null), node, { Button: true, Move: false });
-                    // node.DynamicButton.push(Button);
+                    var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 750, y: 150 }, GamePublic.s_ButtonObjInfo("Itemimage001", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.UiStaticButton, GamePublic.e_ButtonCommand.BuildPlace, GamePublic.e_BuildName.SmallHumanBuild, null), node, { Button: true, Move: false });
+                    node.DynamicButton.push(Button);
                     break;
                 }
         }

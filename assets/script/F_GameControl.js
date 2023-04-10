@@ -41,17 +41,17 @@ C_GameControl.MapTiledCoverCheck = function (_pos, _Map,_Size) { //建筑占地�
 }
 
 C_GameControl.ControlMouseLeftDownCall = function (_pos) {
-    //console.log(_pos);
-    // if (GamePublic.g_MouseRightFlag) return;
-    // GamePublic.g_MouseLeftFlag ? GamePublic.g_MouseLeftFlag = false : GamePublic.g_MouseLeftFlag = true;
-    // GamePublic.g_LeftKeyStartPos = GamePublic.s_Vec2d(_pos.x, _pos.y);
-    // GamePublic.g_MoveStartPos = GamePublic.s_Vec2d(_pos.x, _pos.y);
-    // if (GamePublic.g_GamePageManager.PageNumber) {
-    //     GamePublic.g_GamePageManager.PageButtonCheck(_pos, GamePublic.e_ClickType.LeftDown);
-    // }
-    // //alert(_pos.x);
-    // //alert(_pos.y);
-    // GamePublic.g_MouseMoveFlag = false;
+    console.log(_pos);
+    if (GamePublic.g_MouseRightFlag) return; //如果鼠标右键未放开 退出
+    GamePublic.g_MouseLeftFlag ? GamePublic.g_MouseLeftFlag = false : GamePublic.g_MouseLeftFlag = true;
+    GamePublic.g_LeftKeyStartPos = GamePublic.s_Vec2d(_pos.x, _pos.y); //鼠标左键开始坐标
+    GamePublic.g_MoveStartPos = GamePublic.s_Vec2d(_pos.x, _pos.y); //指针开始坐标
+    if (GamePublic.g_GamePageManager.PageNumber) {
+        GamePublic.g_GamePageManager.PageButtonCheck(_pos, GamePublic.e_ClickType.LeftDown);
+    }
+    //alert(_pos.x);
+    //alert(_pos.y);
+    GamePublic.g_MouseMoveFlag = false;
 }
 
 C_GameControl.ControlMouseRightDownCall = function (_pos) {
