@@ -27,11 +27,11 @@ var C_Page = {
         node.TextArray = [];
         node.PickObj = false;
         node.PickObjPage = null;
-        var Role = GamePublic.g_GameDataResManger.GetRole(node.RoleNumber);
         var CloseButton = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 0, y: 0 }, GamePublic.s_ButtonObjInfo("close", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.ClosePage, [], null), node, { Button: true, Move: false });
 
         switch (node.PageType) {
             case 'RoleItemPage': {
+                var Role = GamePublic.g_GameDataResManger.GetRole(node.RoleNumber);
                 node.PageBackDrop = PageSprite.New("StatePage", node, { x: 0, y: 0 }, cc.color(215, 215, 215, 255), { w: 400, h: 400 });
                 node.ButtonArray.push(CloseButton);
                 var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 200, y: 0 }, GamePublic.s_ButtonObjInfo("close", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.CallInputValuePage, [], null), node, { Button: true, Move: false });
@@ -63,6 +63,7 @@ var C_Page = {
                 break;
             }
             case 'RoleAndShopTradePage': {
+                var Role = GamePublic.g_GameDataResManger.GetRole(node.RoleNumber);
                 node.PageBackDrop = PageSprite.New("StatePage", node, { x: 0, y: 0 }, cc.color(215, 215, 215, 255), { w: 400, h: 400 });
                 node.ButtonArray.push(CloseButton);
                 var offx = 100; var offy = 150; var offw = 50; var offh = 40;
@@ -284,7 +285,6 @@ var C_Page = {
                 node.PickObjPage.SetPos(pos); //拖放物品
                 return true;
             } */
-            var Role = GamePublic.g_GameDataResManger.GetRole(node.RoleNumber);
             switch (_ClickType) {
                 case GamePublic.e_ClickType.LeftDown:{
                     for (var i = 0; i < node.RoleItemArray.length; i++) {
@@ -308,6 +308,7 @@ var C_Page = {
                                 var BarNum = node.RoleItemArray[i].ButtonInfo.BarNum;
                                 var PickBarNum = node.RoleItemArray[node.PickObj.PickNum].ButtonInfo.BarNum;
                                 var item = null;
+                                var Role = GamePublic.g_GameDataResManger.GetRole(node.RoleNumber);
                                 switch (node.PageType) {
                                     case 'RoleItemPage': {
                                         switch (node.RoleItemArray[i].ButtonInfo.BarType) {

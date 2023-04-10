@@ -48,9 +48,9 @@ var C_PageManager = {
                         if (node.PageArray[i].PageNumber == node.CurPageNumber && node.PageArray[i].CreateDone){// && !GamePublic.g_MouseMoveFlag) {
                             if (node.PageArray[i].ClickCheck(_Pos, _ClickType)) {
                                 //node.PickFlag = true;
-                                console.log("LeftUp点中")
+                                //console.log("LeftUp点中")
                             } else {
-                                console.log("LeftUp没有选中");
+                                //console.log("LeftUp没有选中");
                             }
                         }
                         if(node.PageArray[i])node.PageArray[i].CleanPick();

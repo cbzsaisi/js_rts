@@ -57,6 +57,7 @@ cc.Class({
     // onLoad () {},
 
     start() {
+        //cc.view.enableAntiAlias(false);
         //if (cc.sys.platform === cc.sys.WECHAT_GAME) wx.setPreferredFramesPerSecond(30)
         //if (cc.sys.isBrowser && cc.sys.os === cc.sys.OS_IOS) {}
         cc.view.enableRetina(false);
@@ -73,6 +74,8 @@ cc.Class({
         GamePublic.g_MainCamera = this.mainCamera;
         this.node.is3DNode = true;
         GamePublic.g_winSize = cc.winSize;
+        GamePublic.g_GameRunUi = null;        
+        GamePublic.g_UserPicklObj = {Type:GamePublic.e_UserControlType.Non};
 
         //初始显示节点
         this.Page_sceen_root = new cc.Node();
@@ -97,14 +100,10 @@ cc.Class({
         GamePublic.g_MoveOffLast = GamePublic.s_Vec2d(0, 0);
         GamePublic.g_GameRandom = g_MathLib.Random.New();
         
-        // GamePublic.g_SelectRoleArray = [];
-        // GamePublic.g_RoleSelectStaus = GamePublic.e_SelectStaus.NonSelect;
-
-        
-   
+        GamePublic.g_SelectRoleArray = [];
+        GamePublic.g_RoleSelectStaus = GamePublic.e_SelectStaus.NonSelect;
         // GamePublic.g_ItemManager = ItemManager.New();
         // GamePublic.g_GameLastTime = new Date().getTime();
-        
         //GamePublic.g_UiCamera = this.UiCamera;
         // //var qu = cc.quat(0, 0, 0).fromEuler({ x: -20, y: 0, z: 0 });
         // //this.Map_sceen_root.position={x:-480,y:-320,z:0};
@@ -127,16 +126,12 @@ cc.Class({
         // GamePublic.g_ShopManager = ShopManager.New();
         // GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 1, GamePublic.g_ShopManager.StoreNum, "Shop");
         // GamePublic.g_ShopManager.AddGoldToStore(GamePublic.g_ShopManager.GetStore(1).ItemBar, 200);
-        // GamePublic.g_BuildManager = BuildManager.New();
+        GamePublic.g_BuildManager = BuildManager.New();
         // //GamePublic.g_Build = Building.New();
         // //console.log(GamePublic.g_BuildManager.GetBuildSize(GamePublic.e_BuildName.SmallHumanBuild));
 
-        GamePublic.g_GameRunUi = null;
-        // this.Page_sceen_root.group ="default";
         
-        // GamePublic.g_UserPicklObj = {Type:GamePublic.e_UserControlType.Non};
 
-        
         if (cc.sys.capabilities.mouse) {
             this.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
                 switch (event.getButton()) {
@@ -216,12 +211,12 @@ cc.Class({
             cc.game.on(cc.game.EVENT_GAME_INITED, () => {
                 cc.game.on(cc.game.EVENT_SHOW, () => {
                     console.log("游戏进入前台");
-                    cc.sys.__audioSupport.context.resume();
+                    //cc.sys.__audioSupport.context.resume();
                 });
         
                 cc.game.on(cc.game.EVENT_HIDE, () => {
                     console.log("游戏进入后台");
-                    cc.sys.__audioSupport.context.suspend();
+                    //cc.sys.__audioSupport.context.suspend();
                 });
             })
         }
@@ -281,7 +276,7 @@ cc.Class({
     },
 
     update(dt) {
-        // var self = this;
+        //console.log(cc.view.getCanvasSize());
         var CurTime = new Date().getTime();
         GamePublic.g_GameTimeDt = CurTime - GamePublic.g_GameLastTime;
         GamePublic.g_GameLastTime = CurTime;
