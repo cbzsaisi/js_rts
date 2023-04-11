@@ -40,6 +40,26 @@ C_GameControl.MapTiledCoverCheck = function (_pos, _Map,_Size) { //建筑占地�
     return false;
 }
 
+C_GameControl.GetMapXY = function(_pos){
+    //console.log(_pos);
+    var pos = GamePublic.s_Vec2d((_pos.x - GamePublic.g_MoveOff.x) / (GamePublic.e_MapTilePixel.width * 0.5 * GamePublic.g_SceenScale),
+        (_pos.y - GamePublic.g_MoveOff.y) / (GamePublic.e_MapTilePixel.height * 0.5 * GamePublic.g_SceenScale));
+    if (pos.x == 0) {
+        pos.x = pos.y / 2;
+        pos.y = pos.y / 2;
+        console.log("x = 0");
+    } else {
+        pos.y = (pos.y - pos.x) / 2;
+        pos.x = pos.x + pos.y;
+    }
+    pos.x > 0 ? pos.x += 0.5 : pos.x -= 0.5;
+    pos.y > 0 ? pos.y += 0.5 : pos.y -= 0.5;
+    pos.x = parseInt(pos.x);
+    pos.y = parseInt(pos.y);
+    console.log(pos);
+    return pos;
+}
+
 C_GameControl.ControlMouseLeftDownCall = function (_pos) {
     if (GamePublic.g_MouseRightFlag) return; //如果鼠标右键未放开 退出
     GamePublic.g_MouseLeftFlag ? GamePublic.g_MouseLeftFlag = false : GamePublic.g_MouseLeftFlag = true;
@@ -72,6 +92,7 @@ C_GameControl.ControlMouseMiddleUpCall = function (_pos) {
 }
 
 C_GameControl.ControlMouseLeftUpCall = function (_pos) {
+    //C_GameControl.GetMapXY(_pos);
     var ControlState = GamePublic.e_ControlState.Non;
     if(GamePublic.g_UserPicklObj.Type == GamePublic.e_UserControlType.BuildPlace){
         GamePublic.g_Active_Map.MapTiledColorShow(false,null);
@@ -89,7 +110,6 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
         }
     }
     if (GamePublic.g_MouseMoveFlag){
-        var MoveOffLast = GamePublic.g_LeftKeyStartPos;
         var SelectFlag = false;
         //选择框
         if (GamePublic.g_MoveSelectEndPos && GamePublic.g_RoleSelectStaus == GamePublic.e_SelectStaus.NonSelect) {
@@ -209,7 +229,6 @@ C_GameControl.ControlMouseRightUpCall = function (_pos) {
 }
 
 C_GameControl.ControlMouseMoveCall = function (_pos) {
-    //console.log(_pos.x,_pos.y);
     //var pos = GamePublic.s_Vec2d(0, 0);
     //let camera = cc.find('New Camera').getComponent(cc.Camera);
     //GamePublic.g_MainCamera.getComponent(cc.Camera).getCameraToWorldPoint(_pos,pos); //converToWorldSpaceAR
@@ -232,6 +251,7 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
         GamePublic.g_GamePageManager.PageButtonCheck(_pos, GamePublic.e_ClickType.Move);
     } else if (GamePublic.g_Active_Map && GamePublic.g_MouseLeftFlag) { //鼠标按下状态
         var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map); //检测点击的地图块
+        console.log(mappos);
         if (mappos.x >= 0 && mappos.y >= 0 && mappos.x < GamePublic.g_Active_Map.v_MapSize.x && mappos.y < GamePublic.g_Active_Map.v_MapSize.y) {
             if (!GamePublic.g_MoveSelectStartPos) {
                 GamePublic.g_MoveSelectStartPos = GamePublic.s_Vec2d(mappos.x, mappos.y);
@@ -279,8 +299,10 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
         }
         GamePublic.g_MoveEndPos = GamePublic.s_Vec2d(_pos.x, _pos.y);
     }
-    
-    GamePublic.g_MouseMoveFlag = true;
+    if(GamePublic.g_MouseLeftFlag) {
+        if(Math.abs(GamePublic.g_LeftKeyStartPos.x -_pos.x) > 3 || Math.abs(GamePublic.g_LeftKeyStartPos.y - _pos.y) > 3){
+            GamePublic.g_MouseMoveFlag = true;}
+        } else { GamePublic.g_MouseMoveFlag = true; }
     GamePublic.g_MouseStopTick = 0;
     //console.log(_pos);
 }

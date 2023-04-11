@@ -69,5 +69,4 @@ var C_Button = {
     }
 }
 
-
 module.exports = C_Button;

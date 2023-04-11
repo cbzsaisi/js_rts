@@ -53,7 +53,7 @@ var C_MapTile = {
                 case GamePublic.e_ObjType.MapTileResTree1:
                     var TileRes = C_MapTile.New("MapTiledSprite002", node.v_MainMap, node.v_NodeMapPos);
                     TileRes.v_HeigthOffset = 0.4;
-                    TileRes.v_ShowLevel = 2;
+                    TileRes.v_ShowLevel = 5;
                     TileRes.v_MapPassStatus = GamePublic.e_RolePassStatu.nopass;
                     node.v_TileResArray.push(TileRes);
                     break;
@@ -118,17 +118,15 @@ var C_MapTile = {
         node.SetSceenPos = function (_pos) {
             node.v_SpritePos = GamePublic.s_Vec2d((node.v_NodeMapPos.x - node.v_NodeMapPos.y) * (GamePublic.e_MapTilePixel.width * 0.5) * GamePublic.g_SceenScale,
                 (node.v_NodeMapPos.x + node.v_NodeMapPos.y) * (GamePublic.e_MapTilePixel.height * 0.5) * GamePublic.g_SceenScale + (GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale) * 0.5);
-
             // node.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.k_SpriteSize.x * GamePublic.g_SceenScale),
             //     _pos.y * (node.k_SpriteSize.y * GamePublic.g_SceenScale));
             if (node.v_TileSprite) {
                 node.v_TileSprite.setPosition(node.v_SpritePos);
-                if(node.v_ShowLevel > 1)
+                if(node.v_ShowLevel > 4)
                 node.v_TileSprite.zIndex=((node.v_MainMap.v_MapSize.x * node.v_MainMap.v_MapSize.y)-(node.v_NodeMapPos.x + node.v_NodeMapPos.y));
             }
             node.v_Rect = GamePublic.s_Rect(node.v_SpritePos.x, node.v_SpritePos.y, node.v_SpritePos.x + node.k_SpriteSize.x, node.v_SpritePos.y + node.k_SpriteSize.y);
-            //if (this.v_TileSprite) this.v_TileSprite.setScale(g_MapScale);
-
+            //if (this.v_TileSprite) this.v_TileSprite.setScale(g_SceenScale);
         };
 
         node.MyUpdate = function () {

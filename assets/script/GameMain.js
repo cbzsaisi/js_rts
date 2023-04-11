@@ -220,10 +220,10 @@ cc.Class({
             })
         }
 
-        this.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
-            //console.log("Location:",Math.round(event.getLocation().x),Math.round(event.getLocation().y));
-            GameControl.ControlMouseMoveCall(event.getLocation())
-        }, this);
+        // this.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
+        //     //console.log("Location:",Math.round(event.getLocation().x),Math.round(event.getLocation().y));
+        //     GameControl.ControlMouseMoveCall(event.getLocation())
+        // }, this);
 
 
     //     let supportTouches = ('touches' in cc.sys.capabilities);

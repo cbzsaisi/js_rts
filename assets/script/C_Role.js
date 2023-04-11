@@ -214,7 +214,7 @@ var C_Role = {
                 - (node.RoleInfo.v_RoleMapPos.x + node.RoleInfo.v_RoleMapPos.y));
             if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.v_Sprite.zIndex = zindex;
             if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.v_Sprite.setScale(node.RoleGameInfo.v_SpriteScale);
-            //if (this.v_TileSprite) this.v_TileSprite.setScale(g_MapScale);
+            //if (this.v_TileSprite) this.v_TileSprite.setScale(g_SceenScale);
         };
 
         node.SetMapPos = function (_mappos) {
