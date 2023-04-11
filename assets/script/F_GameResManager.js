@@ -37,7 +37,7 @@ F_GameResManage.FileResData = function(_Info,_Type) {
                     s_FileResData.Info.LoadDone = true; 
                 });
             };
-        break;
+            break;
         }
         case "3d":{
             s_FileResData.LoadRes = function(){
@@ -46,10 +46,9 @@ F_GameResManage.FileResData = function(_Info,_Type) {
                     s_FileResData.Info.LoadDone = true; 
                 });
             };
-            break;
-            }
+            break;   
         }
-    
+    }
     s_FileResData.LoadRes();
     return s_FileResData;
 }
@@ -66,6 +65,17 @@ F_GameResManage.LoadResToFile = function(_FileArray,_Type){
             for(var i in _FileArray){
                 var res = this.FileResData(_FileArray[i],_Type)
             }        
+        }
+        break;
+        case "2DMapTile":{
+            cc.resources.load("zhu", cc.SpriteAtlas, function (err, atlas) {
+                for(var i in _FileArray){
+                    var sprite = new cc.Node();
+                    sprite.addComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame(_FileArray[i].FileName)
+                    _FileArray[i].FileData = sprite;
+                    _FileArray[i].LoadDone = true;
+                } 
+            });    
         }
         break;
     }

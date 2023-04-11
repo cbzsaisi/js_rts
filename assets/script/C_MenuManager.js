@@ -10,9 +10,9 @@ var C_MenuManager = {
         node.CurMenuNumber = 0;
        
         node.AddMenu = function (_pos,_MenuType){
-            var Menu = new MenuClass.New(_pos,_MenuType,{},node.MainNode,++node.MenuNumber);
+            var Menu = MenuClass.New(_pos,_MenuType,{},node.MainNode,node.MenuNumber + 1);
             node.MenuArray.push(Menu);
-            node.CurMenuNumber = node.MenuNumber;
+            node.CurMenuNumber = ++node.MenuNumber;
         }
 
         node.Update = function(){

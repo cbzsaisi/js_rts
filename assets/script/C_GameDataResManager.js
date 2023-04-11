@@ -24,6 +24,7 @@ var C_GameDataResManager = {
                 }
             }
             console.log("MapArry中查找失败");
+            return null;
         }
 
         GameDataRes.GetRole = function(_num) {
@@ -33,6 +34,7 @@ var C_GameDataResManager = {
                 }
             }
             console.log("RoleArry中查找失败");
+            return null;
         }
 
         GameDataRes.CheckSelect = function(_MapArry, _RoleArry, _Pos) {
@@ -50,7 +52,6 @@ var C_GameDataResManager = {
             }
             return { ObjType: "non" };
         }
-
         return GameDataRes;
     }
 }

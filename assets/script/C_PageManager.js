@@ -11,9 +11,10 @@ var C_PageManager = {
         node.PickFlag = false;
        
         node.AddPage = function (_pos,_PageType,_RoleNumber,_SrcArray,_DesArray){
-            var page = new PageClass.New(_pos,_PageType,_RoleNumber,_SrcArray,_DesArray,node.MainNode,++node.PageNumber);
+            var page = PageClass.New(_pos,_PageType,_RoleNumber,_SrcArray,_DesArray,node.MainNode,node.PageNumber + 1);
+            if(!page) return null;
             node.PageArray.push(page);
-            node.CurPageNumber = node.PageNumber;
+            node.CurPageNumber = ++node.PageNumber;
         }
 
         node.Update = function(){

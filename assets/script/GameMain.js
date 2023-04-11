@@ -72,7 +72,7 @@ cc.Class({
         GamePublic.g_GameTimeDt = 0;
         GamePublic.g_GameMain = this;
         GamePublic.g_MainCamera = this.mainCamera;
-        this.node.is3DNode = true;
+        //this.node.is3DNode = true;
         GamePublic.g_winSize = cc.winSize;
         GamePublic.g_GameRunUi = null;        
         GamePublic.g_UserPicklObj = {Type:GamePublic.e_UserControlType.Non};
@@ -88,7 +88,7 @@ cc.Class({
         this.DrawNode = this.Draw_sceen_root.addComponent(cc.Graphics);
 
         this.Map_sceen_root = new cc.Node();
-        this.Map_sceen_root.is3DNode = true;
+        //this.Map_sceen_root.is3DNode = true;
         this.node.addChild(this.Map_sceen_root, 5);
 
         //初始指针坐标
@@ -119,6 +119,7 @@ cc.Class({
         GamePublic.g_Active_Map = map;
         GameResManager.LoadResToFile(GamePublic.g_resources1, "2d");
         GameResManager.LoadResToFile(GamePublic.g_resources3d1, "3d");
+        GameResManager.LoadResToFile(GamePublic.g_resources2DMapTile, "2DMapTile");
         
         GamePublic.g_GamePageManager = PageManager.New(this.Page_sceen_root);
         GamePublic.g_GameMenuManager = MenuManager.New(this.Page_sceen_root);
@@ -129,9 +130,7 @@ cc.Class({
         GamePublic.g_BuildManager = BuildManager.New();
         // //GamePublic.g_Build = Building.New();
         // //console.log(GamePublic.g_BuildManager.GetBuildSize(GamePublic.e_BuildName.SmallHumanBuild));
-
         
-
         if (cc.sys.capabilities.mouse) {
             this.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
                 switch (event.getButton()) {
@@ -289,6 +288,9 @@ cc.Class({
             for (var i in GamePublic.g_resources3d1) {
                 if (!GamePublic.g_resources3d1[i].LoadDone) GamePublic.g_GameResLoadFinish = false;
             }
+            for (var i in GamePublic.g_resources2DMapTile) {
+                if (!GamePublic.g_resources2DMapTile[i].LoadDone) GamePublic.g_GameResLoadFinish = false;
+            }
          } else {
             if (!this.SceenCreate) {
                 var Rolenum = 0;
@@ -305,8 +307,6 @@ cc.Class({
             }
         }
         if (GamePublic.g_GameResLoadFinish) {
-            
-
             if (!GamePublic.g_Cursor) GamePublic.g_Cursor = CursorClass.New(this);
             // GamePublic.g_MouseStopTick > 1000 ? GamePublic.g_MouseStopTick = 0 : GamePublic.g_MouseStopTick++;
             this.DrawNode.clear();
@@ -352,11 +352,12 @@ cc.Class({
             //                 GamePublic.g_TipPage.SetShow(false);
             //             }
             //         }
+                
+                }
                 if (GamePublic.g_GamePageManager) GamePublic.g_GamePageManager.Update();
                 if (GamePublic.g_GameMenuManager) GamePublic.g_GameMenuManager.Update();
             //         if (GamePublic.g_TipPage) GamePublic.g_TipPage.Update();
                 if (GamePublic.g_GameRunUi) GamePublic.g_GameRunUi.Update();
-                }
             }
         }
         // /*g_temp>360?g_temp = 0:g_temp++;

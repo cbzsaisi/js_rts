@@ -230,7 +230,7 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
         GamePublic.g_GameMenuManager.MenuButtonCheck(_pos, GamePublic.e_ClickType.Move);
     } else if (GamePublic.g_GamePageManager.PageNumber) {
         GamePublic.g_GamePageManager.PageButtonCheck(_pos, GamePublic.e_ClickType.Move);
-    } else if (GamePublic.g_MouseLeftFlag) { //鼠标按下状态
+    } else if (GamePublic.g_Active_Map && GamePublic.g_MouseLeftFlag) { //鼠标按下状态
         var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map); //检测点击的地图块
         if (mappos.x >= 0 && mappos.y >= 0 && mappos.x < GamePublic.g_Active_Map.v_MapSize.x && mappos.y < GamePublic.g_Active_Map.v_MapSize.y) {
             if (!GamePublic.g_MoveSelectStartPos) {

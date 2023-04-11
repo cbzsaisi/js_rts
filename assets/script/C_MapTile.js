@@ -60,12 +60,9 @@ var C_MapTile = {
             }
         }
         node.LoadSpriteRes = function () {
-            //console.log(node.v_TileName);
             for (var i in GamePublic.g_resources3d1) {
                 if (GamePublic.g_resources3d1[i].FileName == node.v_TileName) {
-                    //console.log(GamePublic.g_resources3d1[i].FileName);
                     node.v_TileSprite = cc.instantiate(GamePublic.g_resources3d1[i].FileData);
-                    //node.v_TileSprite.getComponent(cc.MeshRenderer).opacity = 100;
                     node.v_TileType = GamePublic.e_ObjType.MapTileLand;
                     node.k_SpriteSize.x = GamePublic.e_MapTilePixel.width;
                     node.k_SpriteSize.y = GamePublic.e_MapTilePixel.height;
@@ -92,6 +89,21 @@ var C_MapTile = {
                 });
             } */
         };
+        node.Load2DSpriteRes = function () {
+            for (var i in GamePublic.g_resources2DMapTile) {
+                if (GamePublic.g_resources2DMapTile[i].FileName == node.v_TileName) {
+                    node.v_TileSprite = cc.instantiate(GamePublic.g_resources2DMapTile[i].FileData);
+                    //node.v_TileSprite.opacity = 100;
+                    node.v_TileType = GamePublic.e_ObjType.MapTileLand;
+                    node.k_SpriteSize.x = GamePublic.e_MapTilePixel.width;
+                    node.k_SpriteSize.y = GamePublic.e_MapTilePixel.height;
+                    node.SetSceenPos(node.v_NodeMapPos);
+                    node.v_MainMap.v_MapShowNode.addChild(node.v_TileSprite, ((node.v_MainMap.v_MapSize.x * node.v_MainMap.v_MapSize.y)-(node.v_NodeMapPos.x + node.v_NodeMapPos.y)));
+                    node.v_Show = true;
+                    break;
+                }
+            }
+        }
 
         node.UnLoadSpriteRes = function () {
             if (node.v_TileSprite) {
@@ -104,12 +116,15 @@ var C_MapTile = {
         };
 
         node.SetSceenPos = function (_pos) {
-            node.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.k_SpriteSize.x * GamePublic.g_SceenScale),
-                _pos.y * (node.k_SpriteSize.y * GamePublic.g_SceenScale));
+            node.v_SpritePos = GamePublic.s_Vec2d((node.v_NodeMapPos.x - node.v_NodeMapPos.y) * (GamePublic.e_MapTilePixel.width * 0.5) * GamePublic.g_SceenScale,
+                (node.v_NodeMapPos.x + node.v_NodeMapPos.y) * (GamePublic.e_MapTilePixel.height * 0.5) * GamePublic.g_SceenScale + (GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale) * 0.5);
+
+            // node.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.k_SpriteSize.x * GamePublic.g_SceenScale),
+            //     _pos.y * (node.k_SpriteSize.y * GamePublic.g_SceenScale));
             if (node.v_TileSprite) {
-                this.v_TileSprite.setPosition(node.v_SpritePos);
-                //if(node.v_ShowLevel > 1)
-                //this.v_TileSprite.zIndex=((node.v_MainMap.v_MapSize.x * node.v_MainMap.v_MapSize.y)-(node.v_NodeMapPos.x + node.v_NodeMapPos.y));
+                node.v_TileSprite.setPosition(node.v_SpritePos);
+                if(node.v_ShowLevel > 1)
+                node.v_TileSprite.zIndex=((node.v_MainMap.v_MapSize.x * node.v_MainMap.v_MapSize.y)-(node.v_NodeMapPos.x + node.v_NodeMapPos.y));
             }
             node.v_Rect = GamePublic.s_Rect(node.v_SpritePos.x, node.v_SpritePos.y, node.v_SpritePos.x + node.k_SpriteSize.x, node.v_SpritePos.y + node.k_SpriteSize.y);
             //if (this.v_TileSprite) this.v_TileSprite.setScale(g_MapScale);
@@ -125,7 +140,7 @@ var C_MapTile = {
                     this.UnLoadSpriteRes();
                 }
             } else if (!node.v_TileSprite && sceen.x < GamePublic.g_winSize.width + 70 && sceen.x > -70 && sceen.y < GamePublic.g_winSize.height + 70 && sceen.y > -70) {
-                this.LoadSpriteRes();
+                this.Load2DSpriteRes();
             }
             for (var i = 0; i < node.v_TileResArray.length; i++) {
                 node.v_TileResArray[i].MyUpdate();

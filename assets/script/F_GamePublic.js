@@ -340,6 +340,11 @@ var G_Public = {
         height: 15,
     },
 
+    e_MapTilePixel: {   //游戏状态枚举
+        width: 128,
+        height: 64,
+    },
+
     e_ObjType: {
         MapTileLand: 1,
         MapTileResFlower1: 2,
@@ -620,6 +625,22 @@ var G_Public = {
         {FileName:"Role001",LoadDone:false,FileData:false},
         {FileName:"MapTiledSprite003",LoadDone:false,FileData:false},
     ],
+
+    g_resources2DMapTile : [
+        {FileName:"14",LoadDone:false,FileData:false},
+        {FileName:"001",LoadDone:false,FileData:false},
+        {FileName:"1001",LoadDone:false,FileData:false},
+        {FileName:"1101",LoadDone:false,FileData:false},
+        {FileName:"2",LoadDone:false,FileData:false},
+        {FileName:"3",LoadDone:false,FileData:false},
+        {FileName:"4",LoadDone:false,FileData:false},
+        {FileName:"5",LoadDone:false,FileData:false},
+        {FileName:"tree101",LoadDone:false,FileData:false},
+        {FileName:"zhu01",LoadDone:false,FileData:false},
+        {FileName:"zhu02",LoadDone:false,FileData:false},
+        {FileName:"zhu03",LoadDone:false,FileData:false},
+    ],
+
     g_GameDate : null,
     g_GameLastTime : null,
     g_GameTimeDt : null,
