@@ -12,7 +12,6 @@ var ResArray = [
     }
 ]
 
-
 function F_GameResManage() {
 };
 
@@ -23,7 +22,6 @@ F_GameResManage.getSpriteResData = function (_name) {
             return ResArray[i];
         }
     }
-
 }
 
 F_GameResManage.FileResData = function(_Info,_Type) {
@@ -48,6 +46,24 @@ F_GameResManage.FileResData = function(_Info,_Type) {
             };
             break;   
         }
+        case "spine":{
+            s_FileResData.LoadRes = function(){
+                var spineNode = new cc.Node();
+                var skeleton = spineNode.addComponent(sp.Skeleton);
+                cc.resources.load("spine/raptor-pro", sp.SkeletonData, (error, assets) => {
+                    console.log(error);
+                    if (error == null) {
+                        //设置数据
+                        skeleton.skeletonData = assets;
+                        //播放默认动画
+                        skeleton.setAnimation(0, "walk", true);
+                    }
+                });
+                s_FileResData.Info.FileData = spineNode;
+                s_FileResData.Info.LoadDone = true; 
+            };
+        }
+        break;
     }
     s_FileResData.LoadRes();
     return s_FileResData;

@@ -16,6 +16,7 @@ var GameDataResManager = require("./C_GameDataResManager");
 var g_MathLib = require("./C_MathLib");
 var GameControl = require("./F_GameControl");
 var RoleClass = require("./C_Role");
+var RoleSpineClass = require("./C_RoleSpine");
 var PageManager = require("./C_PageManager");
 var MenuManager = require("./C_MenuManager");
 var ItemManager = require("./C_ItemManager");
@@ -72,7 +73,6 @@ cc.Class({
         GamePublic.g_GameTimeDt = 0;
         GamePublic.g_GameMain = this;
         GamePublic.g_MainCamera = this.mainCamera;
-        //this.node.is3DNode = true;
         GamePublic.g_winSize = cc.winSize;
         GamePublic.g_GameRunUi = null;        
         GamePublic.g_UserPicklObj = {Type:GamePublic.e_UserControlType.Non};
@@ -120,10 +120,11 @@ cc.Class({
         GameResManager.LoadResToFile(GamePublic.g_resources1, "2d");
         GameResManager.LoadResToFile(GamePublic.g_resources3d1, "3d");
         GameResManager.LoadResToFile(GamePublic.g_resources2DMapTile, "2DMapTile");
+        GameResManager.FileResData("spineboy","spine");
         
         GamePublic.g_GamePageManager = PageManager.New(this.Page_sceen_root);
         GamePublic.g_GameMenuManager = MenuManager.New(this.Page_sceen_root);
-        // GamePublic.g_TipPage = TipPageClass.New(this.Page_sceen_root);
+        GamePublic.g_TipPage = TipPageClass.New(this.Page_sceen_root);
         // GamePublic.g_ShopManager = ShopManager.New();
         // GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 1, GamePublic.g_ShopManager.StoreNum, "Shop");
         // GamePublic.g_ShopManager.AddGoldToStore(GamePublic.g_ShopManager.GetStore(1).ItemBar, 200);
@@ -220,10 +221,10 @@ cc.Class({
             })
         }
 
-        // this.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
-        //     //console.log("Location:",Math.round(event.getLocation().x),Math.round(event.getLocation().y));
-        //     GameControl.ControlMouseMoveCall(event.getLocation())
-        // }, this);
+        this.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
+            //console.log("Location:",Math.round(event.getLocation().x),Math.round(event.getLocation().y));
+            GameControl.ControlMouseMoveCall(event.getLocation())
+        }, this);
 
 
     //     let supportTouches = ('touches' in cc.sys.capabilities);
@@ -295,11 +296,11 @@ cc.Class({
             if (!this.SceenCreate) {
                 var Rolenum = 0;
                 var Buildnum = 0;
-                // for (let i = 0; i < 2; i++) {
-                //     for (let j = 0; j < 1; j++) {
-                //         var role = new RoleClass.New("role1", 1, GamePublic.s_Vec2d(i+5, j+5), ++Rolenum);
-                //     }
-                // }
+                for (let i = 0; i < 1; i++) {
+                    for (let j = 0; j < 1; j++) {
+                        var role = new RoleSpineClass.New("role1", 1, GamePublic.s_Vec2d(i+5, j+5), ++Rolenum);
+                    }
+                }
                 //var build = new Building.New("role1", ++Buildnum, 1, GamePublic.s_Vec2d(10, 5), []);
 
                 GamePublic.g_GameRunUi = GameRunUiClass.New({ x: 20, y: 20 }, "GameRunUi", 0, {}, {}, this.Page_sceen_root, 8);
@@ -356,7 +357,7 @@ cc.Class({
                 }
                 if (GamePublic.g_GamePageManager) GamePublic.g_GamePageManager.Update();
                 if (GamePublic.g_GameMenuManager) GamePublic.g_GameMenuManager.Update();
-            //         if (GamePublic.g_TipPage) GamePublic.g_TipPage.Update();
+                if (GamePublic.g_TipPage) GamePublic.g_TipPage.Update();
                 if (GamePublic.g_GameRunUi) GamePublic.g_GameRunUi.Update();
             }
         }

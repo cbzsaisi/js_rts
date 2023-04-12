@@ -129,8 +129,6 @@ var G_Public = {
         return RolePropertyData;
     },
 
-    
-
     s_RoleStar: function (_v_CurrentMap, _OMapPos, _DMapPos, _MapArray, _RoleNumber, _RolePassStatu) {
         var RoleStar = {};
         RoleStar.CurrentMap = _v_CurrentMap;
@@ -160,7 +158,6 @@ var G_Public = {
         }
         return this.scr;
     },
-
 
     GetAngle: function (_pos,_pos2){
         var  Angle = Math.atan2((_pos2.y-_pos.y),(_pos2.x-_pos.x));
@@ -639,6 +636,10 @@ var G_Public = {
         {FileName:"zhu01",LoadDone:false,FileData:false},
         {FileName:"zhu02",LoadDone:false,FileData:false},
         {FileName:"zhu03",LoadDone:false,FileData:false},
+    ],
+
+    g_resources2DMapTile : [
+        {FileName:"spineboy",LoadDone:false,FileData:false},
     ],
 
     g_GameDate : null,

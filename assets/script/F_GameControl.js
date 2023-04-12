@@ -157,14 +157,14 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
             var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map);
             //console.log(mappos);
             if (GamePublic.g_RoleSelectStaus == GamePublic.e_SelectStaus.NonSelect) {
-                for (var i = 0; i < GamePublic.g_GameDataResManger.RoleArray.length; i++) {
-                    if (C_GameControl.RoleRayCheck(_pos, GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber())) {
-                        var Role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber());
-                        GamePublic.g_SelectRoleArray.push(Role.RoleInfo.v_RoleNumber);
-                        Role.RoleGameInfo.v_RoleSelectFlag = true;
-                        break;
-                    }
-                }
+                // for (var i = 0; i < GamePublic.g_GameDataResManger.RoleArray.length; i++) {
+                //     if (C_GameControl.RoleRayCheck(_pos, GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber())) {
+                //         var Role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber());
+                //         GamePublic.g_SelectRoleArray.push(Role.RoleInfo.v_RoleNumber);
+                //         Role.RoleGameInfo.v_RoleSelectFlag = true;
+                //         break;
+                //     }
+                // }
                 if (GamePublic.g_SelectRoleArray.length) GamePublic.g_RoleSelectStaus = GamePublic.e_SelectStaus.MultiRole;
                 //GamePublic.g_ActiveRole = obj.Obj;
                 //GamePublic.g_RoleSelectStaus = GamePublic.e_SelectStaus.SingleRole;
@@ -251,7 +251,7 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
         GamePublic.g_GamePageManager.PageButtonCheck(_pos, GamePublic.e_ClickType.Move);
     } else if (GamePublic.g_Active_Map && GamePublic.g_MouseLeftFlag) { //鼠标按下状态
         var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map); //检测点击的地图块
-        console.log(mappos);
+        //console.log(mappos);
         if (mappos.x >= 0 && mappos.y >= 0 && mappos.x < GamePublic.g_Active_Map.v_MapSize.x && mappos.y < GamePublic.g_Active_Map.v_MapSize.y) {
             if (!GamePublic.g_MoveSelectStartPos) {
                 GamePublic.g_MoveSelectStartPos = GamePublic.s_Vec2d(mappos.x, mappos.y);
