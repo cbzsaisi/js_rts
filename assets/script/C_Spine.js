@@ -1,7 +1,7 @@
 var GamePublic = require("./F_GamePublic");
 
 var C_Spine = {
-    New: function (_SpineName, _MapNum, _MapPoint, _RoleNumber) {
+    New: function (_MainRole, _SpriteRes) {
         var node = {};
 
 

@@ -1,3 +1,5 @@
+var GamePublic = require("./F_GamePublic");
+
 var ResArray = [
     {
         name : "role1",
@@ -50,17 +52,18 @@ F_GameResManage.FileResData = function(_Info,_Type) {
             s_FileResData.LoadRes = function(){
                 var spineNode = new cc.Node();
                 var skeleton = spineNode.addComponent(sp.Skeleton);
-                cc.resources.load("spine/raptor-pro", sp.SkeletonData, (error, assets) => {
-                    console.log(error);
+                cc.resources.load(s_FileResData.Info.FileName, sp.SkeletonData, (error, assets) => {
                     if (error == null) {
                         //设置数据
                         skeleton.skeletonData = assets;
                         //播放默认动画
                         skeleton.setAnimation(0, "walk", true);
+                        s_FileResData.Info.FileData = spineNode;
+                        s_FileResData.Info.LoadDone = true; 
+                    }else{
+                        s_FileResData.Info.Loading = false;
                     }
                 });
-                s_FileResData.Info.FileData = spineNode;
-                s_FileResData.Info.LoadDone = true; 
             };
         }
         break;
@@ -92,6 +95,21 @@ F_GameResManage.LoadResToFile = function(_FileArray,_Type){
                     _FileArray[i].LoadDone = true;
                 } 
             });    
+        }
+        break;
+    }
+}
+
+F_GameResManage.LoadRes = function(_FileName,_Type){
+    switch (_Type){
+        case "spine":{
+            for(var i in GamePublic.g_resourcesSpineboy){
+                if(GamePublic.g_resourcesSpineboy[i].FileName == _FileName && GamePublic.g_resourcesSpineboy[i].Loading == false){
+                    this.FileResData(GamePublic.g_resourcesSpineboy[i],_Type)
+                    GamePublic.g_resourcesSpineboy[i].Loading = true;
+                    break;
+                }
+            }
         }
         break;
     }

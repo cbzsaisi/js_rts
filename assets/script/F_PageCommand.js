@@ -40,6 +40,7 @@ F_PageCommandProc.PageCommandProc = function(_Info) {
             GamePublic.g_GamePageManager.AddPage({ x: 400, y: 300 }, 'RoleAndShopTradePage', _Info.role_array, _Info.s_array, _Info.d_array);
             break;
         case GamePublic.e_ButtonCommand.CallInputValuePage:
+            GamePublic.g_GameMenuManager.DelMenu(_Info.MainNumber);
             GamePublic.g_GamePageManager.AddPage({ x: 500, y: 300 }, 'InputValuePage', _Info.role_array, _Info.s_array, _Info.d_array);
             break;
         case GamePublic.e_ButtonCommand.CallMainMenu:

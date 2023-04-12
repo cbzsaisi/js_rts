@@ -638,8 +638,8 @@ var G_Public = {
         {FileName:"zhu03",LoadDone:false,FileData:false},
     ],
 
-    g_resources2DMapTile : [
-        {FileName:"spineboy",LoadDone:false,FileData:false},
+    g_resourcesSpineboy : [
+        {FileName:"spineboy",LoadDone:false,FileData:false,Loading:false},
     ],
 
     g_GameDate : null,

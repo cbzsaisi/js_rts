@@ -120,7 +120,7 @@ cc.Class({
         GameResManager.LoadResToFile(GamePublic.g_resources1, "2d");
         GameResManager.LoadResToFile(GamePublic.g_resources3d1, "3d");
         GameResManager.LoadResToFile(GamePublic.g_resources2DMapTile, "2DMapTile");
-        GameResManager.FileResData("spineboy","spine");
+        GameResManager.LoadRes("spineboy","spine");
         
         GamePublic.g_GamePageManager = PageManager.New(this.Page_sceen_root);
         GamePublic.g_GameMenuManager = MenuManager.New(this.Page_sceen_root);

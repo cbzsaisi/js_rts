@@ -117,7 +117,6 @@ var C_RoleSpine = {
         node.RoleGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.RoleGameInfo.v_DrawNode, 2000);
 
         node.RoleInfo.v_SpriteAngle = { Def: 0, Cur: 0, Des: 0 };//角色朝向角度
-        node.RoleGameInfo.v_RoleSpriteLoad = true;
         //node.RoleInfo.v_RoleBag[3] = GamePublic.g_ItemManager.CreateItem(GamePublic.e_ItemName.Sword1);
         //node.RoleInfo.v_RoleBag[2] = GamePublic.g_ItemManager.CreateItem(GamePublic.e_ItemName.Gold);
         node.Create = function () {
@@ -148,9 +147,9 @@ var C_RoleSpine = {
         };
 
         node.LoadSpriteRes = function () {
-            for (var i in GamePublic.g_resources3d1) {
-                if (GamePublic.g_resources3d1[i].FileName == node.RoleGameInfo.v_SpriteData.spritename && GamePublic.g_resources3d1[i].LoadDone) {
-                    //node.RoleGameInfo.v_RoleSprite = g_3dSprite.New(node, GamePublic.g_resources3d1[i].FileData);
+            for (var i in GamePublic.g_resourcesSpineboy) {
+                if (GamePublic.g_resourcesSpineboy[i].FileName == node.RoleGameInfo.v_SpriteData.spritename && GamePublic.g_resourcesSpineboy[i].LoadDone) {
+                    node.RoleGameInfo.v_RoleSprite = g_Spine.New(node, GamePublic.g_resourcesSpineboy[i].FileData);
                     if (!node.RoleGameInfo.v_RoleCreate) {
                         node.Create();
                     }
@@ -242,13 +241,11 @@ var C_RoleSpine = {
         }
 
         node.MyUpdate = function () {
-            if (node.RoleGameInfo.v_RoleSpriteLoad) {
+            if (!node.RoleGameInfo.v_RoleCreate) {
                 if (!node.RoleGameInfo.v_RoleSprite) {
-                    //node.LoadSpriteRes();
-                } else if (!node.RoleGameInfo.v_RoleCreate) {
-                    //node.Create();
+                    node.LoadSpriteRes();
                 }
-            } else {
+                return;
             }
             node.RoleGameInfo.v_DtNumber++;
             if (node.RoleGameInfo.v_DtNumber >= (GamePublic.e_RoleSpeed.fps)) {
