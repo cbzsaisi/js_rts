@@ -298,7 +298,7 @@ cc.Class({
                 var Buildnum = 0;
                 for (let i = 0; i < 1; i++) {
                     for (let j = 0; j < 1; j++) {
-                        var role = new RoleSpineClass.New("role1", 1, GamePublic.s_Vec2d(i+5, j+5), ++Rolenum);
+                        var role = new RoleSpineClass.New("role2", 1, GamePublic.s_Vec2d(i+5, j+5), ++Rolenum);
                     }
                 }
                 //var build = new Building.New("role1", ++Buildnum, 1, GamePublic.s_Vec2d(10, 5), []);
@@ -330,9 +330,9 @@ cc.Class({
                             GamePublic.g_Active_Map.MapRoomArray[i][j].MyUpdate();
                         }
                     }
-            //         for (var i = 0; i < GamePublic.g_GameDataResManger.RoleArray.length; i++) {
-            //             GamePublic.g_GameDataResManger.RoleArray[i].obj.MyUpdate();
-            //         }
+                    for (var i = 0; i < GamePublic.g_GameDataResManger.RoleArray.length; i++) {
+                        GamePublic.g_GameDataResManger.RoleArray[i].obj.MyUpdate();
+                    }
                     this.GameMapUpdateNum = 0;
             //         /* if(GamePublic.g_TipPage.Show && GamePublic.g_MouseStopTick > 50){
             //             GamePublic.g_TipPage.SetShow(false);

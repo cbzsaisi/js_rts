@@ -123,7 +123,7 @@ var C_RoleSpine = {
             var obj = GamePublic.s_ObjInfo("Role", 1, node);
             GamePublic.g_GameDataResManger.AddRole(obj);
             //node.RoleGameInfo.v_RoleSprite.v_Sprite.opacity = 100;
-            //node.RoleGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.RoleGameInfo.v_RoleSprite, 2);
+            //node.RoleGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.RoleGameInfo.v_RoleSprite.v_Sprite, 2);
             node.SetSceenPos(node.RoleInfo.v_RoleMapPos);
             node.RoleGameInfo.v_SpriteShow = true;
             node.RoleGameInfo.v_SpriteScale = 10;
@@ -172,14 +172,13 @@ var C_RoleSpine = {
             node.RoleInfo.v_RoleMapPos = _pos;
             /*node.RoleGameInfo.v_SpritePos = GamePublic.s_Vec2d(Math.round((_pos.x - _pos.y + 1) * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.x * 0.5) * GamePublic.g_SceenScale),
             Math.round((_pos.y + _pos.x + 1) * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.y * 0.5) * GamePublic.g_SceenScale));*/
-            if(node.RoleGameInfo.v_SpritePos){
-                node.RoleGameInfo.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.x * GamePublic.g_SceenScale),
-                _pos.y * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.y * GamePublic.g_SceenScale));
-                if (node.RoleCommand.v_ActionEvent == GamePublic.e_RoleAction.walk) {
-                    node.RoleGameInfo.v_SpritePos.x += node.RoleCommand.v_ActionWaitTime * node.RoleGameInfo.v_MapOffset.x;
-                    node.RoleGameInfo.v_SpritePos.y += node.RoleCommand.v_ActionWaitTime * node.RoleGameInfo.v_MapOffset.y;
-                }
+            node.RoleGameInfo.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.x * GamePublic.g_SceenScale),
+            _pos.y * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.y * GamePublic.g_SceenScale));
+            if (node.RoleCommand.v_ActionEvent == GamePublic.e_RoleAction.walk) {
+                node.RoleGameInfo.v_SpritePos.x += node.RoleCommand.v_ActionWaitTime * node.RoleGameInfo.v_MapOffset.x;
+                node.RoleGameInfo.v_SpritePos.y += node.RoleCommand.v_ActionWaitTime * node.RoleGameInfo.v_MapOffset.y;
             }
+        
 
             if (node.RoleGameInfo.v_RoleSprite) {
                 node.RoleGameInfo.v_RoleSprite.v_Sprite.setPosition(GamePublic.s_Vec2d(0, 0));
@@ -206,8 +205,9 @@ var C_RoleSpine = {
                     }
                 }
                 var qu = cc.quat(0, 0, 0).fromEuler({ x: 90, y: 0, z: node.RoleInfo.v_SpriteAngle.Cur });
-                node.RoleGameInfo.v_RoleSprite.v_Sprite.setRotation(qu);
+                //node.RoleGameInfo.v_RoleSprite.v_Sprite.setRotation(qu);
                 node.RoleGameInfo.v_RoleSprite.v_Sprite.setPosition(node.RoleGameInfo.v_SpritePos);
+                //node.RoleGameInfo.v_RoleSprite.v_Sprite.setScale(0.2);
                 node.RoleGameInfo.v_DrawNode.setPosition(node.RoleGameInfo.v_SpritePos);
             }
 
@@ -263,10 +263,10 @@ var C_RoleSpine = {
                 }
                 //else if(node.RoleCommand.v_ActionLoop == true){    
                 else if (node.RoleGameInfo.v_RoleSprite) {
-                    var seft = node.RoleGameInfo.v_RoleSprite.v_Sprite.getComponent(cc.SkeletonAnimation);
-                    seft.stop();
-                    node.RoleCommand.v_ActionEvent = GamePublic.e_RoleAction.def;
-                    node.RoleCommand.v_ActionLoop = false;
+                    // var seft = node.RoleGameInfo.v_RoleSprite.v_Sprite.getComponent(cc.SkeletonAnimation);
+                    // seft.stop();
+                    // node.RoleCommand.v_ActionEvent = GamePublic.e_RoleAction.def;
+                    // node.RoleCommand.v_ActionLoop = false;
                     //if(this.v_NodeActionCommandState1 == e_ActionCommandState.Run)this.v_NodeActionCommandState1 = e_ActionCommandState.End;
                     //空闲
                     //this.v_ActionCommand = null;

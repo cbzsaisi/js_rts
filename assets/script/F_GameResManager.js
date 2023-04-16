@@ -11,6 +11,17 @@ var ResArray = [
                 time : 3
             }
         ]
+    },
+    {
+        name : "role2",
+        spritename : "spineboy",
+        actionarray : [
+            {
+                action_name : "walk",
+                action :"a_a",
+                time : 3
+            }
+        ]
     }
 ]
 
