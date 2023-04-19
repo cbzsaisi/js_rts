@@ -7,98 +7,98 @@ var g_RoleManager = require("./F_RoleManager");
 var g_Spine = require("./C_Spine");
 
 var C_RoleSpine = {
-    New: function (_RoleResName, _MapNum, _MapPoint, _RoleNumber) {
+    New: function(_RoleResName, _MapNum, _MapPoint, _RoleNumber) {
         var node = {};
 
-        node.RoleInfo = {  //写入保存数据
-            v_RoleNumber: null, //角色编号
-            v_RoleOccupationType: null,//职业
-            v_RoleRaceType: null,//角色种族
-            v_RoleRacePropertyData: {},//种族属性数据
-            v_RolePropertyData: {},//角色属性数据
-            v_RoleMapPos: null,//在当前地图的坐标
-            v_ActionMovePos: null,
-            v_CurrentMapNum: null,
-            v_RolePassStatu: null,//穿透类型
-            v_SpriteDirection: null,//朝向
-            v_SpriteAngle: null, //角度
-            v_RoleGroupNum: null,//分组编号
-            v_RoleBagSize: null,
-            v_RoleBag: null,//背包
-            v_RoleName: "无名",
-            v_RoleEquip: null,
-        },
+        node.RoleInfo = { //写入保存数据
+                v_RoleNumber: null, //角色编号
+                v_RoleOccupationType: null, //职业
+                v_RoleRaceType: null, //角色种族
+                v_RoleRacePropertyData: {}, //种族属性数据
+                v_RolePropertyData: {}, //角色属性数据
+                v_RoleMapPos: null, //在当前地图的坐标
+                v_ActionMovePos: null,
+                v_CurrentMapNum: null,
+                v_RolePassStatu: null, //穿透类型
+                v_SpriteDirection: null, //朝向
+                v_SpriteAngle: null, //角度
+                v_RoleGroupNum: null, //分组编号
+                v_RoleBagSize: null,
+                v_RoleBag: null, //背包
+                v_RoleName: "无名",
+                v_RoleEquip: null,
+            },
 
-        node.RoleGameInfo = { //基本不写入保存数据
-            v_RoleSprite: null,
-            v_RoleSpriteLoad: false,
-            v_SpriteSize: null,
-            v_SpriteScale: null,
-            v_SpritePos: null,
-            v_SpriteType: null,
-            v_CurrentMap: null,
-            v_SpriteData: null,
-            v_ActionStage: null, //动作状态
-            v_DtNumber: 0, //帧执行次数
-            v_RoleCurAction: null,
-            v_ActionNodeNumber: null, //当前动画总帧数
-            v_SpriteNumber: null, //当前精灵动画执行到的帧数
-            v_RoleCurActionSpriteNum: null,//当前角色动画累计执行帧数
-            //移动相关
-            v_MapOffset: null, //移动偏移量？ 
-            v_SpriteBoundingBox: null,
-            //记录遇到的阻碍点
-            v_MoveBlockPos: null,//被阻挡的移动点
-            v_BlockType: null,//阻挡类型
-            v_SpriteShow: null,//是否显示
-            v_RoleSelectFlag: null,//是否被选中
-            v_RoleAttackType: null,//攻击类型
-            v_FrontDraw: null,
-            v_FrontDrawFlag: null,
-            v_DrawNode: null,
-            v_RoleCreate: false,
-        },
-        node.RoleCommand = { //写入保存数据
-            //指令
-            v_RoleActionArray: null,
-            v_RoleActionCurScriptArray: null,
-            v_RoleActionCommandArray: [],
-            v_RoleActionCommandState: null,
-            v_RoleActionCommandArray1: [],
-            v_RoleActionCommandState1: null,
-            v_RoleActionCommandArray1Number: null,
-            v_RoleActionCommandArray2: [],
-            v_RoleActionCommandState2: null,
-            v_RoleActionCommandArray2Number: null,
-            v_RoleActionCommandPassive:[],
-            v_RoleActionCommandPassiveState:null,
-            //脚本执行
-            v_ActionCommand: null,
-            v_ActionScriptFail: null,  //脚本失败次数
-            v_ActionScriptFailType: null,//脚本失败原因
-            v_ActionEvent: null,//事件
-            v_ActionRunStage: null,
-            v_ActionLoop: null,
-            v_ActionConsoleType: null, //命令控制类型 1：倒计时控制，2：动画播放控制
-            v_ActionWaitTime: 0,//动作消耗帧
+            node.RoleGameInfo = { //基本不写入保存数据
+                v_RoleSprite: null,
+                v_RoleSpriteLoad: false,
+                v_SpriteSize: null,
+                v_SpriteScale: null,
+                v_SpritePos: null,
+                v_SpriteType: null,
+                v_CurrentMap: null,
+                v_SpriteData: null,
+                v_ActionStage: null, //动作状态
+                v_DtNumber: 0, //帧执行次数
+                v_RoleCurAction: null,
+                v_ActionNodeNumber: null, //当前动画总帧数
+                v_SpriteNumber: null, //当前精灵动画执行到的帧数
+                v_RoleCurActionSpriteNum: null, //当前角色动画累计执行帧数
+                //移动相关
+                v_MapOffset: null, //移动偏移量？ 
+                v_SpriteBoundingBox: null,
+                //记录遇到的阻碍点
+                v_MoveBlockPos: null, //被阻挡的移动点
+                v_BlockType: null, //阻挡类型
+                v_SpriteShow: null, //是否显示
+                v_RoleSelectFlag: null, //是否被选中
+                v_RoleAttackType: null, //攻击类型
+                v_FrontDraw: null,
+                v_FrontDrawFlag: null,
+                v_DrawNode: null,
+                v_RoleCreate: false,
+            },
+            node.RoleCommand = { //写入保存数据
+                //指令
+                v_RoleActionArray: null,
+                v_RoleActionCurScriptArray: null,
+                v_RoleActionCommandArray: [],
+                v_RoleActionCommandState: null,
+                v_RoleActionCommandArray1: [],
+                v_RoleActionCommandState1: null,
+                v_RoleActionCommandArray1Number: null,
+                v_RoleActionCommandArray2: [],
+                v_RoleActionCommandState2: null,
+                v_RoleActionCommandArray2Number: null,
+                v_RoleActionCommandPassive: [],
+                v_RoleActionCommandPassiveState: null,
+                //脚本执行
+                v_ActionCommand: null,
+                v_ActionScriptFail: null, //脚本失败次数
+                v_ActionScriptFailType: null, //脚本失败原因
+                v_ActionEvent: null, //事件
+                v_ActionRunStage: null,
+                v_ActionLoop: null,
+                v_ActionConsoleType: null, //命令控制类型 1：倒计时控制，2：动画播放控制
+                v_ActionWaitTime: 0, //动作消耗帧
 
-            v_RoleTarNum: null,
-            v_RoleTrarArray: [],
-            v_RoleTradeShopNum: 0,//交易商店编号
-        },
+                v_RoleTarNum: null,
+                v_RoleTrarArray: [],
+                v_RoleTradeShopNum: 0, //交易商店编号
+            },
 
             //初始化
-        node.RoleInfo.v_RoleNumber = _RoleNumber;
-        //node.RoleInfo.v_RoleMapPos = GamePublic.s_Vec2d(_MapPoint.x, _MapPoint.y);
-        node.RoleInfo.v_RoleMapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y,1,1);
+            node.RoleInfo.v_RoleNumber = _RoleNumber;
+        node.RoleInfo.v_RoleMapPos = GamePublic.s_Vec2d(_MapPoint.x, _MapPoint.y);
+        //node.RoleInfo.v_RoleMapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y, 1, 1);
         node.RoleInfo.v_RoleBagSize = 20, //当前背包大小
-        node.RoleInfo.v_CurrentMapNum = _MapNum;
-        node.RoleInfo.v_RoleBag = Array(50),//背包
-        node.RoleInfo.v_RolePassStatu = "land";
-        node.RoleInfo.v_RoleEquip = Array(7),//装备背包
+            node.RoleInfo.v_CurrentMapNum = _MapNum;
+        node.RoleInfo.v_RoleBag = Array(50), //背包
+            node.RoleInfo.v_RolePassStatu = "land";
+        node.RoleInfo.v_RoleEquip = Array(7), //装备背包
 
-        node.RoleGameInfo.v_SpriteType = GamePublic.e_SpriteType.model;
-        node.RoleGameInfo.v_RoleAttackType = {AttackType:"hand",Skill:"Left"};
+            node.RoleGameInfo.v_SpriteType = GamePublic.e_SpriteType.model;
+        node.RoleGameInfo.v_RoleAttackType = { AttackType: "hand", Skill: "Left" };
         node.RoleGameInfo.v_SpriteData = GameResManager.getSpriteResData(_RoleResName);
         node.RoleGameInfo.v_CurrentMap = GamePublic.g_GameDataResManger.GetMap(_MapNum); //当前地图实体
         node.RoleGameInfo.v_SpriteShow = false;
@@ -109,24 +109,24 @@ var C_RoleSpine = {
         node.RoleCommand.v_ActionLoop = false;
         node.RoleCommand.v_RoleTradeShopNum = 1;
         node.RoleCommand.v_ActionRunStage = 0;
-            
+
         node.RoleGameInfo.v_DrawNode = new cc.Node();
         node.RoleGameInfo.v_DrawNode.is3DNode = false;
         //var qu = cc.quat(0, 0, 0).fromEuler({ x: -15, y: 0, z: 0 });
         //node.RoleGameInfo.v_DrawNode.setRotation(qu);
         node.RoleGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.RoleGameInfo.v_DrawNode, 2000);
 
-        node.RoleInfo.v_SpriteAngle = { Def: 0, Cur: 0, Des: 0 };//角色朝向角度
+        node.RoleInfo.v_SpriteAngle = { Def: 0, Cur: 0, Des: 0 }; //角色朝向角度
         //node.RoleInfo.v_RoleBag[3] = GamePublic.g_ItemManager.CreateItem(GamePublic.e_ItemName.Sword1);
         //node.RoleInfo.v_RoleBag[2] = GamePublic.g_ItemManager.CreateItem(GamePublic.e_ItemName.Gold);
-        node.Create = function () {
+        node.Create = function() {
             var obj = GamePublic.s_ObjInfo("Role", 1, node);
             GamePublic.g_GameDataResManger.AddRole(obj);
             //node.RoleGameInfo.v_RoleSprite.v_Sprite.opacity = 100;
             //node.RoleGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.RoleGameInfo.v_RoleSprite.v_Sprite, 2);
             node.SetSceenPos(node.RoleInfo.v_RoleMapPos);
             node.RoleGameInfo.v_SpriteShow = true;
-            node.RoleGameInfo.v_SpriteScale = 10;
+            node.RoleGameInfo.v_SpriteScale = 1;
 
             node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveInRole(node.RoleInfo.v_RoleNumber);
             //var src = new GamePublic.s_RoleScript({Info:1,Name:"RoleMove"},{Num:node.RoleInfo.v_RoleNumber,Array:"22",Pos:123},{Num:0,Array:"22",Pos:GamePublic.s_Vec2d(1,1)});
@@ -146,7 +146,7 @@ var C_RoleSpine = {
             node.RoleGameInfo.v_RoleCreate = true;
         };
 
-        node.LoadSpriteRes = function () {
+        node.LoadSpriteRes = function() {
             for (var i in GamePublic.g_resourcesSpineboy) {
                 if (GamePublic.g_resourcesSpineboy[i].FileName == node.RoleGameInfo.v_SpriteData.spritename && GamePublic.g_resourcesSpineboy[i].LoadDone) {
                     node.RoleGameInfo.v_RoleSprite = g_Spine.New(node, GamePublic.g_resourcesSpineboy[i].FileData);
@@ -164,83 +164,79 @@ var C_RoleSpine = {
                 });
             } */
         };
-        node.GetNumber = function(){
+        node.GetNumber = function() {
             return node.RoleInfo.v_RoleNumber;
         }
 
-        node.SetSceenPos = function (_pos) {
+        node.SetSceenPos = function(_pos) {
             node.RoleInfo.v_RoleMapPos = _pos;
             /*node.RoleGameInfo.v_SpritePos = GamePublic.s_Vec2d(Math.round((_pos.x - _pos.y + 1) * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.x * 0.5) * GamePublic.g_SceenScale),
             Math.round((_pos.y + _pos.x + 1) * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.y * 0.5) * GamePublic.g_SceenScale));*/
             node.RoleGameInfo.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.x * GamePublic.g_SceenScale),
-            _pos.y * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.y * GamePublic.g_SceenScale));
+                _pos.y * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.y * GamePublic.g_SceenScale));
             if (node.RoleCommand.v_ActionEvent == GamePublic.e_RoleAction.walk) {
                 node.RoleGameInfo.v_SpritePos.x += node.RoleCommand.v_ActionWaitTime * node.RoleGameInfo.v_MapOffset.x;
                 node.RoleGameInfo.v_SpritePos.y += node.RoleCommand.v_ActionWaitTime * node.RoleGameInfo.v_MapOffset.y;
             }
-        
-
+            //console.log(_pos);
+            //console.log(node.RoleGameInfo.v_SpritePos);
             if (node.RoleGameInfo.v_RoleSprite) {
                 node.RoleGameInfo.v_RoleSprite.v_Sprite.setPosition(GamePublic.s_Vec2d(0, 0));
 
-                var DistAngle = node.RoleInfo.v_SpriteAngle.Des - node.RoleInfo.v_SpriteAngle.Cur;
-                if (DistAngle > 5) {
-                    if (DistAngle > 180) {
-                        node.RoleInfo.v_SpriteAngle.Cur -= 5;
-                        if (node.RoleInfo.v_SpriteAngle.Cur < 0) node.RoleInfo.v_SpriteAngle.Cur = 360;
-                    }
-                    else {
-                        node.RoleInfo.v_SpriteAngle.Cur += 5;
-                        if (node.RoleInfo.v_SpriteAngle.Cur > 360) node.RoleInfo.v_SpriteAngle.Cur = 0;
-                    }
-                }
-                else if (DistAngle < -5) {
-                    if (DistAngle < -180) {
-                        node.RoleInfo.v_SpriteAngle.Cur += 5;
-                        if (node.RoleInfo.v_SpriteAngle.Cur > 360) node.RoleInfo.v_SpriteAngle.Cur = 0;
-                    }
-                    else {
-                        node.RoleInfo.v_SpriteAngle.Cur -= 5;
-                        if (node.RoleInfo.v_SpriteAngle.Cur < 0) node.RoleInfo.v_SpriteAngle.Cur = 360;
-                    }
-                }
-                var qu = cc.quat(0, 0, 0).fromEuler({ x: 90, y: 0, z: node.RoleInfo.v_SpriteAngle.Cur });
+                // var DistAngle = node.RoleInfo.v_SpriteAngle.Des - node.RoleInfo.v_SpriteAngle.Cur;
+                // if (DistAngle > 5) {
+                //     if (DistAngle > 180) {
+                //         node.RoleInfo.v_SpriteAngle.Cur -= 5;
+                //         if (node.RoleInfo.v_SpriteAngle.Cur < 0) node.RoleInfo.v_SpriteAngle.Cur = 360;
+                //     } else {
+                //         node.RoleInfo.v_SpriteAngle.Cur += 5;
+                //         if (node.RoleInfo.v_SpriteAngle.Cur > 360) node.RoleInfo.v_SpriteAngle.Cur = 0;
+                //     }
+                // } else if (DistAngle < -5) {
+                //     if (DistAngle < -180) {
+                //         node.RoleInfo.v_SpriteAngle.Cur += 5;
+                //         if (node.RoleInfo.v_SpriteAngle.Cur > 360) node.RoleInfo.v_SpriteAngle.Cur = 0;
+                //     } else {
+                //         node.RoleInfo.v_SpriteAngle.Cur -= 5;
+                //         if (node.RoleInfo.v_SpriteAngle.Cur < 0) node.RoleInfo.v_SpriteAngle.Cur = 360;
+                //     }
+                // }
+                //var qu = cc.quat(0, 0, 0).fromEuler({ x: 90, y: 0, z: node.RoleInfo.v_SpriteAngle.Cur });
                 //node.RoleGameInfo.v_RoleSprite.v_Sprite.setRotation(qu);
                 node.RoleGameInfo.v_RoleSprite.v_Sprite.setPosition(node.RoleGameInfo.v_SpritePos);
-                //node.RoleGameInfo.v_RoleSprite.v_Sprite.setScale(0.2);
                 node.RoleGameInfo.v_DrawNode.setPosition(node.RoleGameInfo.v_SpritePos);
             }
 
-            var zindex = ((node.RoleGameInfo.v_CurrentMap.v_MapSize.x * node.RoleGameInfo.v_CurrentMap.v_MapSize.y)
-                - (node.RoleInfo.v_RoleMapPos.x + node.RoleInfo.v_RoleMapPos.y));
-            if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.v_Sprite.zIndex = zindex;
+            var zindex = ((node.RoleGameInfo.v_CurrentMap.v_MapSize.x * node.RoleGameInfo.v_CurrentMap.v_MapSize.y) -
+                (node.RoleInfo.v_RoleMapPos.x + node.RoleInfo.v_RoleMapPos.y));
+            if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.v_Sprite.zIndex = zindex + 3;
             if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.v_Sprite.setScale(node.RoleGameInfo.v_SpriteScale);
             //if (this.v_TileSprite) this.v_TileSprite.setScale(g_SceenScale);
         };
 
-        node.SetMapPos = function (_mappos) {
+        node.SetMapPos = function(_mappos) {
             node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveOutRole(node.RoleInfo.v_RoleNumber);
             node.RoleInfo.v_RoleMapPos = _mappos;
             node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveInRole(node.RoleInfo.v_RoleNumber);
         }
 
-        node.StopCommand = function (_Type) {
+        node.StopCommand = function(_Type) {
             node.RoleGameInfo.v_DtNumber = GamePublic.e_RoleSpeed.fps;
             node.RoleCommand.v_ActionWaitTime = 0;
             node.RoleCommand.v_RoleActionCommandArray.splice(0, node.RoleCommand.v_RoleActionCommandArray.length);
         }
 
-        node.ShowSprite = function (_show){
-            if(_show){
+        node.ShowSprite = function(_show) {
+            if (_show) {
                 if (node.RoleGameInfo.v_RoleSprite && !node.RoleGameInfo.v_RoleSprite.v_Sprite.active) node.RoleGameInfo.v_RoleSprite.v_Sprite.active = true;
                 node.RoleGameInfo.v_SpriteShow = true;
-            }else{
-                if(node.RoleGameInfo.v_RoleSprite && node.RoleGameInfo.v_RoleSprite.v_Sprite.active)node.RoleGameInfo.v_RoleSprite.v_Sprite.active = false;
+            } else {
+                if (node.RoleGameInfo.v_RoleSprite && node.RoleGameInfo.v_RoleSprite.v_Sprite.active) node.RoleGameInfo.v_RoleSprite.v_Sprite.active = false;
                 node.RoleGameInfo.v_SpriteShow = false;
             }
         }
 
-        node.MyUpdate = function () {
+        node.MyUpdate = function() {
             if (!node.RoleGameInfo.v_RoleCreate) {
                 if (!node.RoleGameInfo.v_RoleSprite) {
                     node.LoadSpriteRes();
@@ -274,14 +270,14 @@ var C_RoleSpine = {
                 }
             }
 
-            if(node.RoleCommand.v_RoleActionCommandPassive.length){
-                var Command = node.RoleCommand.v_RoleActionCommandPassive.splice(0,1);
-                    var SrcExeState = RoleSrcipt.RoleActionCommandPassiveProc(Command[0]);
-                        if (SrcExeState == GamePublic.e_CommandSrcipt.Success) {
-                            //node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.Run;
-                        } else {
-                            //node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
-                        }
+            if (node.RoleCommand.v_RoleActionCommandPassive.length) {
+                var Command = node.RoleCommand.v_RoleActionCommandPassive.splice(0, 1);
+                var SrcExeState = RoleSrcipt.RoleActionCommandPassiveProc(Command[0]);
+                if (SrcExeState == GamePublic.e_CommandSrcipt.Success) {
+                    //node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.Run;
+                } else {
+                    //node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
+                }
             }
 
             if (node.RoleCommand.v_RoleActionCommandArray1.length) {
@@ -305,7 +301,7 @@ var C_RoleSpine = {
                             } else {
                                 node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
                             }
-                        } else {//执行未报错  检查执行情况 如果结束就执行以下
+                        } else { //执行未报错  检查执行情况 如果结束就执行以下
                             if (node.RoleCommand.v_ActionWaitTime < 1 && node.RoleCommand.v_RoleActionCommandArray.length == 0) {
                                 node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
                             }
@@ -338,7 +334,7 @@ var C_RoleSpine = {
         // Desc: 设置切换动画
         //-----------------------------------------------------------------------------
 
-        node.SetRoleAction = function (_ActionName) {
+        node.SetRoleAction = function(_ActionName) {
             //_Role.RoleGameInfo.v_ActionStage = _ActionName;
             //node.RoleCommand.v_ActionEvent = _ActionName;
             switch (_ActionName) {
@@ -347,12 +343,12 @@ var C_RoleSpine = {
                     break; */
                 case GamePublic.e_RoleAction.walk:
                     //node.RoleCommand.v_ActionLoop = true;
-                    if(node.RoleGameInfo.v_RoleSprite)node.RoleGameInfo.v_RoleSprite.SetRoleAction(_ActionName);
+                    if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.SetRoleAction(_ActionName);
                     break;
             }
         }
 
-        node.CalcRolePropertyData = function () {
+        node.CalcRolePropertyData = function() {
             node.RoleInfo.v_RolePropertyData.HP = node.RoleInfo.v_RoleRacePropertyData.CON * 3;
             node.RoleInfo.v_RolePropertyData.NowHP = node.RoleInfo.v_RolePropertyData.HP;
             node.RoleInfo.v_RolePropertyData.MP = node.RoleInfo.v_RoleRacePropertyData.LER * 3;
