@@ -82,6 +82,9 @@ cc.Class({
         this.Page_sceen_root.group = "ui";
         this.node.addChild(this.Page_sceen_root, 9);
         
+        // g_DrawRect= new cc.DrawNode();
+        // this.addChild(g_DrawRect,10);
+        
         this.Draw_sceen_root = new cc.Node();
         this.Draw_sceen_root.group = "ui";
         this.node.addChild(this.Draw_sceen_root, 7); 
@@ -90,7 +93,20 @@ cc.Class({
         this.Map_sceen_root = new cc.Node();
         //this.Map_sceen_root.is3DNode = true;
         this.node.addChild(this.Map_sceen_root, 5);
+        // var spineNode = new cc.Node();
+        // var skeleton = spineNode.addComponent('sp.Skeleton');
+        // //this.Page_sceen_root.addChild(spineNode, 5);
 
+        // cc.resources.load('spineboy', sp.SkeletonData, (error, assets) => {
+        //     if (error == null) {
+        //         //设置数据
+        //         this.Page_sceen_root.addChild(spineNode, 5);
+        //         skeleton.skeletonData = assets;
+        //         //播放默认动画
+        //         skeleton.setAnimation(0, 'walk', true);
+                
+        //     }
+        // });
         //初始指针坐标
         GamePublic.g_MouseLeftFlag = false;
         GamePublic.g_MouseRightFlag = false;
@@ -298,7 +314,7 @@ cc.Class({
                 var Buildnum = 0;
                 for (let i = 0; i < 1; i++) {
                     for (let j = 0; j < 1; j++) {
-                        var role = new RoleSpineClass.New("role2", 1, GamePublic.s_Vec2d(i+5, j+5), ++Rolenum);
+                        var role = new RoleSpineClass.New("role2", 1, GamePublic.s_Vec2d(i, j), ++Rolenum);
                     }
                 }
                 //var build = new Building.New("role1", ++Buildnum, 1, GamePublic.s_Vec2d(10, 5), []);
@@ -309,15 +325,15 @@ cc.Class({
         }
         if (GamePublic.g_GameResLoadFinish) {
             if (!GamePublic.g_Cursor) GamePublic.g_Cursor = CursorClass.New(this);
-            // GamePublic.g_MouseStopTick > 1000 ? GamePublic.g_MouseStopTick = 0 : GamePublic.g_MouseStopTick++;
+            GamePublic.g_MouseStopTick > 1000 ? GamePublic.g_MouseStopTick = 0 : GamePublic.g_MouseStopTick++;
             this.DrawNode.clear();
-            // if (GamePublic.g_MouseLeftFlag && GamePublic.g_MouseMoveFlag && GamePublic.g_GameMenuManager && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_GamePageManager && GamePublic.g_GamePageManager.PageNumber == 0) {
-            //     this.DrawNode.lineWidth = 2;
-            //     this.DrawNode.strokeColor = cc.Color.WHITE;
-            //     this.DrawNode.rect(GamePublic.g_MoveStartPos.x, GamePublic.g_MoveStartPos.y,
-            //         GamePublic.g_MoveEndPos.x - GamePublic.g_MoveStartPos.x, GamePublic.g_MoveEndPos.y - GamePublic.g_MoveStartPos.y);
-            //     this.DrawNode.stroke();
-            // }
+            if (GamePublic.g_MouseLeftFlag && GamePublic.g_MouseMoveFlag && GamePublic.g_GameMenuManager && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_GamePageManager && GamePublic.g_GamePageManager.PageNumber == 0) {
+                this.DrawNode.lineWidth = 2;
+                this.DrawNode.strokeColor = cc.Color.WHITE;
+                this.DrawNode.rect(GamePublic.g_MoveStartPos.x, GamePublic.g_MoveStartPos.y,
+                    GamePublic.g_MoveEndPos.x - GamePublic.g_MoveStartPos.x, GamePublic.g_MoveEndPos.y - GamePublic.g_MoveStartPos.y);
+                this.DrawNode.stroke();
+            }
             if (GamePublic.g_Cursor) GamePublic.g_Cursor.Update();
             
             if (++this.GameMoveUpdateNum > 0) {

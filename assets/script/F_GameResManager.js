@@ -3,6 +3,7 @@ var GamePublic = require("./F_GamePublic");
 var ResArray = [{
         name: "role1",
         spritename: "Role001",
+        SpriteScale: 1,
         actionarray: [{
             action_name: "walk",
             action: "a_a",
@@ -12,6 +13,7 @@ var ResArray = [{
     {
         name: "role2",
         spritename: "spineboy",
+        SpriteScale: 0.4,
         actionarray: [{
             action_name: "walk",
             action: "a_a",
@@ -64,6 +66,7 @@ F_GameResManage.FileResData = function(_Info, _Type) {
                         if (error == null) {
                             //设置数据
                             skeleton.skeletonData = assets;
+                            //skeleton.setAnimationStateData(assets);
                             //播放默认动画
                             skeleton.setAnimation(0, "walk", true);
                             s_FileResData.Info.FileData = spineNode;

@@ -665,6 +665,8 @@ var G_Public = {
     g_GameResLoadFinish:false,
     g_ButtonUsingFlag:false,
     g_ButtonType:null,
+
+    g_DrawRect : null,
 }
 
 

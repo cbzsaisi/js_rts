@@ -88,16 +88,16 @@ var C_RoleSpine = {
             },
 
             //初始化
-            node.RoleInfo.v_RoleNumber = _RoleNumber;
+        node.RoleInfo.v_RoleNumber = _RoleNumber;
         node.RoleInfo.v_RoleMapPos = GamePublic.s_Vec2d(_MapPoint.x, _MapPoint.y);
         //node.RoleInfo.v_RoleMapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y, 1, 1);
         node.RoleInfo.v_RoleBagSize = 20, //当前背包大小
-            node.RoleInfo.v_CurrentMapNum = _MapNum;
+        node.RoleInfo.v_CurrentMapNum = _MapNum;
         node.RoleInfo.v_RoleBag = Array(50), //背包
-            node.RoleInfo.v_RolePassStatu = "land";
+        node.RoleInfo.v_RolePassStatu = "land";
         node.RoleInfo.v_RoleEquip = Array(7), //装备背包
 
-            node.RoleGameInfo.v_SpriteType = GamePublic.e_SpriteType.model;
+        node.RoleGameInfo.v_SpriteType = GamePublic.e_SpriteType.model;
         node.RoleGameInfo.v_RoleAttackType = { AttackType: "hand", Skill: "Left" };
         node.RoleGameInfo.v_SpriteData = GameResManager.getSpriteResData(_RoleResName);
         node.RoleGameInfo.v_CurrentMap = GamePublic.g_GameDataResManger.GetMap(_MapNum); //当前地图实体
@@ -120,13 +120,13 @@ var C_RoleSpine = {
         //node.RoleInfo.v_RoleBag[3] = GamePublic.g_ItemManager.CreateItem(GamePublic.e_ItemName.Sword1);
         //node.RoleInfo.v_RoleBag[2] = GamePublic.g_ItemManager.CreateItem(GamePublic.e_ItemName.Gold);
         node.Create = function() {
-            var obj = GamePublic.s_ObjInfo("Role", 1, node);
+            var obj = GamePublic.s_ObjInfo("Role", node.RoleInfo.v_RoleNumber, node);
             GamePublic.g_GameDataResManger.AddRole(obj);
             //node.RoleGameInfo.v_RoleSprite.v_Sprite.opacity = 100;
             //node.RoleGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.RoleGameInfo.v_RoleSprite.v_Sprite, 2);
             node.SetSceenPos(node.RoleInfo.v_RoleMapPos);
             node.RoleGameInfo.v_SpriteShow = true;
-            node.RoleGameInfo.v_SpriteScale = 1;
+            node.RoleGameInfo.v_SpriteScale = node.RoleGameInfo.v_SpriteData.SpriteScale;
 
             node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveInRole(node.RoleInfo.v_RoleNumber);
             //var src = new GamePublic.s_RoleScript({Info:1,Name:"RoleMove"},{Num:node.RoleInfo.v_RoleNumber,Array:"22",Pos:123},{Num:0,Array:"22",Pos:GamePublic.s_Vec2d(1,1)});
@@ -143,6 +143,7 @@ var C_RoleSpine = {
             // GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 10, node.RoleInfo.v_RoleNumber, "Role");
             // GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 2, node.RoleInfo.v_RoleNumber, "Role");
             //GamePublic.g_ItemManager.RoleEquip(node.RoleInfo.v_RoleNumber,3); //装备
+            //this.SetRoleAction(GamePublic.e_RoleAction.walk);
             node.RoleGameInfo.v_RoleCreate = true;
         };
 
@@ -182,27 +183,6 @@ var C_RoleSpine = {
             //console.log(node.RoleGameInfo.v_SpritePos);
             if (node.RoleGameInfo.v_RoleSprite) {
                 node.RoleGameInfo.v_RoleSprite.v_Sprite.setPosition(GamePublic.s_Vec2d(0, 0));
-
-                // var DistAngle = node.RoleInfo.v_SpriteAngle.Des - node.RoleInfo.v_SpriteAngle.Cur;
-                // if (DistAngle > 5) {
-                //     if (DistAngle > 180) {
-                //         node.RoleInfo.v_SpriteAngle.Cur -= 5;
-                //         if (node.RoleInfo.v_SpriteAngle.Cur < 0) node.RoleInfo.v_SpriteAngle.Cur = 360;
-                //     } else {
-                //         node.RoleInfo.v_SpriteAngle.Cur += 5;
-                //         if (node.RoleInfo.v_SpriteAngle.Cur > 360) node.RoleInfo.v_SpriteAngle.Cur = 0;
-                //     }
-                // } else if (DistAngle < -5) {
-                //     if (DistAngle < -180) {
-                //         node.RoleInfo.v_SpriteAngle.Cur += 5;
-                //         if (node.RoleInfo.v_SpriteAngle.Cur > 360) node.RoleInfo.v_SpriteAngle.Cur = 0;
-                //     } else {
-                //         node.RoleInfo.v_SpriteAngle.Cur -= 5;
-                //         if (node.RoleInfo.v_SpriteAngle.Cur < 0) node.RoleInfo.v_SpriteAngle.Cur = 360;
-                //     }
-                // }
-                //var qu = cc.quat(0, 0, 0).fromEuler({ x: 90, y: 0, z: node.RoleInfo.v_SpriteAngle.Cur });
-                //node.RoleGameInfo.v_RoleSprite.v_Sprite.setRotation(qu);
                 node.RoleGameInfo.v_RoleSprite.v_Sprite.setPosition(node.RoleGameInfo.v_SpritePos);
                 node.RoleGameInfo.v_DrawNode.setPosition(node.RoleGameInfo.v_SpritePos);
             }
@@ -335,14 +315,11 @@ var C_RoleSpine = {
         //-----------------------------------------------------------------------------
 
         node.SetRoleAction = function(_ActionName) {
-            //_Role.RoleGameInfo.v_ActionStage = _ActionName;
-            //node.RoleCommand.v_ActionEvent = _ActionName;
             switch (_ActionName) {
                 /* case e_RoleAction.default:
 
                     break; */
                 case GamePublic.e_RoleAction.walk:
-                    //node.RoleCommand.v_ActionLoop = true;
                     if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.SetRoleAction(_ActionName);
                     break;
             }

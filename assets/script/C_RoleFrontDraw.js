@@ -23,7 +23,7 @@ var C_RoleFrontDraw = {
 
         node.update = function () {
             node.ShowNodeSelect.clear();
-            node.ShowNode.setScale(0.01 * node.MainNode.RoleGameInfo.v_SpriteScale);
+            node.ShowNode.setScale(0.08);
             if (node.MainNode.RoleGameInfo.v_SpriteShow && !node.ShowNode.active){
                 node.ShowNode.active = true;
             }else if(!node.MainNode.RoleGameInfo.v_SpriteShow && node.ShowNode.active){
@@ -38,7 +38,7 @@ var C_RoleFrontDraw = {
                     node.ShowNodeSelect.lineWidth = 1;
                     node.ShowNodeSelect.strokeColor = cc.Color.BLUE;
                     node.ShowNodeSelect.fillColor = cc.Color.BLUE;
-                    node.ShowNodeSelect.rect(100,300,50,50);
+                    node.ShowNodeSelect.rect(100,150,50,50);
                     node.ShowNodeSelect.fill();
                     node.ShowNodeSelect.stroke();
  

@@ -69,7 +69,6 @@ C_GameControl.ControlMouseLeftDownCall = function (_pos) {
     //     GamePublic.g_GamePageManager.PageButtonCheck(_pos, GamePublic.e_ClickType.LeftDown);
     // }
     //alert(_pos.x);
-    //alert(_pos.y);
     GamePublic.g_MouseMoveFlag = false;
 }
 
@@ -118,6 +117,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
             for (var i = 0; LeftDown.x + i <= RightTop.x; i++) {
                 for (var j = 0; LeftDown.y + j <= RightTop.y; j++) {
                     var MapTileRoleArray = GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].v_ExistRoleArray;
+                    console.log(MapTileRoleArray);
                     for (var k = 0; k < MapTileRoleArray.length; k++) {
                         GamePublic.g_SelectRoleArray.push(MapTileRoleArray[k]);
                         GamePublic.g_GameDataResManger.GetRole(MapTileRoleArray[k]).RoleGameInfo.v_RoleSelectFlag = true;
