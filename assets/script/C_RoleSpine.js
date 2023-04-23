@@ -32,7 +32,7 @@ var C_RoleSpine = {
             node.RoleGameInfo = { //基本不写入保存数据
                 v_RoleSprite: null,
                 v_RoleSpriteLoad: false,
-                v_SpriteSize: null,
+                v_SpriteSize:  {width:0,height:0},
                 v_SpriteScale: null,
                 v_SpritePos: null,
                 v_SpriteType: null,
@@ -168,19 +168,17 @@ var C_RoleSpine = {
         node.GetNumber = function() {
             return node.RoleInfo.v_RoleNumber;
         }
-
         node.SetSceenPos = function(_pos) {
             node.RoleInfo.v_RoleMapPos = _pos;
             /*node.RoleGameInfo.v_SpritePos = GamePublic.s_Vec2d(Math.round((_pos.x - _pos.y + 1) * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.x * 0.5) * GamePublic.g_SceenScale),
             Math.round((_pos.y + _pos.x + 1) * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.y * 0.5) * GamePublic.g_SceenScale));*/
-            node.RoleGameInfo.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.x * GamePublic.g_SceenScale),
-                _pos.y * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.y * GamePublic.g_SceenScale));
+            // node.RoleGameInfo.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.x * GamePublic.g_SceenScale),
+            //     _pos.y * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.y * GamePublic.g_SceenScale));// + node.RoleGameInfo.v_SpriteSize.height * 0.5);
+            node.RoleGameInfo.v_SpritePos = node.RoleGameInfo.v_CurrentMap.MapRoomArray[_pos.x][_pos.y].v_SpritePos
             if (node.RoleCommand.v_ActionEvent == GamePublic.e_RoleAction.walk) {
                 node.RoleGameInfo.v_SpritePos.x += node.RoleCommand.v_ActionWaitTime * node.RoleGameInfo.v_MapOffset.x;
                 node.RoleGameInfo.v_SpritePos.y += node.RoleCommand.v_ActionWaitTime * node.RoleGameInfo.v_MapOffset.y;
             }
-            //console.log(_pos);
-            //console.log(node.RoleGameInfo.v_SpritePos);
             if (node.RoleGameInfo.v_RoleSprite) {
                 node.RoleGameInfo.v_RoleSprite.v_Sprite.setPosition(GamePublic.s_Vec2d(0, 0));
                 node.RoleGameInfo.v_RoleSprite.v_Sprite.setPosition(node.RoleGameInfo.v_SpritePos);

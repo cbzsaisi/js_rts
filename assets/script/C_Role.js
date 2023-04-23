@@ -31,7 +31,7 @@ var C_Role = {
         node.RoleGameInfo = { //基本不写入保存数据
             v_RoleSprite: null,
             v_RoleSpriteLoad: false,
-            v_SpriteSize: null,
+            v_SpriteSize: {width:0,height:0},
             v_SpriteScale: null,
             v_SpritePos: null,
             v_SpriteType: null,

@@ -43,7 +43,7 @@ C_GameControl.MapTiledCoverCheck = function (_pos, _Map,_Size) { //建筑占地�
 C_GameControl.GetMapXY = function(_pos){
     //console.log(_pos);
     var pos = GamePublic.s_Vec2d((_pos.x - GamePublic.g_MoveOff.x) / (GamePublic.e_MapTilePixel.width * 0.5 * GamePublic.g_SceenScale),
-        (_pos.y - GamePublic.g_MoveOff.y) / (GamePublic.e_MapTilePixel.height * 0.5 * GamePublic.g_SceenScale));
+        (_pos.y - GamePublic.g_MoveOff.y) / (GamePublic.e_MapTilePixel.height * 0.5 * GamePublic.g_SceenScale) - (GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale) * 0.5);
     if (pos.x == 0) {
         pos.x = pos.y / 2;
         pos.y = pos.y / 2;
@@ -117,7 +117,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
             for (var i = 0; LeftDown.x + i <= RightTop.x; i++) {
                 for (var j = 0; LeftDown.y + j <= RightTop.y; j++) {
                     var MapTileRoleArray = GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].v_ExistRoleArray;
-                    console.log(MapTileRoleArray);
+                    //console.log(MapTileRoleArray);
                     for (var k = 0; k < MapTileRoleArray.length; k++) {
                         GamePublic.g_SelectRoleArray.push(MapTileRoleArray[k]);
                         GamePublic.g_GameDataResManger.GetRole(MapTileRoleArray[k]).RoleGameInfo.v_RoleSelectFlag = true;
@@ -153,9 +153,9 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
         if(GamePublic.g_GameRunUi && GamePublic.g_GameRunUi.ClickCheck(_pos,GamePublic.e_ClickType.LeftUp)){
 
         }else if (GamePublic.g_Active_Map) {
-            //var mappos = GamePublic.GetMapXY(_pos);
-            var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map);
-            //console.log(mappos);
+            var mappos = C_GameControl.GetMapXY(_pos);
+            //var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map);
+            console.log(mappos);
             if (GamePublic.g_RoleSelectStaus == GamePublic.e_SelectStaus.NonSelect) {
                 // for (var i = 0; i < GamePublic.g_GameDataResManger.RoleArray.length; i++) {
                 //     if (C_GameControl.RoleRayCheck(_pos, GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber())) {
@@ -250,7 +250,8 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
     } else if (GamePublic.g_GamePageManager.PageNumber) {
         GamePublic.g_GamePageManager.PageButtonCheck(_pos, GamePublic.e_ClickType.Move);
     } else if (GamePublic.g_Active_Map && GamePublic.g_MouseLeftFlag) { //鼠标按下状态
-        var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map); //检测点击的地图块
+        //var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map); //检测点击的地图块
+        var mappos = C_GameControl.GetMapXY(_pos);
         //console.log(mappos);
         if (mappos.x >= 0 && mappos.y >= 0 && mappos.x < GamePublic.g_Active_Map.v_MapSize.x && mappos.y < GamePublic.g_Active_Map.v_MapSize.y) {
             if (!GamePublic.g_MoveSelectStartPos) {

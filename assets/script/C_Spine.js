@@ -5,6 +5,7 @@ var C_Spine = {
         var node = {};
         node.v_MainRole = _MainRole;
         node.v_Sprite = cc.instantiate(_SpriteRes);
+        node.v_MainRole.RoleGameInfo.v_SpriteSize.height = 100;
         node.v_MainRole.RoleGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.v_Sprite, 10);
         var sp1 = node.v_Sprite.getComponent(sp.Skeleton);
         sp1.premultipliedAlpha = false;
@@ -23,19 +24,19 @@ var C_Spine = {
                 case GamePublic.e_RoleAction.walk:
                     var ske = node.v_Sprite.getComponent(sp.Skeleton);
                     //ske.clearTracks();
-                    ske.setStartListener(node.RoleActionStartEner);
-                    ske.setCompleteListener(node.RoleActionEndEner);
+                    ske.setStartListener(node.RoleActionStartEner(_ActionName));
+                    ske.setCompleteListener(node.RoleActionEndEner(_ActionName));
                     ske.setAnimation(0, "walk", false);
                     //this.SetRoleActionSpeed(0.5);
                     break;
             }
         }
 
-        node.RoleActionStartEner = function() {
+        node.RoleActionStartEner = function(i_ActionName) {
             console.log("RoleActionStartEner");
         }
 
-        node.RoleActionEndEner = function() {
+        node.RoleActionEndEner = function(i_ActionName) {
             console.log("RoleActionEndEner");
         }
 
