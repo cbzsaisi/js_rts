@@ -97,7 +97,7 @@ var C_RoleSpine = {
         node.RoleInfo.v_RolePassStatu = "land";
         node.RoleInfo.v_RoleEquip = Array(7), //装备背包
 
-        node.RoleGameInfo.v_SpriteType = GamePublic.e_SpriteType.model;
+        node.RoleGameInfo.v_SpriteType = GamePublic.e_SpriteType.spine;
         node.RoleGameInfo.v_RoleAttackType = { AttackType: "hand", Skill: "Left" };
         node.RoleGameInfo.v_SpriteData = GameResManager.getSpriteResData(_RoleResName);
         node.RoleGameInfo.v_CurrentMap = GamePublic.g_GameDataResManger.GetMap(_MapNum); //当前地图实体
@@ -126,8 +126,7 @@ var C_RoleSpine = {
             //node.RoleGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.RoleGameInfo.v_RoleSprite.v_Sprite, 2);
             node.SetSceenPos(node.RoleInfo.v_RoleMapPos);
             node.RoleGameInfo.v_SpriteShow = true;
-            node.RoleGameInfo.v_SpriteScale = node.RoleGameInfo.v_SpriteData.SpriteScale;
-
+            node.RoleGameInfo.v_SpriteScale = {x:node.RoleGameInfo.v_SpriteData.SpriteScale, y:node.RoleGameInfo.v_SpriteData.SpriteScale};
             node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveInRole(node.RoleInfo.v_RoleNumber);
             //var src = new GamePublic.s_RoleScript({Info:1,Name:"RoleMove"},{Num:node.RoleInfo.v_RoleNumber,Array:"22",Pos:123},{Num:0,Array:"22",Pos:GamePublic.s_Vec2d(1,1)});
             //node.RoleCommand.v_RoleActionCommandArray.push(src);
@@ -174,7 +173,8 @@ var C_RoleSpine = {
             Math.round((_pos.y + _pos.x + 1) * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.y * 0.5) * GamePublic.g_SceenScale));*/
             // node.RoleGameInfo.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.x * GamePublic.g_SceenScale),
             //     _pos.y * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.y * GamePublic.g_SceenScale));// + node.RoleGameInfo.v_SpriteSize.height * 0.5);
-            node.RoleGameInfo.v_SpritePos = node.RoleGameInfo.v_CurrentMap.MapRoomArray[_pos.x][_pos.y].v_SpritePos
+            node.RoleGameInfo.v_SpritePos = node.RoleGameInfo.v_CurrentMap.MapRoomArray[_pos.x][_pos.y].v_SpritePos;
+            node.RoleGameInfo.v_SpritePos.y += 12;
             if (node.RoleCommand.v_ActionEvent == GamePublic.e_RoleAction.walk) {
                 node.RoleGameInfo.v_SpritePos.x += node.RoleCommand.v_ActionWaitTime * node.RoleGameInfo.v_MapOffset.x;
                 node.RoleGameInfo.v_SpritePos.y += node.RoleCommand.v_ActionWaitTime * node.RoleGameInfo.v_MapOffset.y;
@@ -188,7 +188,8 @@ var C_RoleSpine = {
             var zindex = ((node.RoleGameInfo.v_CurrentMap.v_MapSize.x * node.RoleGameInfo.v_CurrentMap.v_MapSize.y) -
                 (node.RoleInfo.v_RoleMapPos.x + node.RoleInfo.v_RoleMapPos.y));
             if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.v_Sprite.zIndex = zindex + 3;
-            if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.v_Sprite.setScale(node.RoleGameInfo.v_SpriteScale);
+            if (node.RoleGameInfo.v_SpriteScale) node.RoleGameInfo.v_RoleSprite.v_Sprite.scaleX = node.RoleGameInfo.v_SpriteScale.x;
+            if (node.RoleGameInfo.v_SpriteScale) node.RoleGameInfo.v_RoleSprite.v_Sprite.scaleY = node.RoleGameInfo.v_SpriteScale.y;
             //if (this.v_TileSprite) this.v_TileSprite.setScale(g_SceenScale);
         };
 
@@ -229,7 +230,8 @@ var C_RoleSpine = {
                 }
                 if (node.RoleGameInfo.v_FrontDraw) node.RoleGameInfo.v_FrontDraw.update();
             }
-
+            //console.log(node.RoleCommand.v_ActionLoop);
+            //console.log(node.RoleCommand.v_ActionRunStage);
             if (node.RoleCommand.v_ActionWaitTime < 1) {
                 if (node.RoleCommand.v_RoleActionCommandArray.length) {
                     node.RoleCommand.v_ActionCommand = node.RoleCommand.v_RoleActionCommandArray.splice(node.RoleCommand.v_RoleActionCommandArray.length - 1, 1);
@@ -246,6 +248,8 @@ var C_RoleSpine = {
                     //this.v_ActionCommand = null;
                     //if(this.v_Sprite.v_ActionStage != e_SpriteActionName.jump){C_RoleManager.SetRoleAction(this.v_Sprite,e_SpriteActionName.jump);}
                 }
+            }else if(node.RoleCommand.v_ActionLoop == true && node.RoleCommand.v_ActionRunStage == GamePublic.e_SpriteActionRunStage.stop){
+                this.SetRoleAction(node.RoleCommand.v_ActionEvent);
             }
 
             if (node.RoleCommand.v_RoleActionCommandPassive.length) {

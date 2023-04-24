@@ -19,7 +19,7 @@ var GamePublic = require("./F_GamePublic");
             var MapArray = [];
             for(var j=0;j<node.v_MapSize.y;j++){
                 //var maptile = C_MapTile.New("MapTiledSprite003",node,GamePublic.s_Vec2d(i,j));
-                var maptile = C_MapTile.New("1101",node,GamePublic.s_Vec2d(i,j));
+                var maptile = C_MapTile.New("14",node,GamePublic.s_Vec2d(i,j));
                 if(GamePublic.g_GameRandom.GetRandom() > 90){
                     //maptile.AddTileRes(GamePublic.e_ObjType.MapTileResTree1);
                 }

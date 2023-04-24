@@ -7,7 +7,6 @@ var g_Astar = require("./F_AStar");
 function C_SrciptProc() {
 };
 
-
 C_SrciptProc.RoleCommandSrciptProc = function (_src) {
 
     var g_gamemangaer = GamePublic.g_GameDataResManger;
@@ -29,8 +28,13 @@ C_SrciptProc.RoleCommandSrciptProc = function (_src) {
                 switch (s_role.RoleGameInfo.v_SpriteType) {
                     case GamePublic.e_SpriteType.spine:
                         //C_RoleManager.SetRoleAction(role.v_Sprite, e_SpriteActionName.walk);
-                        //if (MapOffset.x > 0) { role.v_Sprite.v_SpineSprite.setScaleX(-1); }
-                        //else if (MapOffset.x < 0) { role.v_Sprite.v_SpineSprite.setScaleX(1); }//转向
+                        if (MapOffset.x > 0) { if (s_role.RoleGameInfo.v_SpriteScale.x > 0) s_role.RoleGameInfo.v_SpriteScale.x = s_role.RoleGameInfo.v_SpriteScale.x * -1}
+                        else if (MapOffset.x < 0) { if (s_role.RoleGameInfo.v_SpriteScale.x < 0) s_role.RoleGameInfo.v_SpriteScale.x = s_role.RoleGameInfo.v_SpriteScale.x * -1}//转向
+                        s_role.RoleCommand.v_ActionLoop = true;
+                        if(s_role.RoleCommand.v_ActionEvent != GamePublic.e_RoleAction.walk){
+                            s_role.RoleCommand.v_ActionEvent = GamePublic.e_RoleAction.walk;
+                            s_role.SetRoleAction(s_role.RoleCommand.v_ActionEvent);
+                        }
                         break;
                     case GamePublic.e_SpriteType.img:
                         break;

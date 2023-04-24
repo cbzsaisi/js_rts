@@ -41,10 +41,9 @@ C_GameControl.MapTiledCoverCheck = function (_pos, _Map,_Size) { //建筑占地�
 }
 
 C_GameControl.GetMapXY = function(_pos){
-    //console.log(_pos);
     var pos = GamePublic.s_Vec2d((_pos.x - GamePublic.g_MoveOff.x) / (GamePublic.e_MapTilePixel.width * 0.5 * GamePublic.g_SceenScale),
-        (_pos.y - GamePublic.g_MoveOff.y) / (GamePublic.e_MapTilePixel.height * 0.5 * GamePublic.g_SceenScale) - (GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale) * 0.5);
-    if (pos.x == 0) {
+        (_pos.y - GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale * 0.5 - GamePublic.g_MoveOff.y) / (GamePublic.e_MapTilePixel.height * 0.5 * GamePublic.g_SceenScale));// - (GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale) * 0.5);
+        if (pos.x == 0) {
         pos.x = pos.y / 2;
         pos.y = pos.y / 2;
         console.log("x = 0");
@@ -52,11 +51,13 @@ C_GameControl.GetMapXY = function(_pos){
         pos.y = (pos.y - pos.x) / 2;
         pos.x = pos.x + pos.y;
     }
+    //console.log(pos);
     pos.x > 0 ? pos.x += 0.5 : pos.x -= 0.5;
     pos.y > 0 ? pos.y += 0.5 : pos.y -= 0.5;
+    //console.log(pos);
     pos.x = parseInt(pos.x);
     pos.y = parseInt(pos.y);
-    console.log(pos);
+    //console.log(pos);
     return pos;
 }
 
@@ -155,7 +156,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
         }else if (GamePublic.g_Active_Map) {
             var mappos = C_GameControl.GetMapXY(_pos);
             //var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map);
-            console.log(mappos);
+            //console.log(mappos);
             if (GamePublic.g_RoleSelectStaus == GamePublic.e_SelectStaus.NonSelect) {
                 // for (var i = 0; i < GamePublic.g_GameDataResManger.RoleArray.length; i++) {
                 //     if (C_GameControl.RoleRayCheck(_pos, GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber())) {
@@ -253,6 +254,7 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
         //var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map); //检测点击的地图块
         var mappos = C_GameControl.GetMapXY(_pos);
         //console.log(mappos);
+        //console.log(_pos);
         if (mappos.x >= 0 && mappos.y >= 0 && mappos.x < GamePublic.g_Active_Map.v_MapSize.x && mappos.y < GamePublic.g_Active_Map.v_MapSize.y) {
             if (!GamePublic.g_MoveSelectStartPos) {
                 GamePublic.g_MoveSelectStartPos = GamePublic.s_Vec2d(mappos.x, mappos.y);

@@ -1,5 +1,4 @@
 var GamePublic = require("./F_GamePublic");
-//var g_role = require("./script/C_Role");
 
 var C_3DSprite = {
     New: function (_MainRole, _SpriteRes) {

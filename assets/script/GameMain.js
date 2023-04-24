@@ -15,7 +15,6 @@ var MapData = require("./C_MapData");
 var GameDataResManager = require("./C_GameDataResManager");
 var g_MathLib = require("./C_MathLib");
 var GameControl = require("./F_GameControl");
-var RoleClass = require("./C_Role");
 var RoleSpineClass = require("./C_RoleSpine");
 var PageManager = require("./C_PageManager");
 var MenuManager = require("./C_MenuManager");

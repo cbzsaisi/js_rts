@@ -38,7 +38,7 @@ var C_RoleFrontDraw = {
                     node.ShowNodeSelect.lineWidth = 1;
                     node.ShowNodeSelect.strokeColor = cc.Color.BLUE;
                     node.ShowNodeSelect.fillColor = cc.Color.BLUE;
-                    node.ShowNodeSelect.rect(100,150,50,50);
+                    node.ShowNodeSelect.rect(180,-100,50,50);
                     node.ShowNodeSelect.fill();
                     node.ShowNodeSelect.stroke();
  
