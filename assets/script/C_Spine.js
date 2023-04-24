@@ -21,30 +21,36 @@ var C_Spine = {
             switch (_ActionName) {
                 /* case e_RoleAction.default:
                     break; */
-                case GamePublic.e_RoleAction.walk:
+                case GamePublic.e_RoleAction.walk:{
                     var ske = node.v_Sprite.getComponent(sp.Skeleton);
-                    ske.clearTracks();
-                    //ske.setStartListener(node.RoleActionStartEner(_ActionName));
-                    //ske.setCompleteListener(node.RoleActionCompleteEner(_ActionName));
-                    ske.setStartListener((function(i_ActionName){console.log("setEndListener")}));
-                    ske.setCompleteListener((function(i_ActionName){console.log("setEndListener")}));
-                    ske.setEndListener(function(i_ActionName) {console.log("setEndListener")});
-                    ske.setTrackCompleteListener()
+                    // ske.clearTracks();
+                    ske.setStartListener((trackEntry, LoopCount) =>{node.RoleActionStartEner(_ActionName);});
+                    ske.setCompleteListener((trackEntry, LoopCount) =>{node.RoleActionCompleteEner(_ActionName);});
                     ske.setAnimation(0, "walk", false);
                     //this.SetRoleActionSpeed(0.5);
                     break;
+                }
+                case GamePublic.e_RoleAction.jump:{
+                    var ske = node.v_Sprite.getComponent(sp.Skeleton);
+                    // ske.clearTracks();
+                    ske.setStartListener((trackEntry, LoopCount) =>{node.RoleActionStartEner(_ActionName);});
+                    ske.setCompleteListener((trackEntry, LoopCount) =>{node.RoleActionCompleteEner(_ActionName);});
+                    ske.setAnimation(0, "jump", false);
+                    //this.SetRoleActionSpeed(0.5);
+                    break;
+                }
             }
         }
 
         node.RoleActionStartEner = function(i_ActionName) {
             node.v_MainRole.RoleCommand.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.play;
-            console.log("RoleActionStartEner");
-        }
+            //console.log("RoleActionStartEner");
+        };
 
         node.RoleActionCompleteEner = function(i_ActionName) {
-            console.log("RoleActionCompleteEner");
+            //console.log("RoleActionCompleteEner");
             node.v_MainRole.RoleCommand.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.stop;
-        }
+        };
 
         node.SetRoleActionSpeed = function(i_speed) {
             node.v_Sprite.getComponent(sp.Skeleton).timeScale = i_speed;
