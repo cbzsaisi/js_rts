@@ -152,8 +152,8 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
         GamePublic.g_ButtonUsingFlag = false;
         //检测UI点击
         if(GamePublic.g_GameRunUi && GamePublic.g_GameRunUi.ClickCheck(_pos,GamePublic.e_ClickType.LeftUp)){
-
-        }else if (GamePublic.g_Active_Map) {
+            GamePublic.g_ButtonUsingFlag = true;
+        }else if (GamePublic.g_Active_Map && !GamePublic.g_ButtonUsingFlag) {
             var mappos = C_GameControl.GetMapXY(_pos);
             //var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map);
             //console.log(mappos);
