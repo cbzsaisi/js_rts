@@ -95,6 +95,7 @@ var C_MapTile = {
             for (var i in GamePublic.g_resources2DMapTile) {
                 if (GamePublic.g_resources2DMapTile[i].FileName == node.v_TileName) {
                     node.v_TileSprite = cc.instantiate(GamePublic.g_resources2DMapTile[i].FileData);
+                    node.v_TileSprite.color = cc.color(200, 200, 200, 255);
                     //node.v_TileSprite.opacity = 100;
                     node.v_TileType = GamePublic.e_ObjType.MapTileLand;
                     node.k_SpriteSize.x = node.v_TileSprite.getBoundingBox().width;

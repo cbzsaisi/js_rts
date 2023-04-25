@@ -27,6 +27,8 @@ var C_RoleSpine = {
                 v_RoleBag: null, //背包
                 v_RoleName: "无名",
                 v_RoleEquip: null,
+                v_RoleColor: cc.color(255, 255, 255, 255),
+                v_RoleOpacity: 255,
             },
 
             node.RoleGameInfo = { //基本不写入保存数据
@@ -150,6 +152,8 @@ var C_RoleSpine = {
             for (var i in GamePublic.g_resourcesSpineboy) {
                 if (GamePublic.g_resourcesSpineboy[i].FileName == node.RoleGameInfo.v_SpriteData.spritename && GamePublic.g_resourcesSpineboy[i].LoadDone) {
                     node.RoleGameInfo.v_RoleSprite = g_Spine.New(node, GamePublic.g_resourcesSpineboy[i].FileData);
+                    //node.RoleGameInfo.v_RoleSprite.v_Sprite.color = cc.color(100, 100, 100, 255);
+                    node.SetRoleColor(90);
                     if (!node.RoleGameInfo.v_RoleCreate) {
                         node.Create();
                     }
@@ -336,6 +340,11 @@ var C_RoleSpine = {
             if (!node.RoleInfo.v_RolePropertyData.DEF) node.RoleInfo.v_RolePropertyData.DEF = 10;
             if (!node.RoleInfo.v_RolePropertyData.LEVEL) node.RoleInfo.v_RolePropertyData.LEVEL = 1;
             if (!node.RoleInfo.v_RolePropertyData.EXP) node.RoleInfo.v_RolePropertyData.EXP = 0;
+        }
+
+        node.SetRoleColor = function(i_brightness) {
+            var bri = i_brightness * 0.01;
+            if(node.RoleGameInfo.v_RoleSprite)node.RoleGameInfo.v_RoleSprite.v_Sprite.color = cc.color(255 * bri, 255 * bri, 255 * bri, node.RoleInfo.v_RoleOpacity);
         }
 
         node.LoadSpriteRes();
