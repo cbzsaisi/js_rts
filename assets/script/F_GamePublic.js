@@ -333,13 +333,13 @@ var G_Public = {
     },
 
     e_MapSizeType1: {
-        width: 15,
-        height: 15,
+        width: 32,
+        height: 32,
     },
 
     e_MapTilePixel: {   //游戏状态枚举
-        width: 128,
-        height: 64,
+        width: 32,
+        height: 32,
     },
 
     e_ObjType: {
@@ -636,6 +636,7 @@ var G_Public = {
         {FileName:"zhu01",LoadDone:false,FileData:false},
         {FileName:"zhu02",LoadDone:false,FileData:false},
         {FileName:"zhu03",LoadDone:false,FileData:false},
+        {FileName:"grass2",LoadDone:false,FileData:false},
     ],
 
     g_resourcesSpineboy : [

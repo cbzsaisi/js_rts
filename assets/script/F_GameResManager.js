@@ -13,7 +13,7 @@ var ResArray = [{
     {
         name: "role2",
         spritename: "spineboy",
-        SpriteScale: 0.4,
+        SpriteScale: 0.3,
         actionarray: [{
             action_name: "walk",
             action: "a_a",

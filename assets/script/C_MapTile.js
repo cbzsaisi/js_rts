@@ -15,7 +15,7 @@ var C_MapTile = {
         node.v_NodeCurAction = null,
         node.v_NodeMapPos = _pos,
         node.v_SpritePos = { x: 0, y: 0 },
-        node.k_SpriteSize = { x: 64, y: 64 },
+        node.k_SpriteSize = { x: 32, y: 32 },
         node.v_MainMap = null,
         node.v_Show = false,
         node.v_HeigthOffset = 0,
@@ -51,7 +51,7 @@ var C_MapTile = {
                     //this.v_TileResArray.push(TileRes);
                     break;
                 case GamePublic.e_ObjType.MapTileResTree1:
-                    var TileRes = C_MapTile.New("MapTiledSprite002", node.v_MainMap, node.v_NodeMapPos);
+                    var TileRes = C_MapTile.New("tree101", node.v_MainMap, node.v_NodeMapPos);
                     TileRes.v_HeigthOffset = 0.4;
                     TileRes.v_ShowLevel = 5;
                     TileRes.v_MapPassStatus = GamePublic.e_RolePassStatu.nopass;
@@ -59,46 +59,50 @@ var C_MapTile = {
                     break;
             }
         }
-        node.LoadSpriteRes = function () {
-            for (var i in GamePublic.g_resources3d1) {
-                if (GamePublic.g_resources3d1[i].FileName == node.v_TileName) {
-                    node.v_TileSprite = cc.instantiate(GamePublic.g_resources3d1[i].FileData);
-                    node.v_TileType = GamePublic.e_ObjType.MapTileLand;
-                    node.k_SpriteSize.x = GamePublic.e_MapTilePixel.width;
-                    node.k_SpriteSize.y = GamePublic.e_MapTilePixel.height;
-                    node.SetSceenPos(node.v_NodeMapPos);
-                    node.v_MainMap.v_MapShowNode.addChild(node.v_TileSprite, node.v_ShowLevel);
-                    //node.v_TileSprite.color.a = 100;
-                    node.v_Show = true;
-                    break;
-                }
-            }
-            /* if(!node.v_TileSprite){
-                cc.loader.loadRes(node.v_TileName, function (err, prefab) {
-                    node.v_TileSprite = cc.instantiate(prefab);
-                    node.v_TileType = GamePublic.e_ObjType.MapTileLand;
-                    //var aa = node.v_TileSprite.getContentSize();
-                    //var aa = node.v_TileSprite.getBoundingBox();
-                    node.k_SpriteSize.x = GamePublic.e_MapTilePixel.width;
-                    node.k_SpriteSize.y = GamePublic.e_MapTilePixel.height;
-                    node.SetSceenPos(node.v_NodeMapPos);
-                    node.v_TileSprite.getComponent(cc.MeshRenderer).opacity =100;
-                    node.v_MainMap.v_MapShowNode.addChild(node.v_TileSprite,node.v_ShowLevel);
-                    //node.v_TileSprite.color.a = 100;
-                    node.v_Show = true;
-                });
-            } */
-        };
+        // node.LoadSpriteRes = function () {
+        //     for (var i in GamePublic.g_resources3d1) {
+        //         if (GamePublic.g_resources3d1[i].FileName == node.v_TileName) {
+        //             node.v_TileSprite = cc.instantiate(GamePublic.g_resources3d1[i].FileData);
+        //             node.v_TileType = GamePublic.e_ObjType.MapTileLand;
+        //             node.k_SpriteSize.x = GamePublic.e_MapTilePixel.width;
+        //             node.k_SpriteSize.y = GamePublic.e_MapTilePixel.height;
+        //             node.v_MainMap.v_MapTiledSize.x = GamePublic.e_MapTilePixel.width;
+        //             node.v_MainMap.v_MapTiledSize.y = GamePublic.e_MapTilePixel.height;
+        //             node.SetSceenPos(node.v_NodeMapPos);
+        //             node.v_MainMap.v_MapShowNode.addChild(node.v_TileSprite, node.v_ShowLevel);
+        //             //node.v_TileSprite.color.a = 100;
+        //             node.v_Show = true;
+        //             break;
+        //         }
+        //     }
+        //     /* if(!node.v_TileSprite){
+        //         cc.loader.loadRes(node.v_TileName, function (err, prefab) {
+        //             node.v_TileSprite = cc.instantiate(prefab);
+        //             node.v_TileType = GamePublic.e_ObjType.MapTileLand;
+        //             //var aa = node.v_TileSprite.getContentSize();
+        //             //var aa = node.v_TileSprite.getBoundingBox();
+        //             node.k_SpriteSize.x = GamePublic.e_MapTilePixel.width;
+        //             node.k_SpriteSize.y = GamePublic.e_MapTilePixel.height;
+        //             node.SetSceenPos(node.v_NodeMapPos);
+        //             node.v_TileSprite.getComponent(cc.MeshRenderer).opacity =100;
+        //             node.v_MainMap.v_MapShowNode.addChild(node.v_TileSprite,node.v_ShowLevel);
+        //             //node.v_TileSprite.color.a = 100;
+        //             node.v_Show = true;
+        //         });
+        //     } */
+        // };
         node.Load2DSpriteRes = function () {
             for (var i in GamePublic.g_resources2DMapTile) {
                 if (GamePublic.g_resources2DMapTile[i].FileName == node.v_TileName) {
                     node.v_TileSprite = cc.instantiate(GamePublic.g_resources2DMapTile[i].FileData);
                     //node.v_TileSprite.opacity = 100;
                     node.v_TileType = GamePublic.e_ObjType.MapTileLand;
-                    node.k_SpriteSize.x = GamePublic.e_MapTilePixel.width;
-                    node.k_SpriteSize.y = GamePublic.e_MapTilePixel.height;
+                    node.k_SpriteSize.x = node.v_TileSprite.getBoundingBox().width;
+                    node.k_SpriteSize.y = node.v_TileSprite.getBoundingBox().height;
+                    node.v_MainMap.v_MapTiledSize.x = GamePublic.e_MapTilePixel.width;
+                    node.v_MainMap.v_MapTiledSize.y = GamePublic.e_MapTilePixel.height;
                     node.SetSceenPos(node.v_NodeMapPos);
-                    node.v_MainMap.v_MapShowNode.addChild(node.v_TileSprite, ((node.v_MainMap.v_MapSize.x * node.v_MainMap.v_MapSize.y)-(node.v_NodeMapPos.x + node.v_NodeMapPos.y)));
+                    node.v_MainMap.v_MapShowNode.addChild(node.v_TileSprite, (node.v_MainMap.v_MapSize.x * node.v_MainMap.v_MapSize.y)-(node.v_NodeMapPos.x + (node.v_NodeMapPos.y+1) * node.v_MainMap.v_MapSize.x));
                     node.v_Show = true;
                     break;
                 }
@@ -116,14 +120,14 @@ var C_MapTile = {
         };
 
         node.SetSceenPos = function (_pos) {
-            node.v_SpritePos = GamePublic.s_Vec2d((node.v_NodeMapPos.x - node.v_NodeMapPos.y) * (GamePublic.e_MapTilePixel.width * 0.5) * GamePublic.g_SceenScale,
-                (node.v_NodeMapPos.x + node.v_NodeMapPos.y) * (GamePublic.e_MapTilePixel.height * 0.5) * GamePublic.g_SceenScale + (GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale) * 0.5);
-            // node.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.k_SpriteSize.x * GamePublic.g_SceenScale),
-            //     _pos.y * (node.k_SpriteSize.y * GamePublic.g_SceenScale));
+            //console.log(node.k_SpriteSize.y * GamePublic.g_SceenScale * 0.5)
+            //node.v_SpritePos = GamePublic.s_Vec2d((node.v_NodeMapPos.x - node.v_NodeMapPos.y) * (GamePublic.e_MapTilePixel.width * 0.5) * GamePublic.g_SceenScale,
+            //    (node.v_NodeMapPos.x + node.v_NodeMapPos.y) * (GamePublic.e_MapTilePixel.height * 0.5) * GamePublic.g_SceenScale + (GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale) * 0.5);
+            node.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.v_MainMap.v_MapTiledSize.x * GamePublic.g_SceenScale),
+                _pos.y * (node.v_MainMap.v_MapTiledSize.y * GamePublic.g_SceenScale) + node.k_SpriteSize.y * GamePublic.g_SceenScale * 0.5);
             if (node.v_TileSprite) {
                 node.v_TileSprite.setPosition(node.v_SpritePos);
-                if(node.v_ShowLevel > 4)
-                node.v_TileSprite.zIndex=((node.v_MainMap.v_MapSize.x * node.v_MainMap.v_MapSize.y)-(node.v_NodeMapPos.x + node.v_NodeMapPos.y));
+                if(node.v_ShowLevel > 4){node.v_TileSprite.zIndex = (node.v_MainMap.v_MapSize.x * node.v_MainMap.v_MapSize.y)-(node.v_NodeMapPos.x + node.v_NodeMapPos.y * node.v_MainMap.v_MapSize.x) ;}
             }
             node.v_Rect = GamePublic.s_Rect(node.v_SpritePos.x, node.v_SpritePos.y, node.v_SpritePos.x + node.k_SpriteSize.x, node.v_SpritePos.y + node.k_SpriteSize.y);
             //if (this.v_TileSprite) this.v_TileSprite.setScale(g_SceenScale);

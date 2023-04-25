@@ -12,16 +12,16 @@ var GamePublic = require("./F_GamePublic");
         node.v_MapNumber = _MapNumber,
         node.v_MapSeccn = _MapSeccn;
         node.v_MapSeccn.addChild(node.v_MapShowNode);
-        node.v_MapTiledSize = {x : 64,y : 64};
+        node.v_MapTiledSize = {x : 32,y : 32};
         node.v_MapTabArray = [];
         
         for(var i=0;i<node.v_MapSize.x;i++){
             var MapArray = [];
             for(var j=0;j<node.v_MapSize.y;j++){
                 //var maptile = C_MapTile.New("MapTiledSprite003",node,GamePublic.s_Vec2d(i,j));
-                var maptile = C_MapTile.New("14",node,GamePublic.s_Vec2d(i,j));
-                if(GamePublic.g_GameRandom.GetRandom() > 90){
-                    //maptile.AddTileRes(GamePublic.e_ObjType.MapTileResTree1);
+                var maptile = C_MapTile.New("grass2",node,GamePublic.s_Vec2d(i,j));
+                if(GamePublic.g_GameRandom.GetRandom() > 950){
+                    maptile.AddTileRes(GamePublic.e_ObjType.MapTileResTree1);
                 }
                 MapArray[j] = maptile;
             }

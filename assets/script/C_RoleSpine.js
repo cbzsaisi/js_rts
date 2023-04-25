@@ -174,20 +174,20 @@ var C_RoleSpine = {
             // node.RoleGameInfo.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.x * GamePublic.g_SceenScale),
             //     _pos.y * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.y * GamePublic.g_SceenScale));// + node.RoleGameInfo.v_SpriteSize.height * 0.5);
             node.RoleGameInfo.v_SpritePos = node.RoleGameInfo.v_CurrentMap.MapRoomArray[_pos.x][_pos.y].v_SpritePos;
-            node.RoleGameInfo.v_SpritePos.y += 12;
+            //node.RoleGameInfo.v_SpritePos.y += 12;
             if (node.RoleCommand.v_ActionEvent == GamePublic.e_RoleAction.walk) {
                 node.RoleGameInfo.v_SpritePos.x += node.RoleCommand.v_ActionWaitTime * node.RoleGameInfo.v_MapOffset.x;
                 node.RoleGameInfo.v_SpritePos.y += node.RoleCommand.v_ActionWaitTime * node.RoleGameInfo.v_MapOffset.y;
             }
             if (node.RoleGameInfo.v_RoleSprite) {
-                node.RoleGameInfo.v_RoleSprite.v_Sprite.setPosition(GamePublic.s_Vec2d(0, 0));
+                //node.RoleGameInfo.v_RoleSprite.v_Sprite.setPosition(GamePublic.s_Vec2d(0, 0));
                 node.RoleGameInfo.v_RoleSprite.v_Sprite.setPosition(node.RoleGameInfo.v_SpritePos);
                 node.RoleGameInfo.v_DrawNode.setPosition(node.RoleGameInfo.v_SpritePos);
             }
 
-            var zindex = ((node.RoleGameInfo.v_CurrentMap.v_MapSize.x * node.RoleGameInfo.v_CurrentMap.v_MapSize.y) -
-                (node.RoleInfo.v_RoleMapPos.x + node.RoleInfo.v_RoleMapPos.y));
-            if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.v_Sprite.zIndex = zindex + 3;
+            var zindex = (node.RoleGameInfo.v_CurrentMap.v_MapSize.x * node.RoleGameInfo.v_CurrentMap.v_MapSize.y) -
+                (node.RoleInfo.v_RoleMapPos.x + node.RoleInfo.v_RoleMapPos.y * node.RoleGameInfo.v_CurrentMap.v_MapSize.x);
+            if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.v_Sprite.zIndex = zindex + 1;
             if (node.RoleGameInfo.v_SpriteScale) node.RoleGameInfo.v_RoleSprite.v_Sprite.scaleX = node.RoleGameInfo.v_SpriteScale.x;
             if (node.RoleGameInfo.v_SpriteScale) node.RoleGameInfo.v_RoleSprite.v_Sprite.scaleY = node.RoleGameInfo.v_SpriteScale.y;
             //if (this.v_TileSprite) this.v_TileSprite.setScale(g_SceenScale);

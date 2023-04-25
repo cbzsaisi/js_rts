@@ -92,20 +92,7 @@ cc.Class({
         this.Map_sceen_root = new cc.Node();
         //this.Map_sceen_root.is3DNode = true;
         this.node.addChild(this.Map_sceen_root, 5);
-        // var spineNode = new cc.Node();
-        // var skeleton = spineNode.addComponent('sp.Skeleton');
-        // //this.Page_sceen_root.addChild(spineNode, 5);
 
-        // cc.resources.load('spineboy', sp.SkeletonData, (error, assets) => {
-        //     if (error == null) {
-        //         //设置数据
-        //         this.Page_sceen_root.addChild(spineNode, 5);
-        //         skeleton.skeletonData = assets;
-        //         //播放默认动画
-        //         skeleton.setAnimation(0, 'walk', true);
-                
-        //     }
-        // });
         //初始指针坐标
         GamePublic.g_MouseLeftFlag = false;
         GamePublic.g_MouseRightFlag = false;
@@ -117,7 +104,6 @@ cc.Class({
         
         GamePublic.g_SelectRoleArray = [];
         GamePublic.g_RoleSelectStaus = GamePublic.e_SelectStaus.NonSelect;
-        // GamePublic.g_ItemManager = ItemManager.New();
         // GamePublic.g_GameLastTime = new Date().getTime();
         //GamePublic.g_UiCamera = this.UiCamera;
         // //var qu = cc.quat(0, 0, 0).fromEuler({ x: -20, y: 0, z: 0 });
@@ -139,10 +125,11 @@ cc.Class({
         
         GamePublic.g_GamePageManager = PageManager.New(this.Page_sceen_root);
         GamePublic.g_GameMenuManager = MenuManager.New(this.Page_sceen_root);
+        GamePublic.g_ItemManager = ItemManager.New();
         GamePublic.g_TipPage = TipPageClass.New(this.Page_sceen_root);
-        // GamePublic.g_ShopManager = ShopManager.New();
-        // GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 1, GamePublic.g_ShopManager.StoreNum, "Shop");
-        // GamePublic.g_ShopManager.AddGoldToStore(GamePublic.g_ShopManager.GetStore(1).ItemBar, 200);
+        GamePublic.g_ShopManager = ShopManager.New();
+        GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 1, GamePublic.g_ShopManager.StoreNum, "Shop");
+        GamePublic.g_ShopManager.AddGoldToStore(GamePublic.g_ShopManager.GetStore(1).ItemBar, 200);
         GamePublic.g_BuildManager = BuildManager.New();
         // //GamePublic.g_Build = Building.New();
         // //console.log(GamePublic.g_BuildManager.GetBuildSize(GamePublic.e_BuildName.SmallHumanBuild));
@@ -311,8 +298,8 @@ cc.Class({
             if (!this.SceenCreate) {
                 var Rolenum = 0;
                 var Buildnum = 0;
-                for (let i = 0; i < 1; i++) {
-                    for (let j = 0; j < 1; j++) {
+                for (let i = 0; i < 2; i++) {
+                    for (let j = 0; j < 2; j++) {
                         var role = new RoleSpineClass.New("role2", 1, GamePublic.s_Vec2d(i, j), ++Rolenum);
                     }
                 }
@@ -349,26 +336,24 @@ cc.Class({
                         GamePublic.g_GameDataResManger.RoleArray[i].obj.MyUpdate();
                     }
                     this.GameMapUpdateNum = 0;
-            //         /* if(GamePublic.g_TipPage.Show && GamePublic.g_MouseStopTick > 50){
-            //             GamePublic.g_TipPage.SetShow(false);
-            //             //GamePublic.g_MouseStopTick = 0;
-            //         } */
-            //         if (GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_MouseStopTick > 20) {
-            //             var Role = null;
-            //             //GamePublic.g_TipPage.Show
-            //             for (var i = 0; i < GamePublic.g_GameDataResManger.RoleArray.length; i++) {
-            //                 if (GameControl.RoleRayCheck(GamePublic.g_MoveEndPos, GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber())) {
-            //                     Role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber());
-            //                     break;
-            //                 }
-            //             }
-            //             if (Role) {
-            //                 GamePublic.g_TipPage.Setinfo(Role.RoleInfo.v_RoleName,Role.RoleInfo.v_RoleNumber, Role.RoleInfo.v_RoleName,null);
-            //             } else {
-            //                 GamePublic.g_TipPage.SetShow(false);
-            //             }
-            //         }
-                
+                    /* if(GamePublic.g_TipPage.Show && GamePublic.g_MouseStopTick > 50){
+                        GamePublic.g_TipPage.SetShow(false);
+                        //GamePublic.g_MouseStopTick = 0;
+                    } */
+                    if (GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_MouseStopTick > 20) {
+                        var Role = null;
+                        for (var i = 0; i < GamePublic.g_GameDataResManger.RoleArray.length; i++) {
+                            // if (GameControl.RoleRayCheck(GamePublic.g_MoveEndPos, GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber())) {
+                            //     Role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber());
+                            //     break;
+                            // }
+                        }
+                        if (Role) {
+                            GamePublic.g_TipPage.Setinfo(Role.RoleInfo.v_RoleName,Role.RoleInfo.v_RoleNumber, Role.RoleInfo.v_RoleName,null);
+                        } else {
+                            GamePublic.g_TipPage.SetShow(false);
+                        }
+                    }
                 }
                 if (GamePublic.g_GamePageManager) GamePublic.g_GamePageManager.Update();
                 if (GamePublic.g_GameMenuManager) GamePublic.g_GameMenuManager.Update();

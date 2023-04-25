@@ -41,22 +41,29 @@ C_GameControl.MapTiledCoverCheck = function (_pos, _Map,_Size) { //建筑占地�
 }
 
 C_GameControl.GetMapXY = function(_pos){
-    var pos = GamePublic.s_Vec2d((_pos.x - GamePublic.g_MoveOff.x) / (GamePublic.e_MapTilePixel.width * 0.5 * GamePublic.g_SceenScale),
-        (_pos.y - GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale * 0.5 - GamePublic.g_MoveOff.y) / (GamePublic.e_MapTilePixel.height * 0.5 * GamePublic.g_SceenScale));// - (GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale) * 0.5);
-        if (pos.x == 0) {
-        pos.x = pos.y / 2;
-        pos.y = pos.y / 2;
-        console.log("x = 0");
-    } else {
-        pos.y = (pos.y - pos.x) / 2;
-        pos.x = pos.x + pos.y;
-    }
+    // var pos = GamePublic.s_Vec2d((_pos.x - GamePublic.g_MoveOff.x) / (GamePublic.e_MapTilePixel.width * 0.5 * GamePublic.g_SceenScale),
+    //     (_pos.y - GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale * 0.5 - GamePublic.g_MoveOff.y) / (GamePublic.e_MapTilePixel.height * 0.5 * GamePublic.g_SceenScale));// - (GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale) * 0.5);
+    //     if (pos.x == 0) {
+    //     pos.x = pos.y / 2;
+    //     pos.y = pos.y / 2;
+    //     console.log("x = 0");
+    // } else {
+    //     pos.y = (pos.y - pos.x) / 2;
+    //     pos.x = pos.x + pos.y;
+    // }
+    // pos.x > 0 ? pos.x += 0.5 : pos.x -= 0.5;
+    // pos.y > 0 ? pos.y += 0.5 : pos.y -= 0.5;
+    // pos.x = parseInt(pos.x);
+    // pos.y = parseInt(pos.y);
+    //console.log(_pos.x - GamePublic.g_MoveOff.x,_pos.y - GamePublic.g_MoveOff.y);
+    var map = GamePublic.g_Active_Map.v_MapTiledSize;
+    var pos = GamePublic.s_Vec2d((_pos.x - GamePublic.g_MoveOff.x + map.x * 1) / (map.x * GamePublic.g_SceenScale),
+    (_pos.y - GamePublic.g_MoveOff.y + map.y * 0.5) / (map.y * GamePublic.g_SceenScale));
+    // var pos = GamePublic.s_Vec2d((_pos.x - GamePublic.g_MoveOff.x) / (map.x * GamePublic.g_SceenScale),
+    // (_pos.y - GamePublic.g_MoveOff.y) / (map.y * GamePublic.g_SceenScale));
     //console.log(pos);
-    pos.x > 0 ? pos.x += 0.5 : pos.x -= 0.5;
-    pos.y > 0 ? pos.y += 0.5 : pos.y -= 0.5;
-    //console.log(pos);
-    pos.x = parseInt(pos.x);
-    pos.y = parseInt(pos.y);
+    pos.x = Math.floor(pos.x);
+    pos.y = Math.floor(pos.y); 
     //console.log(pos);
     return pos;
 }
@@ -94,7 +101,7 @@ C_GameControl.ControlMouseMiddleUpCall = function (_pos) {
 C_GameControl.ControlMouseLeftUpCall = function (_pos) {
     //C_GameControl.GetMapXY(_pos);
     var ControlState = GamePublic.e_ControlState.Non;
-    if(GamePublic.g_UserPicklObj.Type == GamePublic.e_UserControlType.BuildPlace){
+    if(GamePublic.g_UserPicklObj.Type == GamePublic.e_UserControlType.BuildPlace){ //当前状态是建筑检测 关闭检测
         GamePublic.g_Active_Map.MapTiledColorShow(false,null);
         GamePublic.g_UserPicklObj.Type = GamePublic.e_UserControlType.Non;
     }   
@@ -103,13 +110,13 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
     } else if (GamePublic.g_GamePageManager && GamePublic.g_GamePageManager.PageNumber) {
         GamePublic.g_GamePageManager.PageButtonCheck(_pos, GamePublic.e_ClickType.LeftUp);
     } else if (GamePublic.g_MouseLeftFlag == true && _pos.x >= 0 && _pos.x <= GamePublic.g_winSize.width && _pos.y >= 0 && _pos.y <= GamePublic.g_winSize.height) {
-        if (GamePublic.g_MouseMoveFlag == false) {
-            ControlState = GamePublic.e_ControlState.MouseLeftNoMove;
-        } else {
-            ControlState = GamePublic.e_ControlState.MouseLeftMove;
-        }
+        // if (GamePublic.g_MouseMoveFlag == false) {
+        //     ControlState = GamePublic.e_ControlState.MouseLeftNoMove;
+        // } else {
+        //     ControlState = GamePublic.e_ControlState.MouseLeftMove;
+        // }
     }
-    if (GamePublic.g_MouseMoveFlag){
+    if (GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_MouseMoveFlag){ //左键按下后移动   选择角色
         var SelectFlag = false;
         //选择框
         if (GamePublic.g_MoveSelectEndPos && GamePublic.g_RoleSelectStaus == GamePublic.e_SelectStaus.NonSelect) {
@@ -122,7 +129,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                     for (var k = 0; k < MapTileRoleArray.length; k++) {
                         GamePublic.g_SelectRoleArray.push(MapTileRoleArray[k]);
                         GamePublic.g_GameDataResManger.GetRole(MapTileRoleArray[k]).RoleGameInfo.v_RoleSelectFlag = true;
-                        SelectFlag = true;
+                        SelectFlag = true; //已有选中
                     }
                     GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].SetSelectFlag(false);
                 }
@@ -153,7 +160,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
         //检测UI点击
         if(GamePublic.g_GameRunUi && GamePublic.g_GameRunUi.ClickCheck(_pos,GamePublic.e_ClickType.LeftUp)){
             GamePublic.g_ButtonUsingFlag = true;
-        }else if (GamePublic.g_Active_Map && !GamePublic.g_ButtonUsingFlag) {
+        }else if (GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_Active_Map && !GamePublic.g_ButtonUsingFlag) {
             var mappos = C_GameControl.GetMapXY(_pos);
             //var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map);
             //console.log(mappos);
@@ -237,13 +244,13 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
 
     //camera.getWorldToCameraPoint(_pos, pos);
     //console.log(pos);
-    //if (GamePublic.g_TipPage.SetShow)GamePublic.g_TipPage.SetShow(false);
+    if (GamePublic.g_TipPage.SetShow)GamePublic.g_TipPage.SetShow(false);
+    if (GamePublic.g_TipPage) GamePublic.g_TipPage.SetPos(_pos);
     if (GamePublic.g_Cursor) GamePublic.g_Cursor.SetPos(_pos);
-    // if (GamePublic.g_TipPage) GamePublic.g_TipPage.SetPos(_pos);
-    // if(Math.abs(GamePublic.g_MouseMoveLastPos.x - _pos.x) < 1 || Math.abs(GamePublic.g_MouseMoveLastPos.y - _pos.y) < 1){
-    //     return false;
-    // }
-    if(GamePublic.g_MouseMoveLastPos.x == _pos.x && GamePublic.g_MouseMoveLastPos.y == _pos.y){
+    if(Math.abs(GamePublic.g_MouseMoveLastPos.x - _pos.x) < 1 || Math.abs(GamePublic.g_MouseMoveLastPos.y - _pos.y) < 1){
+        return false;
+    }
+    if(GamePublic.g_MoveOffLast.x == _pos.x && GamePublic.g_MoveOffLast.y == _pos.y){
         return false;
     }
     if (GamePublic.g_GameMenuManager.MenuNumber) {
@@ -283,11 +290,7 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
             GamePublic.g_Active_Map.MapTiledColorShow(true,cc.color(255, 0, 0, 95));
         }
     }
-    if(!GamePublic.g_GameMenuManager.MenuNumber && !GamePublic.g_GamePageManager.PageNumber) {
-        //if (GamePublic.g_MouseMoveLastPos.x == _pos.x && GamePublic.g_MouseMoveLastPos.y == _pos.y) return;
-        GamePublic.g_MouseMoveLastPos.x = _pos.x;
-        GamePublic.g_MouseMoveLastPos.y = _pos.y;
-        
+    if(GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_GamePageManager.PageNumber == 0) {
         if (GamePublic.g_MouseRightFlag && _pos.x >= 0 && _pos.x <= GamePublic.g_winSize.width && _pos.y >= 0 && _pos.y <= GamePublic.g_winSize.height) {
             GamePublic.g_MoveOff.x += (_pos.x - GamePublic.g_MoveOffLast.x) * 0.5;
             GamePublic.g_MoveOff.y += (_pos.y - GamePublic.g_MoveOffLast.y) * 0.5;
