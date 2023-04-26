@@ -110,7 +110,7 @@ var C_RoleSpine = {
         node.RoleCommand.v_ActionConsoleType = 1;
         node.RoleCommand.v_ActionLoop = false;
         node.RoleCommand.v_RoleTradeShopNum = 1;
-        node.RoleCommand.v_ActionRunStage = 0;
+        node.RoleCommand.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.play;
 
         node.RoleGameInfo.v_DrawNode = new cc.Node();
         node.RoleGameInfo.v_DrawNode.is3DNode = false;
@@ -234,25 +234,26 @@ var C_RoleSpine = {
                 }
                 if (node.RoleGameInfo.v_FrontDraw) node.RoleGameInfo.v_FrontDraw.update();
             }
-            //console.log(node.RoleCommand.v_ActionLoop);
-            //console.log(node.RoleCommand.v_ActionRunStage);
+            //console.log(node.RoleCommand.v_ActionWaitTime);
+            // console.log(node.RoleCommand.v_ActionLoop);
+            // console.log(node.RoleCommand.v_ActionRunStage);
             if (node.RoleCommand.v_ActionWaitTime < 1) {
                 if (node.RoleCommand.v_RoleActionCommandArray.length) {
                     node.RoleCommand.v_ActionCommand = node.RoleCommand.v_RoleActionCommandArray.splice(node.RoleCommand.v_RoleActionCommandArray.length - 1, 1);
                     RoleSrcipt.RoleCommandSrciptProc(node.RoleCommand.v_ActionCommand[0]);
                 }
-                //else if(node.RoleCommand.v_ActionLoop == true){    
-                else if (node.RoleGameInfo.v_RoleSprite) {
+                else if (node.RoleCommand.v_ActionEvent != GamePublic.e_RoleAction.def && node.RoleGameInfo.v_RoleSprite) {
                     // var seft = node.RoleGameInfo.v_RoleSprite.v_Sprite.getComponent(cc.SkeletonAnimation);
                     // seft.stop();
-                    // node.RoleCommand.v_ActionEvent = GamePublic.e_RoleAction.def;
-                    // node.RoleCommand.v_ActionLoop = false;
+                    node.RoleCommand.v_ActionEvent = GamePublic.e_RoleAction.def;
+                    node.RoleCommand.v_ActionLoop = false;
                     //if(this.v_NodeActionCommandState1 == e_ActionCommandState.Run)this.v_NodeActionCommandState1 = e_ActionCommandState.End;
                     //空闲
-                    //this.v_ActionCommand = null;
+                    this.v_ActionCommand = 0;
                     //if(this.v_Sprite.v_ActionStage != e_SpriteActionName.jump){C_RoleManager.SetRoleAction(this.v_Sprite,e_SpriteActionName.jump);}
                 }
-            }else if(node.RoleCommand.v_ActionLoop == true && node.RoleCommand.v_ActionRunStage == GamePublic.e_SpriteActionRunStage.stop){
+            }
+            else if(node.RoleCommand.v_ActionLoop == true && node.RoleCommand.v_ActionRunStage == GamePublic.e_SpriteActionRunStage.stop){
                 this.SetRoleAction(node.RoleCommand.v_ActionEvent);
             }
 
@@ -321,14 +322,20 @@ var C_RoleSpine = {
         //-----------------------------------------------------------------------------
 
         node.SetRoleAction = function(_ActionName) {
-            switch (_ActionName) {
-                /* case e_RoleAction.default:
+            if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.SetRoleAction(_ActionName);
+            // switch (_ActionName) {
+            //     /* case e_RoleAction.def:
 
-                    break; */
-                case GamePublic.e_RoleAction.walk:
-                    if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.SetRoleAction(_ActionName);
-                    break;
-            }
+            //         break; */
+            //     case GamePublic.e_RoleAction.walk:{
+            //         if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.SetRoleAction(_ActionName);
+            //         break;
+            //     }
+            //     case GamePublic.e_RoleAction.jump:{
+            //         if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.SetRoleAction(_ActionName);
+            //         break;
+            //     }
+            // }
         }
 
         node.CalcRolePropertyData = function() {

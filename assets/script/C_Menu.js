@@ -1,7 +1,7 @@
 var GamePublic = require("./F_GamePublic");
 var PageSprite = require("./C_PageBackDrop");
 var ButtonSprite = require("./C_Button");
-var PageCommand = require("./F_PageCommand");
+var MenuCommand = require("./F_MenuCommand");
 //var C_Text = require("./C_Text");
 
 
@@ -162,7 +162,7 @@ var C_Menu = {
                 if (node.ObjArray[i].MenuInfo.Menutype == GamePublic.e_Buttontype.PageButton && GamePublic.CollideRect(pos, node.ObjArray[i].Rect)) {
                     switch(_ClickType){
                         case GamePublic.e_ClickType.LeftUp:
-                        PageCommand.PageCommandProc(node.ObjArray[i].MenuInfo);
+                        MenuCommand.MenuCommandProc(node.ObjArray[i].MenuInfo);
                         break;
                         case GamePublic.e_ClickType.Move:
                         node.ObjArray[i].ShowSelectFlag = true;

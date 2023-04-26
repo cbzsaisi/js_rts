@@ -1,7 +1,7 @@
 var GamePublic = require("./F_GamePublic");
 var PageSprite = require("./C_PageBackDrop");
 var ButtonSprite = require("./C_Button");
-var PageCommand = require("./F_PageCommand");
+var MenuCommand = require("./F_MenuCommand");
 var C_Text = require("./C_Text");
 var PageFront = require("./C_PageFront");
 
@@ -276,7 +276,7 @@ var C_GameRunUi = {
                 if (node.StaticButton[i].ClickType.Button && !GamePublic.g_MouseMoveFlag && GamePublic.CollideRect(pos, node.StaticButton[i].Rect)) {
                     switch (_ClickType) {
                         case GamePublic.e_ClickType.LeftUp:
-                            PageCommand.PageCommandProc(node.StaticButton[i].ButtonInfo);
+                            MenuCommand.MenuCommandProc(node.StaticButton[i].ButtonInfo);
                             return true;
                     }
                 }
@@ -285,7 +285,7 @@ var C_GameRunUi = {
                 if (node.DynamicButton[i].ClickType.Button && !GamePublic.g_MouseMoveFlag && GamePublic.CollideRect(pos, node.DynamicButton[i].Rect)) {
                     switch (_ClickType) {
                         case GamePublic.e_ClickType.LeftUp:
-                            PageCommand.PageCommandProc(node.DynamicButton[i].ButtonInfo);
+                            MenuCommand.MenuCommandProc(node.DynamicButton[i].ButtonInfo);
                             return true;
                     }
                 }

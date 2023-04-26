@@ -27,26 +27,25 @@ F_PageCommandProc.PageCommandProc = function(_Info) {
         case GamePublic.e_ButtonCommand.CloseMenu:
             GamePublic.g_GameMenuManager.DelMenu(_Info.MainNumber);
             break;
-        case GamePublic.e_ButtonCommand.CallRoleItemPage:
-            GamePublic.g_GameMenuManager.DelMenu(_Info.MainNumber);
-            GamePublic.g_GamePageManager.AddPage({ x: 400, y: 300 }, 'RoleItemPage', _Info.role_array, _Info.s_array, _Info.d_array);
-            break;
-        case GamePublic.e_ButtonCommand.CallRoleStatePage:
-            GamePublic.g_GameMenuManager.DelMenu(_Info.MainNumber);
-            GamePublic.g_GamePageManager.AddPage({ x: 400, y: 300 }, 'RoleStatePage', _Info.role_array, _Info.s_array, _Info.d_array);
-            break;
-        case GamePublic.e_ButtonCommand.CallRoleAndShopTradePage:
-            GamePublic.g_GameMenuManager.DelMenu(_Info.MainNumber);
-            GamePublic.g_GamePageManager.AddPage({ x: 400, y: 300 }, 'RoleAndShopTradePage', _Info.role_array, _Info.s_array, _Info.d_array);
-            break;
+        // case GamePublic.e_ButtonCommand.CallRoleItemPage:
+        //     GamePublic.g_GameMenuManager.DelMenu(_Info.MainNumber);
+        //     GamePublic.g_GamePageManager.AddPage({ x: 400, y: 300 }, 'RoleItemPage', _Info.role_array, _Info.s_array, _Info.d_array);
+        //     break;
+        // case GamePublic.e_ButtonCommand.CallRoleStatePage:
+        //     GamePublic.g_GameMenuManager.DelMenu(_Info.MainNumber);
+        //     GamePublic.g_GamePageManager.AddPage({ x: 400, y: 300 }, 'RoleStatePage', _Info.role_array, _Info.s_array, _Info.d_array);
+        //     break;
+        // case GamePublic.e_ButtonCommand.CallRoleAndShopTradePage:
+        //     GamePublic.g_GameMenuManager.DelMenu(_Info.MainNumber);
+        //     GamePublic.g_GamePageManager.AddPage({ x: 400, y: 300 }, 'RoleAndShopTradePage', _Info.role_array, _Info.s_array, _Info.d_array);
+        //     break;
         case GamePublic.e_ButtonCommand.CallInputValuePage:
-            console.log(_Info);
             GamePublic.g_GameMenuManager.DelMenu(_Info.MainNumber);
             GamePublic.g_GamePageManager.AddPage({ x: 500, y: 300 }, 'InputValuePage', _Info.Array, [], []);
             break;
-        case GamePublic.e_ButtonCommand.CallMainMenu:
-            if (GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0) GamePublic.g_GameMenuManager.AddMenu({ x: 300, y: 400 }, 'type');
-            break;
+        // case GamePublic.e_ButtonCommand.CallMainMenu:
+        //     if (GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0) GamePublic.g_GameMenuManager.AddMenu({ x: 300, y: 400 }, 'type');
+        //     break;
         case GamePublic.e_ButtonCommand.InputNumber0:
             GamePublic.g_InputNumber = this.AddNumber(GamePublic.g_InputNumber, 0);
             GamePublic.g_GamePageManager.UpdateText();

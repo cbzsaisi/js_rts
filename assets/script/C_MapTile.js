@@ -59,38 +59,7 @@ var C_MapTile = {
                     break;
             }
         }
-        // node.LoadSpriteRes = function () {
-        //     for (var i in GamePublic.g_resources3d1) {
-        //         if (GamePublic.g_resources3d1[i].FileName == node.v_TileName) {
-        //             node.v_TileSprite = cc.instantiate(GamePublic.g_resources3d1[i].FileData);
-        //             node.v_TileType = GamePublic.e_ObjType.MapTileLand;
-        //             node.k_SpriteSize.x = GamePublic.e_MapTilePixel.width;
-        //             node.k_SpriteSize.y = GamePublic.e_MapTilePixel.height;
-        //             node.v_MainMap.v_MapTiledSize.x = GamePublic.e_MapTilePixel.width;
-        //             node.v_MainMap.v_MapTiledSize.y = GamePublic.e_MapTilePixel.height;
-        //             node.SetSceenPos(node.v_NodeMapPos);
-        //             node.v_MainMap.v_MapShowNode.addChild(node.v_TileSprite, node.v_ShowLevel);
-        //             //node.v_TileSprite.color.a = 100;
-        //             node.v_Show = true;
-        //             break;
-        //         }
-        //     }
-        //     /* if(!node.v_TileSprite){
-        //         cc.loader.loadRes(node.v_TileName, function (err, prefab) {
-        //             node.v_TileSprite = cc.instantiate(prefab);
-        //             node.v_TileType = GamePublic.e_ObjType.MapTileLand;
-        //             //var aa = node.v_TileSprite.getContentSize();
-        //             //var aa = node.v_TileSprite.getBoundingBox();
-        //             node.k_SpriteSize.x = GamePublic.e_MapTilePixel.width;
-        //             node.k_SpriteSize.y = GamePublic.e_MapTilePixel.height;
-        //             node.SetSceenPos(node.v_NodeMapPos);
-        //             node.v_TileSprite.getComponent(cc.MeshRenderer).opacity =100;
-        //             node.v_MainMap.v_MapShowNode.addChild(node.v_TileSprite,node.v_ShowLevel);
-        //             //node.v_TileSprite.color.a = 100;
-        //             node.v_Show = true;
-        //         });
-        //     } */
-        // };
+
         node.Load2DSpriteRes = function () {
             for (var i in GamePublic.g_resources2DMapTile) {
                 if (GamePublic.g_resources2DMapTile[i].FileName == node.v_TileName) {
@@ -159,10 +128,10 @@ var C_MapTile = {
                 Img.clear();
                 Img.lineWidth = 1;
                 Img.fillColor = _color;//cc.color(255, 255, 0, 95);
-                Img.rect(0, 0, 1, 1);
+                Img.rect(0, 0, 10, 10);
                 Img.fill();
                 node.v_TileSprite.addChild(node.v_SelectSprite, 5);
-                node.v_SelectSprite.setPosition({ x: -0.5, y: -0.5, z: 0 });
+                //node.v_SelectSprite.setPosition({ x: 1, y: 1});
             } else {
                 if (node.v_SelectSprite) node.v_TileSprite.removeChild(node.v_SelectSprite);
                 node.v_SelectSprite = null;

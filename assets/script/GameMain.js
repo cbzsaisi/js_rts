@@ -298,8 +298,8 @@ cc.Class({
             if (!this.SceenCreate) {
                 var Rolenum = 0;
                 var Buildnum = 0;
-                for (let i = 0; i < 2; i++) {
-                    for (let j = 0; j < 2; j++) {
+                for (let i = 0; i < 1; i++) {
+                    for (let j = 0; j < 1; j++) {
                         var role = new RoleSpineClass.New("role2", 1, GamePublic.s_Vec2d(i, j), ++Rolenum);
                     }
                 }

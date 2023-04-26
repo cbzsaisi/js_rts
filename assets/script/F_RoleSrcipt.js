@@ -75,9 +75,9 @@ C_SrciptProc.RoleCommandSrciptProc = function (_src) {
             s_role.RoleCommand.v_ActionConsoleType = 2;
             s_role.RoleCommand.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
             switch (s_role.RoleGameInfo.v_SpriteType) {
-                case GamePublic.e_SpriteType.model:
+                case GamePublic.e_SpriteType.spine:
                     s_role.RoleCommand.v_ActionEvent = GamePublic.e_RoleAction.attack;
-                    s_role.SetRoleAction(GamePublic.e_RoleAction.walk);
+                    s_role.SetRoleAction(GamePublic.e_RoleAction.jump);
                     break;
             }
             //g_RoleManager.RoleAttcak(_src.ScrRole.Num, _src.TarRole.Num);

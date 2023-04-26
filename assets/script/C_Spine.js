@@ -32,6 +32,7 @@ var C_Spine = {
                 }
                 case GamePublic.e_RoleAction.jump:{
                     var ske = node.v_Sprite.getComponent(sp.Skeleton);
+                    console.log("jump")
                     // ske.clearTracks();
                     ske.setStartListener((trackEntry, LoopCount) =>{node.RoleActionStartEner(_ActionName);});
                     ske.setCompleteListener((trackEntry, LoopCount) =>{node.RoleActionCompleteEner(_ActionName);});
@@ -50,6 +51,29 @@ var C_Spine = {
         node.RoleActionCompleteEner = function(i_ActionName) {
             //console.log("RoleActionCompleteEner");
             node.v_MainRole.RoleCommand.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.stop;
+            var g_gamemangaer = GamePublic.g_GameDataResManger;
+            switch (node.v_MainRole.RoleCommand.v_ActionEvent) {
+                case GamePublic.e_RoleAction.walk:{
+                    //console.log("walk fin");
+                    //node.v_MainRole.RoleGameInfo.v_MapOffset = GamePublic.s_Vec2d(0,0);
+                    //if(node.v_MainRole.RoleCommand.v_ActionLoop == true)node.v_MainRole.SetRoleAction(node.v_MainRole.RoleCommand.v_ActionEvent);
+                    break;
+                }
+                    
+                case GamePublic.e_RoleAction.attack:{
+                    node.v_MainRole.RoleCommand.v_ActionWaitTime = 0;
+                    var CommandArray = node.v_MainRole.RoleCommand.v_RoleActionCommandArray1;
+                    if(CommandArray[node.v_MainRole.RoleCommand.v_RoleActionCommandArray1Number].Script.Name == GamePublic.e_CommandType.RoleAttack){
+                        var t_role = g_gamemangaer.GetRole(CommandArray[node.v_MainRole.RoleCommand.v_RoleActionCommandArray1Number].TarRole.Num);
+                        for(var i in CommandArray[CommandArray.length - 1].TarRole.Array){
+                            var src = new GamePublic.s_RoleScript({Info:{AttackType:node.v_MainRole.RoleGameInfo.v_RoleAttackType,AttackPower:10,SkillType:1,SkillPower:1},Name:GamePublic.e_CommandType.RoleAttackHure},{Num:t_role.RoleInfo.v_RoleNumber ,Array:"",Pos:123},{Num:node.v_MainRole.RoleInfo.v_RoleNumber,Array:"",Pos:123});
+                            t_role.RoleCommand.v_RoleActionCommandPassive.push(src);
+                        }
+                    }
+                    console.log("attack fin");
+                    break;
+                }
+            }
         };
 
         node.SetRoleActionSpeed = function(i_speed) {
