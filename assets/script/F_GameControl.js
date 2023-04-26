@@ -41,30 +41,11 @@ C_GameControl.MapTiledCoverCheck = function (_pos, _Map,_Size) { //建筑占地�
 }
 
 C_GameControl.GetMapXY = function(_pos){
-    // var pos = GamePublic.s_Vec2d((_pos.x - GamePublic.g_MoveOff.x) / (GamePublic.e_MapTilePixel.width * 0.5 * GamePublic.g_SceenScale),
-    //     (_pos.y - GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale * 0.5 - GamePublic.g_MoveOff.y) / (GamePublic.e_MapTilePixel.height * 0.5 * GamePublic.g_SceenScale));// - (GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale) * 0.5);
-    //     if (pos.x == 0) {
-    //     pos.x = pos.y / 2;
-    //     pos.y = pos.y / 2;
-    //     console.log("x = 0");
-    // } else {
-    //     pos.y = (pos.y - pos.x) / 2;
-    //     pos.x = pos.x + pos.y;
-    // }
-    // pos.x > 0 ? pos.x += 0.5 : pos.x -= 0.5;
-    // pos.y > 0 ? pos.y += 0.5 : pos.y -= 0.5;
-    // pos.x = parseInt(pos.x);
-    // pos.y = parseInt(pos.y);
-    //console.log(_pos.x - GamePublic.g_MoveOff.x,_pos.y - GamePublic.g_MoveOff.y);
     var map = GamePublic.g_Active_Map.v_MapTiledSize;
-    var pos = GamePublic.s_Vec2d((_pos.x - GamePublic.g_MoveOff.x + map.x * 1) / (map.x * GamePublic.g_SceenScale),
-    (_pos.y - GamePublic.g_MoveOff.y + map.y * 0.5) / (map.y * GamePublic.g_SceenScale));
-    // var pos = GamePublic.s_Vec2d((_pos.x - GamePublic.g_MoveOff.x) / (map.x * GamePublic.g_SceenScale),
-    // (_pos.y - GamePublic.g_MoveOff.y) / (map.y * GamePublic.g_SceenScale));
-    //console.log(pos);
+    var pos = GamePublic.s_Vec2d((_pos.x - GamePublic.g_MoveOff.x + map.x * 0.0) / (map.x * GamePublic.g_SceenScale),
+    (_pos.y - GamePublic.g_MoveOff.y + map.y * 0.0) / (map.y * GamePublic.g_SceenScale));
     pos.x = Math.floor(pos.x);
     pos.y = Math.floor(pos.y); 
-    //console.log(pos);
     return pos;
 }
 
@@ -73,10 +54,6 @@ C_GameControl.ControlMouseLeftDownCall = function (_pos) {
     GamePublic.g_MouseLeftFlag ? GamePublic.g_MouseLeftFlag = false : GamePublic.g_MouseLeftFlag = true;
     GamePublic.g_LeftKeyStartPos = GamePublic.s_Vec2d(_pos.x, _pos.y); //鼠标左键开始坐标
     GamePublic.g_MoveStartPos = GamePublic.s_Vec2d(_pos.x, _pos.y); //指针开始坐标
-    // if (GamePublic.g_GamePageManager.PageNumber) {
-    //     GamePublic.g_GamePageManager.PageButtonCheck(_pos, GamePublic.e_ClickType.LeftDown);
-    // }
-    //alert(_pos.x);
     GamePublic.g_MouseMoveFlag = false;
 }
 
@@ -269,8 +246,8 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
                 GamePublic.g_MoveSelectEndPos = GamePublic.s_Vec2d(mappos.x, mappos.y);
                 var RightTop = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x > GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y > GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
                 var LeftDown = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x < GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y < GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
-                for (var i = LeftDown.x; i < RightTop.x; i++) {
-                    for (var j = LeftDown.y; j < RightTop.y; j++) {
+                for (var i = LeftDown.x; i <= RightTop.x; i++) {
+                    for (var j = LeftDown.y; j <= RightTop.y; j++) {
                         if (i >= LeftDown.x && i <= RightTop.x && j >= LeftDown.y && j <= RightTop.y) {
                             GamePublic.g_Active_Map.MapRoomArray[i][j].SetSelectFlag(true,cc.color(255, 255, 0, 155));
                         } else {

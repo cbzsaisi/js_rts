@@ -122,7 +122,7 @@ var C_MapTile = {
         node.SetSelectFlag = function (_bool,_color) {
             if (!node.v_TileSprite) return;
             if (_bool) { //是否被选中
-                if (node.v_SelectSprite) return;
+                if (node.v_SelectSprite != null) return;
                 node.v_SelectSprite = new cc.Node;
                 var Img = node.v_SelectSprite.addComponent(cc.Graphics);
                 Img.clear();
@@ -133,8 +133,11 @@ var C_MapTile = {
                 node.v_TileSprite.addChild(node.v_SelectSprite, 5);
                 //node.v_SelectSprite.setPosition({ x: 1, y: 1});
             } else {
-                if (node.v_SelectSprite) node.v_TileSprite.removeChild(node.v_SelectSprite);
-                node.v_SelectSprite = null;
+                if (node.v_SelectSprite) {
+                    node.v_TileSprite.removeChild(node.v_SelectSprite);
+                    node.v_SelectSprite.destroy();
+                    node.v_SelectSprite = null;
+                }
             }
         }
         return node;
