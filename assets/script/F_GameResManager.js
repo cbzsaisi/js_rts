@@ -19,6 +19,16 @@ var ResArray = [{
             action: "a_a",
             time: 3
         }]
+    },
+    {
+        name: "build1",
+        spritename: "9",
+        SpriteScale: 0.3,
+        actionarray: [{
+            action_name: "walk",
+            action: "a_a",
+            time: 3
+        }]
     }
 ]
 

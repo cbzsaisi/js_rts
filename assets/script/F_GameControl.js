@@ -1,5 +1,5 @@
 var GamePublic = require("./F_GamePublic");
-//var g_Astar = require("./F_AStar");
+var BuildingClass = require("./C_Building");
 
 function C_GameControl() {
 };
@@ -25,7 +25,8 @@ C_GameControl.MapTiledRayCheck = function (_pos, _Map) {
 
 C_GameControl.MapTiledCoverCheck = function (_pos, _Map,_Size) { //建筑占地检测
     var size = GamePublic.s_Vec2d(_Size.x+1, _Size.y+1);
-    var pos = this.MapTiledRayCheck(_pos, _Map);
+    //var pos = this.MapTiledRayCheck(_pos, _Map);
+    var pos = this.GetMapXY(_pos, _Map);
     var num = size.x * size.y;
     if(pos.x + size.x > _Map.v_MapSize.x) size.x = _Map.v_MapSize.x - pos.x;
     if(pos.y + size.y > _Map.v_MapSize.y) size.y = _Map.v_MapSize.y - pos.y;
@@ -76,9 +77,15 @@ C_GameControl.ControlMouseMiddleUpCall = function (_pos) {
 }
 
 C_GameControl.ControlMouseLeftUpCall = function (_pos) {
-    //C_GameControl.GetMapXY(_pos);
+    var mappos = C_GameControl.GetMapXY(_pos);
     var ControlState = GamePublic.e_ControlState.Non;
     if(GamePublic.g_UserPicklObj.Type == GamePublic.e_UserControlType.BuildPlace){ //当前状态是建筑检测 关闭检测
+        if(this.MapTiledCoverCheck(_pos,GamePublic.g_Active_Map,GamePublic.g_UserPicklObj.Size)){          
+            //GamePublic.g_Active_Map.MapTiledColorShow(true,cc.color(0,255, 0, 95));
+            var build = new BuildingClass.New("build1", 1, GamePublic.s_Vec2d(mappos.x, mappos.y), 1);
+        }else{
+            
+        }
         GamePublic.g_Active_Map.MapTiledColorShow(false,null);
         GamePublic.g_UserPicklObj.Type = GamePublic.e_UserControlType.Non;
     }   
@@ -138,7 +145,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
         if(GamePublic.g_GameRunUi && GamePublic.g_GameRunUi.ClickCheck(_pos,GamePublic.e_ClickType.LeftUp)){
             GamePublic.g_ButtonUsingFlag = true;
         }else if (GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_Active_Map && !GamePublic.g_ButtonUsingFlag) {
-            var mappos = C_GameControl.GetMapXY(_pos);
+            
             //var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map);
             //console.log(mappos);
             if (GamePublic.g_RoleSelectStaus == GamePublic.e_SelectStaus.NonSelect) {
@@ -201,7 +208,7 @@ C_GameControl.ControlMouseRightUpCall = function (_pos) {
     } else {
         ControlState = GamePublic.e_ControlState.MouseRightMove;
     }
-
+    //取消建筑寻点
     if(ControlState == GamePublic.e_ControlState.MouseRightNoMove && GamePublic.g_UserPicklObj.Type == GamePublic.e_UserControlType.BuildPlace){
         GamePublic.g_Active_Map.MapTiledColorShow(false,null);
         GamePublic.g_UserPicklObj.Type = GamePublic.e_UserControlType.Non;

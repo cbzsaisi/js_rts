@@ -531,9 +531,14 @@ var G_Public = {
         MouseLeft:1,
         MouseLeftNoMove:2,
         MouseLeftMove:3,
-        MouseRight:1,
-        MouseRightNoMove:2,
-        MouseRightMove:3,
+        MouseRight:4,
+        MouseRightNoMove:5,
+        MouseRightMove:6,
+    },
+
+    e_BaseObjType:{
+        Role:0,
+        Build:1
     },
 
     e_PickType:{
@@ -632,6 +637,7 @@ var G_Public = {
         {FileName:"3",LoadDone:false,FileData:false},
         {FileName:"4",LoadDone:false,FileData:false},
         {FileName:"5",LoadDone:false,FileData:false},
+        {FileName:"9",LoadDone:false,FileData:false},
         {FileName:"tree101",LoadDone:false,FileData:false},
         {FileName:"zhu01",LoadDone:false,FileData:false},
         {FileName:"zhu02",LoadDone:false,FileData:false},
@@ -641,6 +647,10 @@ var G_Public = {
 
     g_resourcesSpineboy : [
         {FileName:"spineboy",LoadDone:false,FileData:false,Loading:false},
+    ],
+
+    g_resourcesBuilding : [
+        {FileName:"4",LoadDone:false,FileData:false},
     ],
 
     g_GameDate : null,

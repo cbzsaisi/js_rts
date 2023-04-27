@@ -11,6 +11,7 @@ var C_MapTile = {
         node.v_TileResSprite = null,
         node.v_TileResArray = [],
         node.v_ExistRoleArray = [],
+        node.v_ExistBuildArray = [],
         node.v_DtNumber = 0,
         node.v_NodeCurAction = null,
         node.v_NodeMapPos = _pos,
@@ -26,24 +27,54 @@ var C_MapTile = {
         node.v_Rect = GamePublic.s_Rect(0, 0, 0, 0);
         node.v_SelectSprite = null;
 
-        node.MoveInRole = function (_RoleNumber) {
-            for (var i = 0; i < node.v_ExistRoleArray.length; i++) {
-                if (node.v_ExistRoleArray[i] == _RoleNumber) {
-                    return false;
+        node.MoveInRole = function (_Number,v_Type) {
+            switch(v_Type){
+                case GamePublic.e_BaseObjType.Role:{
+                    for (var i = 0; i < node.v_ExistRoleArray.length; i++) {
+                        if (node.v_ExistRoleArray[i] == _Number) {
+                            return false;
+                        }
+                    }
+                    node.v_ExistRoleArray.push(_Number);
+                    break;
+                }
+                case GamePublic.e_BaseObjType.Build:{
+                    for (var i = 0; i < node.v_ExistBuildArray.length; i++) {
+                        if (node.v_ExistBuildArray[i] == _Number) {
+                            return false;
+                        }
+                    }
+                    node.v_ExistBuildArray.push(_Number);
+                    break;
                 }
             }
-            node.v_ExistRoleArray.push(_RoleNumber);
             return true;
         }
-        node.MoveOutRole = function (_RoleNumber) {
-            for (var i = 0; i < node.v_ExistRoleArray.length; i++) {
-                if (node.v_ExistRoleArray[i] == _RoleNumber) {
-                    node.v_ExistRoleArray.splice(i, 1);
-                    return true;
+
+        node.MoveOutRole = function (_Number,v_Type) {
+            switch(v_Type){
+                case GamePublic.e_BaseObjType.Role:{
+                    for (var i = 0; i < node.v_ExistRoleArray.length; i++) {
+                        if (node.v_ExistRoleArray[i] == _Number) {
+                            node.v_ExistRoleArray.splice(i, 1);
+                            return true;
+                        }
+                    }
+                    break;
+                }
+                case GamePublic.e_BaseObjType.Build:{
+                    for (var i = 0; i < node.v_ExistBuildArray.length; i++) {
+                        if (node.v_ExistBuildArray[i] == _Number) {
+                            node.v_ExistBuildArray.splice(i, 1);
+                            return true;
+                        }
+                    }
+                    break;
                 }
             }
             return false;
         }
+
         node.AddTileRes = function (_TileResName) {
             switch (_TileResName) {
                 case GamePublic.e_ObjType.MapTileResFlower1:

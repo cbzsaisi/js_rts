@@ -86,12 +86,12 @@ F_PageCommandProc.PageCommandProc = function(_Info) {
             GamePublic.g_InputNumber = this.AddNumber(GamePublic.g_InputNumber, 9);
             GamePublic.g_GamePageManager.UpdateText();
             break;
-        case GamePublic.e_ButtonCommand.BuildPlace:
-            var Buildsize = GamePublic.g_BuildManager.GetBuildInfo(GamePublic.g_BuildManager.BuildButtonArray[_Info.Array]).Size;
-            if (Buildsize) {
-                GamePublic.g_UserPicklObj = { Num: _Info.Array, Size: Buildsize, Type: GamePublic.e_UserControlType.BuildPlace };
-            }
-            break;
+        // case GamePublic.e_ButtonCommand.BuildPlace:
+        //     var Buildsize = GamePublic.g_BuildManager.GetBuildInfo(GamePublic.g_BuildManager.BuildButtonArray[_Info.Array]).Size;
+        //     if (Buildsize) {
+        //         GamePublic.g_UserPicklObj = { Num: _Info.Array, Size: Buildsize, Type: GamePublic.e_UserControlType.BuildPlace };
+        //     }
+        //     break;
     }
 }
 

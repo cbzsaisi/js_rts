@@ -25,7 +25,6 @@ var ShopManager = require("./C_Shop");
 var GameRunUiClass = require("./C_GameRunUi");
 var GameResManager = require("./F_GameResManager");
 var BuildManager = require("./C_BuildManager");
-var Building = require("./C_Building");
 
 //var g_Random = g_MathLib.Random;
 var g_temp = 0;
@@ -294,16 +293,19 @@ cc.Class({
             for (var i in GamePublic.g_resources2DMapTile) {
                 if (!GamePublic.g_resources2DMapTile[i].LoadDone) GamePublic.g_GameResLoadFinish = false;
             }
+            // for (var i in GamePublic.g_resourcesBuilding) {
+            //     if (!GamePublic.g_resourcesBuilding[i].LoadDone) GamePublic.g_GameResLoadFinish = false;
+            // }
          } else {
             if (!this.SceenCreate) {
                 var Rolenum = 0;
                 var Buildnum = 0;
                 for (let i = 0; i < 1; i++) {
                     for (let j = 0; j < 1; j++) {
-                        var role = new RoleSpineClass.New("role2", 1, GamePublic.s_Vec2d(i, j), ++Rolenum);
+                        var role = new RoleSpineClass.New("role2", 1, GamePublic.s_Vec2d(i, j), ++Rolenum);                        
                     }
                 }
-                //var build = new Building.New("role1", ++Buildnum, 1, GamePublic.s_Vec2d(10, 5), []);
+                //var build = new BuildingClass.New("build1", 1, GamePublic.s_Vec2d(10, 5), ++Buildnum);
 
                 GamePublic.g_GameRunUi = GameRunUiClass.New({ x: 20, y: 20 }, "GameRunUi", 0, {}, {}, this.Page_sceen_root, 8);
                 this.SceenCreate = true;
