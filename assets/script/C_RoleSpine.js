@@ -101,7 +101,7 @@ var C_RoleSpine = {
 
         node.RoleGameInfo.v_SpriteType = GamePublic.e_SpriteType.spine;
         node.RoleGameInfo.v_RoleAttackType = { AttackType: "hand", Skill: "Left" };
-        node.RoleGameInfo.v_SpriteData = GameResManager.getSpriteResData(_RoleResName);
+        node.RoleGameInfo.v_SpriteData = GameResManager.getSpriteResData(_RoleResName, GamePublic.e_SpriteResType.Role);
         node.RoleGameInfo.v_CurrentMap = GamePublic.g_GameDataResManger.GetMap(_MapNum); //当前地图实体
         node.RoleGameInfo.v_SpriteShow = false;
         node.RoleGameInfo.v_MapOffset = GamePublic.s_Vec2d(0, 0);
@@ -129,7 +129,7 @@ var C_RoleSpine = {
             node.SetSceenPos(node.RoleInfo.v_RoleMapPos);
             node.RoleGameInfo.v_SpriteShow = true;
             node.RoleGameInfo.v_SpriteScale = {x:node.RoleGameInfo.v_SpriteData.SpriteScale, y:node.RoleGameInfo.v_SpriteData.SpriteScale};
-            node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveInRole(node.RoleInfo.v_RoleNumber,GamePublic.e_BaseObjType.Role);
+            node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveInRole(node.RoleInfo.v_RoleNumber, GamePublic.e_BaseObjType.Role);
             //var src = new GamePublic.s_RoleScript({Info:1,Name:"RoleMove"},{Num:node.RoleInfo.v_RoleNumber,Array:"22",Pos:123},{Num:0,Array:"22",Pos:GamePublic.s_Vec2d(1,1)});
             //node.RoleCommand.v_RoleActionCommandArray.push(src);
 
@@ -198,9 +198,9 @@ var C_RoleSpine = {
         };
 
         node.SetMapPos = function(_mappos) {
-            node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveOutRole(node.RoleInfo.v_RoleNumber);
+            node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveOutRole(node.RoleInfo.v_RoleNumber, GamePublic.e_BaseObjType.Role);
             node.RoleInfo.v_RoleMapPos = _mappos;
-            node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveInRole(node.RoleInfo.v_RoleNumber,GamePublic.e_BaseObjType.Role);
+            node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveInRole(node.RoleInfo.v_RoleNumber, GamePublic.e_BaseObjType.Role);
         }
 
         node.StopCommand = function(_Type) {

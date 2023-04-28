@@ -278,6 +278,7 @@ var G_Public = {
         Fail: 2,
         RoleBlock: 3,
         MapBlock: 4,
+        BuildBlock: 5,
     },
 
     e_Buttontype: {
@@ -540,6 +541,12 @@ var G_Public = {
         Role:0,
         Build:1
     },
+
+    e_SpriteResType:{
+        Role:0,
+        Build:1
+    },
+    
 
     e_PickType:{
         BagItem:0

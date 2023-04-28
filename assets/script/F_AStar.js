@@ -5,8 +5,6 @@ function C_MathLibStar() {
 
 C_MathLibStar.TargePosPassTest = function (_RolePassStatu, _MapTile) {
     var vpass = false;
-    //if(e_RolePassStatu.nopass == _MapTile.v_MapPassStatus)return false;
-    //if(_RolePassStatu != _MapTile.v_MapPassStatus)return false;
     switch (_MapTile.v_TileType) {
         case GamePublic.e_ObjType.MapTileLand:
             //if(_RolePassStatu == "land")vpass = true;
@@ -18,9 +16,27 @@ C_MathLibStar.TargePosPassTest = function (_RolePassStatu, _MapTile) {
      for(var i=0;i < _MapTile.v_TileResArray.length;i++){
         if(_MapTile.v_TileResArray[i].v_MapPassStatus == GamePublic.e_RolePassStatu.nopass)vpass=false;
     }
-    if (_MapTile.v_ExistRoleArray.length) vpass = false;
+    if (_MapTile.v_ExistRoleArray.length || _MapTile.v_ExistBuildArray.length) vpass = false;
     return vpass;
 }
+
+C_MathLibStar.RoleTargePosPassTest = function (_RolePassStatu, _MapTile) {
+    var vpass = GamePublic.e_ActionScriptFailType.undefined;
+    switch (_MapTile.v_TileType) {
+        case GamePublic.e_ObjType.MapTileLand:
+            //if(_RolePassStatu == GamePublic.e_RolePassStatu.land)vpass = true;
+            for (var i = 0; i < GamePublic.s_MapTilePassLand.length; i++) {
+                if (_RolePassStatu == GamePublic.s_MapTilePassLand[i]) vpass = GamePublic.e_ActionScriptFailType.Success;
+            }
+            break;
+    }
+    for (var i = 0; i < _MapTile.v_TileResArray.length; i++) {
+        if (_MapTile.v_TileResArray[i].v_MapPassStatus == GamePublic.e_RolePassStatu.nopass) vpass = GamePublic.e_ActionScriptFailType.MapBlock;
+    }
+    if (_MapTile.v_ExistRoleArray.length) vpass = GamePublic.e_ActionScriptFailType.RoleBlock;
+    if (_MapTile.v_ExistBuildArray.length) vpass = GamePublic.e_ActionScriptFailType.BuildBlock;
+    return vpass;
+} 
 
 /*  C_MathLibStar.StartTargePosPassTest = function (_RolePassStatu, _MapTile) {  //首次寻路
     var vpass = false;
@@ -40,24 +56,6 @@ C_MathLibStar.TargePosPassTest = function (_RolePassStatu, _MapTile) {
     if (_MapTile.v_ExistRoleArray.length) vpass = false;
     return vpass;
 }  */
-
-
-C_MathLibStar.RoleTargePosPassTest = function (_RolePassStatu, _MapTile) {
-    var vpass = GamePublic.e_ActionScriptFailType.undefined;
-    switch (_MapTile.v_TileType) {
-        case GamePublic.e_ObjType.MapTileLand:
-            //if(_RolePassStatu == GamePublic.e_RolePassStatu.land)vpass = true;
-            for (var i = 0; i < GamePublic.s_MapTilePassLand.length; i++) {
-                if (_RolePassStatu == GamePublic.s_MapTilePassLand[i]) vpass = GamePublic.e_ActionScriptFailType.Success;
-            }
-            break;
-    }
-    for (var i = 0; i < _MapTile.v_TileResArray.length; i++) {
-        if (_MapTile.v_TileResArray[i].v_MapPassStatus == GamePublic.e_RolePassStatu.nopass) vpass = GamePublic.e_ActionScriptFailType.MapBlock;
-    }
-    if (_MapTile.v_ExistRoleArray.length) vpass = GamePublic.e_ActionScriptFailType.RoleBlock;
-    return vpass;
-} 
 
 
 C_MathLibStar.CompWayPos = function(_OpenList,_CloseList,_CutPos)

@@ -37,21 +37,21 @@ var C_GameDataResManager = {
             return null;
         }
 
-        GameDataRes.CheckSelect = function(_MapArry, _RoleArry, _Pos) {
-            /* for(var i=0;i<_RoleArry.length;i++){
-                if(_RoleArry[i].obj.RoleInfo.v_RoleMapPos.x == _Pos.x && _RoleArry[i].obj.RoleInfo.v_RoleMapPos.y == _Pos.y){
-                    return {ObjType:"Role",Obj : _RoleArry[i].obj};
-                }
-            } */
+        // GameDataRes.CheckSelect = function(_MapArry, _RoleArry, _Pos) {
+        //     /* for(var i=0;i<_RoleArry.length;i++){
+        //         if(_RoleArry[i].obj.RoleInfo.v_RoleMapPos.x == _Pos.x && _RoleArry[i].obj.RoleInfo.v_RoleMapPos.y == _Pos.y){
+        //             return {ObjType:"Role",Obj : _RoleArry[i].obj};
+        //         }
+        //     } */
 
-            if (_Pos.x < _MapArry.v_MapSize.x && _Pos.y < _MapArry.v_MapSize.y) {
-                if (_MapArry.MapRoomArray[_Pos.x][_Pos.y].v_ExistRoleArray.length) {
-                    return { ObjType: "Role", Obj: this.GetRole(_MapArry.MapRoomArray[_Pos.x][_Pos.y].v_ExistRoleArray[0]) };
-                }
-                return { ObjType: "Map", Obj: _MapArry.MapRoomArray[_Pos.x][_Pos.y] };
-            }
-            return { ObjType: "non" };
-        }
+        //     if (_Pos.x < _MapArry.v_MapSize.x && _Pos.y < _MapArry.v_MapSize.y) {
+        //         if (_MapArry.MapRoomArray[_Pos.x][_Pos.y].v_ExistRoleArray.length) {
+        //             return { ObjType: "Role", Obj: this.GetRole(_MapArry.MapRoomArray[_Pos.x][_Pos.y].v_ExistRoleArray[0]) };
+        //         }
+        //         return { ObjType: "Map", Obj: _MapArry.MapRoomArray[_Pos.x][_Pos.y] };
+        //     }
+        //     return { ObjType: "non" };
+        // }
         return GameDataRes;
     }
 }

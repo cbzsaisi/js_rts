@@ -50,6 +50,16 @@ C_GameControl.GetMapXY = function(_pos){
     return pos;
 }
 
+C_GameControl.CancelSelectRole = function(){
+    if (GamePublic.g_SelectRoleArray.length) { //取消框选
+        for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
+            GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]).RoleGameInfo.v_RoleSelectFlag = false;
+        }
+        GamePublic.g_SelectRoleArray.splice(0, GamePublic.g_SelectRoleArray.length);
+        GamePublic.g_RoleSelectStaus = GamePublic.e_SelectStaus.NonSelect;
+    }
+}
+
 C_GameControl.ControlMouseLeftDownCall = function (_pos) {
     if (GamePublic.g_MouseRightFlag) return; //如果鼠标右键未放开 退出
     GamePublic.g_MouseLeftFlag ? GamePublic.g_MouseLeftFlag = false : GamePublic.g_MouseLeftFlag = true;

@@ -30,6 +30,7 @@ var C_Building = {
         node.BuildGameInfo = { //基本不写入保存数据
             v_BuildSprite: null,
             v_BuildSpriteLoad: false,
+            //v_BuildSize: {width:0,height:0},
             v_SpriteSize: {width:0,height:0},
             v_SpriteScale: null,
             v_SpritePos: null,
@@ -106,9 +107,25 @@ var C_Building = {
             node.BuildGameInfo.v_SpriteScale = 1;
             node.SetSceenPos(node.BuildInfo.v_BuildMapPos);
             node.BuildGameInfo.v_SpriteShow = true;
-
-            node.BuildGameInfo.v_CurrentMap.MapRoomArray[node.BuildInfo.v_BuildMapPos.x][node.BuildInfo.v_BuildMapPos.y].MoveInRole(node.BuildInfo.v_BuildNumber,GamePublic.e_BaseObjType.Build);
             node.BuildGameInfo.v_BuildCreate = true;
+            this.Build();
+        };
+
+        node.Build = function () {
+            for(let i = 0; i < node.BuildGameInfo.v_SpriteData.BuildSize.width; i++){
+                for(let j = 0; j < node.BuildGameInfo.v_SpriteData.BuildSize.height; j++){
+                    //console.log(i,"-",j);
+                    node.BuildGameInfo.v_CurrentMap.MapRoomArray[node.BuildInfo.v_BuildMapPos.x + i][node.BuildInfo.v_BuildMapPos.y + j].MoveInRole(node.BuildInfo.v_BuildNumber, GamePublic.e_BaseObjType.Build);
+                }
+            }
+        };
+
+        node.BuildRemove = function () {
+            for(let i = 0; i < node.BuildGameInfo.v_SpriteData.BuildSize.width; i++){
+                for(let j = 0; j < node.BuildGameInfo.v_SpriteData.BuildSize.height; j++){
+                    node.BuildGameInfo.v_CurrentMap.MapRoomArray[node.BuildInfo.v_BuildMapPos.x + i][node.BuildInfo.v_BuildMapPos.y + j].MoveOutRole(node.BuildInfo.v_BuildNumber, GamePublic.e_BaseObjType.Build);
+                }
+            }
         };
 
         node.MyUpdate = function() {
@@ -143,7 +160,7 @@ var C_Building = {
         node.BuildInfo.v_CurrentMapNum = _MapNum;
         node.BuildInfo.v_BuildMapPos = _MapPoint;
         node.BuildGameInfo.v_CurrentMap = GamePublic.g_GameDataResManger.GetMap(_MapNum); //当前地图实体
-        node.BuildGameInfo.v_SpriteData = GameResManager.getSpriteResData(_BuildResName);
+        node.BuildGameInfo.v_SpriteData = GameResManager.getSpriteResData(_BuildResName, GamePublic.e_SpriteResType.Build);
         node.BuildInfo.v_BuildMapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y,1,1);
         node.BuildInfo.v_SpriteAngle = { Def: 0, Cur: 0, Des: 0 };//建筑朝向角度
         node.BuildGameInfo.v_DrawNode = new cc.Node();

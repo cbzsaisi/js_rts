@@ -94,7 +94,7 @@ C_SrciptProc.RoleCommandSrciptProc1 = function (_src) {
     var g_gamemangaer = GamePublic.g_GameDataResManger;
     var SrcExeState = GamePublic.e_CommandSrcipt.Fail;
     switch (_src.Script.Name) {
-        case "RoleGoToPos":
+        case "RoleGoToPos":{
             var role = g_gamemangaer.GetRole(_src.ScrRole.Num);
             var hr = g_Astar.RoleFindWay(role, _src.TarRole.Pos);
             if (hr) {
@@ -104,9 +104,10 @@ C_SrciptProc.RoleCommandSrciptProc1 = function (_src) {
                 console.log("RoleGoToPos寻路失败");
             }
             break;
-        case GamePublic.e_CommandType.RoleAttack:
-        var s_role = g_gamemangaer.GetRole(_src.ScrRole.Num);
-        var t_role = g_gamemangaer.GetRole(_src.TarRole.Num);
+        }
+        case GamePublic.e_CommandType.RoleAttack:{
+            var s_role = g_gamemangaer.GetRole(_src.ScrRole.Num);
+            var t_role = g_gamemangaer.GetRole(_src.TarRole.Num);
             if (t_role) {
                 if (Math.abs(s_role.RoleInfo.v_RoleMapPos.x - t_role.RoleInfo.v_RoleMapPos.x) < 2 && Math.abs(s_role.RoleInfo.v_RoleMapPos.y - t_role.RoleInfo.v_RoleMapPos.y) < 2) {
                     console.log("范围内 开始攻击");
@@ -130,9 +131,9 @@ C_SrciptProc.RoleCommandSrciptProc1 = function (_src) {
                         console.log("无法移动到攻击目标周围");
                     }
                 }
-        }
-
+            }
             break;
+        }
     }
     return SrcExeState;
 }

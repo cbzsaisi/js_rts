@@ -20,27 +20,42 @@ var ResArray = [{
             time: 3
         }]
     },
-    {
-        name: "build1",
-        spritename: "9",
-        SpriteScale: 0.3,
-        actionarray: [{
-            action_name: "walk",
-            action: "a_a",
-            time: 3
-        }]
-    }
+]
+
+var ResBuildArray = [{
+    name: "build1",
+    spritename: "9",
+    SpriteScale: 0.3,
+    BuildSize: {width:3,height:3},
+    actionarray: [{
+        action_name: "walk",
+        action: "a_a",
+        time: 3
+    }]
+},
 ]
 
 function F_GameResManage() {};
 
-F_GameResManage.getSpriteResData = function(_name) {
-
-    for (let i = 0; i < ResArray.length; i++) {
-        if (ResArray[i].name == _name) {
-            return ResArray[i];
+F_GameResManage.getSpriteResData = function(_name,v_type) {
+    let Array = null;
+    switch(v_type){
+        case GamePublic.e_SpriteResType.Role:{
+            Array = ResArray;
+            break;
+        }
+        case GamePublic.e_SpriteResType.Build:{
+            Array = ResBuildArray;
+            break;
         }
     }
+    
+    for (let i = 0; i < Array.length; i++) {
+        if (Array[i].name == _name) {
+            return Array[i];
+        }
+    }
+    return null;
 }
 
 F_GameResManage.FileResData = function(_Info, _Type) {
