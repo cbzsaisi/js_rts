@@ -102,7 +102,7 @@ cc.Class({
         GamePublic.g_GameRandom = g_MathLib.Random.New();
         
         GamePublic.g_SelectRoleArray = [];
-        GamePublic.g_RoleSelectStaus = GamePublic.e_SelectStaus.NonSelect;
+        GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.NonSelect;
         // GamePublic.g_GameLastTime = new Date().getTime();
         //GamePublic.g_UiCamera = this.UiCamera;
         // //var qu = cc.quat(0, 0, 0).fromEuler({ x: -20, y: 0, z: 0 });

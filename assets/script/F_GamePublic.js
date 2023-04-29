@@ -255,7 +255,7 @@ var G_Public = {
     g_MouseMoveFlag: false,
     g_MouseMoveLastPos: {x:0,y:0},
     g_SceenScale: 1,
-    g_RoleSelectStaus:null,
+    g_SelectStaus:null,
     g_MoveSelectStartPos: null,
     g_MoveSelectEndPos: null,
     g_MouseStopTick: 0,

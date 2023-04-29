@@ -148,6 +148,11 @@ var C_MapTile = {
             for (var i = 0; i < node.v_TileResArray.length; i++) {
                 node.v_TileResArray[i].MyUpdate();
             }
+            // if(this.v_ExistBuildArray.length){
+            //     this.SetSelectFlag(true,cc.color(255, 0, 0, 155));
+            // }else{
+            //     //this.SetSelectFlag(false,null);
+            // }
         };
 
         node.SetSelectFlag = function (_bool,_color) {

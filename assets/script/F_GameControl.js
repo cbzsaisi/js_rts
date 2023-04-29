@@ -56,7 +56,7 @@ C_GameControl.CancelSelectRole = function(){
             GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]).RoleGameInfo.v_RoleSelectFlag = false;
         }
         GamePublic.g_SelectRoleArray.splice(0, GamePublic.g_SelectRoleArray.length);
-        GamePublic.g_RoleSelectStaus = GamePublic.e_SelectStaus.NonSelect;
+        GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.NonSelect;
     }
 }
 
@@ -88,11 +88,14 @@ C_GameControl.ControlMouseMiddleUpCall = function (_pos) {
 
 C_GameControl.ControlMouseLeftUpCall = function (_pos) {
     var mappos = C_GameControl.GetMapXY(_pos);
-    var ControlState = GamePublic.e_ControlState.Non;
+    //var ControlState = GamePublic.e_ControlState.Non;
+    GamePublic.g_ButtonUsingFlag = false;//检测UI点击
+
     if(GamePublic.g_UserPicklObj.Type == GamePublic.e_UserControlType.BuildPlace){ //当前状态是建筑检测 关闭检测
         if(this.MapTiledCoverCheck(_pos,GamePublic.g_Active_Map,GamePublic.g_UserPicklObj.Size)){          
             //GamePublic.g_Active_Map.MapTiledColorShow(true,cc.color(0,255, 0, 95));
             var build = new BuildingClass.New("build1", 1, GamePublic.s_Vec2d(mappos.x, mappos.y), 1);
+            GamePublic.g_ButtonUsingFlag = true;
         }else{
             
         }
@@ -110,100 +113,180 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
         //     ControlState = GamePublic.e_ControlState.MouseLeftMove;
         // }
     }
-    if (GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_MouseMoveFlag){ //左键按下后移动   选择角色
-        var SelectFlag = false;
-        //选择框
-        if (GamePublic.g_MoveSelectEndPos && GamePublic.g_RoleSelectStaus == GamePublic.e_SelectStaus.NonSelect) {
-            var RightTop = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x > GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y > GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
-            var LeftDown = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x < GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y < GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
-            for (var i = 0; LeftDown.x + i <= RightTop.x; i++) {
-                for (var j = 0; LeftDown.y + j <= RightTop.y; j++) {
-                    var MapTileRoleArray = GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].v_ExistRoleArray;
-                    //console.log(MapTileRoleArray);
-                    for (var k = 0; k < MapTileRoleArray.length; k++) {
-                        GamePublic.g_SelectRoleArray.push(MapTileRoleArray[k]);
-                        GamePublic.g_GameDataResManger.GetRole(MapTileRoleArray[k]).RoleGameInfo.v_RoleSelectFlag = true;
-                        SelectFlag = true; //已有选中
-                    }
-                    GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].SetSelectFlag(false);
-                }
-            }
-            if (GamePublic.g_SelectRoleArray.length) GamePublic.g_RoleSelectStaus = GamePublic.e_SelectStaus.MultiRole;
-        }
-        if (!SelectFlag) {
-            if (GamePublic.g_SelectRoleArray.length) { //取消框选
-                for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
-                    GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]).RoleGameInfo.v_RoleSelectFlag = false;
-                }
-                GamePublic.g_SelectRoleArray.splice(0, GamePublic.g_SelectRoleArray.length);
-                GamePublic.g_RoleSelectStaus = GamePublic.e_SelectStaus.NonSelect;
-            }
-            //再选择框内的
-            if (GamePublic.g_MoveSelectEndPos) {
+    if(GamePublic.g_GameRunUi && GamePublic.g_GameRunUi.ClickCheck(_pos,GamePublic.e_ClickType.LeftUp)){
+        GamePublic.g_ButtonUsingFlag = true;
+    }
+
+    if (GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_ButtonUsingFlag == false){ //左键按下后移动   选择角色
+        
+        switch (GamePublic.g_SelectStaus){
+            case GamePublic.e_SelectStaus.NonSelect:{
+                //let SelectFlag = false;
                 var RightTop = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x > GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y > GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
                 var LeftDown = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x < GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y < GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
                 for (var i = 0; LeftDown.x + i <= RightTop.x; i++) {
                     for (var j = 0; LeftDown.y + j <= RightTop.y; j++) {
+                        var MapTileRoleArray = GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].v_ExistRoleArray;
+                        for (var k = 0; k < MapTileRoleArray.length; k++) {
+                            GamePublic.g_SelectRoleArray.push(MapTileRoleArray[k]);
+                            GamePublic.g_GameDataResManger.GetRole(MapTileRoleArray[k]).RoleGameInfo.v_RoleSelectFlag = true;
+                            //SelectFlag = true; //已有选中
+                        }
                         GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].SetSelectFlag(false);
                     }
                 }
-            }
-        }
-    } else {
-        GamePublic.g_ButtonUsingFlag = false;
-        //检测UI点击
-        if(GamePublic.g_GameRunUi && GamePublic.g_GameRunUi.ClickCheck(_pos,GamePublic.e_ClickType.LeftUp)){
-            GamePublic.g_ButtonUsingFlag = true;
-        }else if (GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_Active_Map && !GamePublic.g_ButtonUsingFlag) {
-            
-            //var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map);
-            //console.log(mappos);
-            if (GamePublic.g_RoleSelectStaus == GamePublic.e_SelectStaus.NonSelect) {
-                // for (var i = 0; i < GamePublic.g_GameDataResManger.RoleArray.length; i++) {
-                //     if (C_GameControl.RoleRayCheck(_pos, GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber())) {
-                //         var Role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber());
-                //         GamePublic.g_SelectRoleArray.push(Role.RoleInfo.v_RoleNumber);
-                //         Role.RoleGameInfo.v_RoleSelectFlag = true;
-                //         break;
+                if (GamePublic.g_SelectRoleArray.length) GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.MultiRole;
+
+                // if(SelectFlag == false){
+                //     if (GamePublic.g_SelectRoleArray.length) { //取消框选
+                //         for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
+                //             GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]).RoleGameInfo.v_RoleSelectFlag = false;
+                //         }
+                //         GamePublic.g_SelectRoleArray.splice(0, GamePublic.g_SelectRoleArray.length);
+                //         GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.NonSelect;
                 //     }
                 // }
-                if (GamePublic.g_SelectRoleArray.length) GamePublic.g_RoleSelectStaus = GamePublic.e_SelectStaus.MultiRole;
-                //GamePublic.g_ActiveRole = obj.Obj;
-                //GamePublic.g_RoleSelectStaus = GamePublic.e_SelectStaus.SingleRole;
-            } else if (mappos.x >= 0 && mappos.y >= 0 && mappos.x < GamePublic.e_MapSizeType1.width && mappos.y < GamePublic.e_MapSizeType1.height) {
-                switch (GamePublic.g_RoleSelectStaus) {
-                    case GamePublic.e_SelectStaus.SingleRole:{
-                        //g_Astar.RoleFindWay(GamePublic.g_ActiveRole, mappos);
-                        break;
-                    }
-                    case GamePublic.e_SelectStaus.MultiRole:{
+                break;
+            }
+            case GamePublic.e_SelectStaus.MultiRole:{
+                if(GamePublic.g_MouseMoveFlag){//拉过框 取消框选
+                    if (GamePublic.g_SelectRoleArray.length) { 
                         for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
-                            var role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]);
-                            if (role.RoleCommand.v_RoleActionCommandArray1.length) {                    
-                                role.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
-                            } else {
-                                role.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
-                            }
-                            if (GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray.length) { //如果目标点有单位
-                                var t_role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray[0]);
-                                if (t_role.RoleInfo.v_RoleNumber != role.RoleInfo.v_RoleNumber) { //非自己 攻击
-                                    //console.log(Math.abs(-1))                                       
-                                    var src = new GamePublic.s_RoleScript({ Type:1, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.RoleInfo.v_RoleNumber, Array: "22", Pos: 123 }, { Num: t_role.RoleInfo.v_RoleNumber, Array: [t_role.RoleInfo.v_RoleNumber], Pos: mappos });
-                                    role.RoleCommand.v_RoleActionCommandArray1.push(src);
-                                }
-                            } else { //移动
-                                var src = new GamePublic.s_RoleScript({ Type: 1, Name: "RoleGoToPos" }, { Num: role.RoleInfo.v_RoleNumber, Array: "22", Pos: 123 }, { Num: 0, Array: "22", Pos: mappos });
-                                role.RoleCommand.v_RoleActionCommandArray1.push(src);
-                                //GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].SetSelectFlag(true);
-                            }
+                            GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]).RoleGameInfo.v_RoleSelectFlag = false;
                         }
-                        break;
+                        GamePublic.g_SelectRoleArray.splice(0, GamePublic.g_SelectRoleArray.length);
+                        GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.NonSelect;
+                    }
+
+                    var RightTop = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x > GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y > GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
+                    var LeftDown = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x < GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y < GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
+                    for (var i = 0; LeftDown.x + i <= RightTop.x; i++) {
+                        for (var j = 0; LeftDown.y + j <= RightTop.y; j++) {
+                            var MapTileRoleArray = GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].v_ExistRoleArray;
+                            for (var k = 0; k < MapTileRoleArray.length; k++) {
+                                GamePublic.g_SelectRoleArray.push(MapTileRoleArray[k]);
+                                GamePublic.g_GameDataResManger.GetRole(MapTileRoleArray[k]).RoleGameInfo.v_RoleSelectFlag = true;
+                                //SelectFlag = true; //已有选中
+                            }
+                            GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].SetSelectFlag(false);
+                        }
+                    }
+                    if (GamePublic.g_SelectRoleArray.length) GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.MultiRole;
+                }else if (mappos.x >= 0 && mappos.y >= 0 && mappos.x < GamePublic.e_MapSizeType1.width && mappos.y < GamePublic.e_MapSizeType1.height){
+                    for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
+                        var role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]);
+                        if (role.RoleCommand.v_RoleActionCommandArray1.length) {                    
+                            role.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
+                        } else {
+                            role.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+                        }
+                        if (GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray.length) { //如果目标点有单位
+                            var t_role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray[0]);
+                            if (t_role.RoleInfo.v_RoleNumber != role.RoleInfo.v_RoleNumber) { //非自己 攻击
+                                //console.log(Math.abs(-1))                                       
+                                var src = new GamePublic.s_RoleScript({ Type:1, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.RoleInfo.v_RoleNumber, Array: "22", Pos: 123 }, { Num: t_role.RoleInfo.v_RoleNumber, Array: [t_role.RoleInfo.v_RoleNumber], Pos: mappos });
+                                role.RoleCommand.v_RoleActionCommandArray1.push(src);
+                            }
+                        } else { //移动
+                            var src = new GamePublic.s_RoleScript({ Type: 1, Name: "RoleGoToPos" }, { Num: role.RoleInfo.v_RoleNumber, Array: "22", Pos: 123 }, { Num: 0, Array: "22", Pos: mappos });
+                            role.RoleCommand.v_RoleActionCommandArray1.push(src);
+                            //GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].SetSelectFlag(true);
+                        }
                     }
                 }
+                break;
+            }
+            case GamePublic.e_SelectStaus.Build:{
             }
         }
-    }
 
+        // if(GamePublic.g_MouseMoveFlag){
+        //     //选择框
+        //     if (GamePublic.g_MoveSelectEndPos && GamePublic.g_SelectStaus == GamePublic.e_SelectStaus.NonSelect) {
+        //         // var RightTop = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x > GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y > GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
+        //         // var LeftDown = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x < GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y < GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
+        //         // for (var i = 0; LeftDown.x + i <= RightTop.x; i++) {
+        //         //     for (var j = 0; LeftDown.y + j <= RightTop.y; j++) {
+        //         //         var MapTileRoleArray = GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].v_ExistRoleArray;
+        //         //         for (var k = 0; k < MapTileRoleArray.length; k++) {
+        //         //             GamePublic.g_SelectRoleArray.push(MapTileRoleArray[k]);
+        //         //             GamePublic.g_GameDataResManger.GetRole(MapTileRoleArray[k]).RoleGameInfo.v_RoleSelectFlag = true;
+        //         //             SelectFlag = true; //已有选中
+        //         //         }
+        //         //         GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].SetSelectFlag(false);
+        //         //     }
+        //         // }
+        //         // if (GamePublic.g_SelectRoleArray.length) GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.MultiRole;
+        //     }
+        //     if (!SelectFlag) {
+        //         // if (GamePublic.g_SelectRoleArray.length) { //取消框选
+        //         //     for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
+        //         //         GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]).RoleGameInfo.v_RoleSelectFlag = false;
+        //         //     }
+        //         //     GamePublic.g_SelectRoleArray.splice(0, GamePublic.g_SelectRoleArray.length);
+        //         //     GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.NonSelect;
+        //         // }
+        //         //再选择框内的(待补充)
+        //         if (GamePublic.g_MoveSelectEndPos) {
+        //             var RightTop = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x > GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y > GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
+        //             var LeftDown = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x < GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y < GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
+        //             for (var i = 0; LeftDown.x + i <= RightTop.x; i++) {
+        //                 for (var j = 0; LeftDown.y + j <= RightTop.y; j++) {
+        //                     GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].SetSelectFlag(false);
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }else{
+        //     if (GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_Active_Map && !GamePublic.g_ButtonUsingFlag) {
+        //         //var mappos = C_GameControl.MapTiledRayCheck(_pos, GamePublic.g_Active_Map);
+        //         //console.log(mappos);
+        //         if (GamePublic.g_SelectStaus == GamePublic.e_SelectStaus.NonSelect) {
+        //             // for (var i = 0; i < GamePublic.g_GameDataResManger.RoleArray.length; i++) {
+        //             //     if (C_GameControl.RoleRayCheck(_pos, GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber())) {
+        //             //         var Role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_GameDataResManger.RoleArray[i].obj.GetNumber());
+        //             //         GamePublic.g_SelectRoleArray.push(Role.RoleInfo.v_RoleNumber);
+        //             //         Role.RoleGameInfo.v_RoleSelectFlag = true;
+        //             //         break;
+        //             //     }
+        //             // }
+        //             if (GamePublic.g_SelectRoleArray.length) GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.MultiRole;
+        //             //GamePublic.g_ActiveRole = obj.Obj;
+        //             //GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.SingleRole;
+        //         } else if (mappos.x >= 0 && mappos.y >= 0 && mappos.x < GamePublic.e_MapSizeType1.width && mappos.y < GamePublic.e_MapSizeType1.height) {
+        //             switch (GamePublic.g_SelectStaus) {
+        //                 case GamePublic.e_SelectStaus.SingleRole:{
+        //                     //g_Astar.RoleFindWay(GamePublic.g_ActiveRole, mappos);
+        //                     break;
+        //                 }
+        //                 case GamePublic.e_SelectStaus.MultiRole:{
+        //                     for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
+        //                         var role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]);
+        //                         if (role.RoleCommand.v_RoleActionCommandArray1.length) {                    
+        //                             role.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
+        //                         } else {
+        //                             role.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+        //                         }
+        //                         if (GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray.length) { //如果目标点有单位
+        //                             var t_role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray[0]);
+        //                             if (t_role.RoleInfo.v_RoleNumber != role.RoleInfo.v_RoleNumber) { //非自己 攻击
+        //                                 //console.log(Math.abs(-1))                                       
+        //                                 var src = new GamePublic.s_RoleScript({ Type:1, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.RoleInfo.v_RoleNumber, Array: "22", Pos: 123 }, { Num: t_role.RoleInfo.v_RoleNumber, Array: [t_role.RoleInfo.v_RoleNumber], Pos: mappos });
+        //                                 role.RoleCommand.v_RoleActionCommandArray1.push(src);
+        //                             }
+        //                         } else { //移动
+        //                             var src = new GamePublic.s_RoleScript({ Type: 1, Name: "RoleGoToPos" }, { Num: role.RoleInfo.v_RoleNumber, Array: "22", Pos: 123 }, { Num: 0, Array: "22", Pos: mappos });
+        //                             role.RoleCommand.v_RoleActionCommandArray1.push(src);
+        //                             //GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].SetSelectFlag(true);
+        //                         }
+        //                     }
+        //                     break;
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+    }
     GamePublic.g_MouseMoveFlag = false;
     GamePublic.g_MouseLeftFlag = false;
     GamePublic.g_MoveSelectStartPos = null;
@@ -258,14 +341,16 @@ C_GameControl.ControlMouseMoveCall = function (_pos) {
             if (!GamePublic.g_MoveSelectStartPos) {
                 GamePublic.g_MoveSelectStartPos = GamePublic.s_Vec2d(mappos.x, mappos.y);
                 GamePublic.g_MoveSelectEndPos = GamePublic.s_Vec2d(mappos.x, mappos.y);
-            } else //if (GamePublic.g_MoveSelectStartPos.x != mappos.x || GamePublic.g_MoveSelectStartPos.y != mappos.y) {
-              {  
+            } else if (GamePublic.g_MoveSelectStartPos.x != mappos.x || GamePublic.g_MoveSelectStartPos.y != mappos.y) {
+              //{  
                 GamePublic.g_MoveSelectEndPos = GamePublic.s_Vec2d(mappos.x, mappos.y);
                 var RightTop = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x > GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y > GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
                 var LeftDown = GamePublic.s_Vec2d(GamePublic.g_MoveSelectStartPos.x < GamePublic.g_MoveSelectEndPos.x ? GamePublic.g_MoveSelectStartPos.x : GamePublic.g_MoveSelectEndPos.x, GamePublic.g_MoveSelectStartPos.y < GamePublic.g_MoveSelectEndPos.y ? GamePublic.g_MoveSelectStartPos.y : GamePublic.g_MoveSelectEndPos.y);
                 for (var i = LeftDown.x; i <= RightTop.x; i++) {
                     for (var j = LeftDown.y; j <= RightTop.y; j++) {
                         if (i >= LeftDown.x && i <= RightTop.x && j >= LeftDown.y && j <= RightTop.y) {
+                            //console.log(LeftDown);
+                            //console.log(RightTop);
                             GamePublic.g_Active_Map.MapRoomArray[i][j].SetSelectFlag(true,cc.color(255, 255, 0, 155));
                         } else {
                             GamePublic.g_Active_Map.MapRoomArray[i][j].SetSelectFlag(false);
