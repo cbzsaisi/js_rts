@@ -337,6 +337,9 @@ cc.Class({
                     for (var i = 0; i < GamePublic.g_GameDataResManger.RoleArray.length; i++) {
                         GamePublic.g_GameDataResManger.RoleArray[i].obj.MyUpdate();
                     }
+                    for (var i = 0; i < GamePublic.g_GameDataResManger.BuildArray.length; i++) {
+                        GamePublic.g_GameDataResManger.BuildArray[i].obj.MyUpdate();
+                    }
                     this.GameMapUpdateNum = 0;
                     /* if(GamePublic.g_TipPage.Show && GamePublic.g_MouseStopTick > 50){
                         GamePublic.g_TipPage.SetShow(false);

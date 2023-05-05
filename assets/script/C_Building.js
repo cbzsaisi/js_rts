@@ -50,6 +50,7 @@ var C_Building = {
             v_BuildSelectFlag: null,//是否被选中
             v_DrawNode: null,
         },
+
         node.BuildCommand = { //写入保存数据
             //指令
             v_BuildActionArray: null,
@@ -136,7 +137,7 @@ var C_Building = {
                 return;
             }
             node.BuildGameInfo.v_DtNumber++;
-            if (node.BuildGameInfo.v_DtNumber >= (GamePublic.e_BuildSpeed.fps)) {
+            if (node.BuildGameInfo.v_DtNumber >= (GamePublic.e_RoleSpeed.fps)) {
                 node.BuildGameInfo.v_DtNumber = 0;
                 if (node.BuildCommand.v_ActionConsoleType == 1 && node.BuildCommand.v_ActionWaitTime > 0) { //当前动作总耗时帧
                     node.BuildCommand.v_ActionWaitTime -= GamePublic.g_GameTimeDt;
@@ -145,17 +146,27 @@ var C_Building = {
             }
 
             node.SetSceenPos(node.BuildInfo.v_BuildMapPos);
-            // var sceen = GamePublic.s_Vec2d(node.BuildGameInfo.v_SpritePos.x + GamePublic.g_MoveOff.x, node.BuildGameInfo.v_SpritePos.y + GamePublic.g_MoveOff.y);
-            // if (node.BuildGameInfo.v_SpriteShow) {
-            //     //console.log('sceen.x = %d sceen.y = %d',sceen.x,sceen.y);
-            //     if (sceen.x > GamePublic.g_winSize.width || sceen.x < 0 || sceen.y > GamePublic.g_winSize.height || sceen.y < 0) {
-            //         node.ShowSprite(false);
-            //     }
-            // } else if (sceen.x < GamePublic.g_winSize.width && sceen.x > 0 && sceen.y < GamePublic.g_winSize.height && sceen.y > 0) {
-            //     node.ShowSprite(true);
-            // }
+            var sceen = GamePublic.s_Vec2d(node.BuildGameInfo.v_SpritePos.x + GamePublic.g_MoveOff.x, node.BuildGameInfo.v_SpritePos.y + GamePublic.g_MoveOff.y);
+            if (node.BuildGameInfo.v_SpriteShow) {
+                //console.log('sceen.x = %d sceen.y = %d',sceen.x,sceen.y);
+                if (sceen.x > GamePublic.g_winSize.width || sceen.x < 0 || sceen.y > GamePublic.g_winSize.height || sceen.y < 0) {
+                    node.ShowSprite(false);
+                }
+            } else if (sceen.x < GamePublic.g_winSize.width && sceen.x > 0 && sceen.y < GamePublic.g_winSize.height && sceen.y > 0) {
+                node.ShowSprite(true);
+            }
         };
         
+        node.ShowSprite = function(_show) {
+            console.log(_show);
+            if (_show) {
+                if (node.BuildGameInfo.v_BuildSprite && !node.BuildGameInfo.v_BuildSprite.active) node.BuildGameInfo.v_BuildSprite.active = true;
+                node.BuildGameInfo.v_SpriteShow = true;
+            } else {
+                if (node.BuildGameInfo.v_BuildSprite && node.BuildGameInfo.v_BuildSprite.active) node.BuildGameInfo.v_BuildSprite.active = false;
+                node.BuildGameInfo.v_SpriteShow = false;
+            }
+        }
         node.BuildInfo.v_BuildNumber = _BuildNum;
         node.BuildInfo.v_CurrentMapNum = _MapNum;
         node.BuildInfo.v_BuildMapPos = _MapPoint;
@@ -164,7 +175,12 @@ var C_Building = {
         node.BuildInfo.v_BuildMapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y,1,1);
         node.BuildInfo.v_SpriteAngle = { Def: 0, Cur: 0, Des: 0 };//建筑朝向角度
         node.BuildGameInfo.v_DrawNode = new cc.Node();
-        node.BuildGameInfo.v_DrawNode.is3DNode = false;
+        var Img = node.BuildGameInfo.v_DrawNode.addComponent(cc.Graphics);
+                Img.clear();
+                Img.lineWidth = 1;
+                Img.fillColor = cc.color(255, 25, 22, 222);
+                Img.rect(0, 0, 10, 10);
+                Img.fill();
         node.BuildGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.BuildGameInfo.v_DrawNode, 2000);
         
         node.LoadSpriteRes();
