@@ -1,7 +1,6 @@
 var GamePublic = require("./F_GamePublic");
 var GameResManager = require("./F_GameResManager");
-//var C_MapTile = require("./C_MapTile");
-
+var BuildFrontDraw = require("./C_BuildFrontDraw");
 // var s_BuildingInfo = function(_Name, _Image, _Type, _Size, _ResNeeds, _TechNeeds, _RoomLimit) {
 //     var BuildInfo = {};
 //     BuildInfo.Name = _Name;
@@ -80,6 +79,7 @@ var C_Building = {
                     node.BuildGameInfo.v_SpriteSize.height = node.BuildGameInfo.v_BuildSprite.getBoundingBox().height;
                     node.BuildGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.BuildGameInfo.v_BuildSprite,(node.BuildGameInfo.v_CurrentMap.v_MapSize.x * node.BuildGameInfo.v_CurrentMap.v_MapSize.y) -
                     (node.BuildInfo.v_BuildMapPos.x + node.BuildInfo.v_BuildMapPos.y * node.BuildGameInfo.v_CurrentMap.v_MapSize.x));
+                    node.BuildGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.BuildGameInfo.v_DrawNode, node.BuildGameInfo.v_BuildSprite.zIndex);
                     if (!node.BuildGameInfo.v_BuildCreate) { node.Create(); }
                 }
             }
@@ -109,6 +109,7 @@ var C_Building = {
             node.SetSceenPos(node.BuildInfo.v_BuildMapPos);
             node.BuildGameInfo.v_SpriteShow = true;
             node.BuildGameInfo.v_BuildCreate = true;
+            node.BuildGameInfo.v_FrontDraw = BuildFrontDraw.New(node, node.BuildGameInfo.v_DrawNode, 1);
             this.Build();
         };
 
@@ -158,8 +159,7 @@ var C_Building = {
         };
         
         node.ShowSprite = function(_show) {
-            console.log(_show);
-            if (_show) {
+           if (_show) {
                 if (node.BuildGameInfo.v_BuildSprite && !node.BuildGameInfo.v_BuildSprite.active) node.BuildGameInfo.v_BuildSprite.active = true;
                 node.BuildGameInfo.v_SpriteShow = true;
             } else {
@@ -175,13 +175,12 @@ var C_Building = {
         node.BuildInfo.v_BuildMapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y,1,1);
         node.BuildInfo.v_SpriteAngle = { Def: 0, Cur: 0, Des: 0 };//建筑朝向角度
         node.BuildGameInfo.v_DrawNode = new cc.Node();
-        var Img = node.BuildGameInfo.v_DrawNode.addComponent(cc.Graphics);
-                Img.clear();
-                Img.lineWidth = 1;
-                Img.fillColor = cc.color(255, 25, 22, 222);
-                Img.rect(0, 0, 10, 10);
-                Img.fill();
-        node.BuildGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.BuildGameInfo.v_DrawNode, 2000);
+        // var Img = node.BuildGameInfo.v_DrawNode.addComponent(cc.Graphics);
+        //         Img.clear();
+        //         Img.lineWidth = 1;
+        //         Img.fillColor = cc.color(255, 25, 22, 222);
+        //         Img.rect(0, 0, 10, 10);
+        //         Img.fill();
         
         node.LoadSpriteRes();
         return node;
