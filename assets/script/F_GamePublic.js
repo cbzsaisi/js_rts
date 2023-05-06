@@ -129,6 +129,17 @@ var G_Public = {
         return RolePropertyData;
     },
 
+    s_BuildPropertyData: function (BuildType) {
+        var BuildPropertyData = {};
+        BuildPropertyData.HP = 1;
+        BuildPropertyData.NowHP = BuildPropertyData.HP;
+        BuildPropertyData.MP = 1;
+        BuildPropertyData.NowMP = BuildPropertyData.MP;
+        BuildPropertyData.ATT = 1;
+        BuildPropertyData.DEF = 1;
+        return BuildPropertyData;
+    },
+
     s_RoleStar: function (_v_CurrentMap, _OMapPos, _DMapPos, _MapArray, _RoleNumber, _RolePassStatu) {
         var RoleStar = {};
         RoleStar.CurrentMap = _v_CurrentMap;

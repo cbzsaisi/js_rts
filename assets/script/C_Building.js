@@ -20,6 +20,7 @@ var C_Building = {
         node.BuildInfo = {  //写入保存数据
             v_BuildNumber: null, //建筑编号
             v_BuildOccupationType: null,//职业
+            v_BuildPropertyData: null, //数值
             v_BuildType: null,//建筑类型
             v_BuildMapPos: null,//在当前地图的坐标
             v_CurrentMapNum: null,
@@ -167,6 +168,8 @@ var C_Building = {
                 node.BuildGameInfo.v_SpriteShow = false;
             }
         }
+
+        node.BuildInfo.v_BuildPropertyData = GamePublic.s_BuildPropertyData('');
         node.BuildInfo.v_BuildNumber = _BuildNum;
         node.BuildInfo.v_CurrentMapNum = _MapNum;
         node.BuildInfo.v_BuildMapPos = _MapPoint;
@@ -175,12 +178,6 @@ var C_Building = {
         node.BuildInfo.v_BuildMapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y,1,1);
         node.BuildInfo.v_SpriteAngle = { Def: 0, Cur: 0, Des: 0 };//建筑朝向角度
         node.BuildGameInfo.v_DrawNode = new cc.Node();
-        // var Img = node.BuildGameInfo.v_DrawNode.addComponent(cc.Graphics);
-        //         Img.clear();
-        //         Img.lineWidth = 1;
-        //         Img.fillColor = cc.color(255, 25, 22, 222);
-        //         Img.rect(0, 0, 10, 10);
-        //         Img.fill();
         
         node.LoadSpriteRes();
         return node;

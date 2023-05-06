@@ -3,23 +3,24 @@ var GamePublic = require("./F_GamePublic");
 var C_BuildFrontDraw = {
     New: function (_Node,_ShowNode,_NodeType) {
         var node = {};
-            //node.Node = g_g_GameDataResManger.GetBuild(node.NodeNumber),
+        //node.Node = g_g_GameDataResManger.GetBuild(node.NodeNumber),
 
         node.MainNode = _Node,
         node.MainShowNode = _ShowNode,
-            //node.NodeNumber = node.Node.NodeNumber,
-            node.NodeType = _NodeType,
-            node.ShowNode = new cc.Node(),
-            node.NodePos = GamePublic.s_Vec2d(0,0),
-            node.ShowNodeSelectFlag = false,
-            node.ShowNodeSelect = node.ShowNode.addComponent(cc.Graphics),
-            //node.ShowNode.addChild(node.ShowNodeSelect),
-            node.ShowBuildHPFlag = true;
-            //node.ShowBuildHP = node.ShowNode.addComponent(cc.Graphics),
-            //node.ShowNode.addChild(node.ShowBuildHP);
+        //node.NodeNumber = node.Node.NodeNumber,
+        node.NodeType = _NodeType,
+        node.NodePos = GamePublic.s_Vec2d(0,0),
 
-            node.MainShowNode.addChild(node.ShowNode,1000),
+        node.ShowNode = new cc.Node(),
+        node.ShowNodeSelectFlag = false,
+        node.ShowNodeSelect = node.ShowNode.addComponent(cc.Graphics),
+        node.MainShowNode.addChild(node.ShowNode,1000),
 
+        //node.ShowNode.addChild(node.ShowNodeSelect),
+        node.ShowBuildHPFlag = true;
+        //node.ShowBuildHP = node.ShowNode.addComponent(cc.Graphics),
+        //node.ShowNode.addChild(node.ShowBuildHP);
+        
         node.update = function () {
             node.ShowNodeSelect.clear();
             node.ShowNode.setScale(0.08);
@@ -55,7 +56,7 @@ var C_BuildFrontDraw = {
                     node.ShowNodeSelect.strokeColor = cc.Color.RED;
                     node.ShowNodeSelect.fillColor = cc.Color.RED;
                     //node.ShowNodeSelect.rect(-250,-300,500 * g_BuildManager.GetBuildHpRatio(node.MainNode.BuildInfo.v_BuildNumber),30);
-                    node.ShowNodeSelect.rect(-250,-300,500 * 1,30);
+                    node.ShowNodeSelect.rect(-250,-300,500 * node.MainNode.BuildInfo.v_BuildPropertyData.NowHP,30);
                     
                     node.ShowNodeSelect.fill();
                     node.ShowNodeSelect.stroke();

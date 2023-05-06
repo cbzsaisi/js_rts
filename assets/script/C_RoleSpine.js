@@ -295,8 +295,10 @@ var C_RoleSpine = {
                         }
                         break;
                     case GamePublic.e_ActionCommandState.Stop:
+                        //console.log("e_ActionCommandState.Stop");
                         break;
                     case GamePublic.e_ActionCommandState.End:
+                        //console.log("e_ActionCommandState.End");
                         node.RoleCommand.v_RoleActionCommandArray1.splice(node.RoleCommand.v_RoleActionCommandArray1Number, 1);
                         node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
                         node.RoleCommand.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
