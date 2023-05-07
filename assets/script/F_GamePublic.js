@@ -170,6 +170,17 @@ var G_Public = {
         return this.scr;
     },
 
+    //角色状态
+    e_RoleTypeState: {
+        Life: 0,
+        Death: 1,
+    },
+
+    s_RoleType: function (){
+        this.scr = {RoleType:this.e_RoleTypeState.Life};
+        return this.scr;
+    },
+
     GetAngle: function (_pos,_pos2){
         var  Angle = Math.atan2((_pos2.y-_pos.y),(_pos2.x-_pos.x));
         var  Angle2 = Math.atan2(1,1)*(180/Math.PI);
@@ -330,6 +341,7 @@ var G_Public = {
         RoleAttackHure:1,
         RoleAttacking:2,
         RoleAttac:3,
+        RoleDeath:4,
     },
 
     //游戏状态枚举

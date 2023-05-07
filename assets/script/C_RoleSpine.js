@@ -17,6 +17,7 @@ var C_RoleSpine = {
                 v_RoleRacePropertyData: {}, //种族属性数据
                 v_RolePropertyData: {}, //角色属性数据
                 v_RoleMapPos: null, //在当前地图的坐标
+                v_RoleType: null,//角色状态
                 v_ActionMovePos: null,
                 v_CurrentMapNum: null,
                 v_RolePassStatu: null, //穿透类型
@@ -98,6 +99,7 @@ var C_RoleSpine = {
         node.RoleInfo.v_RoleBag = Array(50), //背包
         node.RoleInfo.v_RolePassStatu = "land";
         node.RoleInfo.v_RoleEquip = Array(7), //装备背包
+        node.RoleInfo.v_RoleType = GamePublic.s_RoleType();
 
         node.RoleGameInfo.v_SpriteType = GamePublic.e_SpriteType.spine;
         node.RoleGameInfo.v_RoleAttackType = { AttackType: "hand", Skill: "Left" };
@@ -257,6 +259,8 @@ var C_RoleSpine = {
                 this.SetRoleAction(node.RoleCommand.v_ActionEvent);
             }
 
+            node.StateCheck();
+
             if (node.RoleCommand.v_RoleActionCommandPassive.length) {
                 var Command = node.RoleCommand.v_RoleActionCommandPassive.splice(0, 1);
                 var SrcExeState = RoleSrcipt.RoleActionCommandPassiveProc(Command[0]);
@@ -288,7 +292,7 @@ var C_RoleSpine = {
                             } else {
                                 node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
                             }
-                        } else { //执行未报错  检查执行情况 如果结束就执行以下
+                        } else { //执行未报错  检查执行情况 如果时间结束 并且当前动作指令为空就执行以下
                             if (node.RoleCommand.v_ActionWaitTime < 1 && node.RoleCommand.v_RoleActionCommandArray.length == 0) {
                                 node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
                             }
@@ -353,6 +357,17 @@ var C_RoleSpine = {
         node.SetRoleColor = function(i_brightness) {
             var bri = i_brightness * 0.01;
             if(node.RoleGameInfo.v_RoleSprite)node.RoleGameInfo.v_RoleSprite.v_Sprite.color = cc.color(255 * bri, 255 * bri, 255 * bri, node.RoleInfo.v_RoleOpacity);
+        }
+
+        node.StateCheck = function() {
+            if (node.RoleInfo.v_RolePropertyData.NowHP <= 0 && node.RoleInfo.v_RoleType.RoleType == GamePublic.e_RoleTypeState.Life) {
+                this.StopCommand("");
+                var src = new GamePublic.s_RoleScript({ Type:1, Name:GamePublic.e_CommandType.RoleDeath}, { Num: this.RoleInfo.v_RoleNumber, Array: "22", Pos: 123 }, {});
+                this.RoleCommand.v_RoleActionCommandArray1.push(src);
+                this.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
+                node.RoleInfo.v_RoleType.RoleType = GamePublic.e_RoleTypeState.Death;
+                console.log("StateCheck");
+            }
         }
 
         node.LoadSpriteRes();

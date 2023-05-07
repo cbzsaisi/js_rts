@@ -43,8 +43,8 @@ C_GameControl.MapTiledCoverCheck = function (_pos, _Map,_Size) { //建筑占地�
 
 C_GameControl.GetMapXY = function(_pos){
     var map = GamePublic.g_Active_Map.v_MapTiledSize;
-    var pos = GamePublic.s_Vec2d((_pos.x - GamePublic.g_MoveOff.x + map.x * 0.0) / (map.x * GamePublic.g_SceenScale),
-    (_pos.y - GamePublic.g_MoveOff.y + map.y * 0.0) / (map.y * GamePublic.g_SceenScale));
+    var pos = GamePublic.s_Vec2d((_pos.x - GamePublic.g_MoveOff.x + map.x * 0.5) / (map.x * GamePublic.g_SceenScale),
+    (_pos.y - GamePublic.g_MoveOff.y + map.y * 0.5) / (map.y * GamePublic.g_SceenScale));
     pos.x = Math.floor(pos.x);
     pos.y = Math.floor(pos.y); 
     return pos;

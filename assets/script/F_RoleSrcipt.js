@@ -139,13 +139,16 @@ C_SrciptProc.RoleCommandSrciptProc1 = function (_src) {
 }
 
 
-C_SrciptProc.RoleActionCommandPassiveProc = function (_src) {
+C_SrciptProc.RoleActionCommandPassiveProc = function (_src) { //被动处理
     var g_gamemangaer = GamePublic.g_GameDataResManger;
     var SrcExeState = GamePublic.e_CommandSrcipt.Fail;
     switch (_src.Script.Name) {
         case GamePublic.e_CommandType.RoleAttackHure:{
             console.log("处理被攻击");
             SrcExeState = GamePublic.e_CommandSrcipt.Success;
+            let t_role = g_gamemangaer.GetRole(_src.TarRole.Num);
+            t_role.RoleInfo.v_RolePropertyData.NowHP -= 15;
+            console.log(t_role);
                     //if (hr) {SrcExeState = GamePublic.e_CommandSrcipt.Success;} else {console.log("失败");}
             break;
         }
