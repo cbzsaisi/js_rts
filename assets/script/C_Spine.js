@@ -63,7 +63,7 @@ var C_Spine = {
                 case GamePublic.e_RoleAction.attack:{
                     node.v_MainRole.RoleCommand.v_ActionWaitTime = 0;
                     var CommandArray = node.v_MainRole.RoleCommand.v_RoleActionCommandArray1;
-                    if(CommandArray[node.v_MainRole.RoleCommand.v_RoleActionCommandArray1Number].Script.Name == GamePublic.e_CommandType.RoleAttack){
+                    if(CommandArray.length > 0 && CommandArray[node.v_MainRole.RoleCommand.v_RoleActionCommandArray1Number].Script.Name == GamePublic.e_CommandType.RoleAttack){
                         var t_role = g_gamemangaer.GetRole(CommandArray[node.v_MainRole.RoleCommand.v_RoleActionCommandArray1Number].TarRole.Num);
                         for(var i in CommandArray[CommandArray.length - 1].TarRole.Array){
                             var src = new GamePublic.s_RoleScript({Info:{AttackType:node.v_MainRole.RoleGameInfo.v_RoleAttackType,AttackPower:10,SkillType:1,SkillPower:1},Name:GamePublic.e_CommandType.RoleAttackHure},{Num:t_role.RoleInfo.v_RoleNumber ,Array:"",Pos:123},{Num:node.v_MainRole.RoleInfo.v_RoleNumber,Array:"",Pos:123});

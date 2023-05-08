@@ -275,6 +275,7 @@ var C_RoleSpine = {
                 switch (node.RoleCommand.v_RoleActionCommandState1) {
                     case GamePublic.e_ActionCommandState.New:
                         var Command = node.RoleCommand.v_RoleActionCommandArray1[node.RoleCommand.v_RoleActionCommandArray1.length - 1];
+                        //if(this.RoleInfo.v_RoleNumber == 2)console.log(Command,);
                         var SrcExeState = RoleSrcipt.RoleCommandSrciptProc1(Command);
                         if (SrcExeState == GamePublic.e_CommandSrcipt.Success) {
                             node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.Run;
@@ -303,12 +304,12 @@ var C_RoleSpine = {
                         break;
                     case GamePublic.e_ActionCommandState.End:
                         //console.log("e_ActionCommandState.End");
-                        if(this.RoleInfo.v_RoleNumber == 2)console.log(node.RoleCommand.v_RoleActionCommandArray1);
+                        //if(this.RoleInfo.v_RoleNumber == 2)console.log(node.RoleCommand.v_RoleActionCommandArray1);
                         node.RoleCommand.v_RoleActionCommandArray1.splice(node.RoleCommand.v_RoleActionCommandArray1Number, 1);
                         node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
                         node.RoleCommand.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
                         node.RoleCommand.v_ActionScriptFail = 0;
-                        if(this.RoleInfo.v_RoleNumber == 2)console.log(node.RoleCommand.v_RoleActionCommandArray1);
+                        //if(this.RoleInfo.v_RoleNumber == 2)console.log(node.RoleCommand.v_RoleActionCommandArray1);
                         break;
                 }
             }
@@ -364,10 +365,11 @@ var C_RoleSpine = {
         node.StateCheck = function() {
             if (node.RoleInfo.v_RolePropertyData.NowHP <= 0 && node.RoleInfo.v_RoleType.RoleType == GamePublic.e_RoleTypeState.Life) {
                 this.StopCommand("");
+                this.RoleCommand.v_RoleActionCommandArray1.splice(node.RoleCommand.v_RoleActionCommandArray1.length - 1, node.RoleCommand.v_RoleActionCommandArray1.length);
                 var src = new GamePublic.s_RoleScript({ Type:1, Name:GamePublic.e_CommandType.RoleDeath}, { Num: this.RoleInfo.v_RoleNumber, Array: "22", Pos: 123 }, {});
                 this.RoleCommand.v_RoleActionCommandArray1.push(src);
-                this.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
-                node.RoleInfo.v_RoleType.RoleType = GamePublic.e_RoleTypeState.Death;
+                this.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+                //node.RoleInfo.v_RoleType.RoleType = GamePublic.e_RoleTypeState.Death;
             }
         }
 

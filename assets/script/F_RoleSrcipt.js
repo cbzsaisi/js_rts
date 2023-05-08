@@ -64,6 +64,15 @@ C_SrciptProc.RoleCommandSrciptProc = function (_src) {
             break;
         case GamePublic.e_CommandType.RoleAttacking:{
             console.log("角色开始攻击");
+            for(let i in s_role.RoleCommand.v_RoleTrarArray){
+                for(let j in _src.TarRole.Array){
+                    console.log(s_role.RoleCommand.v_RoleTrarArray[i]);
+                    if(s_role.RoleCommand.v_RoleTrarArray[i] == _src.TarRole.Array[j]){
+                        console.log("攻击目标编号相同");
+                        break;
+                    }
+                }
+            }
 
             s_role.RoleCommand.v_RoleTrarArray.splice(0,s_role.RoleCommand.v_RoleTrarArray.length);
             for(var i in _src.TarRole.Array){
@@ -95,7 +104,7 @@ C_SrciptProc.RoleCommandSrciptProc1 = function (_src) {
     var s_role = g_gamemangaer.GetRole(_src.ScrRole.Num);
     switch (_src.Script.Name) {
         case "RoleGoToPos":{
-            var hr = g_Astar.RoleFindWay(role, _src.TarRole.Pos);
+            var hr = g_Astar.RoleFindWay(s_role, _src.TarRole.Pos);
             if (hr) {
                 SrcExeState = GamePublic.e_CommandSrcipt.Success;
             } else {
@@ -124,7 +133,7 @@ C_SrciptProc.RoleCommandSrciptProc1 = function (_src) {
                         SrcExeState = GamePublic.e_CommandSrcipt.Success;
                         //这个会被 命令栈pop掉
                         var src = new GamePublic.s_RoleScript({Info:1,Name:"Non"},{Num:_src.ScrRole.Num,Array:"22",Pos:123},{Num:_src.TarRole.Num,Array:"22",Pos:_src.TarRole.Pos});
-                        s_role.RoleCommand.v_RoleActionCommandArray1.push(src);
+                        t_role.RoleCommand.v_RoleActionCommandArray1.push(src);
                     } else {
                         console.log("无法移动到攻击目标周围");
                     }
@@ -133,7 +142,6 @@ C_SrciptProc.RoleCommandSrciptProc1 = function (_src) {
             break;
         }
         case GamePublic.e_CommandType.RoleDeath:{
-            console.log("e_CommandType.RoleDeath");
             s_role.SetRoleStateChange(GamePublic.e_RoleTypeState.Death);
             break;
         }
@@ -149,7 +157,7 @@ C_SrciptProc.RoleActionCommandPassiveProc = function (_src) { //被动处理
             console.log("处理被攻击",_src);
             SrcExeState = GamePublic.e_CommandSrcipt.Success;
             let t_role = g_gamemangaer.GetRole(_src.ScrRole.Num);
-            t_role.RoleInfo.v_RolePropertyData.NowHP -= 15;
+            t_role.RoleInfo.v_RolePropertyData.NowHP -= 5;
             //if (hr) {SrcExeState = GamePublic.e_CommandSrcipt.Success;} else {console.log("失败");}
             break;
         }
