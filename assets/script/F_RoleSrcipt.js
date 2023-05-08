@@ -89,13 +89,12 @@ C_SrciptProc.RoleCommandSrciptProc = function (_src) {
     }
 }
 
-
 C_SrciptProc.RoleCommandSrciptProc1 = function (_src) {
     var g_gamemangaer = GamePublic.g_GameDataResManger;
     var SrcExeState = GamePublic.e_CommandSrcipt.Fail;
+    var s_role = g_gamemangaer.GetRole(_src.ScrRole.Num);
     switch (_src.Script.Name) {
         case "RoleGoToPos":{
-            var role = g_gamemangaer.GetRole(_src.ScrRole.Num);
             var hr = g_Astar.RoleFindWay(role, _src.TarRole.Pos);
             if (hr) {
                 SrcExeState = GamePublic.e_CommandSrcipt.Success;
@@ -106,7 +105,6 @@ C_SrciptProc.RoleCommandSrciptProc1 = function (_src) {
             break;
         }
         case GamePublic.e_CommandType.RoleAttack:{
-            var s_role = g_gamemangaer.GetRole(_src.ScrRole.Num);
             var t_role = g_gamemangaer.GetRole(_src.TarRole.Num);
             if (t_role) {
                 if (Math.abs(s_role.RoleInfo.v_RoleMapPos.x - t_role.RoleInfo.v_RoleMapPos.x) < 2 && Math.abs(s_role.RoleInfo.v_RoleMapPos.y - t_role.RoleInfo.v_RoleMapPos.y) < 2) {
@@ -134,26 +132,28 @@ C_SrciptProc.RoleCommandSrciptProc1 = function (_src) {
             }
             break;
         }
+        case GamePublic.e_CommandType.RoleDeath:{
+            console.log("e_CommandType.RoleDeath");
+            s_role.SetRoleStateChange(GamePublic.e_RoleTypeState.Death);
+            break;
+        }
     }
     return SrcExeState;
 }
-
 
 C_SrciptProc.RoleActionCommandPassiveProc = function (_src) { //被动处理
     var g_gamemangaer = GamePublic.g_GameDataResManger;
     var SrcExeState = GamePublic.e_CommandSrcipt.Fail;
     switch (_src.Script.Name) {
         case GamePublic.e_CommandType.RoleAttackHure:{
-            console.log("处理被攻击");
+            console.log("处理被攻击",_src);
             SrcExeState = GamePublic.e_CommandSrcipt.Success;
-            let t_role = g_gamemangaer.GetRole(_src.TarRole.Num);
+            let t_role = g_gamemangaer.GetRole(_src.ScrRole.Num);
             t_role.RoleInfo.v_RolePropertyData.NowHP -= 15;
-            console.log(t_role);
-                    //if (hr) {SrcExeState = GamePublic.e_CommandSrcipt.Success;} else {console.log("失败");}
+            //if (hr) {SrcExeState = GamePublic.e_CommandSrcipt.Success;} else {console.log("失败");}
             break;
         }
     }
-
     return SrcExeState;
 }
 module.exports = C_SrciptProc;

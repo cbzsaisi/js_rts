@@ -303,10 +303,12 @@ var C_RoleSpine = {
                         break;
                     case GamePublic.e_ActionCommandState.End:
                         //console.log("e_ActionCommandState.End");
+                        if(this.RoleInfo.v_RoleNumber == 2)console.log(node.RoleCommand.v_RoleActionCommandArray1);
                         node.RoleCommand.v_RoleActionCommandArray1.splice(node.RoleCommand.v_RoleActionCommandArray1Number, 1);
                         node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
                         node.RoleCommand.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
                         node.RoleCommand.v_ActionScriptFail = 0;
+                        if(this.RoleInfo.v_RoleNumber == 2)console.log(node.RoleCommand.v_RoleActionCommandArray1);
                         break;
                 }
             }
@@ -366,7 +368,22 @@ var C_RoleSpine = {
                 this.RoleCommand.v_RoleActionCommandArray1.push(src);
                 this.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
                 node.RoleInfo.v_RoleType.RoleType = GamePublic.e_RoleTypeState.Death;
-                console.log("StateCheck");
+            }
+        }
+
+        node.SetRoleStateChange = function(v_State) {
+            switch(v_State){
+                case GamePublic.e_RoleTypeState.Death:{
+                    this.SetMapPos({x:5,y:5});
+                    this.ShowSprite(false);
+                    this.RoleInfo.v_RoleType.RoleType = v_State;
+                    console.log("e_RoleTypeState.Death");
+                }
+                case GamePublic.e_RoleTypeState.Life:{
+                    this.SetMapPos(node.RoleInfo.v_RoleMapPos);
+                    this.ShowSprite(true);
+                    this.RoleInfo.v_RoleType.RoleType = v_State;
+                }
             }
         }
 
