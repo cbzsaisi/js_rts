@@ -67,7 +67,7 @@ var C_3DSprite = {
                     if(CommandArray[node.v_MainRole.RoleCommand.v_RoleActionCommandArray1Number].Script.Name == GamePublic.e_CommandType.RoleAttack){
                         var t_role = g_gamemangaer.GetRole(CommandArray[node.v_MainRole.RoleCommand.v_RoleActionCommandArray1Number].TarRole.Num);
                         for(var i in CommandArray[CommandArray.length - 1].TarRole.Array){
-                            var src = new GamePublic.s_RoleScript({Info:{AttackType:node.v_MainRole.RoleGameInfo.v_RoleAttackType,AttackPower:10,SkillType:1,SkillPower:1},Name:GamePublic.e_CommandType.RoleAttackHure},{Num:t_role.RoleInfo.v_RoleNumber ,Array:"",Pos:123},{Num:node.v_MainRole.RoleInfo.v_RoleNumber,Array:"",Pos:123});
+                            var src = new GamePublic.s_RoleScript({Info:{AttackType:node.v_MainRole.RoleGameInfo.v_RoleAttackType,AttackPower:10,SkillType:1,SkillPower:1},Name:GamePublic.e_CommandType.RoleAttackHarm},{Num:t_role.RoleInfo.v_RoleNumber ,Array:"",Pos:123},{Num:node.v_MainRole.RoleInfo.v_RoleNumber,Array:"",Pos:123});
                             t_role.RoleCommand.v_RoleActionCommandPassive.push(src);
                         }
                     }

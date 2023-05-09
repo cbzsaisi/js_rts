@@ -1,5 +1,5 @@
 var GamePublic = require("./F_GamePublic");
-
+var RoleSrcipt = require("./F_RoleSrcipt");
 var C_Spine = {
     New: function(_MainRole, _SpriteRes) {
         var node = {};
@@ -59,18 +59,9 @@ var C_Spine = {
                     //if(node.v_MainRole.RoleCommand.v_ActionLoop == true)node.v_MainRole.SetRoleAction(node.v_MainRole.RoleCommand.v_ActionEvent);
                     break;
                 }
-                    
                 case GamePublic.e_RoleAction.attack:{
-                    node.v_MainRole.RoleCommand.v_ActionWaitTime = 0;
-                    var CommandArray = node.v_MainRole.RoleCommand.v_RoleActionCommandArray1;
-                    if(CommandArray.length > 0 && CommandArray[node.v_MainRole.RoleCommand.v_RoleActionCommandArray1Number].Script.Name == GamePublic.e_CommandType.RoleAttack){
-                        var t_role = g_gamemangaer.GetRole(CommandArray[node.v_MainRole.RoleCommand.v_RoleActionCommandArray1Number].TarRole.Num);
-                        for(var i in CommandArray[CommandArray.length - 1].TarRole.Array){
-                            var src = new GamePublic.s_RoleScript({Info:{AttackType:node.v_MainRole.RoleGameInfo.v_RoleAttackType,AttackPower:10,SkillType:1,SkillPower:1},Name:GamePublic.e_CommandType.RoleAttackHure},{Num:t_role.RoleInfo.v_RoleNumber ,Array:"",Pos:123},{Num:node.v_MainRole.RoleInfo.v_RoleNumber,Array:"",Pos:123});
-                            t_role.RoleCommand.v_RoleActionCommandPassive.push(src);
-                        }
-                    }
-                    console.log("attack fin");
+                    var src = new GamePublic.s_RoleScript({ Type:1, Name:node.v_MainRole.RoleCommand.v_ActionEvent},{Num:node.v_MainRole.RoleInfo.v_RoleNumber, Array:"",Pos:123},{});
+                    RoleSrcipt.RoleActionSrciptProc(src);
                     break;
                 }
             }

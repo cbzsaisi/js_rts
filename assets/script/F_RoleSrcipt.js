@@ -62,7 +62,7 @@ C_SrciptProc.RoleCommandSrciptProc = function (_src) {
             //role.v_ActionWaitTime=(600 / e_RoleSpeed.scpfps);
             //role.v_ActionScriptFailType = e_ActionScriptFailType.Success;
             break;
-        case GamePublic.e_CommandType.RoleAttacking:{
+        case GamePublic.e_CommandBaseType.RoleAttacking:{
             console.log("角色开始攻击");
             for(let i in s_role.RoleCommand.v_RoleTrarArray){
                 for(let j in _src.TarRole.Array){
@@ -119,7 +119,7 @@ C_SrciptProc.RoleCommandSrciptProc1 = function (_src) {
                 if (Math.abs(s_role.RoleInfo.v_RoleMapPos.x - t_role.RoleInfo.v_RoleMapPos.x) < 2 && Math.abs(s_role.RoleInfo.v_RoleMapPos.y - t_role.RoleInfo.v_RoleMapPos.y) < 2) {
                     console.log("范围内 开始攻击");
                     s_role.RoleGameInfo.v_RoleAttackType = {AttackType:"hand",Skill:"Left"};
-                    var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandType.RoleAttacking},{Num:s_role.RoleInfo.v_RoleNumber,Array:"22",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:null});
+                    var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleAttacking},{Num:s_role.RoleInfo.v_RoleNumber,Array:"22",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:null});
                     s_role.RoleCommand.v_RoleActionCommandArray.push(src);
                     SrcExeState = GamePublic.e_CommandSrcipt.Success;
                 } else {
@@ -153,15 +153,36 @@ C_SrciptProc.RoleActionCommandPassiveProc = function (_src) { //被动处理
     var g_gamemangaer = GamePublic.g_GameDataResManger;
     var SrcExeState = GamePublic.e_CommandSrcipt.Fail;
     switch (_src.Script.Name) {
-        case GamePublic.e_CommandType.RoleAttackHure:{
-            console.log("处理被攻击",_src);
+        case GamePublic.e_CommandType.RoleAttackHarm:{
+            console.log("处理被攻击 来自：",_src.ScrRole.Num,"目标：",_src.TarRole.Num);
             SrcExeState = GamePublic.e_CommandSrcipt.Success;
-            let t_role = g_gamemangaer.GetRole(_src.ScrRole.Num);
-            t_role.RoleInfo.v_RolePropertyData.NowHP -= 5;
+            let role = g_gamemangaer.GetRole(_src.TarRole.Num);
+            role.RoleInfo.v_RolePropertyData.NowHP -= 5;
             //if (hr) {SrcExeState = GamePublic.e_CommandSrcipt.Success;} else {console.log("失败");}
             break;
         }
     }
     return SrcExeState;
+}
+
+C_SrciptProc.RoleActionSrciptProc = function (v_src) {  //动作处理
+    //console.log(v_src);
+    let g_gamemangaer = GamePublic.g_GameDataResManger;
+    switch (v_src.Script.Name) {
+        case GamePublic.e_RoleAction.attack:{
+            let role = g_gamemangaer.GetRole(v_src.ScrRole.Num);
+            role.RoleCommand.v_ActionWaitTime = 0;
+            var CommandArray = role.RoleCommand.v_RoleActionCommandArray1;
+            if(CommandArray.length > 0 && CommandArray[role.RoleCommand.v_RoleActionCommandArray1Number].Script.Name == GamePublic.e_CommandType.RoleAttack){
+                var t_role = g_gamemangaer.GetRole(CommandArray[role.RoleCommand.v_RoleActionCommandArray1Number].TarRole.Num);
+                //for(var i in CommandArray[CommandArray.length - 1].TarRole.Array){
+                var src = new GamePublic.s_RoleScript({Info:{AttackType:role.RoleGameInfo.v_RoleAttackType,AttackPower:10,SkillType:1,SkillPower:1},Name:GamePublic.e_CommandType.RoleAttackHarm},{Num:role.RoleInfo.v_RoleNumber, Array:"",Pos:123},{Num:t_role.RoleInfo.v_RoleNumber, Array:"",Pos:123});
+                t_role.RoleCommand.v_RoleActionCommandPassive.push(src);
+                //}
+            }
+            console.log("attack fin");
+            break;
+        }
+    }
 }
 module.exports = C_SrciptProc;

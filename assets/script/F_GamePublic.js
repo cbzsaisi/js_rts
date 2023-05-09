@@ -335,10 +335,18 @@ var G_Public = {
         Success: 1,
         Fail: 2,
     },
+
+    e_CommandBaseType: {
+        RoleGoToPos: 0,
+        RoleAttackHarm:1,
+        RoleAttacking:2,
+        RoleAttac:3,
+        RoleDeath:4,
+    },
     
     e_CommandType: {
         RoleGoToPos: 0,
-        RoleAttackHure:1,
+        RoleAttackHarm:1,
         RoleAttacking:2,
         RoleAttac:3,
         RoleDeath:4,
