@@ -63,12 +63,12 @@ C_SrciptProc.RoleCommandSrciptProc = function (_src) {
             //role.v_ActionScriptFailType = e_ActionScriptFailType.Success;
             break;
         case GamePublic.e_CommandBaseType.RoleAttacking:{
-            console.log("角色开始攻击");
+            //console.log("角色开始攻击",_src.TarRole.Array.length);
             for(let i in s_role.RoleCommand.v_RoleTrarArray){
                 for(let j in _src.TarRole.Array){
-                    console.log(s_role.RoleCommand.v_RoleTrarArray[i]);
+                    //console.log(s_role.RoleCommand.v_RoleTrarArray[i]);
                     if(s_role.RoleCommand.v_RoleTrarArray[i] == _src.TarRole.Array[j]){
-                        console.log("攻击目标编号相同");
+                        //console.log("攻击目标编号相同");
                         break;
                     }
                 }
@@ -133,6 +133,7 @@ C_SrciptProc.RoleCommandSrciptProc1 = function (_src) {
                     if (hr) {
                         SrcExeState = GamePublic.e_CommandSrcipt.Success;
                         //这个会被 命令栈pop掉
+                        console.log("这个会被 命令栈pop掉");
                         var src = new GamePublic.s_RoleScript({Info:1,Name:"Non"},{Num:_src.ScrRole.Num,Array:"22",Pos:123},{Num:_src.TarRole.Num,Array:"22",Pos:_src.TarRole.Pos});
                         t_role.RoleCommand.v_RoleActionCommandArray1.push(src);
                     } else {
@@ -195,12 +196,36 @@ C_SrciptProc.RoleCommand1StateCheckSrciptProc = function (RoleNum) {  //动作�
     switch (CommandArray.Script.Name) {
         case GamePublic.e_CommandType.RoleAttack:{
             let t_role = g_gdrm.GetRole(CommandArray.TarRole.Num);
-            if(t_role.RoleInfo.v_RoleType.RoleType != GamePublic.e_RoleTypeState.Death){
+            //if(t_role.RoleInfo.v_RoleType.RoleType != GamePublic.e_RoleTypeState.Death){
+            if(t_role.RoleInfo.v_RolePropertyData.NowHP > 0){
                 CommandState = GamePublic.e_CommandResultSrcipt.Continue;
             }
             break;
         }
     }
     return CommandState;
+}
+
+C_SrciptProc.RoleTargetCheck = function(v_src) {  //角色目标检测
+    let g_gamemangaer = GamePublic.g_GameDataResManger;
+    let State = GamePublic.e_RoleTargetCheckResult.Success;
+    
+    switch (v_src.Script.Name) {
+        case GamePublic.e_RoleTargetCheck.RoleAttack:{
+            let role = g_gamemangaer.GetRole(v_src.ScrRole.Num);
+            let t_role = g_gamemangaer.GetRole(v_src.TarRole.Num);
+            if(v_src.ScrRole.Num == v_src.TarRole.Num){
+                console.log(v_src.ScrRole.Num,"攻击目标是自己");
+                State = GamePublic.e_RoleTargetCheckResult.Is_Self;
+                break;
+            }
+            if(t_role.RoleInfo.v_RolePropertyData.NowHP < 1){
+                console.log(v_src.ScrRole.Num,"攻击目标已亡:",v_src.TarRole.Num);
+                State = GamePublic.e_RoleTargetCheckResult.Is_Death;
+                break;
+            }
+            break;
+        }
+    }
 }
 module.exports = C_SrciptProc;

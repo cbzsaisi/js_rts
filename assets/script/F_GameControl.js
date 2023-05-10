@@ -1,6 +1,6 @@
 var GamePublic = require("./F_GamePublic");
 var BuildingClass = require("./C_Building");
-
+var RoleSrcipt = require("./F_RoleSrcipt");
 function C_GameControl() {
 };
 
@@ -92,6 +92,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
     GamePublic.g_ButtonUsingFlag = false;//检测UI点击
 
     if(GamePublic.g_UserPicklObj.Type == GamePublic.e_UserControlType.BuildPlace){ //当前状态是建筑检测 关闭检测
+        GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.BuildClick;
         if(this.MapTiledCoverCheck(_pos,GamePublic.g_Active_Map,GamePublic.g_UserPicklObj.Size)){          
             //GamePublic.g_Active_Map.MapTiledColorShow(true,cc.color(0,255, 0, 95));
             var build = new BuildingClass.New("build1", 1, GamePublic.s_Vec2d(mappos.x, mappos.y), 1);
@@ -182,16 +183,22 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                             role.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
                         }
                         if (GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray.length) { //如果目标点有单位
-                            var t_role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray[0]);
+                            let t_role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray[0]);
+                            var csrc = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_RoleTargetCheck.RoleAttack}, { Num: role.RoleInfo.v_RoleNumber, Array: [], Pos: 123 }, { Num: t_role.RoleInfo.v_RoleNumber, Array: [], Pos: 123 });
+                            var res = RoleSrcipt.RoleTargetCheck(csrc);
                             if (t_role.RoleInfo.v_RoleNumber != role.RoleInfo.v_RoleNumber) { //非自己 攻击
                                 var src = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.RoleInfo.v_RoleNumber, Array: "222", Pos: 123 }, { Num: t_role.RoleInfo.v_RoleNumber, Array: [t_role.RoleInfo.v_RoleNumber], Pos: mappos });
+                                console.log("添加攻击",src);
                                 role.RoleCommand.v_RoleActionCommandArray1.push(src);
+                                console.log("命令数量",role.RoleCommand.v_RoleActionCommandArray1.length);
                             }else{
-                                console.log("攻击自己!");
+                                console.log("攻击自己!",mappos,role.RoleInfo.v_RoleMapPos);
                             }
                         } else { //移动
                             var src = new GamePublic.s_RoleScript({ Info: 1, Name: "RoleGoToPos" }, { Num: role.RoleInfo.v_RoleNumber, Array: "111", Pos: 123 }, { Num: 0, Array: "22", Pos: mappos });
                             role.RoleCommand.v_RoleActionCommandArray1.push(src);
+                            console.log("命令数量",role.RoleCommand.v_RoleActionCommandArray1.length);
+
                             //GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].SetSelectFlag(true);
                         }
                     }
@@ -207,6 +214,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
     GamePublic.g_MouseLeftFlag = false;
     GamePublic.g_MoveSelectStartPos = null;
     GamePublic.g_MoveSelectEndPos = null;
+    GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.Non;
 }
 
 C_GameControl.ControlMouseRightUpCall = function (_pos) {
@@ -225,6 +233,7 @@ C_GameControl.ControlMouseRightUpCall = function (_pos) {
 
     GamePublic.g_MouseMoveFlag = false;
     GamePublic.g_MouseRightFlag = false;
+    GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.Non;
     // GamePublic.g_MoveSelectStartPos = null;
     // GamePublic.g_MoveSelectEndPos = null;
 }

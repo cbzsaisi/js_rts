@@ -99,6 +99,7 @@ cc.Class({
         GamePublic.g_MoveEndPos = GamePublic.s_Vec2d(0, 0);
         GamePublic.g_MoveOff = GamePublic.s_Vec2d(0, 0);
         GamePublic.g_MoveOffLast = GamePublic.s_Vec2d(0, 0);
+        GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.Non;
         GamePublic.g_GameRandom = g_MathLib.Random.New();
         
         GamePublic.g_SelectRoleArray = [];

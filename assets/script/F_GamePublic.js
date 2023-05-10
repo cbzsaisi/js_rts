@@ -329,6 +329,13 @@ var G_Public = {
         Lv1: 11,
     },
 
+    //点击类型
+    e_PlayerClickType: {
+        Non: 0,
+        RoleClick: 1,
+        BuildClick: 2,
+    },
+
     //脚本解释状态
     e_CommandSrcipt: {
         undefined: 0,
@@ -358,6 +365,22 @@ var G_Public = {
         Success: 1,
         Fail: 2,
         Continue: 3,
+    },
+
+    //角色检测类别
+    e_RoleTargetCheck: {
+        RoleAttack: 0,
+        Success: 1,
+        Fail: 2,
+        Continue: 3,
+    },
+
+    //执行结果状态
+    e_RoleTargetCheckResult: {
+        undefined: 0,
+        Success: 1,
+        Is_Self: 2,
+        Is_Death: 3,
     },
 
     //游戏状态枚举
@@ -722,6 +745,7 @@ var G_Public = {
     g_GameResLoadFinish:false,
     g_ButtonUsingFlag:false,
     g_ButtonType:null,
+    g_PlayerClickType : null,
 
     g_DrawRect : null,
 }
