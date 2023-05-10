@@ -303,9 +303,13 @@ var C_RoleSpine = {
                         //console.log("e_ActionCommandState.Stop");
                         break;
                     case GamePublic.e_ActionCommandState.End:
-                        //console.log("e_ActionCommandState.End");
                         //if(this.RoleInfo.v_RoleNumber == 2)console.log(node.RoleCommand.v_RoleActionCommandArray1);
-                        node.RoleCommand.v_RoleActionCommandArray1.splice(node.RoleCommand.v_RoleActionCommandArray1Number, 1);
+                        if(RoleSrcipt.RoleCommand1StateCheckSrciptProc(this.RoleInfo.v_RoleNumber) == GamePublic.e_CommandResultSrcipt.Success){
+                            console.log("目标已亡",node.RoleCommand.v_RoleActionCommandArray1.length);
+                            node.RoleCommand.v_RoleActionCommandArray1.splice(node.RoleCommand.v_RoleActionCommandArray1Number, 1);
+                            console.log("目标已亡",node.RoleCommand.v_RoleActionCommandArray1.length);
+                        }
+                        //node.RoleCommand.v_RoleActionCommandArray1.splice(node.RoleCommand.v_RoleActionCommandArray1Number, 1);
                         node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
                         node.RoleCommand.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
                         node.RoleCommand.v_ActionScriptFail = 0;
@@ -364,9 +368,9 @@ var C_RoleSpine = {
 
         node.StateCheck = function() {
             if (node.RoleInfo.v_RolePropertyData.NowHP <= 0 && node.RoleInfo.v_RoleType.RoleType == GamePublic.e_RoleTypeState.Life) {
-                this.StopCommand("");
+                this.StopCommand(""); //角色亡
                 this.RoleCommand.v_RoleActionCommandArray1.splice(node.RoleCommand.v_RoleActionCommandArray1.length - 1, node.RoleCommand.v_RoleActionCommandArray1.length);
-                var src = new GamePublic.s_RoleScript({ Type:1, Name:GamePublic.e_CommandType.RoleDeath}, { Num: this.RoleInfo.v_RoleNumber, Array: "22", Pos: 123 }, {});
+                var src = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_CommandType.RoleDeath}, { Num: this.RoleInfo.v_RoleNumber, Array: "22", Pos: 123 }, {});
                 this.RoleCommand.v_RoleActionCommandArray1.push(src);
                 this.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
                 //node.RoleInfo.v_RoleType.RoleType = GamePublic.e_RoleTypeState.Death;

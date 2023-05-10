@@ -32,7 +32,6 @@ var C_Spine = {
                 }
                 case GamePublic.e_RoleAction.jump:{
                     var ske = node.v_Sprite.getComponent(sp.Skeleton);
-                    console.log("jump")
                     // ske.clearTracks();
                     ske.setStartListener((trackEntry, LoopCount) =>{node.RoleActionStartEner(_ActionName);});
                     ske.setCompleteListener((trackEntry, LoopCount) =>{node.RoleActionCompleteEner(_ActionName);});
@@ -60,7 +59,7 @@ var C_Spine = {
                     break;
                 }
                 case GamePublic.e_RoleAction.attack:{
-                    var src = new GamePublic.s_RoleScript({ Type:1, Name:node.v_MainRole.RoleCommand.v_ActionEvent},{Num:node.v_MainRole.RoleInfo.v_RoleNumber, Array:"",Pos:123},{});
+                    var src = new GamePublic.s_RoleScript({ Info:1, Name:node.v_MainRole.RoleCommand.v_ActionEvent},{Num:node.v_MainRole.RoleInfo.v_RoleNumber, Array:"",Pos:123},{});
                     RoleSrcipt.RoleActionSrciptProc(src);
                     break;
                 }

@@ -184,14 +184,13 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                         if (GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray.length) { //如果目标点有单位
                             var t_role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray[0]);
                             if (t_role.RoleInfo.v_RoleNumber != role.RoleInfo.v_RoleNumber) { //非自己 攻击
-                                //console.log(Math.abs(-1))                                       
-                                var src = new GamePublic.s_RoleScript({ Type:1, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.RoleInfo.v_RoleNumber, Array: "22", Pos: 123 }, { Num: t_role.RoleInfo.v_RoleNumber, Array: [t_role.RoleInfo.v_RoleNumber], Pos: mappos });
+                                var src = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.RoleInfo.v_RoleNumber, Array: "222", Pos: 123 }, { Num: t_role.RoleInfo.v_RoleNumber, Array: [t_role.RoleInfo.v_RoleNumber], Pos: mappos });
                                 role.RoleCommand.v_RoleActionCommandArray1.push(src);
                             }else{
                                 console.log("攻击自己!");
                             }
                         } else { //移动
-                            var src = new GamePublic.s_RoleScript({ Type: 1, Name: "RoleGoToPos" }, { Num: role.RoleInfo.v_RoleNumber, Array: "22", Pos: 123 }, { Num: 0, Array: "22", Pos: mappos });
+                            var src = new GamePublic.s_RoleScript({ Info: 1, Name: "RoleGoToPos" }, { Num: role.RoleInfo.v_RoleNumber, Array: "111", Pos: 123 }, { Num: 0, Array: "22", Pos: mappos });
                             role.RoleCommand.v_RoleActionCommandArray1.push(src);
                             //GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].SetSelectFlag(true);
                         }

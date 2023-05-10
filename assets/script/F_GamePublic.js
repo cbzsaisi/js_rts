@@ -340,7 +340,7 @@ var G_Public = {
         RoleGoToPos: 0,
         RoleAttackHarm:1,
         RoleAttacking:2,
-        RoleAttac:3,
+        RoleAttack:3,
         RoleDeath:4,
     },
     
@@ -348,8 +348,16 @@ var G_Public = {
         RoleGoToPos: 0,
         RoleAttackHarm:1,
         RoleAttacking:2,
-        RoleAttac:3,
+        RoleAttack:3,
         RoleDeath:4,
+    },
+
+    //执行结果状态
+    e_CommandResultSrcipt: {
+        undefined: 0,
+        Success: 1,
+        Fail: 2,
+        Continue: 3,
     },
 
     //游戏状态枚举

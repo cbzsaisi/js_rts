@@ -114,12 +114,13 @@ C_SrciptProc.RoleCommandSrciptProc1 = function (_src) {
             break;
         }
         case GamePublic.e_CommandType.RoleAttack:{
+            //console.log(_src.Script);
             var t_role = g_gamemangaer.GetRole(_src.TarRole.Num);
             if (t_role) {
                 if (Math.abs(s_role.RoleInfo.v_RoleMapPos.x - t_role.RoleInfo.v_RoleMapPos.x) < 2 && Math.abs(s_role.RoleInfo.v_RoleMapPos.y - t_role.RoleInfo.v_RoleMapPos.y) < 2) {
                     console.log("范围内 开始攻击");
                     s_role.RoleGameInfo.v_RoleAttackType = {AttackType:"hand",Skill:"Left"};
-                    var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleAttacking},{Num:s_role.RoleInfo.v_RoleNumber,Array:"22",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:null});
+                    var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleAttacking},{Num:s_role.RoleInfo.v_RoleNumber,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:null});
                     s_role.RoleCommand.v_RoleActionCommandArray.push(src);
                     SrcExeState = GamePublic.e_CommandSrcipt.Success;
                 } else {
@@ -180,9 +181,26 @@ C_SrciptProc.RoleActionSrciptProc = function (v_src) {  //动作处理
                 t_role.RoleCommand.v_RoleActionCommandPassive.push(src);
                 //}
             }
-            console.log("attack fin");
             break;
         }
     }
+}
+
+C_SrciptProc.RoleCommand1StateCheckSrciptProc = function (RoleNum) {  //动作处理
+    let g_gdrm = GamePublic.g_GameDataResManger;
+    let CommandState = GamePublic.e_CommandResultSrcipt.Success;
+    let role = g_gdrm.GetRole(RoleNum);
+    if(role.RoleCommand.v_RoleActionCommandArray1.length < 1) return CommandState;
+    let CommandArray = role.RoleCommand.v_RoleActionCommandArray1[role.RoleCommand.v_RoleActionCommandArray1Number];
+    switch (CommandArray.Script.Name) {
+        case GamePublic.e_CommandType.RoleAttack:{
+            let t_role = g_gdrm.GetRole(CommandArray.TarRole.Num);
+            if(t_role.RoleInfo.v_RoleType.RoleType != GamePublic.e_RoleTypeState.Death){
+                CommandState = GamePublic.e_CommandResultSrcipt.Continue;
+            }
+            break;
+        }
+    }
+    return CommandState;
 }
 module.exports = C_SrciptProc;

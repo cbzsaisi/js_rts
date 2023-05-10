@@ -305,8 +305,6 @@ cc.Class({
                         var role = new RoleSpineClass.New("role2", 1, GamePublic.s_Vec2d(i, j), ++Rolenum);                        
                     }
                 }
-                //var build = new BuildingClass.New("build1", 1, GamePublic.s_Vec2d(10, 5), ++Buildnum);
-
                 GamePublic.g_GameRunUi = GameRunUiClass.New({ x: 20, y: 20 }, "GameRunUi", 0, {}, {}, this.Page_sceen_root, 8);
                 this.SceenCreate = true;
             }
