@@ -161,6 +161,8 @@ C_SrciptProc.RoleActionCommandPassiveProc = function (_src) { //被动处理
             let role = g_gamemangaer.GetRole(_src.TarRole.Num);
             role.RoleInfo.v_RolePropertyData.NowHP -= 5;
             //if (hr) {SrcExeState = GamePublic.e_CommandSrcipt.Success;} else {console.log("失败");}
+            var src = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.RoleInfo.v_RoleNumber, Array: "222", Pos: 123 }, { Num: _src.ScrRole.Num, Array: [_src.ScrRole.Num], Pos: 321 });
+            role.RoleCommand.v_RoleActionCommandArray1.push(src);
             break;
         }
     }

@@ -141,15 +141,6 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                     }
                     if (GamePublic.g_SelectRoleArray.length) GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.MultiRole;
                 }
-                // if(SelectFlag == false){
-                //     if (GamePublic.g_SelectRoleArray.length) { //取消框选
-                //         for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
-                //             GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]).RoleGameInfo.v_RoleSelectFlag = false;
-                //         }
-                //         GamePublic.g_SelectRoleArray.splice(0, GamePublic.g_SelectRoleArray.length);
-                //         GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.NonSelect;
-                //     }
-                // }
                 break;
             }
             case GamePublic.e_SelectStaus.MultiRole:{
@@ -164,7 +155,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                         break;
                     }
                     case GamePublic.e_PlayerClickType.RoleSelectClick:{
-                        if (GamePublic.g_SelectRoleArray.length) { 
+                        if (GamePublic.g_SelectRoleArray.length) {  //取消框选
                             for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
                                 GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]).RoleGameInfo.v_RoleSelectFlag = false;
                             }
