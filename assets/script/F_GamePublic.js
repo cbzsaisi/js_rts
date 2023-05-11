@@ -334,6 +334,8 @@ var G_Public = {
         Non: 0,
         RoleClick: 1,
         BuildClick: 2,
+        RoleSelectClick: 3,
+        RoleTarget:4,
     },
 
     //脚本解释状态
@@ -344,11 +346,12 @@ var G_Public = {
     },
 
     e_CommandBaseType: {
-        RoleGoToPos: 0,
+        RoleMove: 0,
         RoleAttackHarm:1,
         RoleAttacking:2,
         RoleAttack:3,
         RoleDeath:4,
+        RoleWait:5,
     },
     
     e_CommandType: {

@@ -31,10 +31,19 @@ C_MathLibStar.RoleTargePosPassTest = function (_RolePassStatu, _MapTile) {
             break;
     }
     for (var i = 0; i < _MapTile.v_TileResArray.length; i++) {
-        if (_MapTile.v_TileResArray[i].v_MapPassStatus == GamePublic.e_RolePassStatu.nopass) vpass = GamePublic.e_ActionScriptFailType.MapBlock;
+        if (_MapTile.v_TileResArray[i].v_MapPassStatus == GamePublic.e_RolePassStatu.nopass){
+            vpass = GamePublic.e_ActionScriptFailType.MapBlock;
+            console.log("e_ActionScriptFailType.MapBlock");
+        } 
     }
-    if (_MapTile.v_ExistRoleArray.length) vpass = GamePublic.e_ActionScriptFailType.RoleBlock;
-    if (_MapTile.v_ExistBuildArray.length) vpass = GamePublic.e_ActionScriptFailType.BuildBlock;
+    if (_MapTile.v_ExistRoleArray.length){
+        vpass = GamePublic.e_ActionScriptFailType.RoleBlock;
+        console.log("e_ActionScriptFailType.RoleBlock");
+    }
+    if (_MapTile.v_ExistBuildArray.length){
+        vpass = GamePublic.e_ActionScriptFailType.BuildBlock;
+        console.log("e_ActionScriptFailType.BuildBlock");
+    }
     return vpass;
 } 
 
@@ -362,7 +371,7 @@ C_MathLibStar.RoleFindWay = function(_role,_d_Pos) {
             //var src = new s_NodeScript("RoleAction","RoleMove",_role.v_RoleNumber,'',WayPos.oPos);
             //_role.v_NodeActionCommandArray.push(src);
 
-            var src = new GamePublic.s_RoleScript({Info:1,Name:"RoleMove"},{Num:_role.RoleInfo.v_RoleNumber,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
+            var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleMove},{Num:_role.RoleInfo.v_RoleNumber,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
             _role.RoleCommand.v_RoleActionCommandArray.push(src);
         } 
         return true;

@@ -125,7 +125,7 @@ var C_MapTile = {
             //node.v_SpritePos = GamePublic.s_Vec2d((node.v_NodeMapPos.x - node.v_NodeMapPos.y) * (GamePublic.e_MapTilePixel.width * 0.5) * GamePublic.g_SceenScale,
             //    (node.v_NodeMapPos.x + node.v_NodeMapPos.y) * (GamePublic.e_MapTilePixel.height * 0.5) * GamePublic.g_SceenScale + (GamePublic.e_MapTilePixel.height * GamePublic.g_SceenScale) * 0.5);
             node.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.v_MainMap.v_MapTiledSize.x * GamePublic.g_SceenScale),
-                _pos.y * (node.v_MainMap.v_MapTiledSize.y * GamePublic.g_SceenScale) + node.k_SpriteSize.y * GamePublic.g_SceenScale * 0.5);
+                _pos.y * (node.v_MainMap.v_MapTiledSize.y * GamePublic.g_SceenScale) + node.k_SpriteSize.y * node.v_HeigthOffset * GamePublic.g_SceenScale);
             if (node.v_TileSprite) {
                 node.v_TileSprite.setPosition(node.v_SpritePos);
                 if(node.v_ShowLevel > 4){node.v_TileSprite.zIndex = (node.v_MainMap.v_MapSize.x * node.v_MainMap.v_MapSize.y)-(node.v_NodeMapPos.x + node.v_NodeMapPos.y * node.v_MainMap.v_MapSize.x) ;}
