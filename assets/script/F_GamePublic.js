@@ -383,7 +383,16 @@ var G_Public = {
         undefined: 0,
         Success: 1,
         Is_Self: 2,
-        Is_Death: 3,
+        Src_Is_Death: 3,
+        Tar_Is_Death: 4,
+    },
+
+    //角色攻击类型
+    e_RoleAttackType: {
+        left_hand: 0,
+        right_hand: 1,
+        Skill_1: 2,
+        Skill_2: 3,
     },
 
     //游戏状态枚举

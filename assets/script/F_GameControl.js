@@ -201,7 +201,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                     case GamePublic.e_RoleTargetCheckResult.Is_Self:{
                                         break;
                                     }
-                                    case GamePublic.e_RoleTargetCheckResult.Is_Death:{
+                                    case GamePublic.e_RoleTargetCheckResult.Tar_Is_Death:{
                                         break;
                                     }
                                 }
