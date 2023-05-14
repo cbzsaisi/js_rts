@@ -255,9 +255,13 @@ C_SrciptProc.RoleTargetCheck = function(v_src) {  //角色目标检测
     return State;
 }
 
-C_SrciptProc.RoleAttackValueCalc = function(v_src) {  //角色攻击值计算
-    let Value = {};
-
+C_SrciptProc.RoleAttackInfo = function(v_src) {  //角色攻击信息
+    let Value = {PhsAttact:1,PhsAttactVa:1,Skill:1,SkillVa:1};
+    switch(v_src.Script.Name){
+        case GamePublic.e_RoleAttackType.left_hand:{
+            break;
+        }
+    }
 
     return Value;
 }

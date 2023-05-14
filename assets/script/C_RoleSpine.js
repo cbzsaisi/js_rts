@@ -384,7 +384,7 @@ var C_RoleSpine = {
                     this.SetMapPos({x:5,y:5});
                     this.ShowSprite(false);
                     this.RoleInfo.v_RoleType.RoleType = v_State;
-                    console.log("e_RoleTypeState.Death",v_State,this.RoleInfo.v_RoleType.RoleType);
+                    console.log("e_RoleTypeState.Death",this.RoleInfo.v_RoleNumber);
                 }
                 case GamePublic.e_RoleTypeState.Life:{
                     this.SetMapPos(node.RoleInfo.v_RoleMapPos);
