@@ -119,7 +119,7 @@ C_SrciptProc.RoleCommandSrciptProc1 = function (_src) {
             if (t_role) {
                 if (Math.abs(s_role.RoleInfo.v_RoleMapPos.x - t_role.RoleInfo.v_RoleMapPos.x) < 2 && Math.abs(s_role.RoleInfo.v_RoleMapPos.y - t_role.RoleInfo.v_RoleMapPos.y) < 2) {
                     //console.log("范围内 开始攻击");
-                    s_role.RoleGameInfo.v_RoleAttackType = {AttackType:"hand",Skill:"Left"};
+                    s_role.RoleGameInfo.v_RoleAttackType = {AttackType:GamePublic.e_RoleAttackType.left_hand,Skill:"Left"};//修改攻击类型
                     var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleAttacking},{Num:s_role.RoleInfo.v_RoleNumber,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:null});
                     s_role.RoleCommand.v_RoleActionCommandArray.push(src);
                     SrcExeState = GamePublic.e_CommandSrcipt.Success;
@@ -191,7 +191,8 @@ C_SrciptProc.RoleActionSrciptProc = function (v_src) {  //动作处理
             if(CommandArray.length > 0 && CommandArray[role.RoleCommand.v_RoleActionCommandArray1Number].Script.Name == GamePublic.e_CommandType.RoleAttack){
                 var t_role = g_gamemangaer.GetRole(CommandArray[role.RoleCommand.v_RoleActionCommandArray1Number].TarRole.Num);
                 //for(var i in CommandArray[CommandArray.length - 1].TarRole.Array){
-                var src = new GamePublic.s_RoleScript({Info:{AttackType:role.RoleGameInfo.v_RoleAttackType,AttackPower:10,SkillType:1,SkillPower:1},Name:GamePublic.e_CommandType.RoleAttackHarm},{Num:role.RoleInfo.v_RoleNumber, Array:"",Pos:123},{Num:t_role.RoleInfo.v_RoleNumber, Array:"",Pos:123});
+                var src = new GamePublic.s_RoleScript({Info:this.RoleAttackInfo(role.RoleGameInfo.v_RoleAttackType),Name:GamePublic.e_CommandType.RoleAttackHarm},{Num:role.RoleInfo.v_RoleNumber, Array:"",Pos:123},{Num:t_role.RoleInfo.v_RoleNumber, Array:"",Pos:123});
+                //console.log(src);
                 t_role.RoleCommand.v_RoleActionCommandPassive.push(src);
                 //}
             }
@@ -255,10 +256,11 @@ C_SrciptProc.RoleTargetCheck = function(v_src) {  //角色目标检测
     return State;
 }
 
-C_SrciptProc.RoleAttackInfo = function(v_src) {  //角色攻击信息
-    let Value = {PhsAttact:1,PhsAttactVa:1,Skill:1,SkillVa:1};
-    switch(v_src.Script.Name){
+C_SrciptProc.RoleAttackInfo = function(v_type) {  //角色攻击信息
+    let Value = {PhsAttact:1,PhsAttactVal:1,Skill:1,SkillVal:1};
+    switch(v_type.AttackType){
         case GamePublic.e_RoleAttackType.left_hand:{
+            //console.log("GamePublic.e_RoleAttackType.left_hand");
             break;
         }
     }

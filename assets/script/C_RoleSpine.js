@@ -102,7 +102,7 @@ var C_RoleSpine = {
         node.RoleInfo.v_RoleType = GamePublic.s_RoleType();
 
         node.RoleGameInfo.v_SpriteType = GamePublic.e_SpriteType.spine;
-        node.RoleGameInfo.v_RoleAttackType = { AttackType: "hand", Skill: "Left" };
+        node.RoleGameInfo.v_RoleAttackType = { AttackType: GamePublic.e_RoleAttackType.left_hand, Skill: "Left" };
         node.RoleGameInfo.v_SpriteData = GameResManager.getSpriteResData(_RoleResName, GamePublic.e_SpriteResType.Role);
         node.RoleGameInfo.v_CurrentMap = GamePublic.g_GameDataResManger.GetMap(_MapNum); //当前地图实体
         node.RoleGameInfo.v_SpriteShow = false;
