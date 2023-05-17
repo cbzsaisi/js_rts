@@ -5,11 +5,11 @@ var C_ItemManager = {
         var node = {};
         node.ItemObjArray = [];
 
-        
         node.Create = function (){
-            var ItemUsageValue = GamePublic.s_EquipUsageValue(1,1,1,1,1,1,1);
+            var ItemUsageValue = GamePublic.s_EquipUsageValue(1,1,1,1,1,1,1);//装备条件
+            var ItemIncreaseValue = GamePublic.s_EquipIncreaseValue(2,0,0,0,0,0,0,0,0,0,[]);//装备条件
             var OccupationRestrict = [GamePublic.e_RoleOccupationType.Warrior];
-            var item = GamePublic.s_Item(GamePublic.e_ItemName.Sword1,"铁剑", "铁制剑","Itemimage002",GamePublic.e_ItemClass.RoleEquip,GamePublic.e_ItemType.Sword,GamePublic.e_EquipType.Hand,100,10,false,false,ItemUsageValue,{},OccupationRestrict);
+            var item = GamePublic.s_Item(GamePublic.e_ItemName.Sword1,"铁剑", "铁制剑","Itemimage002",GamePublic.e_ItemClass.RoleEquip,GamePublic.e_ItemType.Sword,GamePublic.e_EquipType.Hand,100,10,false,false,ItemUsageValue,ItemIncreaseValue,OccupationRestrict);
             node.ItemObjArray.push(item);
 
             var OccupationRestrict = [GamePublic.e_RoleOccupationType.All];
@@ -24,12 +24,12 @@ var C_ItemManager = {
                     return GamePublic.s_ItemCopy(item);
                     //return GamePublic.s_Item(item.Name,item.ItemName,item.Describe,item.ImgName,item.ItemNum,item.ItemType,item.WeaponType,item.EquipType,item.Value,item.Weight,item.UseBout,item.Plural,item.EquipUsageValue,item.EquipIncreaseValue);
                 }
-            }
+            }s
            return null;
         }
 
         node.BagAddItem = function (_ItemName,_ItemNum,_ObjNum,_ObjType){
-            var re = false;
+            var res = false;
             var item = null;
             var Bag = null;
             var BagSize = 0;
@@ -79,7 +79,7 @@ var C_ItemManager = {
                     }
                 }
             }
-            return re;
+            return res;
         }
 
         node.RoleEquipUsageValueCheck = function(_v_RoleRacePropertyData,_RolePropertyData,_UsageValue){
@@ -96,7 +96,7 @@ var C_ItemManager = {
         }
 
         node.RoleEquip = function (_RoleNum,_ItemNum){
-            var re = false
+            var res = false
             var Role = GamePublic.g_GameDataResManger.GetRole(_RoleNum);
             var Equip = Role.RoleInfo.v_RoleBag[_ItemNum];
             //如果物品不是装备类型 或无法符合装备条件
@@ -110,14 +110,14 @@ var C_ItemManager = {
                 Role.RoleInfo.v_RoleEquip[GamePublic.e_EquipType.Hand] = Equip;
                 Equip.IsEquip = true;
                 Role.RoleInfo.v_RoleBag[_ItemNum] = null;
-                re = true;
+                res = true;
                 break;
             }
-            return re;
+            return res;
         }
 
         node.RoleUnEquip = function (_RoleNum, _EquipNum, _BagNum) {
-            var re = false
+            var res = false
             var Role = GamePublic.g_GameDataResManger.GetRole(_RoleNum);
             if (!Role.RoleInfo.v_RoleBag[_BagNum]) {
                 var Equip = Role.RoleInfo.v_RoleEquip[_EquipNum];
@@ -125,9 +125,9 @@ var C_ItemManager = {
                 //Role.RoleInfo.v_RoleEquip.splice(_EquipNum,1);
                 Role.RoleInfo.v_RoleBag[_BagNum] = Equip;
                 Equip.IsEquip = false;
-                re = true;
+                res = true;
             }
-            return re;
+            return res;
         }
         
         

@@ -132,8 +132,6 @@ var C_RoleSpine = {
             node.RoleGameInfo.v_SpriteShow = true;
             node.RoleGameInfo.v_SpriteScale = {x:node.RoleGameInfo.v_SpriteData.SpriteScale, y:node.RoleGameInfo.v_SpriteData.SpriteScale};
             node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveInRole(node.RoleInfo.v_RoleNumber, GamePublic.e_BaseObjType.Role);
-            //var src = new GamePublic.s_RoleScript({Info:1,Name:"RoleMove"},{Num:node.RoleInfo.v_RoleNumber,Array:"22",Pos:123},{Num:0,Array:"22",Pos:GamePublic.s_Vec2d(1,1)});
-            //node.RoleCommand.v_RoleActionCommandArray.push(src);
 
             //node.RoleGameInfo.v_FrontDrawFlag = true;
             node.RoleGameInfo.v_FrontDraw = RoleFrontDraw.New(node, node.RoleGameInfo.v_DrawNode, 1);
@@ -142,9 +140,9 @@ var C_RoleSpine = {
             node.RoleInfo.v_RoleRacePropertyData = g_RoleManager.InitRoleRacePropertyData(node.RoleInfo.v_RoleNumber);
             node.RoleInfo.v_RolePropertyData = GamePublic.s_RolePropertyData('');
             node.CalcRolePropertyData();
-            // GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Sword1, 1, node.RoleInfo.v_RoleNumber, "Role");
-            // GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 10, node.RoleInfo.v_RoleNumber, "Role");
-            // GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 2, node.RoleInfo.v_RoleNumber, "Role");
+            GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Sword1, 1, node.RoleInfo.v_RoleNumber, "Role");
+            GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 10, node.RoleInfo.v_RoleNumber, "Role");
+            GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 2, node.RoleInfo.v_RoleNumber, "Role");
             //GamePublic.g_ItemManager.RoleEquip(node.RoleInfo.v_RoleNumber,3); //装备
             //this.SetRoleAction(GamePublic.e_RoleAction.walk);
             node.RoleGameInfo.v_RoleCreate = true;

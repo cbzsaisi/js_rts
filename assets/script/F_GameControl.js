@@ -68,6 +68,9 @@ C_GameControl.ControlMouseLeftDownCall = function (_pos) {
     GamePublic.g_MouseLeftFlag ? GamePublic.g_MouseLeftFlag = false : GamePublic.g_MouseLeftFlag = true;
     GamePublic.g_LeftKeyStartPos = GamePublic.s_Vec2d(_pos.x, _pos.y); //鼠标左键开始坐标
     GamePublic.g_MoveStartPos = GamePublic.s_Vec2d(_pos.x, _pos.y); //指针开始坐标
+    if (GamePublic.g_GamePageManager.PageNumber) {
+        GamePublic.g_GamePageManager.PageButtonCheck(_pos, GamePublic.e_ClickType.LeftDown);
+    }
     GamePublic.g_MouseMoveFlag = false;
 }
 
@@ -80,10 +83,10 @@ C_GameControl.ControlMouseRightDownCall = function (_pos) {
     GamePublic.g_MouseMoveFlag = false;
 }
 
-C_GameControl.ControlMouseLeftUpCall2 = function (_pos) {
-    let ray = cc.Camera.main.getRay(_pos);
-    let results = cc.geomUtils.intersect.raycast(GamePublic.g_GameMain.node, ray);
-}
+// C_GameControl.ControlMouseLeftUpCall2 = function (_pos) {
+//     let ray = cc.Camera.main.getRay(_pos);
+//     let results = cc.geomUtils.intersect.raycast(GamePublic.g_GameMain.node, ray);
+// }
 
 C_GameControl.ControlMouseMiddleUpCall = function (_pos) {
 

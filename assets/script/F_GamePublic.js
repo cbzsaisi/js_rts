@@ -643,7 +643,7 @@ var G_Public = {
         return EquipUsageValue;
     },
 
-    s_EquipIncreaseValue: function (_Att, _Def, _Hp, _Mp, _STR, _CON, _DEX, _INT, _MEN, _LUK)//装备需求
+    s_EquipIncreaseValue: function (_Att, _Def, _Hp, _Mp, _STR, _CON, _DEX, _INT, _MEN, _LUK, _Skill)//装备需求
     {
         var EquipIncreaseValue = {};
         EquipIncreaseValue.Att = _Att;
@@ -656,6 +656,7 @@ var G_Public = {
         EquipIncreaseValue.INT = _INT;
         EquipIncreaseValue.MEN = _MEN;
         EquipIncreaseValue.LUK = _LUK;
+        EquipIncreaseValue.Skill = _Skill;
         return EquipIncreaseValue;
     },
 
