@@ -100,7 +100,10 @@ var C_ItemManager = {
             var Role = GamePublic.g_GameDataResManger.GetRole(_RoleNum);
             var Equip = Role.RoleInfo.v_RoleBag[_ItemNum];
             //如果物品不是装备类型 或无法符合装备条件
-            if(Equip.ItemType != GamePublic.e_ItemClass.RoleEquip || !node.RoleEquipUsageValueCheck(Role.RoleInfo.v_RoleRacePropertyData,Role.RoleInfo.v_RolePropertyData,Equip.EquipUsageValue))return false; 
+            if(Equip.ItemType != GamePublic.e_ItemClass.RoleEquip || !node.RoleEquipUsageValueCheck(Role.RoleInfo.v_RoleRacePropertyData,Role.RoleInfo.v_RolePropertyData,Equip.EquipUsageValue)){
+                console.log("物品不是装备类型 或无法符合装备条件");
+                return false;
+            } 
 
             switch(Equip.EquipType){
                 case GamePublic.e_EquipType.Hand:

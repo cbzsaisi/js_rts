@@ -98,7 +98,7 @@ var C_RoleSpine = {
         node.RoleInfo.v_CurrentMapNum = _MapNum;
         node.RoleInfo.v_RoleBag = Array(50), //背包
         node.RoleInfo.v_RolePassStatu = "land";
-        node.RoleInfo.v_RoleEquip = Array(7), //装备背包
+        node.RoleInfo.v_RoleEquip = Array(10), //装备背包
         node.RoleInfo.v_RoleType = GamePublic.s_RoleType();
 
         node.RoleGameInfo.v_SpriteType = GamePublic.e_SpriteType.spine;
