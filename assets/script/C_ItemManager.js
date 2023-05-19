@@ -129,8 +129,6 @@ var C_ItemManager = {
             }
             return res;
         }
-        
-        
         node.Create();
         return node;
     }

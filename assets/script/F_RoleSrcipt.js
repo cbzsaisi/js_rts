@@ -1,7 +1,7 @@
 var GamePublic = require("./F_GamePublic");
 //var GameManager = require("./F_GameManager");
 var g_Astar = require("./F_AStar");
-//var g_RoleManager = require("./F_RoleManager");
+var g_RoleManager = require("./F_RoleManager");
 
 
 function C_SrciptProc() {
@@ -191,7 +191,7 @@ C_SrciptProc.RoleActionSrciptProc = function (v_src) {  //动作处理
             if(CommandArray.length > 0 && CommandArray[role.RoleCommand.v_RoleActionCommandArray1Number].Script.Name == GamePublic.e_CommandType.RoleAttack){
                 var t_role = g_gamemangaer.GetRole(CommandArray[role.RoleCommand.v_RoleActionCommandArray1Number].TarRole.Num);
                 //for(var i in CommandArray[CommandArray.length - 1].TarRole.Array){
-                var src = new GamePublic.s_RoleScript({Info:this.RoleAttackInfo(role.RoleGameInfo.v_RoleAttackType),Name:GamePublic.e_CommandType.RoleAttackHarm},{Num:role.RoleInfo.v_RoleNumber, Array:"",Pos:123},{Num:t_role.RoleInfo.v_RoleNumber, Array:"",Pos:123});
+                var src = new GamePublic.s_RoleScript({Info:g_RoleManager.RoleAttackInfo(role.RoleGameInfo.v_RoleAttackType),Name:GamePublic.e_CommandType.RoleAttackHarm},{Num:role.RoleInfo.v_RoleNumber, Array:"",Pos:123},{Num:t_role.RoleInfo.v_RoleNumber, Array:"",Pos:123});
                 //console.log(src);
                 t_role.RoleCommand.v_RoleActionCommandPassive.push(src);
                 //}
@@ -256,15 +256,4 @@ C_SrciptProc.RoleTargetCheck = function(v_src) {  //角色目标检测
     return State;
 }
 
-C_SrciptProc.RoleAttackInfo = function(v_type) {  //角色攻击信息
-    let Value = {PhsAttact:1,PhsAttactVal:1,Skill:1,SkillVal:1};
-    switch(v_type.AttackType){
-        case GamePublic.e_RoleAttackType.left_hand:{
-            //console.log("GamePublic.e_RoleAttackType.left_hand");
-            break;
-        }
-    }
-
-    return Value;
-}
 module.exports = C_SrciptProc;

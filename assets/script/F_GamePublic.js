@@ -682,6 +682,19 @@ var G_Public = {
         return Item;
     }, 
 
+    s_RolePowerValue: function (v_p_Attack, v_p_Defense, v_p_skill, v_s_Attack, v_s_Defense, v_s_Skill, v_Attach)//装备需求
+    {
+        var RolePowerValue = {};
+        RolePowerValue.p_Attack = v_p_Attack;
+        RolePowerValue.p_Defense = v_p_Defense;
+        RolePowerValue.p_skill = v_p_skill;
+        RolePowerValue.s_Attack = v_s_Attack;
+        RolePowerValue.s_Defense = v_s_Defense;
+        RolePowerValue.s_Skill = v_s_Skill;
+        RolePowerValue.Attach = v_Attach; //附带伤害
+        return RolePowerValue;
+    },
+
     s_ItemCopy: function (Item)  //节点对象
     {
         return this.s_Item(Item.Name,Item.ItemName,Item.Describe,Item.ImgName,Item.ItemType,Item.WeaponType,Item.EquipType,Item.Value,Item.Weight,Item.UseBout,Item.Plural,Item.EquipUsageValue,Item.EquipIncreaseValue,Item.OccupationRestrict);

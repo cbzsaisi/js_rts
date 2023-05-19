@@ -59,8 +59,37 @@ F_RoleManager.RoleAttcak = function(_s_Role,_t_Role){
         }
         break;
     }
-
-    
     return;
 },
+
+F_RoleManager.GetRolePowerValue = function (v_RoleNumber,v_attack_type) {
+    var Role = GamePublic.g_GameDataResManger.GetRole(v_RoleNumber);
+    var RolePowerValue = GamePublic.s_RolePowerValue(1,1,{},1,1,{},[]);
+    //计算角色的攻击防御值
+
+    return RolePowerValue;
+},
+
+F_RoleManager.RoleAttackCalc = function (v_s_RoleNumber,v_t_RoleNumber,v_attack_type) {
+    var s_Role = GamePublic.g_GameDataResManger.GetRole(v_s_RoleNumber);
+    var t_Role = GamePublic.g_GameDataResManger.GetRole(v_t_RoleNumber);
+    var s_Role_value = this.GetRole(v_s_RoleNumber);
+    var t_Role_value = GamePublic.g_GameDataResManger.GetRole(v_t_RoleNumber);
+    //计算攻击结果
+
+    return;
+},
+
+
+F_RoleManager.RoleAttackInfo = function(v_type) {  //角色攻击信息
+    let Value = {PhsAttact:1,PhsAttactVal:1,Skill:1,SkillVal:1};
+    switch(v_type.AttackType){
+        case GamePublic.e_RoleAttackType.left_hand:{
+            //console.log("GamePublic.e_RoleAttackType.left_hand");
+            break;
+        }
+    }
+    return Value;
+},
+
 module.exports = F_RoleManager;
