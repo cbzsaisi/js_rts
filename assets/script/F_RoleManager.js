@@ -73,8 +73,10 @@ F_RoleManager.GetRolePowerValue = function (v_RoleNumber,v_attack_type) {
 F_RoleManager.RoleAttackCalc = function (v_s_RoleNumber,v_t_RoleNumber,v_attack_type) {
     var s_Role = GamePublic.g_GameDataResManger.GetRole(v_s_RoleNumber);
     var t_Role = GamePublic.g_GameDataResManger.GetRole(v_t_RoleNumber);
-    var s_Role_value = this.GetRole(v_s_RoleNumber);
-    var t_Role_value = GamePublic.g_GameDataResManger.GetRole(v_t_RoleNumber);
+    var s_Role_value = this.GetRolePowerValue(v_s_RoleNumber,v_attack_type);
+    var t_Role_value = this.GetRolePowerValue(v_t_RoleNumber,v_attack_type);
+    t_Role.RoleInfo.v_RolePropertyData.NowHP -= 5;
+    //console.log(t_Role.RoleInfo.v_RolePropertyData.NowHP);
     //计算攻击结果
 
     return;

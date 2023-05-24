@@ -163,7 +163,9 @@ C_SrciptProc.RoleActionCommandPassiveProc = function (_src) { //被动处理
                 console.log("本角色已经亡 无法反击");
                 break;
             }
-            t_role.RoleInfo.v_RolePropertyData.NowHP -= 5;
+            g_RoleManager.RoleAttackCalc(_src.ScrRole.Num,_src.TarRole.Num,_src.Script.Info);
+            //t_role.RoleInfo.v_RolePropertyData.NowHP -= 5;
+
             //反击
             var res = this.RoleTargetCheck(GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_RoleTargetCheck.RoleAttack}, { Num: _src.TarRole.Num, Array: [], Pos: 123 }, { Num: _src.ScrRole.Num, Array: [], Pos: 123 }));
             switch(res){
@@ -191,7 +193,7 @@ C_SrciptProc.RoleActionSrciptProc = function (v_src) {  //动作处理
             if(CommandArray.length > 0 && CommandArray[role.RoleCommand.v_RoleActionCommandArray1Number].Script.Name == GamePublic.e_CommandType.RoleAttack){
                 var t_role = g_gamemangaer.GetRole(CommandArray[role.RoleCommand.v_RoleActionCommandArray1Number].TarRole.Num);
                 //for(var i in CommandArray[CommandArray.length - 1].TarRole.Array){
-                var src = new GamePublic.s_RoleScript({Info:g_RoleManager.RoleAttackInfo(role.RoleGameInfo.v_RoleAttackType),Name:GamePublic.e_CommandType.RoleAttackHarm},{Num:role.RoleInfo.v_RoleNumber, Array:"",Pos:123},{Num:t_role.RoleInfo.v_RoleNumber, Array:"",Pos:123});
+                var src = new GamePublic.s_RoleScript({Info:role.RoleGameInfo.v_RoleAttackType,Name:GamePublic.e_CommandType.RoleAttackHarm},{Num:role.RoleInfo.v_RoleNumber, Array:"",Pos:123},{Num:t_role.RoleInfo.v_RoleNumber, Array:"",Pos:123});
                 //console.log(src);
                 t_role.RoleCommand.v_RoleActionCommandPassive.push(src);
                 //}
