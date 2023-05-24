@@ -65,6 +65,13 @@ F_RoleManager.RoleAttcak = function(_s_Role,_t_Role){
 F_RoleManager.GetRolePowerValue = function (v_RoleNumber,v_attack_type) {
     var Role = GamePublic.g_GameDataResManger.GetRole(v_RoleNumber);
     var RolePowerValue = GamePublic.s_RolePowerValue(1,1,{},1,1,{},[]);
+    //GamePublic.e_RoleAttackType.left_hand
+    switch(v_attack_type){
+        case GamePublic.e_RoleAttackType.left_hand:{
+            console.log("GamePublic.e_RoleAttackType.left_hand");
+            break;
+        }
+    }
     //计算角色的攻击防御值
 
     return RolePowerValue;
@@ -75,7 +82,10 @@ F_RoleManager.RoleAttackCalc = function (v_s_RoleNumber,v_t_RoleNumber,v_attack_
     var t_Role = GamePublic.g_GameDataResManger.GetRole(v_t_RoleNumber);
     var s_Role_value = this.GetRolePowerValue(v_s_RoleNumber,v_attack_type);
     var t_Role_value = this.GetRolePowerValue(v_t_RoleNumber,v_attack_type);
-    t_Role.RoleInfo.v_RolePropertyData.NowHP -= 5;
+    t_Role.RoleInfo.v_RolePropertyData.NowHP = s_Role_value.p_Attack - t_Role_value.p_Defense;
+    // switch(v_attack_type){
+
+    // }
     //console.log(t_Role.RoleInfo.v_RolePropertyData.NowHP);
     //计算攻击结果
 
