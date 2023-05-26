@@ -594,6 +594,11 @@ var G_Public = {
         Body:1,
     },
 
+    e_EquipAdditionalType:
+    {
+        Non:0,
+        Fire:1,
+    },
     
     e_UserControlType:
     {
@@ -643,7 +648,7 @@ var G_Public = {
         return EquipUsageValue;
     },
 
-    s_EquipIncreaseValue: function (_Att, _Def, _Hp, _Mp, _STR, _CON, _DEX, _INT, _MEN, _LUK, _Skill)//装备需求
+    s_EquipIncreaseValue: function (_Att, _Def, _Hp, _Mp, _STR, _CON, _DEX, _INT, _MEN, _LUK, _Skill, _Type)//装备需求
     {
         var EquipIncreaseValue = {};
         EquipIncreaseValue.Att = _Att;
@@ -657,6 +662,7 @@ var G_Public = {
         EquipIncreaseValue.MEN = _MEN;
         EquipIncreaseValue.LUK = _LUK;
         EquipIncreaseValue.Skill = _Skill;
+        EquipIncreaseValue.Type = _Type;
         return EquipIncreaseValue;
     },
 

@@ -7,7 +7,7 @@ var C_ItemManager = {
 
         node.Create = function (){
             var ItemUsageValue = GamePublic.s_EquipUsageValue(1,1,1,1,1,1,1);//装备条件
-            var ItemIncreaseValue = GamePublic.s_EquipIncreaseValue(2,0,0,0,0,0,0,0,0,0,[]);//装备条件
+            var ItemIncreaseValue = GamePublic.s_EquipIncreaseValue(2,0,0,0,0,0,0,0,0,0,[],GamePublic.e_EquipAdditionalType.Fire);//装备数值
             var OccupationRestrict = [GamePublic.e_RoleOccupationType.Warrior];
             var item = GamePublic.s_Item(GamePublic.e_ItemName.Sword1,"铁剑", "铁制剑","Itemimage002",GamePublic.e_ItemClass.RoleEquip,GamePublic.e_ItemType.Sword,GamePublic.e_EquipType.Hand,100,10,false,false,ItemUsageValue,ItemIncreaseValue,OccupationRestrict);
             node.ItemObjArray.push(item);
@@ -85,7 +85,7 @@ var C_ItemManager = {
         node.RoleEquipUsageValueCheck = function(_v_RoleRacePropertyData,_RolePropertyData,_UsageValue){
             if(_RolePropertyData.LEVEL >  _UsageValue.LEVEL|| _v_RoleRacePropertyData.STR < _UsageValue.STR || _v_RoleRacePropertyData.CON < _UsageValue.CON || _v_RoleRacePropertyData.DEX < _UsageValue.DEX || _v_RoleRacePropertyData.INT < _UsageValue.INT || _v_RoleRacePropertyData.MEN < _UsageValue.MEN || _v_RoleRacePropertyData.LUK < _UsageValue.LUK)return false;
             return true;
-        }
+        }//装备条件检测
 
         node.Update = function(){
            

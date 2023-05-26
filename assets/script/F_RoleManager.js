@@ -64,11 +64,15 @@ F_RoleManager.RoleAttcak = function(_s_Role,_t_Role){
 
 F_RoleManager.GetRolePowerValue = function (v_RoleNumber,v_attack_type) {
     var Role = GamePublic.g_GameDataResManger.GetRole(v_RoleNumber);
-    var RolePowerValue = GamePublic.s_RolePowerValue(1,1,{},1,1,{},[]);
+    var RolePowerValue = GamePublic.s_RolePowerValue(0,0,{},0,0,{},[]);
     //GamePublic.e_RoleAttackType.left_hand
     switch(v_attack_type){
         case GamePublic.e_RoleAttackType.left_hand:{
             console.log("GamePublic.e_RoleAttackType.left_hand");
+            let Equip = Role.RoleInfo.v_RoleEquip[GamePublic.e_EquipType.Hand];
+            if (Equip == null) break;
+            console.log(Equip.EquipIncreaseValue);
+            RolePowerValue.p_Attack += Equip.EquipIncreaseValue.Att;
             break;
         }
     }
