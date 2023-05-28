@@ -53,7 +53,8 @@ C_SrciptProc.RoleCommandSrciptProc = function (_src) {
             } else {
                 s_role.RoleGameInfo.v_MoveBlockPos = GamePublic.s_Vec2d(_src.TarRole.Pos.x, _src.TarRole.Pos.y);
                 s_role.RoleCommand.v_ActionScriptFail++; //错误次数
-                s_role.RoleCommand.v_RoleActionCommandArray.splice(0, s_role.RoleCommand.v_RoleActionCommandArray.length);
+                //s_role.RoleCommand.v_RoleActionCommandArray.splice(0, s_role.RoleCommand.v_RoleActionCommandArray.length);
+                s_role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                 //C_MathLibStar.RoleFindWay(role,role.v_ActionMovePos);
             }
             break;

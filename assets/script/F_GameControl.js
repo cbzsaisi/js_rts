@@ -209,6 +209,8 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                     }
                                 }
                             } else { //移动
+                                role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
+                                role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
                                 var src = new GamePublic.s_RoleScript({ Info: 1, Name: GamePublic.e_CommandType.RoleGoToPos }, { Num: role.RoleInfo.v_RoleNumber, Array: "111", Pos: 123 }, { Num: 0, Array: "22", Pos: mappos });
                                 role.RoleCommand.v_RoleActionCommandArray1.push(src);    
                                 //GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].SetSelectFlag(true);

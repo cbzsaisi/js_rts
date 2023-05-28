@@ -635,6 +635,13 @@ var G_Public = {
         PickItem:0
     },
 
+    e_RoleCommandType:{
+        Command:0,
+        Command1:1,
+        Command2:2,
+        Passive:3
+    },
+
     s_EquipUsageValue: function (_LEVEL, _STR, _CON, _DEX, _INT, _MEN, _LUK)//装备需求
     {
         var EquipUsageValue = {};
@@ -700,6 +707,15 @@ var G_Public = {
         RolePowerValue.Attach = v_Attach; //附带伤害
         return RolePowerValue;
     },
+
+    s_RoleValueAlter: function (v_Hp, v_Mp)//数值变化
+    {
+        var RoleValueAlter = {};
+        RoleValueAlter.Hp = v_Hp;
+        RoleValueAlter.Mp = v_Mp;
+        return RoleValueAlter;
+    },
+    
 
     s_ItemCopy: function (Item)  //节点对象
     {

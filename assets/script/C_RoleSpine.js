@@ -273,7 +273,7 @@ var C_RoleSpine = {
                 switch (node.RoleCommand.v_RoleActionCommandState1) {
                     case GamePublic.e_ActionCommandState.New:
                         var Command = node.RoleCommand.v_RoleActionCommandArray1[node.RoleCommand.v_RoleActionCommandArray1.length - 1];
-                        //if(this.RoleInfo.v_RoleNumber == 1)console.log("命令数量",node.RoleCommand.v_RoleActionCommandArray1.length);
+                        if(this.RoleInfo.v_RoleNumber == 1)console.log("命令数量",node.RoleCommand.v_RoleActionCommandArray1.length);
                         var SrcExeState = RoleSrcipt.RoleCommandSrciptProc1(Command);
                         if (SrcExeState == GamePublic.e_CommandSrcipt.Success) {
                             node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.Run;
@@ -365,7 +365,8 @@ var C_RoleSpine = {
 
         node.StateCheck = function() {
             if (node.RoleInfo.v_RolePropertyData.NowHP <= 0 && node.RoleInfo.v_RoleType.RoleType == GamePublic.e_RoleTypeState.Life) {
-                this.StopCommand(""); //角色亡
+                //this.StopCommand(""); //角色亡
+                this.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                 this.RoleCommand.v_RoleActionCommandArray1.splice(node.RoleCommand.v_RoleActionCommandArray1.length - 1, node.RoleCommand.v_RoleActionCommandArray1.length);
                 var src = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_CommandType.RoleDeath}, { Num: this.RoleInfo.v_RoleNumber, Array: "22", Pos: 123 }, {});
                 this.RoleCommand.v_RoleActionCommandArray1.push(src);
@@ -383,11 +384,34 @@ var C_RoleSpine = {
                     this.ShowSprite(false);
                     this.RoleInfo.v_RoleType.RoleType = v_State;
                     console.log("e_RoleTypeState.Death",this.RoleInfo.v_RoleNumber);
+                    break;
                 }
                 case GamePublic.e_RoleTypeState.Life:{
                     this.SetMapPos(node.RoleInfo.v_RoleMapPos);
                     this.ShowSprite(true);
                     this.RoleInfo.v_RoleType.RoleType = v_State;
+                    break;
+                }
+            }
+        }
+
+        node.ClearRoleCommand = function(v_Type) {
+            switch(v_Type){
+                case GamePublic.e_RoleCommandType.Command:{
+                    node.RoleGameInfo.v_DtNumber = GamePublic.e_RoleSpeed.fps;
+                    node.RoleCommand.v_ActionWaitTime = 0;
+                    node.RoleCommand.v_RoleActionCommandArray.splice(0,node.RoleCommand.v_RoleActionCommandArray.length);
+                    break;
+                }
+                case GamePublic.e_RoleCommandType.Command1:{
+                    node.RoleCommand.v_RoleActionCommandArray1.splice(0, node.RoleCommand.v_RoleActionCommandArray1.length);
+                    node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+                    node.RoleCommand.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
+                    node.RoleCommand.v_ActionScriptFail = 0;
+                    break;
+                }
+                case GamePublic.e_RoleCommandType.Passive:{
+                    break;
                 }
             }
         }

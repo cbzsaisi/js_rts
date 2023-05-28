@@ -65,13 +65,10 @@ F_RoleManager.RoleAttcak = function(_s_Role,_t_Role){
 F_RoleManager.GetRolePowerValue = function (v_RoleNumber,v_attack_type) {
     var Role = GamePublic.g_GameDataResManger.GetRole(v_RoleNumber);
     var RolePowerValue = GamePublic.s_RolePowerValue(0,0,{},0,0,{},[]);
-    //GamePublic.e_RoleAttackType.left_hand
-    switch(v_attack_type){
+    switch(v_attack_type.AttackType){
         case GamePublic.e_RoleAttackType.left_hand:{
-            console.log("GamePublic.e_RoleAttackType.left_hand");
             let Equip = Role.RoleInfo.v_RoleEquip[GamePublic.e_EquipType.Hand];
             if (Equip == null) break;
-            console.log(Equip.EquipIncreaseValue);
             RolePowerValue.p_Attack += Equip.EquipIncreaseValue.Att;
             break;
         }
@@ -86,11 +83,10 @@ F_RoleManager.RoleAttackCalc = function (v_s_RoleNumber,v_t_RoleNumber,v_attack_
     var t_Role = GamePublic.g_GameDataResManger.GetRole(v_t_RoleNumber);
     var s_Role_value = this.GetRolePowerValue(v_s_RoleNumber,v_attack_type);
     var t_Role_value = this.GetRolePowerValue(v_t_RoleNumber,v_attack_type);
-    t_Role.RoleInfo.v_RolePropertyData.NowHP = s_Role_value.p_Attack - t_Role_value.p_Defense;
+    this.RoleValueAlter(v_t_RoleNumber,GamePublic.s_RoleValueAlter(s_Role_value.p_Attack - t_Role_value.p_Defense,0));
     // switch(v_attack_type){
 
     // }
-    //console.log(t_Role.RoleInfo.v_RolePropertyData.NowHP);
     //计算攻击结果
 
     return;
@@ -106,6 +102,14 @@ F_RoleManager.RoleAttackInfo = function(v_type) {  //角色攻击信息
         }
     }
     return Value;
+},
+
+F_RoleManager.RoleValueAlter = function (v_RoleNumber, v_value) {
+    var Role = GamePublic.g_GameDataResManger.GetRole(v_RoleNumber);
+    Role.RoleInfo.v_RolePropertyData.NowHP -= v_value.Hp;
+    if(Role.RoleInfo.v_RolePropertyData.NowHP < 0) Role.RoleInfo.v_RolePropertyData.NowHP = 0;
+    
+    return;
 },
 
 module.exports = F_RoleManager;
