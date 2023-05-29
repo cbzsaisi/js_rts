@@ -60,10 +60,10 @@ F_BuildManager.C_BuildManager = {
 
 F_BuildManager.BuildValueAlter = function (v_BuildNumber, v_value) {
     var Build = GamePublic.g_GameDataResManger.GetRole(v_RoleNumber);
-    Role.RoleInfo.v_RolePropertyData.NowHP -= v_value.Hp;
-    Role.RoleInfo.v_RolePropertyData.NowMP -= v_value.Mp;
-    if(Role.RoleInfo.v_RolePropertyData.NowHP < 0) Role.RoleInfo.v_RolePropertyData.NowHP = 0;
-    if(Role.RoleInfo.v_RolePropertyData.NowMP < 0) Role.RoleInfo.v_RolePropertyData.NowMP = 0;
+    Build.BuildInfo.v_BuildPropertyData.NowHP -= v_value.Hp;
+    Build.BuildInfo.v_BuildPropertyData.NowMP -= v_value.Mp;
+    if(Build.BuildInfo.v_BuildPropertyData.NowHP < 0) Build.BuildInfo.v_BuildPropertyData.NowHP = 0;
+    if(Build.BuildInfo.v_BuildPropertyData.NowMP < 0) Build.BuildInfo.v_BuildPropertyData.NowMP = 0;
     return;
 },
 

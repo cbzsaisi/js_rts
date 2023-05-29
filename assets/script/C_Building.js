@@ -169,7 +169,7 @@ var C_Building = {
             }
         }
 
-        node.BuildInfo.v_BuildPropertyData = GamePublic.s_BuildPropertyData('');
+        node.BuildInfo.v_BuildPropertyData = GamePublic.s_BuildPropertyData(GamePublic.e_BuildType.MilitaryCamp);
         node.BuildInfo.v_BuildNumber = _BuildNum;
         node.BuildInfo.v_CurrentMapNum = _MapNum;
         node.BuildInfo.v_BuildMapPos = _MapPoint;

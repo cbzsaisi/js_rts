@@ -132,8 +132,17 @@ var G_Public = {
     s_BuildPropertyData: function (BuildType) {
         var BuildPropertyData = {};
         BuildPropertyData.HP = 1;
-        BuildPropertyData.NowHP = BuildPropertyData.HP;
         BuildPropertyData.MP = 1;
+        switch(BuildType){
+            case this.e_BuildType.House:{
+                break;
+            }
+            case this.e_BuildType.MilitaryCamp:{
+                BuildPropertyData.HP = 50
+                break;
+            }
+        }
+        BuildPropertyData.NowHP = BuildPropertyData.HP;
         BuildPropertyData.NowMP = BuildPropertyData.MP;
         BuildPropertyData.ATT = 1;
         BuildPropertyData.DEF = 1;
@@ -320,6 +329,7 @@ var G_Public = {
 
     e_BuildType: {
         House: 0,
+        MilitaryCamp: 1,
     },
 
     e_BuildImage: {
