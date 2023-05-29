@@ -130,7 +130,7 @@ cc.Class({
         GamePublic.g_ShopManager = ShopManager.New();
         GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 1, GamePublic.g_ShopManager.StoreNum, "Shop");
         GamePublic.g_ShopManager.AddGoldToStore(GamePublic.g_ShopManager.GetStore(1).ItemBar, 200);
-        GamePublic.g_BuildManager = BuildManager.New();
+        GamePublic.g_BuildManager = BuildManager.C_BuildManager.New();
         // //GamePublic.g_Build = Building.New();
         // //console.log(GamePublic.g_BuildManager.GetBuildSize(GamePublic.e_BuildName.SmallHumanBuild));
         

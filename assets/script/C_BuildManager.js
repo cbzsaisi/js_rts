@@ -1,5 +1,8 @@
 var GamePublic = require("./F_GamePublic");
 
+function F_BuildManager() {
+};
+
 var s_BuildInfo = function(_Name, _Image, _Type, _Size, _ResNeeds, _TechNeeds, _RoomLimit) {
     var BuildInfo = {};
     BuildInfo.Name = _Name;
@@ -12,7 +15,7 @@ var s_BuildInfo = function(_Name, _Image, _Type, _Size, _ResNeeds, _TechNeeds, _
     return BuildInfo;
 }
 
-var C_BuildManager = {
+F_BuildManager.C_BuildManager = {
     New: function() {
         var node = {};
         node.BuildInfoArray = [];
@@ -53,4 +56,15 @@ var C_BuildManager = {
     }
 }
 
-module.exports = C_BuildManager;
+
+
+F_BuildManager.BuildValueAlter = function (v_BuildNumber, v_value) {
+    var Build = GamePublic.g_GameDataResManger.GetRole(v_RoleNumber);
+    Role.RoleInfo.v_RolePropertyData.NowHP -= v_value.Hp;
+    Role.RoleInfo.v_RolePropertyData.NowMP -= v_value.Mp;
+    if(Role.RoleInfo.v_RolePropertyData.NowHP < 0) Role.RoleInfo.v_RolePropertyData.NowHP = 0;
+    if(Role.RoleInfo.v_RolePropertyData.NowMP < 0) Role.RoleInfo.v_RolePropertyData.NowMP = 0;
+    return;
+},
+
+module.exports = F_BuildManager;

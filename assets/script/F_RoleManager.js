@@ -92,23 +92,23 @@ F_RoleManager.RoleAttackCalc = function (v_s_RoleNumber,v_t_RoleNumber,v_attack_
     return;
 },
 
-
-F_RoleManager.RoleAttackInfo = function(v_type) {  //角色攻击信息
-    let Value = {PhsAttact:1,PhsAttactVal:1,Skill:1,SkillVal:1};
-    switch(v_type.AttackType){
-        case GamePublic.e_RoleAttackType.left_hand:{
-            //console.log("GamePublic.e_RoleAttackType.left_hand");
-            break;
-        }
-    }
-    return Value;
-},
+// F_RoleManager.RoleAttackInfo = function(v_type) {  //角色攻击信息
+//     let Value = {PhsAttact:1,PhsAttactVal:1,Skill:1,SkillVal:1};
+//     switch(v_type.AttackType){
+//         case GamePublic.e_RoleAttackType.left_hand:{
+//             //console.log("GamePublic.e_RoleAttackType.left_hand");
+//             break;
+//         }
+//     }
+//     return Value;
+// },
 
 F_RoleManager.RoleValueAlter = function (v_RoleNumber, v_value) {
     var Role = GamePublic.g_GameDataResManger.GetRole(v_RoleNumber);
     Role.RoleInfo.v_RolePropertyData.NowHP -= v_value.Hp;
+    Role.RoleInfo.v_RolePropertyData.NowMP -= v_value.Mp;
     if(Role.RoleInfo.v_RolePropertyData.NowHP < 0) Role.RoleInfo.v_RolePropertyData.NowHP = 0;
-    
+    if(Role.RoleInfo.v_RolePropertyData.NowMP < 0) Role.RoleInfo.v_RolePropertyData.NowMP = 0;
     return;
 },
 
