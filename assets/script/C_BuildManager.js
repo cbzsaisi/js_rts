@@ -18,7 +18,7 @@ var s_BuildInfo = function(_Name, _Image, _Type, _Size, _ResNeeds, _TechNeeds, _
 F_BuildManager.C_BuildManager = {
     New: function() {
         var node = {};
-        node.BuildInfoArray = [];
+        node.InfoArray = [];
         node.BuildButtonArray = [];
         var Button = GamePublic.e_BuildName.SmallHumanBuild;
         node.BuildButtonArray.push(Button);
@@ -32,20 +32,20 @@ F_BuildManager.C_BuildManager = {
             ];
             var TechNeeds = [];
             var BuildInfo = s_BuildInfo(GamePublic.e_BuildName.SmallHumanBuild, Image, GamePublic.e_BuildType.House, { x: 2, y: 2 }, ResNeeds, TechNeeds, 2);
-            node.BuildInfoArray.push(BuildInfo);
+            node.InfoArray.push(BuildInfo);
         }
         node.GetBuildSize = function(_BuildingType) {
-            for (var i in node.BuildInfoArray) {
-                if (node.BuildInfoArray[i].Name == _BuildingType) {
-                    return node.BuildInfoArray[i].Size;
+            for (var i in node.InfoArray) {
+                if (node.InfoArray[i].Name == _BuildingType) {
+                    return node.InfoArray[i].Size;
                 }
             }
             return null;
         }
         node.GetBuildInfo = function(_BuildingType) {
-            for (var i in node.BuildInfoArray) {
-                if (node.BuildInfoArray[i].Name == _BuildingType) {
-                    return node.BuildInfoArray[i];
+            for (var i in node.InfoArray) {
+                if (node.InfoArray[i].Name == _BuildingType) {
+                    return node.InfoArray[i];
                 }
             }
             return null;
@@ -60,10 +60,10 @@ F_BuildManager.C_BuildManager = {
 
 F_BuildManager.BuildValueAlter = function (v_BuildNumber, v_value) {
     var Build = GamePublic.g_GameDataResManger.GetRole(v_RoleNumber);
-    Build.BuildInfo.v_BuildPropertyData.NowHP -= v_value.Hp;
-    Build.BuildInfo.v_BuildPropertyData.NowMP -= v_value.Mp;
-    if(Build.BuildInfo.v_BuildPropertyData.NowHP < 0) Build.BuildInfo.v_BuildPropertyData.NowHP = 0;
-    if(Build.BuildInfo.v_BuildPropertyData.NowMP < 0) Build.BuildInfo.v_BuildPropertyData.NowMP = 0;
+    Build.Info.v_BuildPropertyData.NowHP -= v_value.Hp;
+    Build.Info.v_BuildPropertyData.NowMP -= v_value.Mp;
+    if(Build.Info.v_BuildPropertyData.NowHP < 0) Build.Info.v_BuildPropertyData.NowHP = 0;
+    if(Build.Info.v_BuildPropertyData.NowMP < 0) Build.Info.v_BuildPropertyData.NowMP = 0;
     return;
 },
 

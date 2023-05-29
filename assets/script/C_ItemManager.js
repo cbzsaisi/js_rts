@@ -39,8 +39,8 @@ var C_ItemManager = {
             {
                 case "Role":
                 Role = GamePublic.g_GameDataResManger.GetRole(_ObjNum); 
-                Bag = Role.RoleInfo.v_RoleBag;
-                BagSize = Role.RoleInfo.v_RoleBagSize;
+                Bag = Role.Info.v_RoleBag;
+                BagSize = Role.Info.v_RoleBagSize;
                 break;
                 case "Shop":
                 Role = GamePublic.g_ShopManager.GetStore(_ObjNum); 
@@ -98,18 +98,18 @@ var C_ItemManager = {
         node.RoleEquip = function (_RoleNum,_ItemNum){
             var res = false
             var Role = GamePublic.g_GameDataResManger.GetRole(_RoleNum);
-            var Equip = Role.RoleInfo.v_RoleBag[_ItemNum];
+            var Equip = Role.Info.v_RoleBag[_ItemNum];
             //如果物品不是装备类型 或无法符合装备条件
-            if(Equip.ItemType != GamePublic.e_ItemClass.RoleEquip || !node.RoleEquipUsageValueCheck(Role.RoleInfo.v_RoleRacePropertyData,Role.RoleInfo.v_RolePropertyData,Equip.EquipUsageValue)){
+            if(Equip.ItemType != GamePublic.e_ItemClass.RoleEquip || !node.RoleEquipUsageValueCheck(Role.Info.v_RoleRacePropertyData,Role.Info.v_RolePropertyData,Equip.EquipUsageValue)){
                 console.log("物品不是装备类型 或无法符合装备条件");
                 return false;
             } 
 
             switch(Equip.EquipType){
                 case GamePublic.e_EquipType.Hand:
-                Role.RoleInfo.v_RoleEquip[GamePublic.e_EquipType.Hand] = Equip;
+                Role.Info.v_RoleEquip[GamePublic.e_EquipType.Hand] = Equip;
                 Equip.IsEquip = true;
-                Role.RoleInfo.v_RoleBag[_ItemNum] = null;
+                Role.Info.v_RoleBag[_ItemNum] = null;
                 res = true;
                 break;
             }
@@ -119,11 +119,11 @@ var C_ItemManager = {
         node.RoleUnEquip = function (_RoleNum, _EquipNum, _BagNum) {
             var res = false
             var Role = GamePublic.g_GameDataResManger.GetRole(_RoleNum);
-            if (!Role.RoleInfo.v_RoleBag[_BagNum]) {
-                var Equip = Role.RoleInfo.v_RoleEquip[_EquipNum];
-                Role.RoleInfo.v_RoleEquip[_EquipNum] = null;
-                //Role.RoleInfo.v_RoleEquip.splice(_EquipNum,1);
-                Role.RoleInfo.v_RoleBag[_BagNum] = Equip;
+            if (!Role.Info.v_RoleBag[_BagNum]) {
+                var Equip = Role.Info.v_RoleEquip[_EquipNum];
+                Role.Info.v_RoleEquip[_EquipNum] = null;
+                //Role.Info.v_RoleEquip.splice(_EquipNum,1);
+                Role.Info.v_RoleBag[_BagNum] = Equip;
                 Equip.IsEquip = false;
                 res = true;
             }

@@ -7,7 +7,7 @@ function C_GameControl() {
 C_GameControl.RoleRayCheck = function (_pos,_RoleNum) {
     let ray = GamePublic.g_MainCamera.getComponent(cc.Camera).getRay(_pos);
     var role = GamePublic.g_GameDataResManger.GetRole(_RoleNum);
-    return cc.geomUtils.intersect.raycast(role.RoleGameInfo.v_RoleSprite.v_Sprite, ray).length;
+    return cc.geomUtils.intersect.raycast(role.GameInfo.v_RoleSprite.v_Sprite, ray).length;
 }
 C_GameControl.MapTiledRayCheck = function (_pos, _Map) {
     let ray = GamePublic.g_MainCamera.getComponent(cc.Camera).getRay(_pos);
@@ -56,7 +56,7 @@ C_GameControl.GetMapXY = function(_pos){
 C_GameControl.CancelSelectRole = function(){
     if (GamePublic.g_SelectRoleArray.length) { //取消框选
         for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
-            GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]).RoleGameInfo.v_RoleSelectFlag = false;
+            GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]).GameInfo.v_RoleSelectFlag = false;
         }
         GamePublic.g_SelectRoleArray.splice(0, GamePublic.g_SelectRoleArray.length);
         GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.NonSelect;
@@ -136,7 +136,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                             var MapTileRoleArray = GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].v_ExistRoleArray;
                             for (var k = 0; k < MapTileRoleArray.length; k++) {
                                 GamePublic.g_SelectRoleArray.push(MapTileRoleArray[k]);
-                                GamePublic.g_GameDataResManger.GetRole(MapTileRoleArray[k]).RoleGameInfo.v_RoleSelectFlag = true;
+                                GamePublic.g_GameDataResManger.GetRole(MapTileRoleArray[k]).GameInfo.v_RoleSelectFlag = true;
                                 //SelectFlag = true; //已有选中
                             }
                             GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].SetSelectFlag(false);
@@ -160,7 +160,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                     case GamePublic.e_PlayerClickType.RoleSelectClick:{
                         if (GamePublic.g_SelectRoleArray.length) {  //取消框选
                             for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
-                                GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]).RoleGameInfo.v_RoleSelectFlag = false;
+                                GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]).GameInfo.v_RoleSelectFlag = false;
                             }
                             GamePublic.g_SelectRoleArray.splice(0, GamePublic.g_SelectRoleArray.length);
                             GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.NonSelect;
@@ -173,7 +173,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                     var MapTileRoleArray = GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].v_ExistRoleArray;
                                     for (var k = 0; k < MapTileRoleArray.length; k++) {
                                         GamePublic.g_SelectRoleArray.push(MapTileRoleArray[k]);
-                                        GamePublic.g_GameDataResManger.GetRole(MapTileRoleArray[k]).RoleGameInfo.v_RoleSelectFlag = true;
+                                        GamePublic.g_GameDataResManger.GetRole(MapTileRoleArray[k]).GameInfo.v_RoleSelectFlag = true;
                                         //SelectFlag = true; //已有选中
                                     }
                                     GamePublic.g_Active_Map.MapRoomArray[LeftDown.x + i][LeftDown.y + j].SetSelectFlag(false);
@@ -186,19 +186,19 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                     case GamePublic.e_PlayerClickType.RoleTarget:{
                         for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
                             var role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]);
-                            if (role.RoleCommand.v_RoleActionCommandArray1.length) {                    
-                                role.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
+                            if (role.Command.v_RoleActionCommandArray1.length) {                    
+                                role.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
                             } else {
-                                role.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+                                role.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
                             }
                             if (GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray.length) { //如果目标点有单位
                                 let t_role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray[0]);
-                                var csrc = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_RoleTargetCheck.RoleAttack}, { Num: role.RoleInfo.v_RoleNumber, Array: [], Pos: 123 }, { Num: t_role.RoleInfo.v_RoleNumber, Array: [], Pos: 123 });
+                                var csrc = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_RoleTargetCheck.RoleAttack}, { Num: role.Info.v_RoleNumber, Array: [], Pos: 123 }, { Num: t_role.Info.v_RoleNumber, Array: [], Pos: 123 });
                                 var res = RoleSrcipt.RoleTargetCheck(csrc);
                                 switch(res){
                                     case GamePublic.e_RoleTargetCheckResult.Success:{
-                                        var src = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.RoleInfo.v_RoleNumber, Array: "222", Pos: 123 }, { Num: t_role.RoleInfo.v_RoleNumber, Array: [t_role.RoleInfo.v_RoleNumber], Pos: mappos });
-                                        role.RoleCommand.v_RoleActionCommandArray1.push(src);
+                                        var src = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_RoleNumber, Array: "222", Pos: 123 }, { Num: t_role.Info.v_RoleNumber, Array: [t_role.Info.v_RoleNumber], Pos: mappos });
+                                        role.Command.v_RoleActionCommandArray1.push(src);
                                         break;
                                     }
                                     case GamePublic.e_RoleTargetCheckResult.Is_Self:{
@@ -211,8 +211,8 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                             } else { //移动
                                 role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                                 role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
-                                var src = new GamePublic.s_RoleScript({ Info: 1, Name: GamePublic.e_CommandType.RoleGoToPos }, { Num: role.RoleInfo.v_RoleNumber, Array: "111", Pos: 123 }, { Num: 0, Array: "22", Pos: mappos });
-                                role.RoleCommand.v_RoleActionCommandArray1.push(src);    
+                                var src = new GamePublic.s_RoleScript({ Info: 1, Name: GamePublic.e_CommandType.RoleGoToPos }, { Num: role.Info.v_RoleNumber, Array: "111", Pos: 123 }, { Num: 0, Array: "22", Pos: mappos });
+                                role.Command.v_RoleActionCommandArray1.push(src);    
                                 //GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].SetSelectFlag(true);
                             }
                         }

@@ -7,10 +7,10 @@ function F_RoleManager() {
 };
 
 /* F_RoleManager.SetRoleAction = function (_Role, _ActionName) {
-    _Role.RoleGameInfo.v_ActionStage = _ActionName;
+    _Role.GameInfo.v_ActionStage = _ActionName;
     switch (_ActionName) {
         case GamePublic.e_RoleAction.walk:
-            var seft = _Role.RoleGameInfo.v_Sprite.getComponent(cc.SkeletonAnimation);
+            var seft = _Role.GameInfo.v_Sprite.getComponent(cc.SkeletonAnimation);
             var model = seft.getAnimationState('Take 001');
             seft.play('Take 001');
             //model.wrapMode = cc.WrapMode.Normal; cc.WrapMode.Normal
@@ -25,7 +25,7 @@ F_RoleManager.InitRoleRacePropertyData = function (_RoleNumber) {
     var Role = GamePublic.g_GameDataResManger.GetRole(_RoleNumber);
     var RoleRacePropertyData = {};
 
-    switch (Role.RoleInfo.v_RoleRaceType) {
+    switch (Role.Info.v_RoleRaceType) {
         case GamePublic.e_RoleRaceType.Human:
             RoleRacePropertyData.STR = 5; //力量
             RoleRacePropertyData.CON = 5; //体质
@@ -40,7 +40,7 @@ F_RoleManager.InitRoleRacePropertyData = function (_RoleNumber) {
 
 F_RoleManager.GetRoleHpRatio = function(_RoleNumber){
     var Role = GamePublic.g_GameDataResManger.GetRole(_RoleNumber);
-    return Role.RoleInfo.v_RolePropertyData.NowHP / Role.RoleInfo.v_RolePropertyData.HP;
+    return Role.Info.v_RolePropertyData.NowHP / Role.Info.v_RolePropertyData.HP;
 },
 
 
@@ -48,10 +48,10 @@ F_RoleManager.RoleAttcak = function(_s_Role,_t_Role){
     var s_Role = GamePublic.g_GameDataResManger.GetRole(_s_Role);
     var t_Role = GamePublic.g_GameDataResManger.GetRole(_t_Role);
 
-    switch(s_Role.RoleGameInfo.v_RoleAttackType.AttackType){
+    switch(s_Role.GameInfo.v_RoleAttackType.AttackType){
         case "hand":
         {
-            switch(s_Role.RoleGameInfo.v_RoleAttackType.Skill){
+            switch(s_Role.GameInfo.v_RoleAttackType.Skill){
                 case "Left":
                 console.log(_s_Role+"开始攻击"+_t_Role);
                 break;
@@ -67,7 +67,7 @@ F_RoleManager.GetRolePowerValue = function (v_RoleNumber,v_attack_type) {
     var RolePowerValue = GamePublic.s_RolePowerValue(0,0,{},0,0,{},[]);
     switch(v_attack_type.AttackType){
         case GamePublic.e_RoleAttackType.left_hand:{
-            let Equip = Role.RoleInfo.v_RoleEquip[GamePublic.e_EquipType.Hand];
+            let Equip = Role.Info.v_RoleEquip[GamePublic.e_EquipType.Hand];
             if (Equip == null) break;
             RolePowerValue.p_Attack += Equip.EquipIncreaseValue.Att;
             break;
@@ -105,10 +105,10 @@ F_RoleManager.RoleAttackCalc = function (v_s_RoleNumber,v_t_RoleNumber,v_attack_
 
 F_RoleManager.RoleValueAlter = function (v_RoleNumber, v_value) {
     var Role = GamePublic.g_GameDataResManger.GetRole(v_RoleNumber);
-    Role.RoleInfo.v_RolePropertyData.NowHP -= v_value.Hp;
-    Role.RoleInfo.v_RolePropertyData.NowMP -= v_value.Mp;
-    if(Role.RoleInfo.v_RolePropertyData.NowHP < 0) Role.RoleInfo.v_RolePropertyData.NowHP = 0;
-    if(Role.RoleInfo.v_RolePropertyData.NowMP < 0) Role.RoleInfo.v_RolePropertyData.NowMP = 0;
+    Role.Info.v_RolePropertyData.NowHP -= v_value.Hp;
+    Role.Info.v_RolePropertyData.NowMP -= v_value.Mp;
+    if(Role.Info.v_RolePropertyData.NowHP < 0) Role.Info.v_RolePropertyData.NowHP = 0;
+    if(Role.Info.v_RolePropertyData.NowMP < 0) Role.Info.v_RolePropertyData.NowMP = 0;
     return;
 },
 

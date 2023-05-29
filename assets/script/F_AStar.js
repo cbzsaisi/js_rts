@@ -359,10 +359,10 @@ C_MathLibStar.RunRoleStar = function(_RStar){
 
 C_MathLibStar.RoleFindWay = function(_role,_d_Pos) {
     var MapArray = [];
-    var RStar = GamePublic.s_RoleStar(_role.RoleGameInfo.v_CurrentMap,_role.RoleInfo.v_RoleMapPos,_d_Pos,MapArray,_role.RoleInfo.v_RoleNumber,_role.RoleInfo.v_RolePassStatu);
+    var RStar = GamePublic.s_RoleStar(_role.GameInfo.v_CurrentMap,_role.Info.v_RoleMapPos,_d_Pos,MapArray,_role.Info.v_RoleNumber,_role.Info.v_RolePassStatu);
     if(C_MathLibStar.RunRoleStar(RStar)){
-        _role.RoleCommand.v_RoleActionCommandArray.splice(0,_role.RoleCommand.v_RoleActionCommandArray.length);
-        /*_role.RoleInfo.v_ActionMovePos = _d_Pos;
+        _role.Command.v_RoleActionCommandArray.splice(0,_role.Command.v_RoleActionCommandArray.length);
+        /*_role.Info.v_ActionMovePos = _d_Pos;
         //console.log("寻路结束 命令下达");
         //console.log(_role.v_RoleNumber);*/
         for(var i=0;i<MapArray.length;i++){
@@ -371,8 +371,8 @@ C_MathLibStar.RoleFindWay = function(_role,_d_Pos) {
             //var src = new s_NodeScript("RoleAction","RoleMove",_role.v_RoleNumber,'',WayPos.oPos);
             //_role.v_NodeActionCommandArray.push(src);
 
-            var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleMove},{Num:_role.RoleInfo.v_RoleNumber,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
-            _role.RoleCommand.v_RoleActionCommandArray.push(src);
+            var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleMove},{Num:_role.Info.v_RoleNumber,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
+            _role.Command.v_RoleActionCommandArray.push(src);
         } 
         return true;
     }else{

@@ -39,7 +39,7 @@ var C_GameDataResManager = {
 
         // GameDataRes.CheckSelect = function(_MapArry, _RoleArry, _Pos) {
         //     /* for(var i=0;i<_RoleArry.length;i++){
-        //         if(_RoleArry[i].obj.RoleInfo.v_RoleMapPos.x == _Pos.x && _RoleArry[i].obj.RoleInfo.v_RoleMapPos.y == _Pos.y){
+        //         if(_RoleArry[i].obj.Info.v_RoleMapPos.x == _Pos.x && _RoleArry[i].obj.Info.v_RoleMapPos.y == _Pos.y){
         //             return {ObjType:"Role",Obj : _RoleArry[i].obj};
         //         }
         //     } */

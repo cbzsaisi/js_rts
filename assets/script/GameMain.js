@@ -353,7 +353,7 @@ cc.Class({
                             // }
                         }
                         if (Role) {
-                            GamePublic.g_TipPage.Setinfo(Role.RoleInfo.v_RoleName,Role.RoleInfo.v_RoleNumber, Role.RoleInfo.v_RoleName,null);
+                            GamePublic.g_TipPage.Setinfo(Role.Info.v_RoleName,Role.Info.v_RoleNumber, Role.Info.v_RoleName,null);
                         } else {
                             GamePublic.g_TipPage.SetShow(false);
                         }

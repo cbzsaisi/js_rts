@@ -38,9 +38,9 @@ var C_Page = {
                 var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: 200, y: 0 }, GamePublic.s_ButtonObjInfo("close", "关闭", 0, "关闭"), node.PageNumber, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.CallInputValuePage, [1], null), node, { Button: true, Move: false });
                 node.ButtonArray.push(Button);
                 var offx = 100; var offy = 150; var offw = 50; var offh = 40;
-                for (var i = 0; i < Role.RoleInfo.v_RoleBagSize / 5; i++) {
+                for (var i = 0; i < Role.Info.v_RoleBagSize / 5; i++) {
                     for (var j = 0; j < 5; j++) {
-                        var roleitem = Role.RoleInfo.v_RoleBag[i * 5 + j];
+                        var roleitem = Role.Info.v_RoleBag[i * 5 + j];
                         if (roleitem) {
                             var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: offx + offw * j, y: offy + offh * -i }, GamePublic.s_ButtonObjInfo(roleitem.ImgName, roleitem.ItemName, roleitem.ItemNum, roleitem.Describe), node.PageNumber, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.ClosePage, [], GamePublic.e_BarType.ItemBar, i * 5 + j), node, { Button: true, Move: true });
                             node.RoleItemArray.push(Button);
@@ -52,7 +52,7 @@ var C_Page = {
                 }
                 var offx = 50; var offy = 250; var offw = 50; var offh = 40;
                 for (var i = 0; i < 7; i++) {
-                    var roleitem = Role.RoleInfo.v_RoleEquip[i];
+                    var roleitem = Role.Info.v_RoleEquip[i];
                     if (roleitem) {
                         var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: offx + offw * i, y: offy + offh }, GamePublic.s_ButtonObjInfo(roleitem.ImgName, roleitem.ItemName, roleitem.ItemNum, roleitem.Describe), node.PageNumber, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.ClosePage, [], GamePublic.e_BarType.EquipBar, i), node, { Button: true, Move: true });
                         node.RoleItemArray.push(Button);
@@ -69,9 +69,9 @@ var C_Page = {
                 node.PageBackDrop = PageSprite.New("StatePage", node, { x: 0, y: 0 }, cc.color(215, 215, 215, 255), { w: 400, h: 400 });
                 node.ButtonArray.push(CloseButton);
                 var offx = 100; var offy = 150; var offw = 50; var offh = 40;
-                for (var i = 0; i < Role.RoleInfo.v_RoleBagSize / 5; i++) {
+                for (var i = 0; i < Role.Info.v_RoleBagSize / 5; i++) {
                     for (var j = 0; j < 5; j++) {
-                        var roleitem = Role.RoleInfo.v_RoleBag[i * 5 + j];
+                        var roleitem = Role.Info.v_RoleBag[i * 5 + j];
                         if (roleitem) {
                             var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: offx + offw * j, y: offy + offh * -i }, GamePublic.s_ButtonObjInfo(roleitem.ImgName, roleitem.ItemName, roleitem.ItemNum, roleitem.Describe), node.PageNumber, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.ClosePage, [], GamePublic.e_BarType.ItemBar, i * 5 + j), node, { Button: true, Move: true });
                             node.RoleItemArray.push(Button);
@@ -82,7 +82,7 @@ var C_Page = {
                     }
                 }
                 var offx = 100; var offy = 350; var offw = 50; var offh = 40;
-                var Store = GamePublic.g_ShopManager.GetStore(Role.RoleCommand.v_RoleTradeShopNum);
+                var Store = GamePublic.g_ShopManager.GetStore(Role.Command.v_RoleTradeShopNum);
                 for (var i = 0; i < Store.ItemBar.length / 5; i++) {
                     for (var j = 0; j < 5; j++) {
                         var StoreItem = Store.ItemBar[i * 5 + j];
@@ -216,9 +216,9 @@ var C_Page = {
             switch (node.PageType) {
                 case 'RoleItemPage': {
                     var offx = 100; var offy = 150; var offw = 50; var offh = 40;
-                    for (var i = 0; i < Role.RoleInfo.v_RoleBagSize / 5; i++) {
+                    for (var i = 0; i < Role.Info.v_RoleBagSize / 5; i++) {
                         for (var j = 0; j < 5; j++) {
-                            var roleitem = Role.RoleInfo.v_RoleBag[i * 5 + j];
+                            var roleitem = Role.Info.v_RoleBag[i * 5 + j];
                             if (roleitem) {
                                 var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: offx + offw * j, y: offy + offh * -i }, GamePublic.s_ButtonObjInfo(roleitem.ImgName, roleitem.ItemName, roleitem.ItemNum, roleitem.Describe), node.PageNumber, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.ClosePage, [], GamePublic.e_BarType.ItemBar, i * 5 + j), node, { Button: true, Move: true });
                                 node.RoleItemArray.push(Button);
@@ -230,7 +230,7 @@ var C_Page = {
                     }
                     var offx = 50; var offy = 250; var offw = 50; var offh = 40;
                     for (var i = 0; i < 7; i++) {
-                        var roleitem = Role.RoleInfo.v_RoleEquip[i];
+                        var roleitem = Role.Info.v_RoleEquip[i];
                         if (roleitem) {
                             var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: offx + offw * i, y: offy + offh }, GamePublic.s_ButtonObjInfo(roleitem.ImgName, roleitem.ItemName, roleitem.ItemNum, roleitem.Describe), node.PageNumber, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.ClosePage, [], GamePublic.e_BarType.EquipBar, i), node, { Button: true, Move: true });
                             node.RoleItemArray.push(Button);
@@ -243,9 +243,9 @@ var C_Page = {
                 }
                 case 'RoleAndShopTradePage': {
                     var offx = 100; var offy = 150; var offw = 50; var offh = 40;
-                    for (var i = 0; i < Role.RoleInfo.v_RoleBagSize / 5; i++) {
+                    for (var i = 0; i < Role.Info.v_RoleBagSize / 5; i++) {
                         for (var j = 0; j < 5; j++) {
-                            var roleitem = Role.RoleInfo.v_RoleBag[i * 5 + j];
+                            var roleitem = Role.Info.v_RoleBag[i * 5 + j];
                             if (roleitem) {
                                 var Button = ButtonSprite.New(GamePublic.s_ButtonInfo({ x: offx + offw * j, y: offy + offh * -i }, GamePublic.s_ButtonObjInfo(roleitem.ImgName, roleitem.ItemName, roleitem.ItemNum, roleitem.Describe), node.PageNumber, GamePublic.e_Buttontype.PageButton, GamePublic.e_ButtonCommand.ClosePage, [], GamePublic.e_BarType.ItemBar, i * 5 + j), node, { Button: true, Move: true });
                                 node.RoleItemArray.push(Button);
@@ -256,7 +256,7 @@ var C_Page = {
                         }
                     }
                     var offx = 100; var offy = 350; var offw = 50; var offh = 40;
-                    var Store = GamePublic.g_ShopManager.GetStore(Role.RoleCommand.v_RoleTradeShopNum);
+                    var Store = GamePublic.g_ShopManager.GetStore(Role.Command.v_RoleTradeShopNum);
                     for (var i = 0; i < Store.ItemBar.length / 5; i++) {
                         for (var j = 0; j < 5; j++) {
                             var StoreItem = Store.ItemBar[i * 5 + j];
@@ -316,34 +316,34 @@ var C_Page = {
                                         switch (node.RoleItemArray[i].ButtonInfo.BarType) {
                                             case GamePublic.e_BarType.ItemBar:
                                                 if (node.PickObj.PickType == GamePublic.e_BarType.ItemBar) {
-                                                    if (Role.RoleInfo.v_RoleBag[BarNum]) {
-                                                        item = Role.RoleInfo.v_RoleBag[BarNum];
-                                                        if (item.Name == Role.RoleInfo.v_RoleBag[PickBarNum].Name) { //相同物品合并
-                                                            item.ItemNum += Role.RoleInfo.v_RoleBag[PickBarNum].ItemNum;
-                                                            Role.RoleInfo.v_RoleBag[PickBarNum].ItemNum = null;
+                                                    if (Role.Info.v_RoleBag[BarNum]) {
+                                                        item = Role.Info.v_RoleBag[BarNum];
+                                                        if (item.Name == Role.Info.v_RoleBag[PickBarNum].Name) { //相同物品合并
+                                                            item.ItemNum += Role.Info.v_RoleBag[PickBarNum].ItemNum;
+                                                            Role.Info.v_RoleBag[PickBarNum].ItemNum = null;
                                                         } else {
-                                                            Role.RoleInfo.v_RoleBag[BarNum] = Role.RoleInfo.v_RoleBag[PickBarNum];
-                                                            Role.RoleInfo.v_RoleBag[PickBarNum] = item;
+                                                            Role.Info.v_RoleBag[BarNum] = Role.Info.v_RoleBag[PickBarNum];
+                                                            Role.Info.v_RoleBag[PickBarNum] = item;
                                                         }
 
                                                     } else {
-                                                        Role.RoleInfo.v_RoleBag[BarNum] = Role.RoleInfo.v_RoleBag[PickBarNum];
-                                                        Role.RoleInfo.v_RoleBag[PickBarNum] = null;
+                                                        Role.Info.v_RoleBag[BarNum] = Role.Info.v_RoleBag[PickBarNum];
+                                                        Role.Info.v_RoleBag[PickBarNum] = null;
                                                     }
                                                 }
                                                 if (node.PickObj.PickType == GamePublic.e_BarType.EquipBar) {
-                                                    if (!Role.RoleInfo.v_RoleBag[BarNum]) {
-                                                        GamePublic.g_ItemManager.RoleUnEquip(Role.RoleInfo.v_RoleNumber, PickBarNum, BarNum);
+                                                    if (!Role.Info.v_RoleBag[BarNum]) {
+                                                        GamePublic.g_ItemManager.RoleUnEquip(Role.Info.v_RoleNumber, PickBarNum, BarNum);
                                                     }
                                                     console.log("卸装备");
                                                 }
                                                 break;
                                             case GamePublic.e_BarType.EquipBar:
                                                 if (node.PickObj.PickType == GamePublic.e_BarType.ItemBar) {
-                                                    item = Role.RoleInfo.v_RoleBag[PickBarNum];
+                                                    item = Role.Info.v_RoleBag[PickBarNum];
                                                     if (item.EquipType == BarNum) { //匹配格子
                                                         console.log("装备");
-                                                        GamePublic.g_ItemManager.RoleEquip(Role.RoleInfo.v_RoleNumber, PickBarNum);
+                                                        GamePublic.g_ItemManager.RoleEquip(Role.Info.v_RoleNumber, PickBarNum);
                                                     } else {
                                                         console.log("不匹配格子");
                                                     }
@@ -361,7 +361,7 @@ var C_Page = {
                                         //var BagNum = 0;
                                         switch (node.RoleItemArray[i].ButtonInfo.BarType) {
                                             case GamePublic.e_BarType.ItemBar:
-                                                Bag = Role.RoleInfo.v_RoleBag;
+                                                Bag = Role.Info.v_RoleBag;
                                                 switch (node.PickObj.PickType) {
                                                     case GamePublic.e_BarType.ItemBar:
                                                         PickBag = Bag;
@@ -380,21 +380,21 @@ var C_Page = {
                                                         }
                                                         break;
                                                     case GamePublic.e_BarType.ShopStoreBar: {
-                                                        PickBag = GamePublic.g_ShopManager.GetStore(Role.RoleCommand.v_RoleTradeShopNum).ItemBar;
+                                                        PickBag = GamePublic.g_ShopManager.GetStore(Role.Command.v_RoleTradeShopNum).ItemBar;
                                                         GamePublic.g_ShopManager.ShopTradeCalc(PickBag, PickBarNum, Bag, BarNum, 1);
                                                         break;
                                                     }
                                                 }
                                                 break;
                                             case GamePublic.e_BarType.ShopStoreBar:
-                                                Bag = GamePublic.g_ShopManager.GetStore(Role.RoleCommand.v_RoleTradeShopNum).ItemBar;
+                                                Bag = GamePublic.g_ShopManager.GetStore(Role.Command.v_RoleTradeShopNum).ItemBar;
                                                 switch (node.PickObj.PickType) {
                                                     case GamePublic.e_BarType.ItemBar:
-                                                        PickBag = Role.RoleInfo.v_RoleBag;
+                                                        PickBag = Role.Info.v_RoleBag;
                                                         GamePublic.g_ShopManager.ShopTradeCalc(PickBag, PickBarNum, Bag, BarNum, 1);
                                                         break;
                                                     case GamePublic.e_BarType.ShopStoreBar:
-                                                        PickBag = GamePublic.g_ShopManager.GetStore(Role.RoleCommand.v_RoleTradeShopNum).ItemBar;
+                                                        PickBag = GamePublic.g_ShopManager.GetStore(Role.Command.v_RoleTradeShopNum).ItemBar;
                                                         if (Bag[BarNum]) item = Bag[BarNum];
                                                         Bag[BarNum] = PickBag[PickBarNum];
                                                         PickBag[PickBarNum] = item;

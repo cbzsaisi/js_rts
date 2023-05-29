@@ -10,7 +10,7 @@ var C_RoleSpine = {
     New: function(_RoleResName, _MapNum, _MapPoint, _RoleNumber) {
         var node = {};
 
-        node.RoleInfo = { //写入保存数据
+        node.Info = { //写入保存数据
                 v_RoleNumber: null, //角色编号
                 v_RoleOccupationType: null, //职业
                 v_RoleRaceType: null, //角色种族
@@ -30,9 +30,10 @@ var C_RoleSpine = {
                 v_RoleEquip: null,
                 v_RoleColor: cc.color(255, 255, 255, 255),
                 v_RoleOpacity: 255,
+                v_Type: GamePublic.e_BaseObjType.Role,
             },
 
-            node.RoleGameInfo = { //基本不写入保存数据
+            node.GameInfo = { //基本不写入保存数据
                 v_RoleSprite: null,
                 v_RoleSpriteLoad: false,
                 v_SpriteSize:  {width:0,height:0},
@@ -61,7 +62,7 @@ var C_RoleSpine = {
                 v_DrawNode: null,
                 v_RoleCreate: false,
             },
-            node.RoleCommand = { //写入保存数据
+            node.Command = { //写入保存数据
                 //指令
                 v_RoleActionArray: null,
                 v_RoleActionCurScriptArray: null,
@@ -91,209 +92,209 @@ var C_RoleSpine = {
             },
 
             //初始化
-        node.RoleInfo.v_RoleNumber = _RoleNumber;
-        node.RoleInfo.v_RoleMapPos = GamePublic.s_Vec2d(_MapPoint.x, _MapPoint.y);
-        //node.RoleInfo.v_RoleMapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y, 1, 1);
-        node.RoleInfo.v_RoleBagSize = 20, //当前背包大小
-        node.RoleInfo.v_CurrentMapNum = _MapNum;
-        node.RoleInfo.v_RoleBag = Array(50), //背包
-        node.RoleInfo.v_RolePassStatu = "land";
-        node.RoleInfo.v_RoleEquip = Array(10), //装备背包
-        node.RoleInfo.v_RoleType = GamePublic.s_RoleType();
+        node.Info.v_RoleNumber = _RoleNumber;
+        node.Info.v_RoleMapPos = GamePublic.s_Vec2d(_MapPoint.x, _MapPoint.y);
+        //node.Info.v_RoleMapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y, 1, 1);
+        node.Info.v_RoleBagSize = 20, //当前背包大小
+        node.Info.v_CurrentMapNum = _MapNum;
+        node.Info.v_RoleBag = Array(50), //背包
+        node.Info.v_RolePassStatu = "land";
+        node.Info.v_RoleEquip = Array(10), //装备背包
+        node.Info.v_RoleType = GamePublic.s_RoleType();
 
-        node.RoleGameInfo.v_SpriteType = GamePublic.e_SpriteType.spine;
-        node.RoleGameInfo.v_RoleAttackType = { AttackType: GamePublic.e_RoleAttackType.left_hand, Skill: "Left" };
-        node.RoleGameInfo.v_SpriteData = GameResManager.getSpriteResData(_RoleResName, GamePublic.e_SpriteResType.Role);
-        node.RoleGameInfo.v_CurrentMap = GamePublic.g_GameDataResManger.GetMap(_MapNum); //当前地图实体
-        node.RoleGameInfo.v_SpriteShow = false;
-        node.RoleGameInfo.v_MapOffset = GamePublic.s_Vec2d(0, 0);
+        node.GameInfo.v_SpriteType = GamePublic.e_SpriteType.spine;
+        node.GameInfo.v_RoleAttackType = { AttackType: GamePublic.e_RoleAttackType.left_hand, Skill: "Left" };
+        node.GameInfo.v_SpriteData = GameResManager.getSpriteResData(_RoleResName, GamePublic.e_SpriteResType.Role);
+        node.GameInfo.v_CurrentMap = GamePublic.g_GameDataResManger.GetMap(_MapNum); //当前地图实体
+        node.GameInfo.v_SpriteShow = false;
+        node.GameInfo.v_MapOffset = GamePublic.s_Vec2d(0, 0);
 
-        node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
-        node.RoleCommand.v_ActionConsoleType = 1;
-        node.RoleCommand.v_ActionLoop = false;
-        node.RoleCommand.v_RoleTradeShopNum = 1;
-        node.RoleCommand.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.play;
+        node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+        node.Command.v_ActionConsoleType = 1;
+        node.Command.v_ActionLoop = false;
+        node.Command.v_RoleTradeShopNum = 1;
+        node.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.play;
 
-        node.RoleGameInfo.v_DrawNode = new cc.Node();
-        node.RoleGameInfo.v_DrawNode.is3DNode = false;
+        node.GameInfo.v_DrawNode = new cc.Node();
+        node.GameInfo.v_DrawNode.is3DNode = false;
         //var qu = cc.quat(0, 0, 0).fromEuler({ x: -15, y: 0, z: 0 });
-        //node.RoleGameInfo.v_DrawNode.setRotation(qu);
-        node.RoleGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.RoleGameInfo.v_DrawNode, 2000);
+        //node.GameInfo.v_DrawNode.setRotation(qu);
+        node.GameInfo.v_CurrentMap.v_MapShowNode.addChild(node.GameInfo.v_DrawNode, 2000);
 
-        node.RoleInfo.v_SpriteAngle = { Def: 0, Cur: 0, Des: 0 }; //角色朝向角度
-        //node.RoleInfo.v_RoleBag[3] = GamePublic.g_ItemManager.CreateItem(GamePublic.e_ItemName.Sword1);
-        //node.RoleInfo.v_RoleBag[2] = GamePublic.g_ItemManager.CreateItem(GamePublic.e_ItemName.Gold);
+        node.Info.v_SpriteAngle = { Def: 0, Cur: 0, Des: 0 }; //角色朝向角度
+        //node.Info.v_RoleBag[3] = GamePublic.g_ItemManager.CreateItem(GamePublic.e_ItemName.Sword1);
+        //node.Info.v_RoleBag[2] = GamePublic.g_ItemManager.CreateItem(GamePublic.e_ItemName.Gold);
         node.Create = function() {
-            var obj = GamePublic.s_ObjInfo("Role", node.RoleInfo.v_RoleNumber, node);
+            var obj = GamePublic.s_ObjInfo("Role", node.Info.v_RoleNumber, node);
             GamePublic.g_GameDataResManger.AddRole(obj);
-            //node.RoleGameInfo.v_RoleSprite.v_Sprite.opacity = 100;
-            //node.RoleGameInfo.v_CurrentMap.v_MapShowNode.addChild(node.RoleGameInfo.v_RoleSprite.v_Sprite, 2);
-            node.SetSceenPos(node.RoleInfo.v_RoleMapPos);
-            node.RoleGameInfo.v_SpriteShow = true;
-            node.RoleGameInfo.v_SpriteScale = {x:node.RoleGameInfo.v_SpriteData.SpriteScale, y:node.RoleGameInfo.v_SpriteData.SpriteScale};
-            node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveInRole(node.RoleInfo.v_RoleNumber, GamePublic.e_BaseObjType.Role);
+            //node.GameInfo.v_RoleSprite.v_Sprite.opacity = 100;
+            //node.GameInfo.v_CurrentMap.v_MapShowNode.addChild(node.GameInfo.v_RoleSprite.v_Sprite, 2);
+            node.SetSceenPos(node.Info.v_RoleMapPos);
+            node.GameInfo.v_SpriteShow = true;
+            node.GameInfo.v_SpriteScale = {x:node.GameInfo.v_SpriteData.SpriteScale, y:node.GameInfo.v_SpriteData.SpriteScale};
+            node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_RoleMapPos.x][node.Info.v_RoleMapPos.y].MoveInRole(node.Info.v_RoleNumber, node.Info.v_Type);
 
-            //node.RoleGameInfo.v_FrontDrawFlag = true;
-            node.RoleGameInfo.v_FrontDraw = RoleFrontDraw.New(node, node.RoleGameInfo.v_DrawNode, 1);
+            //node.GameInfo.v_FrontDrawFlag = true;
+            node.GameInfo.v_FrontDraw = RoleFrontDraw.New(node, node.GameInfo.v_DrawNode, 1);
 
-            node.RoleInfo.v_RoleRaceType = GamePublic.e_RoleRaceType.Human;
-            node.RoleInfo.v_RoleRacePropertyData = g_RoleManager.InitRoleRacePropertyData(node.RoleInfo.v_RoleNumber);
-            node.RoleInfo.v_RolePropertyData = GamePublic.s_RolePropertyData('');
+            node.Info.v_RoleRaceType = GamePublic.e_RoleRaceType.Human;
+            node.Info.v_RoleRacePropertyData = g_RoleManager.InitRoleRacePropertyData(node.Info.v_RoleNumber);
+            node.Info.v_RolePropertyData = GamePublic.s_RolePropertyData('');
             node.CalcRolePropertyData();
-            GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Sword1, 1, node.RoleInfo.v_RoleNumber, "Role");
-            GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 10, node.RoleInfo.v_RoleNumber, "Role");
-            GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 2, node.RoleInfo.v_RoleNumber, "Role");
-            //GamePublic.g_ItemManager.RoleEquip(node.RoleInfo.v_RoleNumber,3); //装备
+            GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Sword1, 1, node.Info.v_RoleNumber, "Role");
+            GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 10, node.Info.v_RoleNumber, "Role");
+            GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 2, node.Info.v_RoleNumber, "Role");
+            //GamePublic.g_ItemManager.RoleEquip(node.Info.v_RoleNumber,3); //装备
             //this.SetRoleAction(GamePublic.e_RoleAction.walk);
-            node.RoleGameInfo.v_RoleCreate = true;
+            node.GameInfo.v_RoleCreate = true;
         };
 
         node.LoadSpriteRes = function() {
             for (var i in GamePublic.g_resourcesSpineboy) {
-                if (GamePublic.g_resourcesSpineboy[i].FileName == node.RoleGameInfo.v_SpriteData.spritename && GamePublic.g_resourcesSpineboy[i].LoadDone) {
-                    node.RoleGameInfo.v_RoleSprite = g_Spine.New(node, GamePublic.g_resourcesSpineboy[i].FileData);
-                    //node.RoleGameInfo.v_RoleSprite.v_Sprite.color = cc.color(100, 100, 100, 255);
+                if (GamePublic.g_resourcesSpineboy[i].FileName == node.GameInfo.v_SpriteData.spritename && GamePublic.g_resourcesSpineboy[i].LoadDone) {
+                    node.GameInfo.v_RoleSprite = g_Spine.New(node, GamePublic.g_resourcesSpineboy[i].FileData);
+                    //node.GameInfo.v_RoleSprite.v_Sprite.color = cc.color(100, 100, 100, 255);
                     node.SetRoleColor(90);
-                    if (!node.RoleGameInfo.v_RoleCreate) {
+                    if (!node.GameInfo.v_RoleCreate) {
                         node.Create();
                     }
                 }
             }
-            /* if(!node.RoleGameInfo.v_RoleSprite){
-                cc.loader.loadRes(node.RoleGameInfo.v_SpriteData.spritename, function (err, prefab) {
-                    node.RoleGameInfo.v_RoleSprite = g_3dSprite.New(node,prefab);
-                    if(!node.RoleGameInfo.v_RoleCreate){
+            /* if(!node.GameInfo.v_RoleSprite){
+                cc.loader.loadRes(node.GameInfo.v_SpriteData.spritename, function (err, prefab) {
+                    node.GameInfo.v_RoleSprite = g_3dSprite.New(node,prefab);
+                    if(!node.GameInfo.v_RoleCreate){
                         node.Create();
                     }
                 });
             } */
         };
         node.GetNumber = function() {
-            return node.RoleInfo.v_RoleNumber;
+            return node.Info.v_RoleNumber;
         }
         node.SetSceenPos = function(_pos) {
-            node.RoleInfo.v_RoleMapPos = _pos;
-            /*node.RoleGameInfo.v_SpritePos = GamePublic.s_Vec2d(Math.round((_pos.x - _pos.y + 1) * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.x * 0.5) * GamePublic.g_SceenScale),
-            Math.round((_pos.y + _pos.x + 1) * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.y * 0.5) * GamePublic.g_SceenScale));*/
-            // node.RoleGameInfo.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.x * GamePublic.g_SceenScale),
-            //     _pos.y * (node.RoleGameInfo.v_CurrentMap.v_MapTiledSize.y * GamePublic.g_SceenScale));// + node.RoleGameInfo.v_SpriteSize.height * 0.5);
-            node.RoleGameInfo.v_SpritePos = node.RoleGameInfo.v_CurrentMap.MapRoomArray[_pos.x][_pos.y].v_SpritePos;
-            //node.RoleGameInfo.v_SpritePos.y += 12;
-            if (node.RoleCommand.v_ActionEvent == GamePublic.e_RoleAction.walk) {
-                node.RoleGameInfo.v_SpritePos.x += node.RoleCommand.v_ActionWaitTime * node.RoleGameInfo.v_MapOffset.x;
-                node.RoleGameInfo.v_SpritePos.y += node.RoleCommand.v_ActionWaitTime * node.RoleGameInfo.v_MapOffset.y;
+            node.Info.v_RoleMapPos = _pos;
+            /*node.GameInfo.v_SpritePos = GamePublic.s_Vec2d(Math.round((_pos.x - _pos.y + 1) * (node.GameInfo.v_CurrentMap.v_MapTiledSize.x * 0.5) * GamePublic.g_SceenScale),
+            Math.round((_pos.y + _pos.x + 1) * (node.GameInfo.v_CurrentMap.v_MapTiledSize.y * 0.5) * GamePublic.g_SceenScale));*/
+            // node.GameInfo.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.GameInfo.v_CurrentMap.v_MapTiledSize.x * GamePublic.g_SceenScale),
+            //     _pos.y * (node.GameInfo.v_CurrentMap.v_MapTiledSize.y * GamePublic.g_SceenScale));// + node.GameInfo.v_SpriteSize.height * 0.5);
+            node.GameInfo.v_SpritePos = node.GameInfo.v_CurrentMap.MapRoomArray[_pos.x][_pos.y].v_SpritePos;
+            //node.GameInfo.v_SpritePos.y += 12;
+            if (node.Command.v_ActionEvent == GamePublic.e_RoleAction.walk) {
+                node.GameInfo.v_SpritePos.x += node.Command.v_ActionWaitTime * node.GameInfo.v_MapOffset.x;
+                node.GameInfo.v_SpritePos.y += node.Command.v_ActionWaitTime * node.GameInfo.v_MapOffset.y;
             }
-            if (node.RoleGameInfo.v_RoleSprite) {
-                //node.RoleGameInfo.v_RoleSprite.v_Sprite.setPosition(GamePublic.s_Vec2d(0, 0));
-                node.RoleGameInfo.v_RoleSprite.v_Sprite.setPosition(node.RoleGameInfo.v_SpritePos);
-                node.RoleGameInfo.v_DrawNode.setPosition(node.RoleGameInfo.v_SpritePos);
+            if (node.GameInfo.v_RoleSprite) {
+                //node.GameInfo.v_RoleSprite.v_Sprite.setPosition(GamePublic.s_Vec2d(0, 0));
+                node.GameInfo.v_RoleSprite.v_Sprite.setPosition(node.GameInfo.v_SpritePos);
+                node.GameInfo.v_DrawNode.setPosition(node.GameInfo.v_SpritePos);
             }
 
-            var zindex = (node.RoleGameInfo.v_CurrentMap.v_MapSize.x * node.RoleGameInfo.v_CurrentMap.v_MapSize.y) -
-                (node.RoleInfo.v_RoleMapPos.x + node.RoleInfo.v_RoleMapPos.y * node.RoleGameInfo.v_CurrentMap.v_MapSize.x);
-            if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.v_Sprite.zIndex = zindex + 1;
-            if (node.RoleGameInfo.v_SpriteScale) node.RoleGameInfo.v_RoleSprite.v_Sprite.scaleX = node.RoleGameInfo.v_SpriteScale.x;
-            if (node.RoleGameInfo.v_SpriteScale) node.RoleGameInfo.v_RoleSprite.v_Sprite.scaleY = node.RoleGameInfo.v_SpriteScale.y;
+            var zindex = (node.GameInfo.v_CurrentMap.v_MapSize.x * node.GameInfo.v_CurrentMap.v_MapSize.y) -
+                (node.Info.v_RoleMapPos.x + node.Info.v_RoleMapPos.y * node.GameInfo.v_CurrentMap.v_MapSize.x);
+            if (node.GameInfo.v_RoleSprite) node.GameInfo.v_RoleSprite.v_Sprite.zIndex = zindex + 1;
+            if (node.GameInfo.v_SpriteScale) node.GameInfo.v_RoleSprite.v_Sprite.scaleX = node.GameInfo.v_SpriteScale.x;
+            if (node.GameInfo.v_SpriteScale) node.GameInfo.v_RoleSprite.v_Sprite.scaleY = node.GameInfo.v_SpriteScale.y;
             //if (this.v_TileSprite) this.v_TileSprite.setScale(g_SceenScale);
         };
 
         node.SetMapPos = function(_mappos) {
-            node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveOutRole(node.RoleInfo.v_RoleNumber, GamePublic.e_BaseObjType.Role);
-            node.RoleInfo.v_RoleMapPos = _mappos;
-            node.RoleGameInfo.v_CurrentMap.MapRoomArray[node.RoleInfo.v_RoleMapPos.x][node.RoleInfo.v_RoleMapPos.y].MoveInRole(node.RoleInfo.v_RoleNumber, GamePublic.e_BaseObjType.Role);
+            node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_RoleMapPos.x][node.Info.v_RoleMapPos.y].MoveOutRole(node.Info.v_RoleNumber, node.Info.v_Type);
+            node.Info.v_RoleMapPos = _mappos;
+            node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_RoleMapPos.x][node.Info.v_RoleMapPos.y].MoveInRole(node.Info.v_RoleNumber, node.Info.v_Type);
         }
 
         node.StopCommand = function(_Type) {
-            node.RoleGameInfo.v_DtNumber = GamePublic.e_RoleSpeed.fps;
-            node.RoleCommand.v_ActionWaitTime = 0;
-            node.RoleCommand.v_RoleActionCommandArray.splice(0, node.RoleCommand.v_RoleActionCommandArray.length);
+            node.GameInfo.v_DtNumber = GamePublic.e_RoleSpeed.fps;
+            node.Command.v_ActionWaitTime = 0;
+            node.Command.v_RoleActionCommandArray.splice(0, node.Command.v_RoleActionCommandArray.length);
         }
 
         node.ShowSprite = function(_show) {
             if (_show) {
-                if (node.RoleGameInfo.v_RoleSprite && !node.RoleGameInfo.v_RoleSprite.v_Sprite.active) node.RoleGameInfo.v_RoleSprite.v_Sprite.active = true;
-                node.RoleGameInfo.v_SpriteShow = true;
+                if (node.GameInfo.v_RoleSprite && !node.GameInfo.v_RoleSprite.v_Sprite.active) node.GameInfo.v_RoleSprite.v_Sprite.active = true;
+                node.GameInfo.v_SpriteShow = true;
             } else {
-                if (node.RoleGameInfo.v_RoleSprite && node.RoleGameInfo.v_RoleSprite.v_Sprite.active) node.RoleGameInfo.v_RoleSprite.v_Sprite.active = false;
-                node.RoleGameInfo.v_SpriteShow = false;
+                if (node.GameInfo.v_RoleSprite && node.GameInfo.v_RoleSprite.v_Sprite.active) node.GameInfo.v_RoleSprite.v_Sprite.active = false;
+                node.GameInfo.v_SpriteShow = false;
             }
         }
 
         node.MyUpdate = function() {
-            if (!node.RoleGameInfo.v_RoleCreate) {
-                if (!node.RoleGameInfo.v_RoleSprite) {
+            if (!node.GameInfo.v_RoleCreate) {
+                if (!node.GameInfo.v_RoleSprite) {
                     node.LoadSpriteRes();
                 }
                 return;
             }
-            node.RoleGameInfo.v_DtNumber++;
-            if (node.RoleGameInfo.v_DtNumber >= (GamePublic.e_RoleSpeed.fps)) {
-                node.RoleGameInfo.v_DtNumber = 0;
-                if (node.RoleCommand.v_ActionConsoleType == 1 && node.RoleCommand.v_ActionWaitTime > 0) { //当前动作总耗时帧
-                    node.RoleCommand.v_ActionWaitTime -= GamePublic.g_GameTimeDt;
+            node.GameInfo.v_DtNumber++;
+            if (node.GameInfo.v_DtNumber >= (GamePublic.e_RoleSpeed.fps)) {
+                node.GameInfo.v_DtNumber = 0;
+                if (node.Command.v_ActionConsoleType == 1 && node.Command.v_ActionWaitTime > 0) { //当前动作总耗时帧
+                    node.Command.v_ActionWaitTime -= GamePublic.g_GameTimeDt;
                 }
-                if (node.RoleGameInfo.v_FrontDraw) node.RoleGameInfo.v_FrontDraw.update();
+                if (node.GameInfo.v_FrontDraw) node.GameInfo.v_FrontDraw.update();
             }
-            //console.log(node.RoleCommand.v_ActionWaitTime);
-            // console.log(node.RoleCommand.v_ActionLoop);
-            // console.log(node.RoleCommand.v_ActionRunStage);
-            if (node.RoleCommand.v_ActionWaitTime < 1) {
-                if (node.RoleCommand.v_RoleActionCommandArray.length) {
-                    node.RoleCommand.v_ActionCommand = node.RoleCommand.v_RoleActionCommandArray.splice(node.RoleCommand.v_RoleActionCommandArray.length - 1, 1);
-                    RoleSrcipt.RoleCommandSrciptProc(node.RoleCommand.v_ActionCommand[0]);
+            //console.log(node.Command.v_ActionWaitTime);
+            // console.log(node.Command.v_ActionLoop);
+            // console.log(node.Command.v_ActionRunStage);
+            if (node.Command.v_ActionWaitTime < 1) {
+                if (node.Command.v_RoleActionCommandArray.length) {
+                    node.Command.v_ActionCommand = node.Command.v_RoleActionCommandArray.splice(node.Command.v_RoleActionCommandArray.length - 1, 1);
+                    RoleSrcipt.CommandSrciptProc(node.Command.v_ActionCommand[0]);
                 }
-                else if (node.RoleCommand.v_ActionEvent != GamePublic.e_RoleAction.def && node.RoleGameInfo.v_RoleSprite) {
-                    // var seft = node.RoleGameInfo.v_RoleSprite.v_Sprite.getComponent(cc.SkeletonAnimation);
+                else if (node.Command.v_ActionEvent != GamePublic.e_RoleAction.def && node.GameInfo.v_RoleSprite) {
+                    // var seft = node.GameInfo.v_RoleSprite.v_Sprite.getComponent(cc.SkeletonAnimation);
                     // seft.stop();
-                    node.RoleCommand.v_ActionEvent = GamePublic.e_RoleAction.def;
-                    node.RoleCommand.v_ActionLoop = false;
+                    node.Command.v_ActionEvent = GamePublic.e_RoleAction.def;
+                    node.Command.v_ActionLoop = false;
                     //if(this.v_NodeActionCommandState1 == e_ActionCommandState.Run)this.v_NodeActionCommandState1 = e_ActionCommandState.End;
                     //空闲
                     this.v_ActionCommand = 0;
                     //if(this.v_Sprite.v_ActionStage != e_SpriteActionName.jump){C_RoleManager.SetRoleAction(this.v_Sprite,e_SpriteActionName.jump);}
                 }
             }
-            else if(node.RoleCommand.v_ActionLoop == true && node.RoleCommand.v_ActionRunStage == GamePublic.e_SpriteActionRunStage.stop){
-                this.SetRoleAction(node.RoleCommand.v_ActionEvent);
+            else if(node.Command.v_ActionLoop == true && node.Command.v_ActionRunStage == GamePublic.e_SpriteActionRunStage.stop){
+                this.SetRoleAction(node.Command.v_ActionEvent);
             }
 
             node.StateCheck();
 
-            if (node.RoleCommand.v_RoleActionCommandPassive.length) {
-                var Command = node.RoleCommand.v_RoleActionCommandPassive.splice(0, 1);
+            if (node.Command.v_RoleActionCommandPassive.length) {
+                var Command = node.Command.v_RoleActionCommandPassive.splice(0, 1);
                 var SrcExeState = RoleSrcipt.RoleActionCommandPassiveProc(Command[0]);
                 if (SrcExeState == GamePublic.e_CommandSrcipt.Success) {
-                    //node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.Run;
+                    //node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.Run;
                 } else {
-                    //node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
+                    //node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
                 }
             }
 
-            if (node.RoleCommand.v_RoleActionCommandArray1.length) {
-                switch (node.RoleCommand.v_RoleActionCommandState1) {
+            if (node.Command.v_RoleActionCommandArray1.length) {
+                switch (node.Command.v_RoleActionCommandState1) {
                     case GamePublic.e_ActionCommandState.New:
-                        var Command = node.RoleCommand.v_RoleActionCommandArray1[node.RoleCommand.v_RoleActionCommandArray1.length - 1];
-                        if(this.RoleInfo.v_RoleNumber == 1)console.log("命令数量",node.RoleCommand.v_RoleActionCommandArray1.length);
-                        var SrcExeState = RoleSrcipt.RoleCommandSrciptProc1(Command);
+                        var Command = node.Command.v_RoleActionCommandArray1[node.Command.v_RoleActionCommandArray1.length - 1];
+                        if(this.Info.v_RoleNumber == 1)console.log("命令数量",node.Command.v_RoleActionCommandArray1.length);
+                        var SrcExeState = RoleSrcipt.CommandSrciptProc1(Command);
                         if (SrcExeState == GamePublic.e_CommandSrcipt.Success) {
-                            node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.Run;
+                            node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.Run;
                         } else {
-                            node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
+                            node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
                         }
-                        node.RoleCommand.v_RoleActionCommandArray1Number = node.RoleCommand.v_RoleActionCommandArray1.length - 1;
+                        node.Command.v_RoleActionCommandArray1Number = node.Command.v_RoleActionCommandArray1.length - 1;
                         break;
                     case GamePublic.e_ActionCommandState.Run:
-                        if (node.RoleCommand.v_ActionScriptFailType != GamePublic.e_ActionScriptFailType.Success) { //如果未成功 但错误次数未到 重新跑
-                            if (node.RoleCommand.v_ActionScriptFail < 3) {
+                        if (node.Command.v_ActionScriptFailType != GamePublic.e_ActionScriptFailType.Success) { //如果未成功 但错误次数未到 重新跑
+                            if (node.Command.v_ActionScriptFail < 3) {
                                 console.log("失败一次");
-                                node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
-                                node.RoleCommand.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
+                                node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+                                node.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
                             } else {
-                                node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
+                                node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
                             }
                         } else { //执行未报错  检查执行情况 如果时间结束 并且当前动作指令为空就执行以下
-                            if (node.RoleCommand.v_ActionWaitTime < 1 && node.RoleCommand.v_RoleActionCommandArray.length == 0) {
-                                node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
+                            if (node.Command.v_ActionWaitTime < 1 && node.Command.v_RoleActionCommandArray.length == 0) {
+                                node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
                             }
                         }
                         break;
@@ -301,23 +302,23 @@ var C_RoleSpine = {
                         //console.log("e_ActionCommandState.Stop");
                         break;
                     case GamePublic.e_ActionCommandState.End:
-                        //if(this.RoleInfo.v_RoleNumber == 1)console.log(node.RoleCommand.v_RoleActionCommandArray1.length);
-                        if(RoleSrcipt.RoleCommand1StateCheckSrciptProc(this.RoleInfo.v_RoleNumber) == GamePublic.e_CommandResultSrcipt.Success){
-                            node.RoleCommand.v_RoleActionCommandArray1.splice(node.RoleCommand.v_RoleActionCommandArray1Number, 1);
-                            //console.log(this.RoleInfo.v_RoleNumber,"目标已亡222",node.RoleCommand.v_RoleActionCommandArray1.length);
+                        //if(this.Info.v_RoleNumber == 1)console.log(node.Command.v_RoleActionCommandArray1.length);
+                        if(RoleSrcipt.Command1StateCheckSrciptProc(this.Info.v_RoleNumber) == GamePublic.e_CommandResultSrcipt.Success){
+                            node.Command.v_RoleActionCommandArray1.splice(node.Command.v_RoleActionCommandArray1Number, 1);
+                            //console.log(this.Info.v_RoleNumber,"目标已亡222",node.Command.v_RoleActionCommandArray1.length);
                         }
-                        //node.RoleCommand.v_RoleActionCommandArray1.splice(node.RoleCommand.v_RoleActionCommandArray1Number, 1);
-                        node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
-                        node.RoleCommand.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
-                        node.RoleCommand.v_ActionScriptFail = 0;
-                        //if(this.RoleInfo.v_RoleNumber == 2)console.log(node.RoleCommand.v_RoleActionCommandArray1);
+                        //node.Command.v_RoleActionCommandArray1.splice(node.Command.v_RoleActionCommandArray1Number, 1);
+                        node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+                        node.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
+                        node.Command.v_ActionScriptFail = 0;
+                        //if(this.Info.v_RoleNumber == 2)console.log(node.Command.v_RoleActionCommandArray1);
                         break;
                 }
             }
 
-            node.SetSceenPos(node.RoleInfo.v_RoleMapPos);
-            var sceen = GamePublic.s_Vec2d(node.RoleGameInfo.v_SpritePos.x + GamePublic.g_MoveOff.x, node.RoleGameInfo.v_SpritePos.y + GamePublic.g_MoveOff.y);
-            if (node.RoleGameInfo.v_SpriteShow) {
+            node.SetSceenPos(node.Info.v_RoleMapPos);
+            var sceen = GamePublic.s_Vec2d(node.GameInfo.v_SpritePos.x + GamePublic.g_MoveOff.x, node.GameInfo.v_SpritePos.y + GamePublic.g_MoveOff.y);
+            if (node.GameInfo.v_SpriteShow) {
                 //console.log('sceen.x = %d sceen.y = %d',sceen.x,sceen.y);
                 if (sceen.x > GamePublic.g_winSize.width || sceen.x < 0 || sceen.y > GamePublic.g_winSize.height || sceen.y < 0) {
                     node.ShowSprite(false);
@@ -332,48 +333,48 @@ var C_RoleSpine = {
         //-----------------------------------------------------------------------------
 
         node.SetRoleAction = function(_ActionName) {
-            if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.SetRoleAction(_ActionName);
+            if (node.GameInfo.v_RoleSprite) node.GameInfo.v_RoleSprite.SetRoleAction(_ActionName);
             // switch (_ActionName) {
             //     /* case e_RoleAction.def:
             //         break; */
             //     case GamePublic.e_RoleAction.walk:{
-            //         if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.SetRoleAction(_ActionName);
+            //         if (node.GameInfo.v_RoleSprite) node.GameInfo.v_RoleSprite.SetRoleAction(_ActionName);
             //         break;
             //     }
             //     case GamePublic.e_RoleAction.jump:{
-            //         if (node.RoleGameInfo.v_RoleSprite) node.RoleGameInfo.v_RoleSprite.SetRoleAction(_ActionName);
+            //         if (node.GameInfo.v_RoleSprite) node.GameInfo.v_RoleSprite.SetRoleAction(_ActionName);
             //         break;
             //     }
             // }
         }
 
         node.CalcRolePropertyData = function() {
-            node.RoleInfo.v_RolePropertyData.HP = node.RoleInfo.v_RoleRacePropertyData.CON * 3;
-            node.RoleInfo.v_RolePropertyData.NowHP = node.RoleInfo.v_RolePropertyData.HP;
-            node.RoleInfo.v_RolePropertyData.MP = node.RoleInfo.v_RoleRacePropertyData.LER * 3;
-            node.RoleInfo.v_RolePropertyData.NowMP = node.RoleInfo.v_RolePropertyData.MP;
-            if (!node.RoleInfo.v_RolePropertyData.ATT) node.RoleInfo.v_RolePropertyData.ATT = 10;
-            if (!node.RoleInfo.v_RolePropertyData.DEF) node.RoleInfo.v_RolePropertyData.DEF = 10;
-            if (!node.RoleInfo.v_RolePropertyData.LEVEL) node.RoleInfo.v_RolePropertyData.LEVEL = 1;
-            if (!node.RoleInfo.v_RolePropertyData.EXP) node.RoleInfo.v_RolePropertyData.EXP = 0;
+            node.Info.v_RolePropertyData.HP = node.Info.v_RoleRacePropertyData.CON * 3;
+            node.Info.v_RolePropertyData.NowHP = node.Info.v_RolePropertyData.HP;
+            node.Info.v_RolePropertyData.MP = node.Info.v_RoleRacePropertyData.LER * 3;
+            node.Info.v_RolePropertyData.NowMP = node.Info.v_RolePropertyData.MP;
+            if (!node.Info.v_RolePropertyData.ATT) node.Info.v_RolePropertyData.ATT = 10;
+            if (!node.Info.v_RolePropertyData.DEF) node.Info.v_RolePropertyData.DEF = 10;
+            if (!node.Info.v_RolePropertyData.LEVEL) node.Info.v_RolePropertyData.LEVEL = 1;
+            if (!node.Info.v_RolePropertyData.EXP) node.Info.v_RolePropertyData.EXP = 0;
         }
 
         node.SetRoleColor = function(i_brightness) {
             var bri = i_brightness * 0.01;
-            if(node.RoleGameInfo.v_RoleSprite)node.RoleGameInfo.v_RoleSprite.v_Sprite.color = cc.color(255 * bri, 255 * bri, 255 * bri, node.RoleInfo.v_RoleOpacity);
+            if(node.GameInfo.v_RoleSprite)node.GameInfo.v_RoleSprite.v_Sprite.color = cc.color(255 * bri, 255 * bri, 255 * bri, node.Info.v_RoleOpacity);
         }
 
         node.StateCheck = function() {
-            if (node.RoleInfo.v_RolePropertyData.NowHP <= 0 && node.RoleInfo.v_RoleType.RoleType == GamePublic.e_RoleTypeState.Life) {
+            if (node.Info.v_RolePropertyData.NowHP <= 0 && node.Info.v_RoleType.RoleType == GamePublic.e_RoleTypeState.Life) {
                 //this.StopCommand(""); //角色亡
                 this.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
-                this.RoleCommand.v_RoleActionCommandArray1.splice(node.RoleCommand.v_RoleActionCommandArray1.length - 1, node.RoleCommand.v_RoleActionCommandArray1.length);
-                var src = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_CommandType.RoleDeath}, { Num: this.RoleInfo.v_RoleNumber, Array: "22", Pos: 123 }, {});
-                this.RoleCommand.v_RoleActionCommandArray1.push(src);
-                //if(this.RoleInfo.v_RoleNumber == 1)console.log("命令数量",node.RoleCommand.v_RoleActionCommandArray1.length);
+                this.Command.v_RoleActionCommandArray1.splice(node.Command.v_RoleActionCommandArray1.length - 1, node.Command.v_RoleActionCommandArray1.length);
+                var src = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_CommandType.RoleDeath}, { Num: this.Info.v_RoleNumber, Array: "22", Pos: 123 }, {});
+                this.Command.v_RoleActionCommandArray1.push(src);
+                //if(this.Info.v_RoleNumber == 1)console.log("命令数量",node.Command.v_RoleActionCommandArray1.length);
 
-                this.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
-                //node.RoleInfo.v_RoleType.RoleType = GamePublic.e_RoleTypeState.Death;
+                this.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+                //node.Info.v_RoleType.RoleType = GamePublic.e_RoleTypeState.Death;
             }
         }
 
@@ -382,14 +383,14 @@ var C_RoleSpine = {
                 case GamePublic.e_RoleTypeState.Death:{
                     this.SetMapPos({x:5,y:5});
                     this.ShowSprite(false);
-                    this.RoleInfo.v_RoleType.RoleType = v_State;
-                    console.log("e_RoleTypeState.Death",this.RoleInfo.v_RoleNumber);
+                    this.Info.v_RoleType.RoleType = v_State;
+                    console.log("e_RoleTypeState.Death",this.Info.v_RoleNumber);
                     break;
                 }
                 case GamePublic.e_RoleTypeState.Life:{
-                    this.SetMapPos(node.RoleInfo.v_RoleMapPos);
+                    this.SetMapPos(node.Info.v_RoleMapPos);
                     this.ShowSprite(true);
-                    this.RoleInfo.v_RoleType.RoleType = v_State;
+                    this.Info.v_RoleType.RoleType = v_State;
                     break;
                 }
             }
@@ -398,16 +399,16 @@ var C_RoleSpine = {
         node.ClearRoleCommand = function(v_Type) {
             switch(v_Type){
                 case GamePublic.e_RoleCommandType.Command:{
-                    node.RoleGameInfo.v_DtNumber = GamePublic.e_RoleSpeed.fps;
-                    node.RoleCommand.v_ActionWaitTime = 0;
-                    node.RoleCommand.v_RoleActionCommandArray.splice(0,node.RoleCommand.v_RoleActionCommandArray.length);
+                    node.GameInfo.v_DtNumber = GamePublic.e_RoleSpeed.fps;
+                    node.Command.v_ActionWaitTime = 0;
+                    node.Command.v_RoleActionCommandArray.splice(0,node.Command.v_RoleActionCommandArray.length);
                     break;
                 }
                 case GamePublic.e_RoleCommandType.Command1:{
-                    node.RoleCommand.v_RoleActionCommandArray1.splice(0, node.RoleCommand.v_RoleActionCommandArray1.length);
-                    node.RoleCommand.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
-                    node.RoleCommand.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
-                    node.RoleCommand.v_ActionScriptFail = 0;
+                    node.Command.v_RoleActionCommandArray1.splice(0, node.Command.v_RoleActionCommandArray1.length);
+                    node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+                    node.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
+                    node.Command.v_ActionScriptFail = 0;
                     break;
                 }
                 case GamePublic.e_RoleCommandType.Passive:{

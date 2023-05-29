@@ -24,13 +24,13 @@ var C_RoleFrontDraw = {
         node.update = function () {
             node.ShowNodeSelect.clear();
             node.ShowNode.setScale(0.08);
-            if (node.MainNode.RoleGameInfo.v_SpriteShow && !node.ShowNode.active){
+            if (node.MainNode.GameInfo.v_SpriteShow && !node.ShowNode.active){
                 node.ShowNode.active = true;
-            }else if(!node.MainNode.RoleGameInfo.v_SpriteShow && node.ShowNode.active){
+            }else if(!node.MainNode.GameInfo.v_SpriteShow && node.ShowNode.active){
                 node.ShowNode.active = false;
                 return;
             }
-            if(node.MainNode.RoleGameInfo.v_RoleSelectFlag){
+            if(node.MainNode.GameInfo.v_RoleSelectFlag){
                 
                 //if(node.ShowNodeSelectFlag){
 
@@ -55,7 +55,7 @@ var C_RoleFrontDraw = {
                     node.ShowNodeSelect.lineWidth = 1;
                     node.ShowNodeSelect.strokeColor = cc.Color.RED;
                     node.ShowNodeSelect.fillColor = cc.Color.RED;
-                    node.ShowNodeSelect.rect(-250,-300,500 * g_RoleManager.GetRoleHpRatio(node.MainNode.RoleInfo.v_RoleNumber),30);
+                    node.ShowNodeSelect.rect(-250,-300,500 * g_RoleManager.GetRoleHpRatio(node.MainNode.Info.v_RoleNumber),30);
                     node.ShowNodeSelect.fill();
                     node.ShowNodeSelect.stroke();
                     //
@@ -64,7 +64,7 @@ var C_RoleFrontDraw = {
                 //node.ShowRoleHP.clear();
                 node.ShowRoleHPFlag = false;
             } 
-            //node.ShowNode.setPosition(node.MainNode.RoleGameInfo.v_SpritePos);
+            //node.ShowNode.setPosition(node.MainNode.GameInfo.v_SpritePos);
             //node.ShowNode.setRotation(cc.quat(88,0,0));
             
         }
