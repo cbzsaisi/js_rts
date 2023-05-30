@@ -120,10 +120,10 @@ var C_Building = {
         };
 
         node.Build = function () {
-            this.BuildMapBuild();
+            this.BuildMapShow();
         };
 
-        node.BuildMapBuild = function () {
+        node.BuildMapShow = function () {
             for(let i = 0; i < node.GameInfo.v_SpriteData.BuildSize.width; i++){
                 for(let j = 0; j < node.GameInfo.v_SpriteData.BuildSize.height; j++){
                     node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_BuildMapPos.x + i][node.Info.v_BuildMapPos.y + j].MoveInRole(node.Info.v_BuildNumber, node.Info.v_Type);
