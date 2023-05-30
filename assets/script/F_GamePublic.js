@@ -180,14 +180,14 @@ var G_Public = {
     },
 
     //角色状态
-    e_RoleTypeState: {
+    e_TypeState: {
         Life: 0,
         Death: 1,
     },
-
+    
     s_RoleType: function (){
-        this.scr = {RoleType:this.e_RoleTypeState.Life};
-        return this.scr;
+        var scr = {TypeState: this.e_TypeState.Life};
+        return scr;
     },
 
     GetAngle: function (_pos,_pos2){
@@ -806,6 +806,9 @@ var G_Public = {
     g_PlayerClickType : null,
 
     g_DrawRect : null,
+
+    Rolenum : 0,
+    Buildnum : 0,
 }
 
 

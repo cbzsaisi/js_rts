@@ -26,6 +26,8 @@ var C_Building = {
             v_CurrentMapNum: null,
             v_SpriteAngle: null, //角度
             v_Type: GamePublic.e_BaseObjType.Build,
+            v_State: null,//角色状态
+            v_ShowRemove: false,
         };
 
         node.GameInfo = { //基本不写入保存数据
@@ -58,6 +60,8 @@ var C_Building = {
             v_BuildActionCurScriptArray: null,
             v_BuildActionCommandArray: [],
             v_BuildActionCommandState: null,
+            v_BuildActionCommandArray1: [],
+            v_BuildActionCommandState1: null,
             //脚本执行
             v_ActionCommand: null,
             v_ActionScriptFail: null,  //脚本失败次数
@@ -116,15 +120,18 @@ var C_Building = {
         };
 
         node.Build = function () {
+            this.BuildMapBuild();
+        };
+
+        node.BuildMapBuild = function () {
             for(let i = 0; i < node.GameInfo.v_SpriteData.BuildSize.width; i++){
                 for(let j = 0; j < node.GameInfo.v_SpriteData.BuildSize.height; j++){
-                    //console.log(i,"-",j);
                     node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_BuildMapPos.x + i][node.Info.v_BuildMapPos.y + j].MoveInRole(node.Info.v_BuildNumber, node.Info.v_Type);
                 }
             }
         };
 
-        node.BuildRemove = function () {
+        node.BuildMapRemove = function () {
             for(let i = 0; i < node.GameInfo.v_SpriteData.BuildSize.width; i++){
                 for(let j = 0; j < node.GameInfo.v_SpriteData.BuildSize.height; j++){
                     node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_BuildMapPos.x + i][node.Info.v_BuildMapPos.y + j].MoveOutRole(node.Info.v_BuildNumber, node.Info.v_Type);
@@ -155,9 +162,10 @@ var C_Building = {
                 if (sceen.x > GamePublic.g_winSize.width || sceen.x < 0 || sceen.y > GamePublic.g_winSize.height || sceen.y < 0) {
                     node.ShowSprite(false);
                 }
-            } else if (sceen.x < GamePublic.g_winSize.width && sceen.x > 0 && sceen.y < GamePublic.g_winSize.height && sceen.y > 0) {
+            } else if (sceen.x < GamePublic.g_winSize.width && sceen.x > 0 && sceen.y < GamePublic.g_winSize.height && sceen.y > 0 && node.Info.v_ShowRemove == false) {
                 node.ShowSprite(true);
             }
+            node.StateCheck();
         };
         
         node.ShowSprite = function(_show) {
@@ -170,10 +178,52 @@ var C_Building = {
             }
         }
 
+        node.Destroy = function() {
+            node.ClearBuildCommand(GamePublic.e_RoleCommandType.Command);
+            node.SetMapPos({x:15,y:15});
+            node.BuildMapRemove();
+            node.BuildMapBuild();
+            node.Info.v_ShowRemove = true;
+            node.Info.v_State.TypeState = GamePublic.e_TypeState.Death;
+            //console.log("e_BuildTypeState.Death",this.Info.v_BuildNumber);
+        }
+
+        node.StateCheck = function() {
+            if (node.Info.v_State.TypeState == GamePublic.e_TypeState.Life && node.Info.v_BuildPropertyData.NowHP <= 0) {
+                node.Destroy();
+            }
+        }
+
+        node.SetMapPos = function(_mappos) {
+            node.Info.v_BuildMapPos = _mappos;
+        }
+
+        node.ClearBuildCommand = function(v_Type) {
+            switch(v_Type){
+                case GamePublic.e_RoleCommandType.Command:{
+                    //node.GameInfo.v_DtNumber = GamePublic.e_RoleSpeed.fps;
+                    node.Command.v_ActionWaitTime = 0;
+                    node.Command.v_BuildActionCommandArray.splice(0,node.Command.v_BuildActionCommandArray.length);
+                    break;
+                }
+                case GamePublic.e_RoleCommandType.Command1:{
+                    node.Command.v_BuildActionCommandArray1.splice(0, node.Command.v_BuildActionCommandArray1.length);
+                    node.Command.v_BuildActionCommandArray1 = GamePublic.e_ActionCommandState.New;
+                    node.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
+                    node.Command.v_ActionScriptFail = 0;
+                    break;
+                }
+                case GamePublic.e_RoleCommandType.Passive:{
+                    break;
+                }
+            }
+        }
+
         node.Info.v_BuildPropertyData = GamePublic.s_BuildPropertyData(GamePublic.e_BuildType.MilitaryCamp);
         node.Info.v_BuildNumber = _BuildNum;
         node.Info.v_CurrentMapNum = _MapNum;
         node.Info.v_BuildMapPos = _MapPoint;
+        node.Info.v_State = GamePublic.s_RoleType();
         node.GameInfo.v_CurrentMap = GamePublic.g_GameDataResManger.GetMap(_MapNum); //当前地图实体
         node.GameInfo.v_SpriteData = GameResManager.getSpriteResData(_BuildResName, GamePublic.e_SpriteResType.Build);
         node.Info.v_BuildMapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y,1,1);

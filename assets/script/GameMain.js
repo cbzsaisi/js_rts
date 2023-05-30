@@ -299,11 +299,9 @@ cc.Class({
             // }
          } else {
             if (!this.SceenCreate) {
-                var Rolenum = 0;
-                var Buildnum = 0;
                 for (let i = 0; i < 1; i++) {
                     for (let j = 0; j < 2; j++) {
-                        var role = new RoleSpineClass.New("role2", 1, GamePublic.s_Vec2d(i, j), ++Rolenum);                        
+                        var role = new RoleSpineClass.New("role2", 1, GamePublic.s_Vec2d(i, j), ++GamePublic.Rolenum);                        
                     }
                 }
                 GamePublic.g_GameRunUi = GameRunUiClass.New({ x: 20, y: 20 }, "GameRunUi", 0, {}, {}, this.Page_sceen_root, 8);

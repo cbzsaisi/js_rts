@@ -145,7 +145,7 @@ C_SrciptProc.CommandSrciptProc1 = function (_src) {
             break;
         }
         case GamePublic.e_CommandType.RoleDeath:{
-            s_role.SetRoleStateChange(GamePublic.e_RoleTypeState.Death);
+            s_role.SetRoleStateChange(GamePublic.e_TypeState.Death);
             break;
         }
     }
@@ -160,7 +160,7 @@ C_SrciptProc.RoleActionCommandPassiveProc = function (_src) { //被动处理
             //console.log("处理被攻击 来自：",_src.ScrRole.Num,"目标：",_src.TarRole.Num);
             let t_role = g_gamemangaer.GetRole(_src.TarRole.Num);
             SrcExeState = GamePublic.e_CommandSrcipt.Success;
-            if (t_role.Info.v_RoleType.RoleType == GamePublic.e_RoleTypeState.Death){
+            if (t_role.Info.v_State.TypeState == GamePublic.e_TypeState.Death){
                 console.log("本角色已经亡 无法反击");
                 break;
             }
@@ -213,7 +213,7 @@ C_SrciptProc.Command1StateCheckSrciptProc = function (RoleNum) {  //动作处理
     switch (CommandArray.Script.Name) {
         case GamePublic.e_CommandType.RoleAttack:{
             let t_role = g_gdrm.GetRole(CommandArray.TarRole.Num);
-            //if(t_role.Info.v_RoleType.RoleType != GamePublic.e_RoleTypeState.Death){
+            //if(t_role.Info.v_State.TypeState != GamePublic.e_TypeState.Death){
             if(t_role.Info.v_RolePropertyData.NowHP > 0){
                 CommandState = GamePublic.e_CommandResultSrcipt.Continue;
             }
@@ -230,7 +230,7 @@ C_SrciptProc.RoleTargetCheck = function(v_src) {  //角色目标检测
         case GamePublic.e_RoleTargetCheck.RoleAttack:{
             let role = g_gamemangaer.GetRole(v_src.ScrRole.Num);
             let t_role = g_gamemangaer.GetRole(v_src.TarRole.Num);
-            if (role.Info.v_RoleType.RoleType == GamePublic.e_RoleTypeState.Death){
+            if (role.Info.v_State.TypeState == GamePublic.e_TypeState.Death){
                 console.log("本角色已经亡 无法反击");
                 State = GamePublic.e_RoleTargetCheckResult.Src_Is_Death;
                 break;

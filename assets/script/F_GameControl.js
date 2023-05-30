@@ -101,7 +101,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
         GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.BuildClick;
         if(this.MapTiledCoverCheck(_pos,GamePublic.g_Active_Map,GamePublic.g_UserPicklObj.Size)){          
             //GamePublic.g_Active_Map.MapTiledColorShow(true,cc.color(0,255, 0, 95));
-            var build = new BuildingClass.New("build1", 1, GamePublic.s_Vec2d(mappos.x, mappos.y), 1);
+            var build = new BuildingClass.New("build1", 1, GamePublic.s_Vec2d(mappos.x, mappos.y), ++GamePublic.Buildnum);
             GamePublic.g_ButtonUsingFlag = true;
         }else{
             
@@ -197,7 +197,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                 var res = RoleSrcipt.RoleTargetCheck(csrc);
                                 switch(res){
                                     case GamePublic.e_RoleTargetCheckResult.Success:{
-                                        var src = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_RoleNumber, Array: "222", Pos: 123 }, { Num: t_role.Info.v_RoleNumber, Array: [t_role.Info.v_RoleNumber], Pos: mappos });
+                                        var src = new GamePublic.s_RoleScript({ Info:{TargetType:GamePublic.e_BaseObjType.Role}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_RoleNumber, Array: "222", Pos: 123 }, { Num: t_role.Info.v_RoleNumber, Array: [t_role.Info.v_RoleNumber], Pos: mappos });
                                         role.Command.v_RoleActionCommandArray1.push(src);
                                         break;
                                     }

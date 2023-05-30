@@ -37,6 +37,16 @@ var C_GameDataResManager = {
             return null;
         }
 
+        GameDataRes.GetBuild = function(_num) {
+            for (var i = 0; i < GameDataRes.BuildArray.length; i++) {
+                if (GameDataRes.BuildArray[i].obj.GetNumber() == _num) {
+                    return GameDataRes.BuildArray[i].obj;
+                }
+            }
+            console.log("BuildArray中查找失败");
+            return null;
+        }
+
         // GameDataRes.CheckSelect = function(_MapArry, _RoleArry, _Pos) {
         //     /* for(var i=0;i<_RoleArry.length;i++){
         //         if(_RoleArry[i].obj.Info.v_RoleMapPos.x == _Pos.x && _RoleArry[i].obj.Info.v_RoleMapPos.y == _Pos.y){
