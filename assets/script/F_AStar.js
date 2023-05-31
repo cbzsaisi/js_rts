@@ -3,7 +3,7 @@ var GamePublic = require("./F_GamePublic");
 function C_MathLibStar() {
 };
 
-C_MathLibStar.TargePosPassTest = function (_RolePassStatu, _MapTile) {
+C_MathLibStar.TargePosPassTest = function (_RolePassStatu, _MapTile) { //检测是否可以通行
     var vpass = false;
     switch (_MapTile.v_TileType) {
         case GamePublic.e_ObjType.MapTileLand:
@@ -25,7 +25,7 @@ C_MathLibStar.RoleTargePosPassTest = function (_RolePassStatu, _MapTile) {
     switch (_MapTile.v_TileType) {
         case GamePublic.e_ObjType.MapTileLand:
             //if(_RolePassStatu == GamePublic.e_RolePassStatu.land)vpass = true;
-            for (var i = 0; i < GamePublic.s_MapTilePassLand.length; i++) {
+            for (var i = 0; i < GamePublic.s_MapTilePassLand.length; i++) { //检测允许通过的类型
                 if (_RolePassStatu == GamePublic.s_MapTilePassLand[i]) vpass = GamePublic.e_ActionScriptFailType.Success;
             }
             break;
@@ -268,8 +268,6 @@ C_MathLibStar.RunRoleStar = function(_RStar){
     var CurrentMap = _RStar.CurrentMap
     var RolePassStatu = _RStar.RolePassStatu;    
     if(!C_MathLibStar.MapTilePassTest(_RStar)){console.log("目标不能进入");return false;}
-
-    
     
     var MapTile = CurrentMap.MapRoomArray[dPos.x][dPos.y];
      if(!C_MathLibStar.TargePosPassTest(RolePassStatu,MapTile)){
@@ -336,10 +334,8 @@ C_MathLibStar.RunRoleStar = function(_RStar){
         }
     }
     //console.log("寻路 循环:"+ test + "次");
-
     CLoseList.splice(0,CLoseList.length);
     OpenList.splice(0,OpenList.length);
-    
     if(bPass){
         //console.log("最终找到");
         do
@@ -354,7 +350,6 @@ C_MathLibStar.RunRoleStar = function(_RStar){
         cc.log("最终没找到");
         return false;
     }
-    
 }
 
 C_MathLibStar.RoleFindWay = function(_role,_d_Pos) {
@@ -365,7 +360,7 @@ C_MathLibStar.RoleFindWay = function(_role,_d_Pos) {
         /*_role.Info.v_ActionMovePos = _d_Pos;
         //console.log("寻路结束 命令下达");
         //console.log(_role.v_RoleNumber);*/
-        for(var i=0;i<MapArray.length;i++){
+        for(var i=0;i<MapArray.length;i++){ //把路径放到命令菜单里
             var WayPos = MapArray[i];
             //console.log(WayPos.oPos);
             //var src = new s_NodeScript("RoleAction","RoleMove",_role.v_RoleNumber,'',WayPos.oPos);
@@ -376,10 +371,20 @@ C_MathLibStar.RoleFindWay = function(_role,_d_Pos) {
         } 
         return true;
     }else{
-
         console.log("寻路失败");
         return false;
     }
     //MapArray.splice(0,MapArray.length);
+}
+
+C_MathLibStar.FindWayCheck = function(s_role,d_Pos) {
+    var MapArray = [];
+    var RStar = GamePublic.s_RoleStar(s_role.GameInfo.v_CurrentMap,s_role.Info.v_RoleMapPos,d_Pos,MapArray,s_role.Info.v_RoleNumber,s_role.Info.v_RolePassStatu);
+    if(C_MathLibStar.RunRoleStar(RStar)){
+        return MapArray.length;
+    }else{
+        console.log("寻路失败");
+        return MapArray.length;
+    }
 }
 module.exports = C_MathLibStar;

@@ -53,6 +53,12 @@ C_GameControl.GetMapXY = function(_pos){
     return pos;
 }
 
+C_GameControl.MapPointDistanceCheck = function (s_pos, t_pos) { //检测两点之间是否相同 返回距离
+    var distance = 0;
+
+    return distance;
+}
+
 C_GameControl.CancelSelectRole = function(){
     if (GamePublic.g_SelectRoleArray.length) { //取消框选
         for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
@@ -208,7 +214,12 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                         break;
                                     }
                                 }
-                            } else { //移动
+                            } else if(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray.length){ //目标有建筑物
+                                let t_build = GamePublic.g_GameDataResManger.GetBuild(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray[0]);
+                                console.log(t_build.GetBuildPoint());
+                                let build_point_array = t_build.GetBuildPoint();
+                                let res;
+                            } else{ //移动
                                 role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                                 role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
                                 var src = new GamePublic.s_RoleScript({ Info: 1, Name: GamePublic.e_CommandType.RoleGoToPos }, { Num: role.Info.v_RoleNumber, Array: "111", Pos: 123 }, { Num: 0, Array: "22", Pos: mappos });

@@ -139,6 +139,16 @@ var C_Building = {
             }
         };
 
+        node.GetBuildPoint = function () {
+            var point = []
+            for(let i = 0; i < node.GameInfo.v_SpriteData.BuildSize.width; i++){
+                for(let j = 0; j < node.GameInfo.v_SpriteData.BuildSize.height; j++){
+                    point.push({x: node.Info.v_BuildMapPos.x + i, y: node.Info.v_BuildMapPos.y + j});
+                }
+            }
+            return point;
+        };
+
         node.MyUpdate = function() {
             if (!node.GameInfo.v_BuildCreate) {
                 if (!node.GameInfo.v_BuildSprite) {

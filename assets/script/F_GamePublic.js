@@ -383,9 +383,6 @@ var G_Public = {
     //角色检测类别
     e_RoleTargetCheck: {
         RoleAttack: 0,
-        Success: 1,
-        Fail: 2,
-        Continue: 3,
     },
 
     //执行结果状态
@@ -506,6 +503,10 @@ var G_Public = {
         MultiRole: 2,
         GroupRole: 3,
         Build: 4,
+    },
+
+    e_MapTilePassLand: {
+        land: 0,
     },
 
     s_MapTilePassLand: [
