@@ -219,10 +219,13 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                 let t_build = GamePublic.g_GameDataResManger.GetBuild(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray[0]);
                                 let build_point_array = t_build.GetBuildPoint();
                                 let point_array = [];
-                                console.log(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray);
+                                // for(let i in GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray){
+
+                                // }
                                 GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray.splice(0,1);
                                 for(let i in build_point_array){
-                                    point_array.push(g_Astar.FindWayCheck(role,build_point_array[i]));
+                                    let res = g_Astar.FindWayCheck(role,build_point_array[i]);
+                                    if(res > 0)point_array.push(g_Astar.FindWayCheck(role,build_point_array[i]));
                                 }
                                 console.log(point_array);
                             } else{ //移动
