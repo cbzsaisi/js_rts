@@ -402,7 +402,7 @@ var C_RoleSpine = {
             switch(v_Type){
                 case GamePublic.e_RoleCommandType.Command:{
                     node.GameInfo.v_DtNumber = GamePublic.e_RoleSpeed.fps;
-                    node.Command.v_ActionWaitTime = 0;
+                    //node.Command.v_ActionWaitTime = 0;
                     node.Command.v_RoleActionCommandArray.splice(0,node.Command.v_RoleActionCommandArray.length);
                     break;
                 }

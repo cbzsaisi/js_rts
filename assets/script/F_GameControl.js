@@ -1,6 +1,7 @@
 var GamePublic = require("./F_GamePublic");
 var BuildingClass = require("./C_Building");
 var RoleSrcipt = require("./F_RoleSrcipt");
+var g_Astar = require("./F_AStar");
 function C_GameControl() {
 };
 
@@ -216,9 +217,14 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                 }
                             } else if(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray.length){ //目标有建筑物
                                 let t_build = GamePublic.g_GameDataResManger.GetBuild(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray[0]);
-                                console.log(t_build.GetBuildPoint());
                                 let build_point_array = t_build.GetBuildPoint();
-                                let res;
+                                let point_array = [];
+                                console.log(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray);
+                                GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray.splice(0,1);
+                                for(let i in build_point_array){
+                                    point_array.push(g_Astar.FindWayCheck(role,build_point_array[i]));
+                                }
+                                console.log(point_array);
                             } else{ //移动
                                 role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                                 role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
