@@ -16,7 +16,7 @@ var C_RoleSpine = {
                 v_RoleRaceType: null, //角色种族
                 v_RoleRacePropertyData: {}, //种族属性数据
                 v_RolePropertyData: {}, //角色属性数据
-                v_RoleMapPos: null, //在当前地图的坐标
+                v_MapPos: null, //在当前地图的坐标
                 v_State: null,//角色状态
                 v_ActionMovePos: null,
                 v_CurrentMapNum: null,
@@ -93,8 +93,8 @@ var C_RoleSpine = {
 
             //初始化
         node.Info.v_RoleNumber = _RoleNumber;
-        node.Info.v_RoleMapPos = GamePublic.s_Vec2d(_MapPoint.x, _MapPoint.y);
-        //node.Info.v_RoleMapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y, 1, 1);
+        node.Info.v_MapPos = GamePublic.s_Vec2d(_MapPoint.x, _MapPoint.y);
+        //node.Info.v_MapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y, 1, 1);
         node.Info.v_RoleBagSize = 20, //当前背包大小
         node.Info.v_CurrentMapNum = _MapNum;
         node.Info.v_RoleBag = Array(50), //背包
@@ -129,10 +129,10 @@ var C_RoleSpine = {
             GamePublic.g_GameDataResManger.AddRole(obj);
             //node.GameInfo.v_RoleSprite.v_Sprite.opacity = 100;
             //node.GameInfo.v_CurrentMap.v_MapShowNode.addChild(node.GameInfo.v_RoleSprite.v_Sprite, 2);
-            node.SetSceenPos(node.Info.v_RoleMapPos);
+            node.SetSceenPos(node.Info.v_MapPos);
             node.GameInfo.v_SpriteShow = true;
             node.GameInfo.v_SpriteScale = {x:node.GameInfo.v_SpriteData.SpriteScale, y:node.GameInfo.v_SpriteData.SpriteScale};
-            node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_RoleMapPos.x][node.Info.v_RoleMapPos.y].MoveInRole(node.Info.v_RoleNumber, node.Info.v_Type);
+            node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_MapPos.x][node.Info.v_MapPos.y].MoveInRole(node.Info.v_RoleNumber, node.Info.v_Type);
 
             //node.GameInfo.v_FrontDrawFlag = true;
             node.GameInfo.v_FrontDraw = RoleFrontDraw.New(node, node.GameInfo.v_DrawNode, 1);
@@ -173,7 +173,7 @@ var C_RoleSpine = {
             return node.Info.v_RoleNumber;
         }
         node.SetSceenPos = function(_pos) {
-            node.Info.v_RoleMapPos = _pos;
+            node.Info.v_MapPos = _pos;
             /*node.GameInfo.v_SpritePos = GamePublic.s_Vec2d(Math.round((_pos.x - _pos.y + 1) * (node.GameInfo.v_CurrentMap.v_MapTiledSize.x * 0.5) * GamePublic.g_SceenScale),
             Math.round((_pos.y + _pos.x + 1) * (node.GameInfo.v_CurrentMap.v_MapTiledSize.y * 0.5) * GamePublic.g_SceenScale));*/
             // node.GameInfo.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.GameInfo.v_CurrentMap.v_MapTiledSize.x * GamePublic.g_SceenScale),
@@ -191,7 +191,7 @@ var C_RoleSpine = {
             }
 
             var zindex = (node.GameInfo.v_CurrentMap.v_MapSize.x * node.GameInfo.v_CurrentMap.v_MapSize.y) -
-                (node.Info.v_RoleMapPos.x + node.Info.v_RoleMapPos.y * node.GameInfo.v_CurrentMap.v_MapSize.x);
+                (node.Info.v_MapPos.x + node.Info.v_MapPos.y * node.GameInfo.v_CurrentMap.v_MapSize.x);
             if (node.GameInfo.v_RoleSprite) node.GameInfo.v_RoleSprite.v_Sprite.zIndex = zindex + 1;
             if (node.GameInfo.v_SpriteScale) node.GameInfo.v_RoleSprite.v_Sprite.scaleX = node.GameInfo.v_SpriteScale.x;
             if (node.GameInfo.v_SpriteScale) node.GameInfo.v_RoleSprite.v_Sprite.scaleY = node.GameInfo.v_SpriteScale.y;
@@ -199,9 +199,9 @@ var C_RoleSpine = {
         };
 
         node.SetMapPos = function(_mappos) {
-            node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_RoleMapPos.x][node.Info.v_RoleMapPos.y].MoveOutRole(node.Info.v_RoleNumber, node.Info.v_Type);
-            node.Info.v_RoleMapPos = _mappos;
-            node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_RoleMapPos.x][node.Info.v_RoleMapPos.y].MoveInRole(node.Info.v_RoleNumber, node.Info.v_Type);
+            node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_MapPos.x][node.Info.v_MapPos.y].MoveOutRole(node.Info.v_RoleNumber, node.Info.v_Type);
+            node.Info.v_MapPos = _mappos;
+            node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_MapPos.x][node.Info.v_MapPos.y].MoveInRole(node.Info.v_RoleNumber, node.Info.v_Type);
         }
 
         node.StopCommand = function(_Type) {
@@ -238,7 +238,9 @@ var C_RoleSpine = {
             //console.log(node.Command.v_ActionWaitTime);
             // console.log(node.Command.v_ActionLoop);
             // console.log(node.Command.v_ActionRunStage);
+            
             if (node.Command.v_ActionWaitTime < 1) {
+                //if(this.Info.v_RoleNumber == 1)console.log("命令数量",node.Command.v_RoleActionCommandArray.length);
                 if (node.Command.v_RoleActionCommandArray.length) {
                     node.Command.v_ActionCommand = node.Command.v_RoleActionCommandArray.splice(node.Command.v_RoleActionCommandArray.length - 1, 1);
                     RoleSrcipt.CommandSrciptProc(node.Command.v_ActionCommand[0]);
@@ -274,7 +276,7 @@ var C_RoleSpine = {
                 switch (node.Command.v_RoleActionCommandState1) {
                     case GamePublic.e_ActionCommandState.New:
                         var Command = node.Command.v_RoleActionCommandArray1[node.Command.v_RoleActionCommandArray1.length - 1];
-                        if(this.Info.v_RoleNumber == 1)console.log("命令数量",node.Command.v_RoleActionCommandArray1.length);
+                        //if(this.Info.v_RoleNumber == 1)console.log("命令数量",node.Command.v_RoleActionCommandArray1.length);
                         var SrcExeState = RoleSrcipt.CommandSrciptProc1(Command);
                         if (SrcExeState == GamePublic.e_CommandSrcipt.Success) {
                             node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.Run;
@@ -316,7 +318,7 @@ var C_RoleSpine = {
                 }
             }
 
-            node.SetSceenPos(node.Info.v_RoleMapPos);
+            node.SetSceenPos(node.Info.v_MapPos);
             var sceen = GamePublic.s_Vec2d(node.GameInfo.v_SpritePos.x + GamePublic.g_MoveOff.x, node.GameInfo.v_SpritePos.y + GamePublic.g_MoveOff.y);
             if (node.GameInfo.v_SpriteShow) {
                 //console.log('sceen.x = %d sceen.y = %d',sceen.x,sceen.y);
@@ -390,7 +392,7 @@ var C_RoleSpine = {
                     break;
                 }
                 case GamePublic.e_TypeState.Life:{
-                    this.SetMapPos(node.Info.v_RoleMapPos);
+                    this.SetMapPos(node.Info.v_MapPos);
                     this.ShowSprite(true);
                     this.Info.v_State.TypeState = v_State;
                     break;

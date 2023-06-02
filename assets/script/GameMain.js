@@ -26,7 +26,6 @@ var GameRunUiClass = require("./C_GameRunUi");
 var GameResManager = require("./F_GameResManager");
 var BuildManager = require("./C_BuildManager");
 
-//var g_Random = g_MathLib.Random;
 var g_temp = 0;
 cc.Class({
     extends: cc.Component,
@@ -100,7 +99,7 @@ cc.Class({
         GamePublic.g_MoveOff = GamePublic.s_Vec2d(0, 0);
         GamePublic.g_MoveOffLast = GamePublic.s_Vec2d(0, 0);
         GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.Non;
-        GamePublic.g_GameRandom = g_MathLib.Random.New();
+        GamePublic.g_GameRandom = g_MathLib.C_Random.New();
         
         GamePublic.g_SelectRoleArray = [];
         GamePublic.g_SelectStaus = GamePublic.e_SelectStaus.NonSelect;

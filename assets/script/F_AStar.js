@@ -357,7 +357,7 @@ C_MathLibStar.RunRoleStar = function(_RStar){
 
 C_MathLibStar.RoleFindWay = function(_role,_d_Pos) {
     var MapArray = [];
-    var RStar = GamePublic.s_RoleStar(_role.GameInfo.v_CurrentMap,_role.Info.v_RoleMapPos,_d_Pos,MapArray,_role.Info.v_RoleNumber,_role.Info.v_RolePassStatu);
+    var RStar = GamePublic.s_RoleStar(_role.GameInfo.v_CurrentMap,_role.Info.v_MapPos,_d_Pos,MapArray,_role.Info.v_RoleNumber,_role.Info.v_RolePassStatu);
     if(C_MathLibStar.RunRoleStar(RStar)){
         _role.Command.v_RoleActionCommandArray.splice(0,_role.Command.v_RoleActionCommandArray.length);
         /*_role.Info.v_ActionMovePos = _d_Pos;
@@ -395,7 +395,7 @@ C_MathLibStar.RunRoleStar2 = function(_RStar){
     while(whilenum--){
         test++;
         if(C_MathLibStar.AddWayPoint(CurrentMap,sWayPos,dPos,OpenList,CLoseList,RolePassStatu)){
-            console.log("找到节点 跳出循环");
+            //console.log("找到节点 跳出循环");
             sWayPos = OpenList.pop();
             bPass = true;
             break;
@@ -408,7 +408,7 @@ C_MathLibStar.RunRoleStar2 = function(_RStar){
             }
         }
         if(OpenList.length == 0){
-            console.log("Open空了");
+            //console.log("Open空了");
             break; //如果空了退出
         }
 
@@ -448,7 +448,7 @@ C_MathLibStar.RunRoleStar2 = function(_RStar){
     CLoseList.splice(0,CLoseList.length);
     OpenList.splice(0,OpenList.length);
     if(bPass){
-        console.log("最终找到");
+        //console.log("最终找到");
         do
         {
             _RStar.MapArray.push(sWayPos);
@@ -457,18 +457,15 @@ C_MathLibStar.RunRoleStar2 = function(_RStar){
         while(sWayPos.FatherWayPoint != null)
         return true;
     }else{
-        cc.log("最终没找到");
+        //cc.log("最终没找到");
         return false;
     }
 }
 
 C_MathLibStar.FindWayCheck = function(s_role,d_Pos) {
     var MapArray = [];
-    var RStar = GamePublic.s_RoleStar(s_role.GameInfo.v_CurrentMap,s_role.Info.v_RoleMapPos,d_Pos,MapArray,s_role.Info.v_RoleNumber,s_role.Info.v_RolePassStatu);
-    if(C_MathLibStar.RunRoleStar2(RStar)){
-        return MapArray.length;
-    }else{
-        return MapArray.length;
-    }
+    var RStar = GamePublic.s_RoleStar(s_role.GameInfo.v_CurrentMap,s_role.Info.v_MapPos,d_Pos,MapArray,s_role.Info.v_RoleNumber,s_role.Info.v_RolePassStatu);
+    C_MathLibStar.RunRoleStar2(RStar);
+    return {SortNum:MapArray.length,Obj:d_Pos};
 }
 module.exports = C_MathLibStar;

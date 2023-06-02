@@ -2,6 +2,7 @@ var GamePublic = require("./F_GamePublic");
 var BuildingClass = require("./C_Building");
 var RoleSrcipt = require("./F_RoleSrcipt");
 var g_Astar = require("./F_AStar");
+var g_MathLib = require("./C_MathLib");
 function C_GameControl() {
 };
 
@@ -198,8 +199,8 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                             } else {
                                 role.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
                             }
-                            if (GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray.length) { //如果目标点有单位
-                                let t_role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray[0]);
+                            if (role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray.length) { //如果目标点有单位
+                                let t_role = GamePublic.g_GameDataResManger.GetRole(role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray[0]);
                                 var csrc = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_RoleTargetCheck.RoleAttack}, { Num: role.Info.v_RoleNumber, Array: [], Pos: 123 }, { Num: t_role.Info.v_RoleNumber, Array: [], Pos: 123 });
                                 var res = RoleSrcipt.RoleTargetCheck(csrc);
                                 switch(res){
@@ -215,19 +216,25 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                         break;
                                     }
                                 }
-                            } else if(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray.length){ //目标有建筑物
-                                let t_build = GamePublic.g_GameDataResManger.GetBuild(GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray[0]);
-                                let build_point_array = t_build.GetBuildPoint();
+                            } else if(role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray.length){ //目标有建筑物
+                                let build = GamePublic.g_GameDataResManger.GetBuild(role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray[0]);
+                                let build_point_array = build.GetBuildPoint();
+                                //console.log(build_point_array);
                                 let point_array = [];
-                                // for(let i in GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray){
-
-                                // }
-                                GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray.splice(0,1);
                                 for(let i in build_point_array){
+                                    let ExistBuildArray = role.GameInfo.v_CurrentMap.MapRoomArray[build_point_array[i].x][build_point_array[i].y].v_ExistBuildArray;
+                                    role.GameInfo.v_CurrentMap.MapRoomArray[build_point_array[i].x][build_point_array[i].y].v_ExistBuildArray = [];
                                     let res = g_Astar.FindWayCheck(role,build_point_array[i]);
-                                    if(res > 0)point_array.push(g_Astar.FindWayCheck(role,build_point_array[i]));
+                                    if(res.SortNum > 0)point_array.push(res);
+                                    role.GameInfo.v_CurrentMap.MapRoomArray[build_point_array[i].x][build_point_array[i].y].v_ExistBuildArray = ExistBuildArray;
                                 }
-                                console.log(point_array);
+                                g_MathLib.Sort(point_array,0);
+                                if(point_array.length > 0){
+                                    var src = new GamePublic.s_RoleScript({ Info:{TargetType:GamePublic.e_BaseObjType.Build}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_RoleNumber, Array: "222", Pos: 123 }, { Num: build.Info.v_BuildNumber, Array: [build.Info.v_BuildNumber], Pos: {x:point_array[0].x},y:point_array[0].y});
+                                    console.log(src);
+                                    role.Command.v_RoleActionCommandArray1.push(src);
+                                }
+                                //console.log(point_array);
                             } else{ //移动
                                 role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                                 role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);

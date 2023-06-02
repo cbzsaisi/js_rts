@@ -22,7 +22,7 @@ var C_Building = {
             v_BuildOccupationType: null,//职业
             v_BuildPropertyData: null, //数值
             v_BuildType: null,//建筑类型
-            v_BuildMapPos: null,//在当前地图的坐标
+            v_MapPos: null,//在当前地图的坐标
             v_CurrentMapNum: null,
             v_SpriteAngle: null, //角度
             v_Type: GamePublic.e_BaseObjType.Build,
@@ -84,7 +84,7 @@ var C_Building = {
                     node.GameInfo.v_SpriteSize.width = node.GameInfo.v_BuildSprite.getBoundingBox().width;
                     node.GameInfo.v_SpriteSize.height = node.GameInfo.v_BuildSprite.getBoundingBox().height;
                     node.GameInfo.v_CurrentMap.v_MapShowNode.addChild(node.GameInfo.v_BuildSprite,(node.GameInfo.v_CurrentMap.v_MapSize.x * node.GameInfo.v_CurrentMap.v_MapSize.y) -
-                    (node.Info.v_BuildMapPos.x + node.Info.v_BuildMapPos.y * node.GameInfo.v_CurrentMap.v_MapSize.x));
+                    (node.Info.v_MapPos.x + node.Info.v_MapPos.y * node.GameInfo.v_CurrentMap.v_MapSize.x));
                     node.GameInfo.v_CurrentMap.v_MapShowNode.addChild(node.GameInfo.v_DrawNode, node.GameInfo.v_BuildSprite.zIndex);
                     if (!node.GameInfo.v_BuildCreate) { node.Create(); }
                 }
@@ -97,7 +97,7 @@ var C_Building = {
         }
 
         node.SetSceenPos = function (_pos) {
-            node.Info.v_BuildMapPos = _pos;
+            node.Info.v_MapPos = _pos;
             node.GameInfo.v_SpritePos = GamePublic.s_Vec2d(_pos.x * (node.GameInfo.v_CurrentMap.v_MapTiledSize.x * GamePublic.g_SceenScale) + node.GameInfo.v_SpriteSize.width * 0.5,
                 _pos.y * (node.GameInfo.v_CurrentMap.v_MapTiledSize.y * GamePublic.g_SceenScale) + node.GameInfo.v_SpriteSize.height * 0.5);
 
@@ -112,7 +112,7 @@ var C_Building = {
             var obj = GamePublic.s_ObjInfo("Build", 1, node);
             GamePublic.g_GameDataResManger.AddBuild(obj);
             node.GameInfo.v_SpriteScale = 1;
-            node.SetSceenPos(node.Info.v_BuildMapPos);
+            node.SetSceenPos(node.Info.v_MapPos);
             node.GameInfo.v_SpriteShow = true;
             node.GameInfo.v_BuildCreate = true;
             node.GameInfo.v_FrontDraw = BuildFrontDraw.New(node, node.GameInfo.v_DrawNode, 1);
@@ -126,7 +126,7 @@ var C_Building = {
         node.BuildMapShow = function () {
             for(let i = 0; i < node.GameInfo.v_SpriteData.BuildSize.width; i++){
                 for(let j = 0; j < node.GameInfo.v_SpriteData.BuildSize.height; j++){
-                    node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_BuildMapPos.x + i][node.Info.v_BuildMapPos.y + j].MoveInRole(node.Info.v_BuildNumber, node.Info.v_Type);
+                    node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_MapPos.x + i][node.Info.v_MapPos.y + j].MoveInRole(node.Info.v_BuildNumber, node.Info.v_Type);
                 }
             }
         };
@@ -134,7 +134,7 @@ var C_Building = {
         node.BuildMapRemove = function () {
             for(let i = 0; i < node.GameInfo.v_SpriteData.BuildSize.width; i++){
                 for(let j = 0; j < node.GameInfo.v_SpriteData.BuildSize.height; j++){
-                    node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_BuildMapPos.x + i][node.Info.v_BuildMapPos.y + j].MoveOutRole(node.Info.v_BuildNumber, node.Info.v_Type);
+                    node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_MapPos.x + i][node.Info.v_MapPos.y + j].MoveOutRole(node.Info.v_BuildNumber, node.Info.v_Type);
                 }
             }
         };
@@ -143,7 +143,7 @@ var C_Building = {
             var point = []
             for(let i = 0; i < node.GameInfo.v_SpriteData.BuildSize.width; i++){
                 for(let j = 0; j < node.GameInfo.v_SpriteData.BuildSize.height; j++){
-                    point.push({x: node.Info.v_BuildMapPos.x + i, y: node.Info.v_BuildMapPos.y + j});
+                    point.push({x: node.Info.v_MapPos.x + i, y: node.Info.v_MapPos.y + j});
                 }
             }
             return point;
@@ -165,7 +165,7 @@ var C_Building = {
                 if (node.GameInfo.v_FrontDraw) node.GameInfo.v_FrontDraw.update();
             }
 
-            node.SetSceenPos(node.Info.v_BuildMapPos);
+            node.SetSceenPos(node.Info.v_MapPos);
             var sceen = GamePublic.s_Vec2d(node.GameInfo.v_SpritePos.x + GamePublic.g_MoveOff.x, node.GameInfo.v_SpritePos.y + GamePublic.g_MoveOff.y);
             if (node.GameInfo.v_SpriteShow) {
                 //console.log('sceen.x = %d sceen.y = %d',sceen.x,sceen.y);
@@ -205,7 +205,7 @@ var C_Building = {
         }
 
         node.SetMapPos = function(_mappos) {
-            node.Info.v_BuildMapPos = _mappos;
+            node.Info.v_MapPos = _mappos;
         }
 
         node.ClearBuildCommand = function(v_Type) {
@@ -232,11 +232,11 @@ var C_Building = {
         node.Info.v_BuildPropertyData = GamePublic.s_BuildPropertyData(GamePublic.e_BuildType.MilitaryCamp);
         node.Info.v_BuildNumber = _BuildNum;
         node.Info.v_CurrentMapNum = _MapNum;
-        node.Info.v_BuildMapPos = _MapPoint;
+        node.Info.v_MapPos = _MapPoint;
         node.Info.v_State = GamePublic.s_RoleType();
         node.GameInfo.v_CurrentMap = GamePublic.g_GameDataResManger.GetMap(_MapNum); //当前地图实体
         node.GameInfo.v_SpriteData = GameResManager.getSpriteResData(_BuildResName, GamePublic.e_SpriteResType.Build);
-        node.Info.v_BuildMapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y,1,1);
+        node.Info.v_MapPos = GamePublic.s_Rect(_MapPoint.x, _MapPoint.y,1,1);
         node.Info.v_SpriteAngle = { Def: 0, Cur: 0, Des: 0 };//建筑朝向角度
         node.GameInfo.v_DrawNode = new cc.Node();
         

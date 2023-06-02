@@ -1,4 +1,8 @@
-var C_Random = {
+
+function F_MathLib() {
+};
+
+F_MathLib.C_Random = {
     New: function(){
         var node = {};
         node.RandomTable = [];
@@ -28,4 +32,34 @@ var C_Random = {
     }
 };
 
-module.exports.Random = C_Random;
+
+
+F_MathLib.Sort = function (v_Array,v_type) {
+    let len = v_Array.length;
+    if (len < 2) return v_Array;
+    for(let i = 0; i < len; i++){
+        for(let j = 0; j < i; j++){
+            switch(v_type){
+                case 0:{
+                    if(v_Array[j].SortNum > v_Array[i].SortNum){
+                        let temp = v_Array[j];
+                        v_Array[j] = v_Array[i];
+                        v_Array[i] = temp;  
+                    }
+                    break;
+                }
+                case 1:{
+                    if(v_Array[j].SortNum < v_Array[i].SortNum){
+                        let temp = v_Array[j];
+                        v_Array[j] = v_Array[i];
+                        v_Array[i] = temp;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    return v_Array;
+};
+
+module.exports = F_MathLib;

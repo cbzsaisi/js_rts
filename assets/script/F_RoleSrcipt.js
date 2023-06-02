@@ -19,7 +19,7 @@ C_SrciptProc.CommandSrciptProc = function (_src) {
             if (s_role.Command.v_ActionScriptFailType == GamePublic.e_ActionScriptFailType.Success) {
                 s_role.Command.v_ActionWaitTime = (20000 / GamePublic.e_RoleSpeed.scpfps);
                 var map = s_role.GameInfo.v_CurrentMap.MapRoomArray;
-                var src_pos = s_role.Info.v_RoleMapPos;
+                var src_pos = s_role.Info.v_MapPos;
                 var MapOffset = GamePublic.sub_Vec2d(map[src_pos.x][src_pos.y].v_SpritePos, map[_src.TarRole.Pos.x][_src.TarRole.Pos.y].v_SpritePos);
                 s_role.GameInfo.v_MapOffset = GamePublic.s_Vec2d(MapOffset.x / s_role.Command.v_ActionWaitTime, MapOffset.y / s_role.Command.v_ActionWaitTime);
                 s_role.SetMapPos(_src.TarRole.Pos);
@@ -53,7 +53,6 @@ C_SrciptProc.CommandSrciptProc = function (_src) {
             } else {
                 s_role.GameInfo.v_MoveBlockPos = GamePublic.s_Vec2d(_src.TarRole.Pos.x, _src.TarRole.Pos.y);
                 s_role.Command.v_ActionScriptFail++; //错误次数
-                //s_role.Command.v_RoleActionCommandArray.splice(0, s_role.Command.v_RoleActionCommandArray.length);
                 s_role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                 //C_MathLibStar.RoleFindWay(role,role.v_ActionMovePos);
             }
@@ -115,10 +114,19 @@ C_SrciptProc.CommandSrciptProc1 = function (_src) {
             break;
         }
         case GamePublic.e_CommandType.RoleAttack:{
-            //console.log(_src.Script);
+            switch(_src.Script.Info.TargetType){
+                case GamePublic.e_BaseObjType.Role:{
+                    console.log("GamePublic.e_BaseObjType.Role");
+                    break;
+                }
+                case GamePublic.e_BaseObjType.Build:{
+                    console.log("GamePublic.e_BaseObjType.Build");
+                    break;
+                }
+            }
             var t_role = g_gamemangaer.GetRole(_src.TarRole.Num);
             if (t_role) {
-                if (Math.abs(s_role.Info.v_RoleMapPos.x - t_role.Info.v_RoleMapPos.x) < 2 && Math.abs(s_role.Info.v_RoleMapPos.y - t_role.Info.v_RoleMapPos.y) < 2) {
+                if (Math.abs(s_role.Info.v_MapPos.x - t_role.Info.v_MapPos.x) < 2 && Math.abs(s_role.Info.v_MapPos.y - t_role.Info.v_MapPos.y) < 2) {
                     //console.log("范围内 开始攻击");
                     s_role.GameInfo.v_RoleAttackType = {AttackType:GamePublic.e_RoleAttackType.left_hand,Skill:"Left"};//修改攻击类型
                     var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleAttacking},{Num:s_role.Info.v_RoleNumber,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:null});
@@ -127,16 +135,16 @@ C_SrciptProc.CommandSrciptProc1 = function (_src) {
                 } else {
                     console.log("范围外，要移动");
                     var map = t_role.GameInfo.v_CurrentMap.MapRoomArray;
-                    var ExistRoleArray = map[t_role.Info.v_RoleMapPos.x][t_role.Info.v_RoleMapPos.y].v_ExistRoleArray;
-                    map[t_role.Info.v_RoleMapPos.x][t_role.Info.v_RoleMapPos.y].v_ExistRoleArray = []; //暂时把目标点清空
-                    var hr = g_Astar.RoleFindWay(s_role,t_role.Info.v_RoleMapPos);
-                    map[t_role.Info.v_RoleMapPos.x][t_role.Info.v_RoleMapPos.y].v_ExistRoleArray = ExistRoleArray;
+                    var ExistRoleArray = map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistRoleArray;
+                    map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistRoleArray = []; //暂时把目标点清空
+                    var hr = g_Astar.RoleFindWay(s_role,t_role.Info.v_MapPos);
+                    map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistRoleArray = ExistRoleArray;
                     if (hr) {
                         SrcExeState = GamePublic.e_CommandSrcipt.Success;
                         //这个会被 命令栈pop掉
                         console.log("这个会被 命令栈pop掉");
-                        var src = new GamePublic.s_RoleScript({Info:1,Name:"Non"},{Num:_src.ScrRole.Num,Array:"22",Pos:123},{Num:_src.TarRole.Num,Array:"22",Pos:_src.TarRole.Pos});
-                        t_role.Command.v_RoleActionCommandArray1.push(src);
+                        //var src = new GamePublic.s_RoleScript({Info:1,Name:"Non"},{Num:_src.ScrRole.Num,Array:"22",Pos:123},{Num:_src.TarRole.Num,Array:"22",Pos:_src.TarRole.Pos});
+                        //t_role.Command.v_RoleActionCommandArray1.push(src);
                     } else {
                         console.log("无法移动到攻击目标周围");
                     }
