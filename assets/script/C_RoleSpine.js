@@ -15,7 +15,7 @@ var C_RoleSpine = {
                 v_RoleOccupationType: null, //职业
                 v_RoleRaceType: null, //角色种族
                 v_RoleRacePropertyData: {}, //种族属性数据
-                v_RolePropertyData: {}, //角色属性数据
+                v_PropertyData: {}, //角色属性数据
                 v_MapPos: null, //在当前地图的坐标
                 v_State: null,//角色状态
                 v_ActionMovePos: null,
@@ -31,6 +31,7 @@ var C_RoleSpine = {
                 v_RoleColor: cc.color(255, 255, 255, 255),
                 v_RoleOpacity: 255,
                 v_Type: GamePublic.e_BaseObjType.Role,
+                v_TargetType: GamePublic.e_BaseObjType.Role,
             },
 
             node.GameInfo = { //基本不写入保存数据
@@ -139,7 +140,7 @@ var C_RoleSpine = {
 
             node.Info.v_RoleRaceType = GamePublic.e_RoleRaceType.Human;
             node.Info.v_RoleRacePropertyData = g_RoleManager.InitRoleRacePropertyData(node.Info.v_RoleNumber);
-            node.Info.v_RolePropertyData = GamePublic.s_RolePropertyData('');
+            node.Info.v_PropertyData = GamePublic.s_RolePropertyData('');
             node.CalcRolePropertyData();
             GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Sword1, 1, node.Info.v_RoleNumber, "Role");
             GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 10, node.Info.v_RoleNumber, "Role");
@@ -334,31 +335,31 @@ var C_RoleSpine = {
         // Desc: 设置切换动画
         //-----------------------------------------------------------------------------
 
-        node.SetRoleAction = function(_ActionName) {
-            if (node.GameInfo.v_RoleSprite) node.GameInfo.v_RoleSprite.SetRoleAction(_ActionName);
-            // switch (_ActionName) {
-            //     /* case e_RoleAction.def:
-            //         break; */
-            //     case GamePublic.e_RoleAction.walk:{
-            //         if (node.GameInfo.v_RoleSprite) node.GameInfo.v_RoleSprite.SetRoleAction(_ActionName);
-            //         break;
-            //     }
-            //     case GamePublic.e_RoleAction.jump:{
-            //         if (node.GameInfo.v_RoleSprite) node.GameInfo.v_RoleSprite.SetRoleAction(_ActionName);
-            //         break;
-            //     }
-            // }
+        node.SetRoleAction = function(v_ActionName) {
+            //if (node.GameInfo.v_RoleSprite) node.GameInfo.v_RoleSprite.SetRoleAction(_ActionName);
+            switch (v_ActionName) {
+                /* case e_RoleAction.def:
+                    break; */
+                case GamePublic.e_RoleAction.walk:{
+                    if (node.GameInfo.v_RoleSprite) node.GameInfo.v_RoleSprite.SetRoleAction(v_ActionName);
+                    break;
+                }
+                case GamePublic.e_RoleAction.jump:{
+                    if (node.GameInfo.v_RoleSprite) node.GameInfo.v_RoleSprite.SetRoleAction(v_ActionName);
+                    break;
+                }
+            }
         }
 
         node.CalcRolePropertyData = function() {
-            node.Info.v_RolePropertyData.HP = node.Info.v_RoleRacePropertyData.CON * 3;
-            node.Info.v_RolePropertyData.NowHP = node.Info.v_RolePropertyData.HP;
-            node.Info.v_RolePropertyData.MP = node.Info.v_RoleRacePropertyData.LER * 3;
-            node.Info.v_RolePropertyData.NowMP = node.Info.v_RolePropertyData.MP;
-            if (!node.Info.v_RolePropertyData.ATT) node.Info.v_RolePropertyData.ATT = 10;
-            if (!node.Info.v_RolePropertyData.DEF) node.Info.v_RolePropertyData.DEF = 10;
-            if (!node.Info.v_RolePropertyData.LEVEL) node.Info.v_RolePropertyData.LEVEL = 1;
-            if (!node.Info.v_RolePropertyData.EXP) node.Info.v_RolePropertyData.EXP = 0;
+            node.Info.v_PropertyData.HP = node.Info.v_RoleRacePropertyData.CON * 3;
+            node.Info.v_PropertyData.NowHP = node.Info.v_PropertyData.HP;
+            node.Info.v_PropertyData.MP = node.Info.v_RoleRacePropertyData.LER * 3;
+            node.Info.v_PropertyData.NowMP = node.Info.v_PropertyData.MP;
+            if (!node.Info.v_PropertyData.ATT) node.Info.v_PropertyData.ATT = 10;
+            if (!node.Info.v_PropertyData.DEF) node.Info.v_PropertyData.DEF = 10;
+            if (!node.Info.v_PropertyData.LEVEL) node.Info.v_PropertyData.LEVEL = 1;
+            if (!node.Info.v_PropertyData.EXP) node.Info.v_PropertyData.EXP = 0;
         }
 
         node.SetRoleColor = function(i_brightness) {
@@ -367,7 +368,7 @@ var C_RoleSpine = {
         }
 
         node.StateCheck = function() {
-            if (node.Info.v_RolePropertyData.NowHP <= 0 && node.Info.v_State.TypeState == GamePublic.e_TypeState.Life) {
+            if (node.Info.v_PropertyData.NowHP <= 0 && node.Info.v_State.TypeState == GamePublic.e_TypeState.Life) {
                 //this.StopCommand(""); //角色亡
                 node.Destroy();
                 //node.Info.v_State.TypeState = GamePublic.e_TypeState.Death;

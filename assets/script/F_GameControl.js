@@ -228,9 +228,9 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                     if(res.SortNum > 0)point_array.push(res);
                                     role.GameInfo.v_CurrentMap.MapRoomArray[build_point_array[i].x][build_point_array[i].y].v_ExistBuildArray = ExistBuildArray;
                                 }
-                                g_MathLib.Sort(point_array,0);
+                                g_MathLib.Sort(point_array,0);//排序
                                 if(point_array.length > 0){
-                                    var src = new GamePublic.s_RoleScript({ Info:{TargetType:GamePublic.e_BaseObjType.Build}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_RoleNumber, Array: "222", Pos: 123 }, { Num: build.Info.v_BuildNumber, Array: [build.Info.v_BuildNumber], Pos: {x:point_array[0].x},y:point_array[0].y});
+                                    var src = new GamePublic.s_RoleScript({Info:{TargetType:GamePublic.e_BaseObjType.Build}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_RoleNumber, Array: "222", Pos: 123 }, { Num: build.Info.v_BuildNumber, Array: [build.Info.v_BuildNumber], Pos: {x:point_array[0].x},y:point_array[0].y});
                                     console.log(src);
                                     role.Command.v_RoleActionCommandArray1.push(src);
                                 }

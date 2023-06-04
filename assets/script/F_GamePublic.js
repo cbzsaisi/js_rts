@@ -809,7 +809,7 @@ var G_Public = {
     g_DrawRect : null,
 
     Rolenum : 0,
-    Buildnum : 0,
+    Buildnum : 100000,
 }
 
 

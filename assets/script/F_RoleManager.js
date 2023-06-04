@@ -40,7 +40,7 @@ F_RoleManager.InitRoleRacePropertyData = function (_RoleNumber) {
 
 F_RoleManager.GetRoleHpRatio = function(_RoleNumber){
     var Role = GamePublic.g_GameDataResManger.GetRole(_RoleNumber);
-    return Role.Info.v_RolePropertyData.NowHP / Role.Info.v_RolePropertyData.HP;
+    return Role.Info.v_PropertyData.NowHP / Role.Info.v_PropertyData.HP;
 },
 
 
@@ -105,10 +105,10 @@ F_RoleManager.RoleAttackCalc = function (v_s_RoleNumber,v_t_RoleNumber,v_attack_
 
 F_RoleManager.RoleValueAlter = function (v_RoleNumber, v_value) {
     var Role = GamePublic.g_GameDataResManger.GetRole(v_RoleNumber);
-    Role.Info.v_RolePropertyData.NowHP -= v_value.Hp;
-    Role.Info.v_RolePropertyData.NowMP -= v_value.Mp;
-    if(Role.Info.v_RolePropertyData.NowHP < 0) Role.Info.v_RolePropertyData.NowHP = 0;
-    if(Role.Info.v_RolePropertyData.NowMP < 0) Role.Info.v_RolePropertyData.NowMP = 0;
+    Role.Info.v_PropertyData.NowHP -= v_value.Hp;
+    Role.Info.v_PropertyData.NowMP -= v_value.Mp;
+    if(Role.Info.v_PropertyData.NowHP < 0) Role.Info.v_PropertyData.NowHP = 0;
+    if(Role.Info.v_PropertyData.NowMP < 0) Role.Info.v_PropertyData.NowMP = 0;
     return;
 },
 

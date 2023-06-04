@@ -56,7 +56,7 @@ var C_BuildFrontDraw = {
                     node.ShowNodeSelect.strokeColor = cc.Color.RED;
                     node.ShowNodeSelect.fillColor = cc.Color.RED;
                     //node.ShowNodeSelect.rect(-250,-300,500 * g_BuildManager.GetBuildHpRatio(node.MainNode.Info.v_BuildNumber),30);
-                    node.ShowNodeSelect.rect(-250,-300,20 * node.MainNode.Info.v_BuildPropertyData.NowHP,30);
+                    node.ShowNodeSelect.rect(-250,-300,20 * node.MainNode.Info.v_PropertyData.NowHP,30);
                     
                     node.ShowNodeSelect.fill();
                     node.ShowNodeSelect.stroke();

@@ -25,7 +25,7 @@ var C_Spine = {
                     var ske = node.v_Sprite.getComponent(sp.Skeleton);
                     // ske.clearTracks();
                     ske.setStartListener((trackEntry, LoopCount) =>{node.RoleActionStartEner(_ActionName);});
-                    ske.setCompleteListener((trackEntry, LoopCount) =>{node.RoleActionCompleteEner(_ActionName);});
+                    ske.setCompleteListener((trackEntry, LoopCount) =>{node.RoleActionCompleteEner(node.v_MainRole.Command.v_ActionEvent,node.v_MainRole.Info.v_TargetType);});
                     ske.setAnimation(0, "walk", false);
                     //this.SetRoleActionSpeed(0.5);
                     break;
@@ -33,8 +33,8 @@ var C_Spine = {
                 case GamePublic.e_RoleAction.jump:{
                     var ske = node.v_Sprite.getComponent(sp.Skeleton);
                     // ske.clearTracks();
-                    ske.setStartListener((trackEntry, LoopCount) =>{node.RoleActionStartEner(_ActionName);});
-                    ske.setCompleteListener((trackEntry, LoopCount) =>{node.RoleActionCompleteEner(_ActionName);});
+                    ske.setStartListener((trackEntry, LoopCount) =>{node.RoleActionStartEner(node.v_MainRole.Command.v_ActionEvent);});
+                    ske.setCompleteListener((trackEntry, LoopCount) =>{node.RoleActionCompleteEner(node.v_MainRole.Command.v_ActionEvent,node.v_MainRole.Info.v_TargetType);});
                     ske.setAnimation(0, "jump", false);
                     //this.SetRoleActionSpeed(0.5);
                     break;
@@ -47,11 +47,11 @@ var C_Spine = {
             //console.log("RoleActionStartEner");
         };
 
-        node.RoleActionCompleteEner = function(i_ActionName) {
+        node.RoleActionCompleteEner = function(v_ActionEvent,v_TarType) {
             //console.log("RoleActionCompleteEner");
             node.v_MainRole.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.stop;
             var g_gamemangaer = GamePublic.g_GameDataResManger;
-            switch (node.v_MainRole.Command.v_ActionEvent) {
+            switch (v_ActionEvent) {
                 case GamePublic.e_RoleAction.walk:{
                     //console.log("walk fin");
                     //node.v_MainRole.GameInfo.v_MapOffset = GamePublic.s_Vec2d(0,0);
@@ -59,7 +59,7 @@ var C_Spine = {
                     break;
                 }
                 case GamePublic.e_RoleAction.attack:{
-                    var src = new GamePublic.s_RoleScript({ Info:1, Name:node.v_MainRole.Command.v_ActionEvent},{Num:node.v_MainRole.Info.v_RoleNumber, Array:"",Pos:123},{});
+                    var src = new GamePublic.s_RoleScript({ Info:{TargetType:v_TarType}, Name:node.v_MainRole.Command.v_ActionEvent},{Num:node.v_MainRole.Info.v_RoleNumber, Array:"",Pos:123},{});
                     RoleSrcipt.RoleActionSrciptProc(src);
                     break;
                 }

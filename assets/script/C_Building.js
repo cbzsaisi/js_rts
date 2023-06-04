@@ -20,12 +20,13 @@ var C_Building = {
         node.Info = {  //写入保存数据
             v_BuildNumber: null, //建筑编号
             v_BuildOccupationType: null,//职业
-            v_BuildPropertyData: null, //数值
+            v_PropertyData: null, //数值
             v_BuildType: null,//建筑类型
             v_MapPos: null,//在当前地图的坐标
             v_CurrentMapNum: null,
             v_SpriteAngle: null, //角度
             v_Type: GamePublic.e_BaseObjType.Build,
+            v_TargetType: GamePublic.e_BaseObjType.Role,
             v_State: null,//角色状态
             v_ShowRemove: false,
         };
@@ -199,7 +200,7 @@ var C_Building = {
         }
 
         node.StateCheck = function() {
-            if (node.Info.v_State.TypeState == GamePublic.e_TypeState.Life && node.Info.v_BuildPropertyData.NowHP <= 0) {
+            if (node.Info.v_State.TypeState == GamePublic.e_TypeState.Life && node.Info.v_PropertyData.NowHP <= 0) {
                 node.Destroy();
             }
         }
@@ -229,7 +230,7 @@ var C_Building = {
             }
         }
 
-        node.Info.v_BuildPropertyData = GamePublic.s_BuildPropertyData(GamePublic.e_BuildType.MilitaryCamp);
+        node.Info.v_PropertyData = GamePublic.s_BuildPropertyData(GamePublic.e_BuildType.MilitaryCamp);
         node.Info.v_BuildNumber = _BuildNum;
         node.Info.v_CurrentMapNum = _MapNum;
         node.Info.v_MapPos = _MapPoint;
