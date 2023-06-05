@@ -57,12 +57,14 @@ var C_Building = {
 
         node.Command = { //写入保存数据
             //指令
-            v_BuildActionArray: null,
-            v_BuildActionCurScriptArray: null,
-            v_BuildActionCommandArray: [],
-            v_BuildActionCommandState: null,
-            v_BuildActionCommandArray1: [],
-            v_BuildActionCommandState1: null,
+            v_ActionArray: null,
+            v_ActionCurScriptArray: null,
+            v_ActionCommandArray: [],
+            v_ActionCommandState: null,
+            v_ActionCommandArray1: [],
+            v_ActionCommandState1: null,
+            v_ActionCommandPassive: [],
+            v_ActionCommandPassiveState: null,
             //脚本执行
             v_ActionCommand: null,
             v_ActionScriptFail: null,  //脚本失败次数
@@ -214,12 +216,12 @@ var C_Building = {
                 case GamePublic.e_RoleCommandType.Command:{
                     //node.GameInfo.v_DtNumber = GamePublic.e_RoleSpeed.fps;
                     node.Command.v_ActionWaitTime = 0;
-                    node.Command.v_BuildActionCommandArray.splice(0,node.Command.v_BuildActionCommandArray.length);
+                    node.Command.v_ActionCommandArray.splice(0,node.Command.v_ActionCommandArray.length);
                     break;
                 }
                 case GamePublic.e_RoleCommandType.Command1:{
-                    node.Command.v_BuildActionCommandArray1.splice(0, node.Command.v_BuildActionCommandArray1.length);
-                    node.Command.v_BuildActionCommandArray1 = GamePublic.e_ActionCommandState.New;
+                    node.Command.v_ActionCommandArray1.splice(0, node.Command.v_ActionCommandArray1.length);
+                    node.Command.v_ActionCommandArray1 = GamePublic.e_ActionCommandState.New;
                     node.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
                     node.Command.v_ActionScriptFail = 0;
                     break;

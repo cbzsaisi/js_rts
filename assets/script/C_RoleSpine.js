@@ -65,18 +65,18 @@ var C_RoleSpine = {
             },
             node.Command = { //写入保存数据
                 //指令
-                v_RoleActionArray: null,
-                v_RoleActionCurScriptArray: null,
-                v_RoleActionCommandArray: [],
-                v_RoleActionCommandState: null,
-                v_RoleActionCommandArray1: [],
-                v_RoleActionCommandState1: null,
-                v_RoleActionCommandArray1Number: null,
-                v_RoleActionCommandArray2: [],
-                v_RoleActionCommandState2: null,
-                v_RoleActionCommandArray2Number: null,
-                v_RoleActionCommandPassive: [],
-                v_RoleActionCommandPassiveState: null,
+                v_ActionArray: null,
+                v_ActionCurScriptArray: null,
+                v_ActionCommandArray: [],
+                v_ActionCommandState: null,
+                v_ActionCommandArray1: [],
+                v_ActionCommandState1: null,
+                v_ActionCommandArray1Number: null,
+                v_ActionCommandArray2: [],
+                v_ActionCommandState2: null,
+                v_ActionCommandArray2Number: null,
+                v_ActionCommandPassive: [],
+                v_ActionCommandPassiveState: null,
                 //脚本执行
                 v_ActionCommand: null,
                 v_ActionScriptFail: null, //脚本失败次数
@@ -87,9 +87,9 @@ var C_RoleSpine = {
                 v_ActionConsoleType: null, //命令控制类型 1：倒计时控制，2：动画播放控制
                 v_ActionWaitTime: 0, //动作消耗帧
 
-                v_RoleTarNum: null,
-                v_RoleTrarArray: [],
-                v_RoleTradeShopNum: 0, //交易商店编号
+                v_TarNum: null,
+                v_TrarArray: [],
+                v_TradeShopNum: 0, //交易商店编号
             },
 
             //初始化
@@ -110,10 +110,10 @@ var C_RoleSpine = {
         node.GameInfo.v_SpriteShow = false;
         node.GameInfo.v_MapOffset = GamePublic.s_Vec2d(0, 0);
 
-        node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+        node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.New;
         node.Command.v_ActionConsoleType = 1;
         node.Command.v_ActionLoop = false;
-        node.Command.v_RoleTradeShopNum = 1;
+        node.Command.v_TradeShopNum = 1;
         node.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.play;
 
         node.GameInfo.v_DrawNode = new cc.Node();
@@ -208,7 +208,7 @@ var C_RoleSpine = {
         node.StopCommand = function(_Type) {
             node.GameInfo.v_DtNumber = GamePublic.e_RoleSpeed.fps;
             node.Command.v_ActionWaitTime = 0;
-            node.Command.v_RoleActionCommandArray.splice(0, node.Command.v_RoleActionCommandArray.length);
+            node.Command.v_ActionCommandArray.splice(0, node.Command.v_ActionCommandArray.length);
         }
 
         node.ShowSprite = function(_show) {
@@ -241,9 +241,9 @@ var C_RoleSpine = {
             // console.log(node.Command.v_ActionRunStage);
             
             if (node.Command.v_ActionWaitTime < 1) {
-                //if(this.Info.v_Number == 1)console.log("命令数量",node.Command.v_RoleActionCommandArray.length);
-                if (node.Command.v_RoleActionCommandArray.length) {
-                    node.Command.v_ActionCommand = node.Command.v_RoleActionCommandArray.splice(node.Command.v_RoleActionCommandArray.length - 1, 1);
+                //if(this.Info.v_Number == 1)console.log("命令数量",node.Command.v_ActionCommandArray.length);
+                if (node.Command.v_ActionCommandArray.length) {
+                    node.Command.v_ActionCommand = node.Command.v_ActionCommandArray.splice(node.Command.v_ActionCommandArray.length - 1, 1);
                     RoleSrcipt.CommandSrciptProc(node.Command.v_ActionCommand[0]);
                 }
                 else if (node.Command.v_ActionEvent != GamePublic.e_RoleAction.def && node.GameInfo.v_RoleSprite) {
@@ -263,41 +263,41 @@ var C_RoleSpine = {
 
             node.StateCheck();
 
-            if (node.Command.v_RoleActionCommandPassive.length) {
-                var Command = node.Command.v_RoleActionCommandPassive.splice(0, 1);
+            if (node.Command.v_ActionCommandPassive.length) {
+                var Command = node.Command.v_ActionCommandPassive.splice(0, 1);
                 var SrcExeState = RoleSrcipt.RoleActionCommandPassiveProc(Command[0]);
                 if (SrcExeState == GamePublic.e_CommandSrcipt.Success) {
-                    //node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.Run;
+                    //node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.Run;
                 } else {
-                    //node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
+                    //node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.End;
                 }
             }
 
-            if (node.Command.v_RoleActionCommandArray1.length) {
-                switch (node.Command.v_RoleActionCommandState1) {
+            if (node.Command.v_ActionCommandArray1.length) {
+                switch (node.Command.v_ActionCommandState1) {
                     case GamePublic.e_ActionCommandState.New:
-                        var Command = node.Command.v_RoleActionCommandArray1[node.Command.v_RoleActionCommandArray1.length - 1];
-                        //if(this.Info.v_Number == 1)console.log("命令数量",node.Command.v_RoleActionCommandArray1.length);
+                        var Command = node.Command.v_ActionCommandArray1[node.Command.v_ActionCommandArray1.length - 1];
+                        //if(this.Info.v_Number == 1)console.log("命令数量",node.Command.v_ActionCommandArray1.length);
                         var SrcExeState = RoleSrcipt.CommandSrciptProc1(Command);
                         if (SrcExeState == GamePublic.e_CommandSrcipt.Success) {
-                            node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.Run;
+                            node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.Run;
                         } else {
-                            node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
+                            node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.End;
                         }
-                        node.Command.v_RoleActionCommandArray1Number = node.Command.v_RoleActionCommandArray1.length - 1;
+                        node.Command.v_ActionCommandArray1Number = node.Command.v_ActionCommandArray1.length - 1;
                         break;
                     case GamePublic.e_ActionCommandState.Run:
                         if (node.Command.v_ActionScriptFailType != GamePublic.e_ActionScriptFailType.Success) { //如果未成功 但错误次数未到 重新跑
                             if (node.Command.v_ActionScriptFail < 3) {
                                 console.log("失败一次");
-                                node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+                                node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.New;
                                 node.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
                             } else {
-                                node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
+                                node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.End;
                             }
                         } else { //执行未报错  检查执行情况 如果时间结束 并且当前动作指令为空就执行以下
-                            if (node.Command.v_ActionWaitTime < 1 && node.Command.v_RoleActionCommandArray.length == 0) {
-                                node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.End;
+                            if (node.Command.v_ActionWaitTime < 1 && node.Command.v_ActionCommandArray.length == 0) {
+                                node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.End;
                             }
                         }
                         break;
@@ -305,16 +305,16 @@ var C_RoleSpine = {
                         //console.log("e_ActionCommandState.Stop");
                         break;
                     case GamePublic.e_ActionCommandState.End:
-                        //if(this.Info.v_Number == 1)console.log(node.Command.v_RoleActionCommandArray1.length);
+                        //if(this.Info.v_Number == 1)console.log(node.Command.v_ActionCommandArray1.length);
                         if(RoleSrcipt.Command1StateCheckSrciptProc(this.Info.v_Number) == GamePublic.e_CommandResultSrcipt.Success){
-                            node.Command.v_RoleActionCommandArray1.splice(node.Command.v_RoleActionCommandArray1Number, 1);
-                            //console.log(this.Info.v_Number,"目标已亡222",node.Command.v_RoleActionCommandArray1.length);
+                            node.Command.v_ActionCommandArray1.splice(node.Command.v_ActionCommandArray1Number, 1);
+                            //console.log(this.Info.v_Number,"目标已亡222",node.Command.v_ActionCommandArray1.length);
                         }
-                        //node.Command.v_RoleActionCommandArray1.splice(node.Command.v_RoleActionCommandArray1Number, 1);
-                        node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+                        //node.Command.v_ActionCommandArray1.splice(node.Command.v_ActionCommandArray1Number, 1);
+                        node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.New;
                         node.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
                         node.Command.v_ActionScriptFail = 0;
-                        //if(this.Info.v_Number == 2)console.log(node.Command.v_RoleActionCommandArray1);
+                        //if(this.Info.v_Number == 2)console.log(node.Command.v_ActionCommandArray1);
                         break;
                 }
             }
@@ -377,10 +377,10 @@ var C_RoleSpine = {
 
         node.Destroy = function() {
             this.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
-            this.Command.v_RoleActionCommandArray1.splice(node.Command.v_RoleActionCommandArray1.length - 1, node.Command.v_RoleActionCommandArray1.length);
+            this.Command.v_ActionCommandArray1.splice(node.Command.v_ActionCommandArray1.length - 1, node.Command.v_ActionCommandArray1.length);
             var src = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_CommandType.RoleDeath}, { Num: this.Info.v_Number, Array: "22", Pos: 123 }, {});
-            this.Command.v_RoleActionCommandArray1.push(src);
-            this.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+            this.Command.v_ActionCommandArray1.push(src);
+            this.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.New;
         }
 
         node.SetRoleStateChange = function(v_State) {
@@ -406,12 +406,12 @@ var C_RoleSpine = {
                 case GamePublic.e_RoleCommandType.Command:{
                     node.GameInfo.v_DtNumber = GamePublic.e_RoleSpeed.fps;
                     //node.Command.v_ActionWaitTime = 0;
-                    node.Command.v_RoleActionCommandArray.splice(0,node.Command.v_RoleActionCommandArray.length);
+                    node.Command.v_ActionCommandArray.splice(0,node.Command.v_ActionCommandArray.length);
                     break;
                 }
                 case GamePublic.e_RoleCommandType.Command1:{
-                    node.Command.v_RoleActionCommandArray1.splice(0, node.Command.v_RoleActionCommandArray1.length);
-                    node.Command.v_RoleActionCommandState1 = GamePublic.e_ActionCommandState.New;
+                    node.Command.v_ActionCommandArray1.splice(0, node.Command.v_ActionCommandArray1.length);
+                    node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.New;
                     node.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
                     node.Command.v_ActionScriptFail = 0;
                     break;

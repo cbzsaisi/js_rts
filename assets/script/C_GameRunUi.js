@@ -236,21 +236,21 @@ var C_GameRunUi = {
                                                         }
                                                         break;
                                                     case GamePublic.e_BarType.ShopStoreBar: {
-                                                        PickBag = GamePublic.g_ShopManager.GetStore(Role.Command.v_RoleTradeShopNum).ItemBar;
+                                                        PickBag = GamePublic.g_ShopManager.GetStore(Role.Command.v_TradeShopNum).ItemBar;
                                                         GamePublic.g_ShopManager.ShopTradeCalc(PickBag, PickBarNum, Bag, BarNum, 1);
                                                         break;
                                                     }
                                                 }
                                                 break;
                                             case GamePublic.e_BarType.ShopStoreBar:
-                                                Bag = GamePublic.g_ShopManager.GetStore(Role.Command.v_RoleTradeShopNum).ItemBar;
+                                                Bag = GamePublic.g_ShopManager.GetStore(Role.Command.v_TradeShopNum).ItemBar;
                                                 switch (node.PickObj.PickType) {
                                                     case GamePublic.e_BarType.ItemBar:
                                                         PickBag = Role.Info.v_RoleBag;
                                                         GamePublic.g_ShopManager.ShopTradeCalc(PickBag, PickBarNum, Bag, BarNum, 1);
                                                         break;
                                                     case GamePublic.e_BarType.ShopStoreBar:
-                                                        PickBag = GamePublic.g_ShopManager.GetStore(Role.Command.v_RoleTradeShopNum).ItemBar;
+                                                        PickBag = GamePublic.g_ShopManager.GetStore(Role.Command.v_TradeShopNum).ItemBar;
                                                         if (Bag[BarNum]) item = Bag[BarNum];
                                                         Bag[BarNum] = PickBag[PickBarNum];
                                                         PickBag[PickBarNum] = item;

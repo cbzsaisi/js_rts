@@ -359,7 +359,7 @@ C_MathLibStar.RoleFindWay = function(_role,_d_Pos) {
     var MapArray = [];
     var RStar = GamePublic.s_RoleStar(_role.GameInfo.v_CurrentMap,_role.Info.v_MapPos,_d_Pos,MapArray,_role.Info.v_Number,_role.Info.v_RolePassStatu);
     if(C_MathLibStar.RunRoleStar(RStar)){
-        _role.Command.v_RoleActionCommandArray.splice(0,_role.Command.v_RoleActionCommandArray.length);
+        _role.Command.v_ActionCommandArray.splice(0,_role.Command.v_ActionCommandArray.length);
         /*_role.Info.v_ActionMovePos = _d_Pos;
         //console.log("寻路结束 命令下达");
         //console.log(_role.v_Number);*/
@@ -370,7 +370,7 @@ C_MathLibStar.RoleFindWay = function(_role,_d_Pos) {
             //_role.v_NodeActionCommandArray.push(src);
 
             var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleMove},{Num:_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
-            _role.Command.v_RoleActionCommandArray.push(src);
+            _role.Command.v_ActionCommandArray.push(src);
         } 
         return true;
     }else{
@@ -392,7 +392,7 @@ C_MathLibStar.RoleFindWay2 = function(_role,d_Pos) {
     if(C_MathLibStar.RunRoleStar(RStar)){
         map[d_Pos.x][d_Pos.y].v_ExistRoleArray = ExistRoleArray;
         map[d_Pos.x][d_Pos.y].v_ExistBuildArray = ExistBuildArray;
-        _role.Command.v_RoleActionCommandArray.splice(0,_role.Command.v_RoleActionCommandArray.length);
+        _role.Command.v_ActionCommandArray.splice(0,_role.Command.v_ActionCommandArray.length);
         /*_role.Info.v_ActionMovePos = _d_Pos;
         //console.log("寻路结束 命令下达");
         //console.log(_role.v_Number);*/
@@ -403,7 +403,7 @@ C_MathLibStar.RoleFindWay2 = function(_role,d_Pos) {
             //_role.v_NodeActionCommandArray.push(src);
 
             var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleMove},{Num:_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
-            _role.Command.v_RoleActionCommandArray.push(src);
+            _role.Command.v_ActionCommandArray.push(src);
         } 
         return true;
     }else{
