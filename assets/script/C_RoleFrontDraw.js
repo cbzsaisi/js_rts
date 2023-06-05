@@ -55,7 +55,7 @@ var C_RoleFrontDraw = {
                     node.ShowNodeSelect.lineWidth = 1;
                     node.ShowNodeSelect.strokeColor = cc.Color.RED;
                     node.ShowNodeSelect.fillColor = cc.Color.RED;
-                    node.ShowNodeSelect.rect(-250,-300,500 * g_RoleManager.GetRoleHpRatio(node.MainNode.Info.v_RoleNumber),30);
+                    node.ShowNodeSelect.rect(-250,-300,500 * g_RoleManager.GetRoleHpRatio(node.MainNode.Info.v_Number),30);
                     node.ShowNodeSelect.fill();
                     node.ShowNodeSelect.stroke();
                     //

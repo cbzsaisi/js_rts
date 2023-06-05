@@ -116,34 +116,38 @@ C_SrciptProc.CommandSrciptProc1 = function (_src) {
         }
         case GamePublic.e_CommandType.RoleAttack:{
             // let Attack_type = null;
-            var t_role = null;
+            let f_get = null;
             switch(_src.Script.Info.TargetType){
                 case GamePublic.e_BaseObjType.Role:{
                     Attack_type = GamePublic.e_BaseObjType.Role;
-                    t_role = g_gamemangaer.GetRole(_src.TarRole.Num);
+                    f_get = g_gamemangaer.GetRole;
                     break;
                 }
                 case GamePublic.e_BaseObjType.Build:{
                     Attack_type = GamePublic.e_BaseObjType.Build;
-                    t_role = g_gamemangaer.GetBuild(_src.TarRole.Num);
-                    console.log("GamePublic.e_BaseObjType.Build");
+                    f_get = g_gamemangaer.GetBuild;
                     break;
                 }
             }
+            let t_role = f_get(_src.TarRole.Num);
             if (t_role) {
                 if (Math.abs(s_role.Info.v_MapPos.x - t_role.Info.v_MapPos.x) < 2 && Math.abs(s_role.Info.v_MapPos.y - t_role.Info.v_MapPos.y) < 2) {
-                    console.log("范围内 开始攻击");
+                    //console.log("范围内 开始攻击");
                     s_role.GameInfo.v_RoleAttackType = {AttackType:GamePublic.e_RoleAttackType.left_hand,Skill:"Left"};//修改攻击类型
-                    var src = new GamePublic.s_RoleScript({Info:{TargetType:GamePublic.e_BaseObjType.Build},Name:GamePublic.e_CommandBaseType.RoleAttacking},{Num:s_role.Info.v_RoleNumber,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:null});
+                    var src = new GamePublic.s_RoleScript({Info:{TargetType:Attack_type},Name:GamePublic.e_CommandBaseType.RoleAttacking},{Num:s_role.Info.v_Number,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:null});
                     s_role.Command.v_RoleActionCommandArray.push(src);
                     SrcExeState = GamePublic.e_CommandSrcipt.Success;
                 } else {
-                    console.log("范围外，要移动");
-                    var map = t_role.GameInfo.v_CurrentMap.MapRoomArray;
-                    var ExistRoleArray = map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistRoleArray;
-                    map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistRoleArray = []; //暂时把目标点清空
-                    var hr = g_Astar.RoleFindWay(s_role,t_role.Info.v_MapPos);
-                    map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistRoleArray = ExistRoleArray;
+                    //console.log("范围外，要移动",t_role.Info.v_MapPos);
+                    // var map = t_role.GameInfo.v_CurrentMap.MapRoomArray;
+                    // var ExistRoleArray = map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistRoleArray;
+                    // map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistRoleArray = []; //暂时把目标点清空
+                    // var ExistBuildArray = map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistBuildArray;
+                    // map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistBuildArray = []; //暂时把目标点清空
+
+                    var hr = g_Astar.RoleFindWay2(s_role,t_role.Info.v_MapPos);
+                    // map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistRoleArray = ExistRoleArray;
+                    // map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistBuildArray = ExistBuildArray;
                     if (hr) {
                         SrcExeState = GamePublic.e_CommandSrcipt.Success;
                         //这个会被 命令栈pop掉
@@ -197,22 +201,31 @@ C_SrciptProc.RoleActionCommandPassiveProc = function (_src) { //被动处理
 }
 
 C_SrciptProc.RoleActionSrciptProc = function (v_src) {  //动作处理
-    //console.log(v_src);
+    let f_get = null;
     let g_gamemangaer = GamePublic.g_GameDataResManger;
+    switch(v_src.Script.Info.TargetType){
+        case GamePublic.e_BaseObjType.Role:{
+            f_get = g_gamemangaer.GetRole;
+            break;
+        }
+        case GamePublic.e_BaseObjType.Build:{
+            f_get = g_gamemangaer.GetBuild;
+            break;
+        }
+    }
     switch (v_src.Script.Name) {
         case GamePublic.e_RoleAction.attack:{
-            console.log(v_src.Script.Info.TargetType);
             let role = g_gamemangaer.GetRole(v_src.ScrRole.Num);
-            // role.Command.v_ActionWaitTime = 0;
-            // var CommandArray = role.Command.v_RoleActionCommandArray1;
-            // if(CommandArray.length > 0 && CommandArray[role.Command.v_RoleActionCommandArray1Number].Script.Name == GamePublic.e_CommandType.RoleAttack){
-            //     var t_role = g_gamemangaer.GetRole(CommandArray[role.Command.v_RoleActionCommandArray1Number].TarRole.Num);
-            //     //for(var i in CommandArray[CommandArray.length - 1].TarRole.Array){
-            //     var src = new GamePublic.s_RoleScript({Info:role.GameInfo.v_RoleAttackType,Name:GamePublic.e_CommandType.RoleAttackHarm},{Num:role.Info.v_RoleNumber, Array:"",Pos:123},{Num:t_role.Info.v_RoleNumber, Array:"",Pos:123});
-            //     //console.log(src);
-            //     t_role.Command.v_RoleActionCommandPassive.push(src);
-            //     //}
-            // }
+            role.Command.v_ActionWaitTime = 0;
+            var CommandArray = role.Command.v_RoleActionCommandArray1;
+            if(CommandArray.length > 0 && CommandArray[role.Command.v_RoleActionCommandArray1Number].Script.Name == GamePublic.e_CommandType.RoleAttack){
+                var t_role = f_get(CommandArray[role.Command.v_RoleActionCommandArray1Number].TarRole.Num);
+                //for(var i in CommandArray[CommandArray.length - 1].TarRole.Array){
+                var src = new GamePublic.s_RoleScript({Info:role.GameInfo.v_RoleAttackType,Name:GamePublic.e_CommandType.RoleAttackHarm},{Num:role.Info.v_Number, Array:"",Pos:123},{Num:t_role.Info.v_Number, Array:"",Pos:123});
+                //console.log(src);
+                t_role.Command.v_RoleActionCommandPassive.push(src);
+                //}
+            }
             break;
         }
     }

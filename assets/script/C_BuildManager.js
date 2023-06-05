@@ -58,8 +58,8 @@ F_BuildManager.C_BuildManager = {
 
 
 
-F_BuildManager.BuildValueAlter = function (v_BuildNumber, v_value) {
-    var Build = GamePublic.g_GameDataResManger.GetRole(v_BuildNumber);
+F_BuildManager.BuildValueAlter = function (v_Number, v_value) {
+    var Build = GamePublic.g_GameDataResManger.GetRole(v_Number);
     Build.Info.v_PropertyData.NowHP -= v_value.Hp;
     Build.Info.v_PropertyData.NowMP -= v_value.Mp;
     if(Build.Info.v_PropertyData.NowHP < 0) Build.Info.v_PropertyData.NowHP = 0;

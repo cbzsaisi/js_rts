@@ -333,7 +333,7 @@ var C_Page = {
                                                 }
                                                 if (node.PickObj.PickType == GamePublic.e_BarType.EquipBar) {
                                                     if (!Role.Info.v_RoleBag[BarNum]) {
-                                                        GamePublic.g_ItemManager.RoleUnEquip(Role.Info.v_RoleNumber, PickBarNum, BarNum);
+                                                        GamePublic.g_ItemManager.RoleUnEquip(Role.Info.v_Number, PickBarNum, BarNum);
                                                     }
                                                     console.log("卸装备");
                                                 }
@@ -343,7 +343,7 @@ var C_Page = {
                                                     item = Role.Info.v_RoleBag[PickBarNum];
                                                     if (item.EquipType == BarNum) { //匹配格子
                                                         console.log("装备");
-                                                        GamePublic.g_ItemManager.RoleEquip(Role.Info.v_RoleNumber, PickBarNum);
+                                                        GamePublic.g_ItemManager.RoleEquip(Role.Info.v_Number, PickBarNum);
                                                     } else {
                                                         console.log("不匹配格子");
                                                     }

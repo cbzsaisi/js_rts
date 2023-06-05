@@ -18,7 +18,7 @@ var C_Building = {
     New: function (_BuildResName, _MapNum, _MapPoint, _BuildNum) {
         var node = {};
         node.Info = {  //写入保存数据
-            v_BuildNumber: null, //建筑编号
+            v_Number: null, //建筑编号
             v_BuildOccupationType: null,//职业
             v_PropertyData: null, //数值
             v_BuildType: null,//建筑类型
@@ -94,7 +94,7 @@ var C_Building = {
         };
 
         node.GetNumber = function(){
-            return node.Info.v_BuildNumber;
+            return node.Info.v_Number;
         }
 
         node.SetSceenPos = function (_pos) {
@@ -127,7 +127,7 @@ var C_Building = {
         node.BuildMapShow = function () {
             for(let i = 0; i < node.GameInfo.v_SpriteData.BuildSize.width; i++){
                 for(let j = 0; j < node.GameInfo.v_SpriteData.BuildSize.height; j++){
-                    node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_MapPos.x + i][node.Info.v_MapPos.y + j].MoveInRole(node.Info.v_BuildNumber, node.Info.v_Type);
+                    node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_MapPos.x + i][node.Info.v_MapPos.y + j].MoveInRole(node.Info.v_Number, node.Info.v_Type);
                 }
             }
         };
@@ -135,7 +135,7 @@ var C_Building = {
         node.BuildMapRemove = function () {
             for(let i = 0; i < node.GameInfo.v_SpriteData.BuildSize.width; i++){
                 for(let j = 0; j < node.GameInfo.v_SpriteData.BuildSize.height; j++){
-                    node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_MapPos.x + i][node.Info.v_MapPos.y + j].MoveOutRole(node.Info.v_BuildNumber, node.Info.v_Type);
+                    node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_MapPos.x + i][node.Info.v_MapPos.y + j].MoveOutRole(node.Info.v_Number, node.Info.v_Type);
                 }
             }
         };
@@ -196,7 +196,7 @@ var C_Building = {
             node.BuildMapBuild();
             node.Info.v_ShowRemove = true;
             node.Info.v_State.TypeState = GamePublic.e_TypeState.Death;
-            //console.log("e_BuildTypeState.Death",this.Info.v_BuildNumber);
+            //console.log("e_BuildTypeState.Death",this.Info.v_Number);
         }
 
         node.StateCheck = function() {
@@ -231,7 +231,7 @@ var C_Building = {
         }
 
         node.Info.v_PropertyData = GamePublic.s_BuildPropertyData(GamePublic.e_BuildType.MilitaryCamp);
-        node.Info.v_BuildNumber = _BuildNum;
+        node.Info.v_Number = _BuildNum;
         node.Info.v_CurrentMapNum = _MapNum;
         node.Info.v_MapPos = _MapPoint;
         node.Info.v_State = GamePublic.s_RoleType();

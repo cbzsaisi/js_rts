@@ -62,8 +62,8 @@ F_RoleManager.RoleAttcak = function(_s_Role,_t_Role){
     return;
 },
 
-F_RoleManager.GetRolePowerValue = function (v_RoleNumber,v_attack_type) {
-    var Role = GamePublic.g_GameDataResManger.GetRole(v_RoleNumber);
+F_RoleManager.GetRolePowerValue = function (v_Number,v_attack_type) {
+    var Role = GamePublic.g_GameDataResManger.GetRole(v_Number);
     var RolePowerValue = GamePublic.s_RolePowerValue(0,0,{},0,0,{},[]);
     switch(v_attack_type.AttackType){
         case GamePublic.e_RoleAttackType.left_hand:{
@@ -103,8 +103,8 @@ F_RoleManager.RoleAttackCalc = function (v_s_RoleNumber,v_t_RoleNumber,v_attack_
 //     return Value;
 // },
 
-F_RoleManager.RoleValueAlter = function (v_RoleNumber, v_value) {
-    var Role = GamePublic.g_GameDataResManger.GetRole(v_RoleNumber);
+F_RoleManager.RoleValueAlter = function (v_Number, v_value) {
+    var Role = GamePublic.g_GameDataResManger.GetRole(v_Number);
     Role.Info.v_PropertyData.NowHP -= v_value.Hp;
     Role.Info.v_PropertyData.NowMP -= v_value.Mp;
     if(Role.Info.v_PropertyData.NowHP < 0) Role.Info.v_PropertyData.NowHP = 0;

@@ -357,23 +357,58 @@ C_MathLibStar.RunRoleStar = function(_RStar){
 
 C_MathLibStar.RoleFindWay = function(_role,_d_Pos) {
     var MapArray = [];
-    var RStar = GamePublic.s_RoleStar(_role.GameInfo.v_CurrentMap,_role.Info.v_MapPos,_d_Pos,MapArray,_role.Info.v_RoleNumber,_role.Info.v_RolePassStatu);
+    var RStar = GamePublic.s_RoleStar(_role.GameInfo.v_CurrentMap,_role.Info.v_MapPos,_d_Pos,MapArray,_role.Info.v_Number,_role.Info.v_RolePassStatu);
     if(C_MathLibStar.RunRoleStar(RStar)){
         _role.Command.v_RoleActionCommandArray.splice(0,_role.Command.v_RoleActionCommandArray.length);
         /*_role.Info.v_ActionMovePos = _d_Pos;
         //console.log("寻路结束 命令下达");
-        //console.log(_role.v_RoleNumber);*/
+        //console.log(_role.v_Number);*/
         for(var i=0;i<MapArray.length;i++){ //把路径放到命令菜单里
             var WayPos = MapArray[i];
             //console.log(WayPos.oPos);
-            //var src = new s_NodeScript("RoleAction","RoleMove",_role.v_RoleNumber,'',WayPos.oPos);
+            //var src = new s_NodeScript("RoleAction","RoleMove",_role.v_Number,'',WayPos.oPos);
             //_role.v_NodeActionCommandArray.push(src);
 
-            var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleMove},{Num:_role.Info.v_RoleNumber,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
+            var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleMove},{Num:_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
             _role.Command.v_RoleActionCommandArray.push(src);
         } 
         return true;
     }else{
+        console.log("寻路失败");
+        return false;
+    }
+    //MapArray.splice(0,MapArray.length);
+}
+
+C_MathLibStar.RoleFindWay2 = function(_role,d_Pos) {
+    var MapArray = [];
+    let map = _role.GameInfo.v_CurrentMap.MapRoomArray;
+    var ExistRoleArray = map[d_Pos.x][d_Pos.y].v_ExistRoleArray;
+    var ExistBuildArray = map[d_Pos.x][d_Pos.y].v_ExistBuildArray;
+    map[d_Pos.x][d_Pos.y].v_ExistRoleArray = []; //暂时把目标点清空
+    map[d_Pos.x][d_Pos.y].v_ExistBuildArray = []; //暂时把目标点清空
+
+    var RStar = GamePublic.s_RoleStar(_role.GameInfo.v_CurrentMap,_role.Info.v_MapPos,d_Pos,MapArray,_role.Info.v_Number,_role.Info.v_RolePassStatu);
+    if(C_MathLibStar.RunRoleStar(RStar)){
+        map[d_Pos.x][d_Pos.y].v_ExistRoleArray = ExistRoleArray;
+        map[d_Pos.x][d_Pos.y].v_ExistBuildArray = ExistBuildArray;
+        _role.Command.v_RoleActionCommandArray.splice(0,_role.Command.v_RoleActionCommandArray.length);
+        /*_role.Info.v_ActionMovePos = _d_Pos;
+        //console.log("寻路结束 命令下达");
+        //console.log(_role.v_Number);*/
+        for(var i=0;i<MapArray.length;i++){ //把路径放到命令菜单里
+            var WayPos = MapArray[i];
+            //console.log(WayPos.oPos);
+            //var src = new s_NodeScript("RoleAction","RoleMove",_role.v_Number,'',WayPos.oPos);
+            //_role.v_NodeActionCommandArray.push(src);
+
+            var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleMove},{Num:_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
+            _role.Command.v_RoleActionCommandArray.push(src);
+        } 
+        return true;
+    }else{
+        map[d_Pos.x][d_Pos.y].v_ExistRoleArray = ExistRoleArray;
+        map[d_Pos.x][d_Pos.y].v_ExistBuildrray = ExistBuildArray;
         console.log("寻路失败");
         return false;
     }
@@ -464,7 +499,7 @@ C_MathLibStar.RunRoleStar2 = function(_RStar){
 
 C_MathLibStar.FindWayCheck = function(s_role,d_Pos) {
     var MapArray = [];
-    var RStar = GamePublic.s_RoleStar(s_role.GameInfo.v_CurrentMap,s_role.Info.v_MapPos,d_Pos,MapArray,s_role.Info.v_RoleNumber,s_role.Info.v_RolePassStatu);
+    var RStar = GamePublic.s_RoleStar(s_role.GameInfo.v_CurrentMap,s_role.Info.v_MapPos,d_Pos,MapArray,s_role.Info.v_Number,s_role.Info.v_RolePassStatu);
     C_MathLibStar.RunRoleStar2(RStar);
     return {SortNum:MapArray.length,Obj:d_Pos};
 }
