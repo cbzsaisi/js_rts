@@ -207,6 +207,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                     case GamePublic.e_RoleTargetCheckResult.Success:{
                                         var src = new GamePublic.s_RoleScript({ Info:{TargetType:GamePublic.e_BaseObjType.Role}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: t_role.Info.v_Number, Array: [t_role.Info.v_Number], Pos: mappos });
                                         role.Command.v_ActionCommandArray1.push(src);
+                                        role.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.stop;
                                         break;
                                     }
                                     case GamePublic.e_RoleTargetCheckResult.Is_Self:{
@@ -240,6 +241,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                 role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
                                 var src = new GamePublic.s_RoleScript({ Info: 1, Name: GamePublic.e_CommandType.RoleGoToPos }, { Num: role.Info.v_Number, Array: "111", Pos: 123 }, { Num: 0, Array: "22", Pos: mappos });
                                 role.Command.v_ActionCommandArray1.push(src);    
+                                role.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.stop;
                                 //GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].SetSelectFlag(true);
                             }
                         }

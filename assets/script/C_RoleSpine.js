@@ -49,6 +49,7 @@ var C_RoleSpine = {
                 v_ActionNodeNumber: null, //当前动画总帧数
                 v_SpriteNumber: null, //当前精灵动画执行到的帧数
                 v_RoleCurActionSpriteNum: null, //当前角色动画累计执行帧数
+                v_SpriteActionCommandIs: false,//动画动作事件是否开始
                 //移动相关
                 v_MapOffset: null, //移动偏移量？ 
                 v_SpriteBoundingBox: null,
@@ -236,9 +237,6 @@ var C_RoleSpine = {
                 }
                 if (node.GameInfo.v_FrontDraw) node.GameInfo.v_FrontDraw.update();
             }
-            //console.log(node.Command.v_ActionWaitTime);
-            // console.log(node.Command.v_ActionLoop);
-            // console.log(node.Command.v_ActionRunStage);
             
             if (node.Command.v_ActionWaitTime < 1) {
                 //if(this.Info.v_Number == 1)console.log("命令数量",node.Command.v_ActionCommandArray.length);
@@ -308,6 +306,8 @@ var C_RoleSpine = {
                         //if(this.Info.v_Number == 1)console.log(node.Command.v_ActionCommandArray1.length);
                         if(RoleSrcipt.Command1StateCheckSrciptProc(this.Info.v_Number) == GamePublic.e_CommandResultSrcipt.Success){
                             node.Command.v_ActionCommandArray1.splice(node.Command.v_ActionCommandArray1Number, 1);
+                            node.Command.v_ActionCommandArray1Number = node.Command.v_ActionCommandArray1.length - 1;
+                            if(node.Command.v_ActionCommandArray1Number < 0) node.Command.v_ActionCommandArray1Number = 0;
                             //console.log(this.Info.v_Number,"目标已亡222",node.Command.v_ActionCommandArray1.length);
                         }
                         //node.Command.v_ActionCommandArray1.splice(node.Command.v_ActionCommandArray1Number, 1);
