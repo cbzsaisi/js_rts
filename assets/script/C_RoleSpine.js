@@ -306,7 +306,7 @@ var C_RoleSpine = {
                         //if(this.Info.v_Number == 1)console.log(node.Command.v_ActionCommandArray1.length);
                         if(RoleSrcipt.Command1StateCheckSrciptProc(this.Info.v_Number) == GamePublic.e_CommandResultSrcipt.Success){
                             node.Command.v_ActionCommandArray1.splice(node.Command.v_ActionCommandArray1Number, 1);
-                            node.Command.v_ActionCommandArray1Number = node.Command.v_ActionCommandArray1.length - 1;
+                            node.Command.v_ActionCommandArray1Number = node.Command.v_ActionCommandArray1.length;
                             if(node.Command.v_ActionCommandArray1Number < 0) node.Command.v_ActionCommandArray1Number = 0;
                             //console.log(this.Info.v_Number,"目标已亡222",node.Command.v_ActionCommandArray1.length);
                         }
@@ -378,6 +378,7 @@ var C_RoleSpine = {
         node.Destroy = function() {
             this.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
             this.Command.v_ActionCommandArray1.splice(node.Command.v_ActionCommandArray1.length - 1, node.Command.v_ActionCommandArray1.length);
+            node.Command.v_ActionCommandArray1Number = 0;
             var src = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_CommandType.RoleDeath}, { Num: this.Info.v_Number, Array: "22", Pos: 123 }, {});
             this.Command.v_ActionCommandArray1.push(src);
             this.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.New;
@@ -411,6 +412,7 @@ var C_RoleSpine = {
                 }
                 case GamePublic.e_RoleCommandType.Command1:{
                     node.Command.v_ActionCommandArray1.splice(0, node.Command.v_ActionCommandArray1.length);
+                    node.Command.v_ActionCommandArray1Number = 0;
                     node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.New;
                     node.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
                     node.Command.v_ActionScriptFail = 0;
