@@ -67,4 +67,35 @@ F_BuildManager.BuildValueAlter = function (v_Number, v_value) {
     return;
 },
 
+F_BuildManager.ActionCommandPassiveProc = function (_src) { //被动处理
+    var g_gamemangaer = GamePublic.g_GameDataResManger;
+    var SrcExeState = GamePublic.e_CommandSrcipt.Fail;
+    switch (_src.Script.Name) {
+        case GamePublic.e_CommandType.RoleAttackHarm:{
+            //console.log("处理被攻击 来自：",_src.ScrRole.Num,"目标：",_src.TarRole.Num);
+            let t_role = g_gamemangaer.GetBuild(_src.TarRole.Num);
+            SrcExeState = GamePublic.e_CommandSrcipt.Success;
+            if (t_role.Info.v_State.TypeState == GamePublic.e_TypeState.Death){
+                console.log("本角色已经亡 无法反击");
+                break;
+            }
+            //g_RoleManager.RoleAttackCalc(_src.ScrRole.Num,_src.TarRole.Num,_src.Script.Info);
+            t_role.Info.v_PropertyData.NowHP -= 25;
+
+            //反击
+            // var res = this.RoleTargetCheck(GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_RoleTargetCheck.RoleAttack}, { Num: _src.TarRole.Num, Array: [], Pos: 123 }, { Num: _src.ScrRole.Num, Array: [], Pos: 123 }));
+            // switch(res){
+            //     case GamePublic.e_RoleTargetCheckResult.Success:{
+            //         let src = new GamePublic.s_RoleScript({ Info:{TargetType:GamePublic.e_BaseObjType.Role}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: _src.TarRole.Num, Array: "222", Pos: 123 }, { Num: _src.ScrRole.Num, Array: [_src.ScrRole.Num], Pos: 321 });
+            //         t_role.Command.v_ActionCommandArray1.push(src);
+            //         break;
+            //     }
+            // }                   
+            
+            break;
+        }
+    }
+    return SrcExeState;
+}
+
 module.exports = F_BuildManager;

@@ -220,7 +220,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                             } else if(role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray.length){ //目标有建筑物
                                 let build = GamePublic.g_GameDataResManger.GetBuild(role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray[0]);
                                 let build_point_array = build.GetBuildPoint();
-                                //console.log(build_point_array);
+                                console.log(mappos.x,mappos.y,role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray);
                                 let point_array = [];
                                 for(let i in build_point_array){
                                     let ExistBuildArray = role.GameInfo.v_CurrentMap.MapRoomArray[build_point_array[i].x][build_point_array[i].y].v_ExistBuildArray;

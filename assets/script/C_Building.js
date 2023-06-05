@@ -1,6 +1,7 @@
 var GamePublic = require("./F_GamePublic");
 var GameResManager = require("./F_GameResManager");
 var BuildFrontDraw = require("./C_BuildFrontDraw");
+var BuildManager = require("./C_BuildManager");
 // var s_BuildingInfo = function(_Name, _Image, _Type, _Size, _ResNeeds, _TechNeeds, _RoomLimit) {
 //     var BuildInfo = {};
 //     BuildInfo.Name = _Name;
@@ -138,6 +139,7 @@ var C_Building = {
             for(let i = 0; i < node.GameInfo.v_SpriteData.BuildSize.width; i++){
                 for(let j = 0; j < node.GameInfo.v_SpriteData.BuildSize.height; j++){
                     node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_MapPos.x + i][node.Info.v_MapPos.y + j].MoveOutRole(node.Info.v_Number, node.Info.v_Type);
+                    console.log(node.Info.v_MapPos.x + i,node.Info.v_MapPos.y + j);
                 }
             }
         };
@@ -179,6 +181,17 @@ var C_Building = {
                 node.ShowSprite(true);
             }
             node.StateCheck();
+
+            if (node.Command.v_ActionCommandPassive.length) {
+                var Command = node.Command.v_ActionCommandPassive.splice(0, 1);
+                var SrcExeState = BuildManager.ActionCommandPassiveProc(Command[0]);
+                console.log(SrcExeState);
+                if (SrcExeState == GamePublic.e_CommandSrcipt.Success) {
+                    //node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.Run;
+                } else {
+                    //node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.End;
+                }
+            }
         };
         
         node.ShowSprite = function(_show) {
@@ -193,9 +206,9 @@ var C_Building = {
 
         node.Destroy = function() {
             node.ClearBuildCommand(GamePublic.e_RoleCommandType.Command);
-            node.SetMapPos({x:15,y:15});
             node.BuildMapRemove();
-            node.BuildMapBuild();
+            node.SetMapPos({x:15,y:15});
+            //node.BuildMapShow();
             node.Info.v_ShowRemove = true;
             node.Info.v_State.TypeState = GamePublic.e_TypeState.Death;
             //console.log("e_BuildTypeState.Death",this.Info.v_Number);

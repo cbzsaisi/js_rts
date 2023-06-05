@@ -8,7 +8,6 @@ function C_SrciptProc() {
 };
 
 C_SrciptProc.CommandSrciptProc = function (_src) {
-
     var g_gamemangaer = GamePublic.g_GameDataResManger;
     var s_role = g_gamemangaer.GetRole(_src.ScrRole.Num);
     s_role.Command.v_ActionConsoleType = 1; //控制类型
@@ -222,7 +221,7 @@ C_SrciptProc.RoleActionSrciptProc = function (v_src) {  //动作处理
                 //var t_role = f_get(CommandArray[role.Command.v_ActionCommandArray1Number].TarRole.Num);
                 var t_role = f_get(v_src.TarRole.Num);
                 //for(var i in CommandArray[CommandArray.length - 1].TarRole.Array){
-                console.log(v_src.Script.Info.TargetType,t_role,CommandArray[role.Command.v_ActionCommandArray1Number].TarRole.Num,v_src.TarRole.Num);
+                //console.log(v_src.Script.Info.TargetType,t_role,CommandArray[role.Command.v_ActionCommandArray1Number].TarRole.Num,v_src.TarRole.Num);
                 var src = new GamePublic.s_RoleScript({Info:role.GameInfo.v_RoleAttackType,Name:GamePublic.e_CommandType.RoleAttackHarm},{Num:role.Info.v_Number, Array:"",Pos:123},{Num:t_role.Info.v_Number, Array:"",Pos:123});
                 t_role.Command.v_ActionCommandPassive.push(src);
                 //}
@@ -280,7 +279,7 @@ C_SrciptProc.RoleTargetCheck = function(v_src) {  //角色目标检测
             }
             if(role.Command.v_ActionCommandArray1.length){
                 let command = role.Command.v_ActionCommandArray1[role.Command.v_ActionCommandArray1Number];
-                console.log(command,role.Command.v_ActionCommandArray1Number,role.Command.v_ActionCommandArray1);
+                if(!command)console.log(command,role.Command.v_ActionCommandArray1Number,role.Command.v_ActionCommandArray1);
                 if(command != null && command.Script.Name == GamePublic.e_CommandType.RoleAttack && command.TarRole.Num == v_src.TarRole.Num){
                     //console.log(v_src.ScrRole.Num,"攻击目标相同");
                     State = GamePublic.e_RoleTargetCheckResult.Is_Self;
