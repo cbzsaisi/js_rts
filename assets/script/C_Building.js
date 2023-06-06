@@ -64,6 +64,7 @@ var C_Building = {
             v_ActionCommandState: null,
             v_ActionCommandArray1: [],
             v_ActionCommandState1: null,
+            v_ActionCommandArray1Number: 0,
             v_ActionCommandPassive: [],
             v_ActionCommandPassiveState: null,
             //脚本执行
@@ -139,7 +140,6 @@ var C_Building = {
             for(let i = 0; i < node.GameInfo.v_SpriteData.BuildSize.width; i++){
                 for(let j = 0; j < node.GameInfo.v_SpriteData.BuildSize.height; j++){
                     node.GameInfo.v_CurrentMap.MapRoomArray[node.Info.v_MapPos.x + i][node.Info.v_MapPos.y + j].MoveOutRole(node.Info.v_Number, node.Info.v_Type);
-                    console.log(node.Info.v_MapPos.x + i,node.Info.v_MapPos.y + j);
                 }
             }
         };
@@ -185,7 +185,7 @@ var C_Building = {
             if (node.Command.v_ActionCommandPassive.length) {
                 var Command = node.Command.v_ActionCommandPassive.splice(0, 1);
                 var SrcExeState = BuildManager.ActionCommandPassiveProc(Command[0]);
-                console.log(SrcExeState);
+                //console.log(SrcExeState);
                 if (SrcExeState == GamePublic.e_CommandSrcipt.Success) {
                     //node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.Run;
                 } else {
@@ -234,6 +234,7 @@ var C_Building = {
                 }
                 case GamePublic.e_RoleCommandType.Command1:{
                     node.Command.v_ActionCommandArray1.splice(0, node.Command.v_ActionCommandArray1.length);
+                    node.Command.v_ActionCommandArray1Number = 0;
                     node.Command.v_ActionCommandArray1 = GamePublic.e_ActionCommandState.New;
                     node.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
                     node.Command.v_ActionScriptFail = 0;

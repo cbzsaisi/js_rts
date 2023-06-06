@@ -372,6 +372,13 @@ var G_Public = {
         RoleDeath:4,
     },
 
+    e_RoleToRoleType: {
+        RoleToRole: 0,
+        RoleToBuild:1,
+        BuildToBuild:2,
+        BuildToRole:3,
+    },
+
     //执行结果状态
     e_CommandResultSrcipt: {
         undefined: 0,

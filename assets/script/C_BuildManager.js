@@ -72,13 +72,14 @@ F_BuildManager.ActionCommandPassiveProc = function (_src) { //被动处理
     var SrcExeState = GamePublic.e_CommandSrcipt.Fail;
     switch (_src.Script.Name) {
         case GamePublic.e_CommandType.RoleAttackHarm:{
-            //console.log("处理被攻击 来自：",_src.ScrRole.Num,"目标：",_src.TarRole.Num);
+            //console.log("处理被攻击 来自：",_src.ScrRole.Num,"目标：",_src.TarRole.Num,"对方是：",_src.Script.Info.TargetType);
             let t_role = g_gamemangaer.GetBuild(_src.TarRole.Num);
             SrcExeState = GamePublic.e_CommandSrcipt.Success;
             if (t_role.Info.v_State.TypeState == GamePublic.e_TypeState.Death){
                 console.log("本角色已经亡 无法反击");
                 break;
             }
+            console.log(_src);
             //g_RoleManager.RoleAttackCalc(_src.ScrRole.Num,_src.TarRole.Num,_src.Script.Info);
             t_role.Info.v_PropertyData.NowHP -= 25;
 

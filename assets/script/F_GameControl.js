@@ -205,9 +205,11 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                 var res = RoleSrcipt.RoleTargetCheck(csrc);
                                 switch(res){
                                     case GamePublic.e_RoleTargetCheckResult.Success:{
+                                        role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
+                                        role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
                                         var src = new GamePublic.s_RoleScript({ Info:{TargetType:GamePublic.e_BaseObjType.Role}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: t_role.Info.v_Number, Array: [t_role.Info.v_Number], Pos: mappos });
                                         role.Command.v_ActionCommandArray1.push(src);
-                                        role.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.stop;
+                                        //role.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.stop;
                                         break;
                                     }
                                     case GamePublic.e_RoleTargetCheckResult.Is_Self:{
@@ -220,7 +222,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                             } else if(role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray.length){ //目标有建筑物
                                 let build = GamePublic.g_GameDataResManger.GetBuild(role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray[0]);
                                 let build_point_array = build.GetBuildPoint();
-                                console.log(mappos.x,mappos.y,role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray);
+                                //console.log(mappos.x,mappos.y,role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray);
                                 let point_array = [];
                                 for(let i in build_point_array){
                                     let ExistBuildArray = role.GameInfo.v_CurrentMap.MapRoomArray[build_point_array[i].x][build_point_array[i].y].v_ExistBuildArray;
@@ -231,6 +233,8 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                 }
                                 g_MathLib.Sort(point_array,0);//排序
                                 if(point_array.length > 0){
+                                    role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
+                                    role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
                                     var src = new GamePublic.s_RoleScript({Info:{TargetType:GamePublic.e_BaseObjType.Build}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: build.Info.v_Number, Array: [build.Info.v_Number], Pos: {x:point_array[0].Obj.x,y:point_array[0].Obj.y}});
                                     //console.log(src);
                                     role.Command.v_ActionCommandArray1.push(src);
@@ -241,7 +245,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                 role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
                                 var src = new GamePublic.s_RoleScript({ Info: 1, Name: GamePublic.e_CommandType.RoleGoToPos }, { Num: role.Info.v_Number, Array: "111", Pos: 123 }, { Num: 0, Array: "22", Pos: mappos });
                                 role.Command.v_ActionCommandArray1.push(src);    
-                                role.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.stop;
+                                //role.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.stop;
                                 //GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].SetSelectFlag(true);
                             }
                         }
