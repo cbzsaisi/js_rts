@@ -90,6 +90,7 @@ var C_Building = {
                     node.GameInfo.v_SpriteSize.height = node.GameInfo.v_BuildSprite.getBoundingBox().height;
                     node.GameInfo.v_CurrentMap.v_MapShowNode.addChild(node.GameInfo.v_BuildSprite,(node.GameInfo.v_CurrentMap.v_MapSize.x * node.GameInfo.v_CurrentMap.v_MapSize.y) -
                     (node.Info.v_MapPos.x + node.Info.v_MapPos.y * node.GameInfo.v_CurrentMap.v_MapSize.x));
+                    //console.log(node.GameInfo.v_BuildSprite.zIndex);
                     node.GameInfo.v_CurrentMap.v_MapShowNode.addChild(node.GameInfo.v_DrawNode, node.GameInfo.v_BuildSprite.zIndex);
                     if (!node.GameInfo.v_BuildCreate) { node.Create(); }
                 }

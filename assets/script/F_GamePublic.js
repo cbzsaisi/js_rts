@@ -460,6 +460,14 @@ var G_Public = {
     e_RoleOccupationType: {
         All:0,
         Warrior: 1,
+        Worker: 2,
+    },
+
+     //角色技能
+     e_WorkSkillType: {
+        Mining: 0,
+        Woodcutter: 1,
+        Farming: 2,
     },
 
     e_RoleAction: {
