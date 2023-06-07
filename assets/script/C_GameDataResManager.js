@@ -1,3 +1,4 @@
+var GamePublic = require("./F_GamePublic");
 var C_GameDataResManager = {
     New: function() {
         var GameDataRes = {};
@@ -47,6 +48,17 @@ var C_GameDataResManager = {
             return null;
         }
 
+        GameDataRes.GetObj = function(v_type) {
+            switch(v_type){
+                case GamePublic.e_BaseObjType.Role:{
+                    return this.GetRole;
+                }
+                case GamePublic.e_BaseObjType.Build:{
+                    return this.GetBuild;
+                }
+            }
+            return null;
+        }
         // GameDataRes.CheckSelect = function(_MapArry, _RoleArry, _Pos) {
         //     /* for(var i=0;i<_RoleArry.length;i++){
         //         if(_RoleArry[i].obj.Info.v_MapPos.x == _Pos.x && _RoleArry[i].obj.Info.v_MapPos.y == _Pos.y){

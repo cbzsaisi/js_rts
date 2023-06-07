@@ -79,9 +79,9 @@ F_BuildManager.ActionCommandPassiveProc = function (_src) { //被动处理
                 console.log("本角色已经亡 无法反击");
                 break;
             }
-            console.log(_src);
-            //g_RoleManager.RoleAttackCalc(_src.ScrRole.Num,_src.TarRole.Num,_src.Script.Info);
-            t_role.Info.v_PropertyData.NowHP -= 25;
+            //console.log(_src);
+            this.AttackCalc(_src.ScrRole.Num,GamePublic.e_BaseObjType.Role,_src.TarRole.Num,GamePublic.e_BaseObjType.Build,_src.Script.Info);
+            //t_role.Info.v_PropertyData.NowHP -= 25;
 
             //反击
             // var res = this.RoleTargetCheck(GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_RoleTargetCheck.RoleAttack}, { Num: _src.TarRole.Num, Array: [], Pos: 123 }, { Num: _src.ScrRole.Num, Array: [], Pos: 123 }));
@@ -99,4 +99,29 @@ F_BuildManager.ActionCommandPassiveProc = function (_src) { //被动处理
     return SrcExeState;
 }
 
+F_BuildManager.AttackCalc = function (v_s_RoleNumber,v_S_Role_Type,v_t_RoleNumber,v_T_Role_Type,v_attack_type) {
+    var s_Role = GamePublic.g_GameDataResManger.GetObj(v_S_Role_Type)(v_s_RoleNumber);
+    var t_Role = GamePublic.g_GameDataResManger.GetObj(v_T_Role_Type)(v_t_RoleNumber);
+    
+    var t_Role_value = t_Role.GetPowerValue(v_attack_type);
+    var s_Role_value = s_Role.GetPowerValue(v_attack_type);
+    //console.log(s_Role_value.p_Attack,t_Role_value.p_Defense);
+    this.ValueAlter(v_t_RoleNumber,GamePublic.s_RoleValueAlter(s_Role_value.p_Attack - t_Role_value.p_Defense,0));
+    // switch(v_attack_type){
+    // }
+    //计算攻击结果
+    return;
+}
+
+F_BuildManager.ValueAlter = function (v_Number, v_value) {
+    //console.log(v_value.Hp);
+    if(v_value.Hp < 0)v_value.Hp = 0;
+    if(v_value.Mp < 0)v_value.Mp = 0;
+    var Build = GamePublic.g_GameDataResManger.GetBuild(v_Number);
+    Build.Info.v_PropertyData.NowHP -= v_value.Hp;
+    Build.Info.v_PropertyData.NowMP -= v_value.Mp;
+    if(Build.Info.v_PropertyData.NowHP < 0) Build.Info.v_PropertyData.NowHP = 0;
+    if(Build.Info.v_PropertyData.NowMP < 0) Build.Info.v_PropertyData.NowMP = 0;
+    return;
+},
 module.exports = F_BuildManager;

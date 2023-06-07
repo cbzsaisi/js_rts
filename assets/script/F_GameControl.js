@@ -222,6 +222,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                             } else if(role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray.length){ //目标有建筑物
                                 let build = GamePublic.g_GameDataResManger.GetBuild(role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray[0]);
                                 let build_point_array = build.GetBuildPoint();
+                                //console.log(build_point_array,role.Info.v_MapPos,mappos.x,mappos.y);
                                 //console.log(mappos.x,mappos.y,role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistBuildArray);
                                 let point_array = [];
                                 for(let i in build_point_array){
@@ -232,11 +233,11 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                     role.GameInfo.v_CurrentMap.MapRoomArray[build_point_array[i].x][build_point_array[i].y].v_ExistBuildArray = ExistBuildArray;
                                 }
                                 g_MathLib.Sort(point_array,0);//排序
+                                //console.log(point_array);
                                 if(point_array.length > 0){
                                     role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                                     role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
                                     var src = new GamePublic.s_RoleScript({Info:{TargetType:GamePublic.e_BaseObjType.Build}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: build.Info.v_Number, Array: [build.Info.v_Number], Pos: {x:point_array[0].Obj.x,y:point_array[0].Obj.y}});
-                                    //console.log(src);
                                     role.Command.v_ActionCommandArray1.push(src);
                                 }
                                 //console.log(point_array);

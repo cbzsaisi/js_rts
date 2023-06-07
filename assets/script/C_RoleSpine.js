@@ -428,6 +428,20 @@ var C_RoleSpine = {
             }
         }
 
+        node.GetPowerValue = function (v_attack_type) {
+            var RolePowerValue = GamePublic.s_RolePowerValue(0,0,{},0,0,{},[]);
+            switch(v_attack_type.Type.AttackType){
+                case GamePublic.e_RoleAttackType.left_hand:{
+                    let Equip = node.Info.v_RoleEquip[GamePublic.e_EquipType.Hand];
+                    if (Equip == null) break;
+                    RolePowerValue.p_Attack += Equip.EquipIncreaseValue.Att;
+                    break;
+                }
+            }
+            //计算角色的攻击防御值
+            return RolePowerValue;
+        }
+
         node.LoadSpriteRes();
         //node.MyUpdate();
         return node;

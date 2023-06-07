@@ -387,7 +387,6 @@ C_MathLibStar.RoleFindWay2 = function(_role,d_Pos) {
     var ExistBuildArray = map[d_Pos.x][d_Pos.y].v_ExistBuildArray;
     map[d_Pos.x][d_Pos.y].v_ExistRoleArray = []; //暂时把目标点清空
     map[d_Pos.x][d_Pos.y].v_ExistBuildArray = []; //暂时把目标点清空
-
     var RStar = GamePublic.s_RoleStar(_role.GameInfo.v_CurrentMap,_role.Info.v_MapPos,d_Pos,MapArray,_role.Info.v_Number,_role.Info.v_RolePassStatu);
     if(C_MathLibStar.RunRoleStar(RStar)){
         map[d_Pos.x][d_Pos.y].v_ExistRoleArray = ExistRoleArray;

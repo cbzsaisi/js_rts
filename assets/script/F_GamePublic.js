@@ -133,19 +133,20 @@ var G_Public = {
         var BuildPropertyData = {};
         BuildPropertyData.HP = 1;
         BuildPropertyData.MP = 1;
+        BuildPropertyData.ATT = 1;
+        BuildPropertyData.DEF = 1;
         switch(BuildType){
             case this.e_BuildType.House:{
                 break;
             }
             case this.e_BuildType.MilitaryCamp:{
-                BuildPropertyData.HP = 50
+                BuildPropertyData.HP = 50;
+                BuildPropertyData.DEF = 2;
                 break;
             }
         }
         BuildPropertyData.NowHP = BuildPropertyData.HP;
         BuildPropertyData.NowMP = BuildPropertyData.MP;
-        BuildPropertyData.ATT = 1;
-        BuildPropertyData.DEF = 1;
         return BuildPropertyData;
     },
 

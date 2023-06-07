@@ -114,36 +114,28 @@ C_SrciptProc.CommandSrciptProc1 = function (_src) {
             break;
         }
         case GamePublic.e_CommandType.RoleAttack:{
-            let f_get = null;
-            switch(_src.Script.Info.TargetType){
-                case GamePublic.e_BaseObjType.Role:{
-                    f_get = g_gamemangaer.GetRole;
-                    break;
-                }
-                case GamePublic.e_BaseObjType.Build:{
-                    f_get = g_gamemangaer.GetBuild;
-                    break;
-                }
-            }
+            let f_get = g_gamemangaer.GetObj(_src.Script.Info.TargetType);
+            // switch(_src.Script.Info.TargetType){
+            //     case GamePublic.e_BaseObjType.Role:{
+            //         f_get = g_gamemangaer.GetRole;
+            //         break;
+            //     }
+            //     case GamePublic.e_BaseObjType.Build:{
+            //         f_get = g_gamemangaer.GetBuild;
+            //         break;
+            //     }
+            // }
             let t_role = f_get(_src.TarRole.Num);
             if (t_role) {
-                if (Math.abs(s_role.Info.v_MapPos.x - t_role.Info.v_MapPos.x) < 2 && Math.abs(s_role.Info.v_MapPos.y - t_role.Info.v_MapPos.y) < 2) {
+                if (Math.abs(s_role.Info.v_MapPos.x - _src.TarRole.Pos.x) < 2 && Math.abs(s_role.Info.v_MapPos.y - _src.TarRole.Pos.y) < 2) {
                     //console.log("范围内 开始攻击");
                     s_role.GameInfo.v_RoleAttackType = {AttackType:GamePublic.e_RoleAttackType.left_hand,Skill:"Left"};//修改攻击类型
-                    var src = new GamePublic.s_RoleScript({Info:{TargetType:_src.Script.Info.TargetType},Name:GamePublic.e_CommandBaseType.RoleAttacking},{Num:s_role.Info.v_Number,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:null});
+                    var src = new GamePublic.s_RoleScript({Info:{TargetType:_src.Script.Info.TargetType},Name:GamePublic.e_CommandBaseType.RoleAttacking},{Num:s_role.Info.v_Number,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:_src.TarRole.Pos});
                     s_role.Command.v_ActionCommandArray.push(src);
                     SrcExeState = GamePublic.e_CommandSrcipt.Success;
                 } else {
                     //console.log("范围外，要移动",t_role.Info.v_MapPos);
-                    // var map = t_role.GameInfo.v_CurrentMap.MapRoomArray;
-                    // var ExistRoleArray = map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistRoleArray;
-                    // map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistRoleArray = []; //暂时把目标点清空
-                    // var ExistBuildArray = map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistBuildArray;
-                    // map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistBuildArray = []; //暂时把目标点清空
-
-                    var hr = g_Astar.RoleFindWay2(s_role,t_role.Info.v_MapPos);
-                    // map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistRoleArray = ExistRoleArray;
-                    // map[t_role.Info.v_MapPos.x][t_role.Info.v_MapPos.y].v_ExistBuildArray = ExistBuildArray;
+                    var hr = g_Astar.RoleFindWay2(s_role,_src.TarRole.Pos);
                     if (hr) {
                         SrcExeState = GamePublic.e_CommandSrcipt.Success;
                         //这个会被 命令栈pop掉
@@ -241,17 +233,7 @@ C_SrciptProc.Command1StateCheckSrciptProc = function (RoleNum) {  //动作处理
     let CommandArray = role.Command.v_ActionCommandArray1[role.Command.v_ActionCommandArray1Number - 1];
     switch (CommandArray.Script.Name) {
         case GamePublic.e_CommandType.RoleAttack:{
-            let t_role = null;
-            switch(CommandArray.Script.Info.TargetType){
-                case GamePublic.e_BaseObjType.Role:{
-                    t_role = g_gdrm.GetRole(CommandArray.TarRole.Num);
-                    break;
-                }
-                case GamePublic.e_BaseObjType.Build:{
-                    t_role = g_gdrm.GetBuild(CommandArray.TarRole.Num);
-                    break;
-                }
-            }
+            let t_role = g_gdrm.GetObj(CommandArray.Script.Info.TargetType)(CommandArray.TarRole.Num);
             //if(t_role.Info.v_State.TypeState != GamePublic.e_TypeState.Death){
             if(t_role.Info.v_PropertyData.NowHP > 0){
                 CommandState = GamePublic.e_CommandResultSrcipt.Continue;

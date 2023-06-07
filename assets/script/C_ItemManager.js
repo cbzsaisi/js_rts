@@ -7,7 +7,7 @@ var C_ItemManager = {
 
         node.Create = function (){
             var ItemUsageValue = GamePublic.s_EquipUsageValue(1,1,1,1,1,1,1);//装备条件
-            var ItemIncreaseValue = GamePublic.s_EquipIncreaseValue(2,0,0,0,0,0,0,0,0,0,[],GamePublic.e_EquipAdditionalType.Fire);//装备数值
+            var ItemIncreaseValue = GamePublic.s_EquipIncreaseValue(5,0,0,0,0,0,0,0,0,0,[],GamePublic.e_EquipAdditionalType.Fire);//装备数值
             var OccupationRestrict = [GamePublic.e_RoleOccupationType.Warrior];
             var item = GamePublic.s_Item(GamePublic.e_ItemName.Sword1,"铁剑", "铁制剑","Itemimage002",GamePublic.e_ItemClass.RoleEquip,GamePublic.e_ItemType.Sword,GamePublic.e_EquipType.Hand,100,10,false,false,ItemUsageValue,ItemIncreaseValue,OccupationRestrict);
             node.ItemObjArray.push(item);
