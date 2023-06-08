@@ -112,4 +112,23 @@ F_RoleManager.RoleValueAlter = function (v_Number, v_value) {
     return;
 },
 
+F_RoleManager.GetCareerSkill = function (v_Type) {
+    var SkillArray = [];
+    switch(v_Type){
+        case GamePublic.e_RoleOccupationType.Worker:{
+            SkillArray.push(GamePublic.s_WorkSkillType(GamePublic.e_WorkSkillType.Farming,1,[]));
+            SkillArray.push(GamePublic.s_WorkSkillType(GamePublic.e_WorkSkillType.Mining,1,[]));
+            SkillArray.push(GamePublic.s_WorkSkillType(GamePublic.e_WorkSkillType.Woodcutter,1,[]));
+            break;
+        }
+        case GamePublic.e_RoleOccupationType.Warrior:{
+            SkillArray.push(GamePublic.s_WorkSkillType(GamePublic.e_WorkSkillType.Farming,1,[]));
+            SkillArray.push(GamePublic.s_WorkSkillType(GamePublic.e_WorkSkillType.Mining,1,[]));
+            SkillArray.push(GamePublic.s_WorkSkillType(GamePublic.e_WorkSkillType.Woodcutter,1,[]));
+            break;
+        }
+    }
+    return SkillArray;
+},
+
 module.exports = F_RoleManager;

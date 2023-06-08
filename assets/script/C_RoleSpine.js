@@ -12,10 +12,10 @@ var C_RoleSpine = {
 
         node.Info = { //写入保存数据
                 v_Number: null, //角色编号
-                v_RoleOccupationType: null, //职业
                 v_RoleRaceType: null, //角色种族
                 v_RoleRacePropertyData: {}, //种族属性数据
                 v_PropertyData: {}, //角色属性数据
+                v_Occupation: null, //角色职业
                 v_WorkSkill: [], //角色工作技能
                 v_MapPos: null, //在当前地图的坐标
                 v_State: null,//角色状态
@@ -142,9 +142,12 @@ var C_RoleSpine = {
 
             node.Info.v_RoleRaceType = GamePublic.e_RoleRaceType.Human;
             node.Info.v_RoleRacePropertyData = g_RoleManager.InitRoleRacePropertyData(node.Info.v_Number);
-            node.Info.v_PropertyData = GamePublic.s_RolePropertyData('');
+            node.Info.v_PropertyData = GamePublic.s_RolePropertyData("");
             node.CalcRolePropertyData();
-            node.Info.v_WorkSkill.push(GamePublic.e_WorkSkillType.Woodcutter);
+
+            node.Info.v_Occupation = GamePublic.e_RoleOccupationType.Warrior;
+            node.Info.v_WorkSkill.push(g_RoleManager.GetCareerSkill(node.Info.v_Occupation));
+
             GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Sword1, 1, node.Info.v_Number, "Role");
             GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 10, node.Info.v_Number, "Role");
             GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 2, node.Info.v_Number, "Role");

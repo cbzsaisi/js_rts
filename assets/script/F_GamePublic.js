@@ -645,9 +645,16 @@ var G_Public = {
 
     e_BaseObjType:{
         Role:0,
-        Build:1
+        Build:1,
+        MaptileAdditional:2,
     },
 
+    e_MaterialsType:{
+        Wood:0,
+        Iron_Ore:1,
+        Wheat:2,
+    },
+    
     e_SpriteResType:{
         Role:0,
         Build:1
@@ -667,6 +674,18 @@ var G_Public = {
         Command1:1,
         Command2:2,
         Passive:3
+    },
+
+    //角色技能
+    s_WorkSkillType: function (v_Skill_Name,v_LEVEL,v_Attribute){
+
+        let WorkSkill = {};
+        WorkSkill.Skill_Name = v_Skill_Name;
+        WorkSkill.LEVEL = v_LEVEL;
+        WorkSkill.Attribute = v_Attribute;
+        WorkSkill.Exp = 0;
+        WorkSkill.Count = 0;
+        return WorkSkill;
     },
 
     s_EquipUsageValue: function (_LEVEL, _STR, _CON, _DEX, _INT, _MEN, _LUK)//装备需求
