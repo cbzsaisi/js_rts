@@ -12,11 +12,13 @@ F_MathLib.C_Random = {
         node.GenerateRandom = function(){
             for(var i=0;i<node.iRandomMax;i++){
                 var j = Math.floor(Math.random()*(node.iRandomMax-1));
+                //console.log("i:",i,"j:",j);
                 if(i == j)continue;
                 var temp = node.RandomTable[j];
                 node.RandomTable[j] = node.RandomTable[i];
                 node.RandomTable[i] = temp;
             }
+            //console.log(node.RandomTable);
             node.RandomIndex = 0;
         };
         node.GetRandom = function(){

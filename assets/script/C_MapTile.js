@@ -1,4 +1,5 @@
 var GamePublic = require("./F_GamePublic");
+var G_MapTileAdditional = require("./C_MapTileAdditional")
 //var MapTileSprite = require("./script/C_MapTileSprite");
 
 var C_MapTile = {
@@ -10,6 +11,7 @@ var C_MapTile = {
         node.v_TileResType = null,
         node.v_TileResSprite = null,
         node.v_TileResArray = [],
+        node.v_ResArray = [],
         node.v_ExistRoleArray = [],
         node.v_ExistBuildArray = [],
         node.v_DtNumber = 0,
@@ -87,6 +89,15 @@ var C_MapTile = {
                     TileRes.v_ShowLevel = 5;
                     TileRes.v_MapPassStatus = GamePublic.e_RolePassStatu.nopass;
                     node.v_TileResArray.push(TileRes);
+                    break;
+            }
+        }
+
+        node.AddRes = function (_TileResName) {
+            switch (_TileResName) {
+                case GamePublic.e_MaterialsType.Wood:
+                    var Res = G_MapTileAdditional.New();
+                    node.v_ResArray.push(Res);
                     break;
             }
         }
