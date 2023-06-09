@@ -9,8 +9,7 @@ C_MapTileAdditional.New = function (){
 
     node.Info = { //写入保存数据
         v_Number: null, //角色编号
-        v_RaceType: null, //角色种族
-        v_RacePropertyData: {}, //种族属性数据
+        v_PropertyData: {}, //属性数据
         v_MapPos: null, //在当前地图的坐标
         v_State: null,//状态
         v_RolePassStatu: null, //穿透类型
@@ -74,7 +73,8 @@ C_MapTileAdditional.New = function (){
         v_TrarArray: [],
         v_TradeShopNum: 0, //交易商店编号
     }
-    node.Info.v_RaceType = GamePublic.e_MaterialsType.Wood;
+    node.Info.v_RaceType = GamePublic.e_MaterialsType.Iron_Ore;
+    node.Info.v_PropertyData = GamePublic.s_MaterialData(node.Info.v_RaceType,10000,10000,1,1,10,[]);
 
     return node;
 

@@ -72,7 +72,7 @@ cc.Class({
         GamePublic.g_MainCamera = this.mainCamera;
         GamePublic.g_winSize = cc.winSize;
         GamePublic.g_GameRunUi = null;        
-        GamePublic.g_UserPicklObj = {Type:GamePublic.e_UserControlType.Non};
+        GamePublic.g_UserPicklObj = GamePublic.s_UserPicklObj(0,{},GamePublic.e_UserControlType.Non);
 
         //初始显示节点
         this.Page_sceen_root = new cc.Node();

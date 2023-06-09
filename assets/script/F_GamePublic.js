@@ -631,6 +631,7 @@ var G_Public = {
     {
         Non:0,
         BuildPlace:1,
+        Work_Felling:2,
     },
     e_ControlState:
     {
@@ -648,7 +649,7 @@ var G_Public = {
         Build:1,
         MaptileAdditional:2,
     },
-
+    //物资资源类型
     e_MaterialsType:{
         Wood:0,
         Iron_Ore:1,
@@ -678,7 +679,6 @@ var G_Public = {
 
     //角色技能
     s_WorkSkillType: function (v_Skill_Name,v_LEVEL,v_Attribute){
-
         let WorkSkill = {};
         WorkSkill.Skill_Name = v_Skill_Name;
         WorkSkill.LEVEL = v_LEVEL;
@@ -687,6 +687,20 @@ var G_Public = {
         WorkSkill.Count = 0;
         return WorkSkill;
     },
+
+    //物资资源数据
+    s_MaterialData: function (v_Name,v_TotalValue,v_NowValue,v_Level,v_Difficulty,v_Growth,v_Tech){
+        let MaterialData = {};
+        MaterialData.Name = v_Name;
+        MaterialData.TotalValue = v_TotalValue;
+        MaterialData.NowValue = v_NowValue;
+        MaterialData.Level = v_Level;
+        MaterialData.Difficulty = v_Difficulty;
+        MaterialData.Growth = v_Growth;
+        MaterialData.Tech = v_Tech;
+        return MaterialData;
+    },
+    
 
     s_EquipUsageValue: function (_LEVEL, _STR, _CON, _DEX, _INT, _MEN, _LUK)//装备需求
     {
@@ -774,6 +788,15 @@ var G_Public = {
         Pick.PickType = _PickType;
         Pick.PickNum = _PickNum;
         return Pick;
+    },
+
+    s_UserPicklObj:function (v_Num, v_Size, v_Type)
+    {
+        var UserPicklObj = {};
+        UserPicklObj.Num = v_Num;
+        UserPicklObj.Size = v_Size;
+        UserPicklObj.Type = v_Type;
+        return UserPicklObj;
     },
 
     g_resources1 : [

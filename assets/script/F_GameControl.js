@@ -97,7 +97,9 @@ C_GameControl.ControlMouseRightDownCall = function (_pos) {
 // }
 
 C_GameControl.ControlMouseMiddleUpCall = function (_pos) {
-
+    if (GamePublic.g_SelectRoleArray.length){
+        GamePublic.g_UserPicklObj = GamePublic.s_UserPicklObj(GamePublic.g_SelectRoleArray,1,GamePublic.e_UserControlType.Work_Felling);
+    }
 }
 
 C_GameControl.ControlMouseLeftUpCall = function (_pos) {
@@ -105,35 +107,38 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
     //var ControlState = GamePublic.e_ControlState.Non;
     GamePublic.g_ButtonUsingFlag = false;//检测UI点击
 
-    if(GamePublic.g_UserPicklObj.Type == GamePublic.e_UserControlType.BuildPlace){ //当前状态是建筑检测 关闭检测
-        GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.BuildClick;
-        if(this.MapTiledCoverCheck(_pos,GamePublic.g_Active_Map,GamePublic.g_UserPicklObj.Size)){          
-            //GamePublic.g_Active_Map.MapTiledColorShow(true,cc.color(0,255, 0, 95));
-            var build = new BuildingClass.New("build1", 1, GamePublic.s_Vec2d(mappos.x, mappos.y), ++GamePublic.Buildnum);
-            GamePublic.g_ButtonUsingFlag = true;
-        }else{
-            
+    switch(GamePublic.g_UserPicklObj.Type){
+        case GamePublic.e_UserControlType.BuildPlace:{//当前状态是建筑检测
+            GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.BuildClick;
+            if(this.MapTiledCoverCheck(_pos,GamePublic.g_Active_Map,GamePublic.g_UserPicklObj.Size)){
+                var build = new BuildingClass.New("build1", 1, GamePublic.s_Vec2d(mappos.x, mappos.y), ++GamePublic.Buildnum);
+                GamePublic.g_ButtonUsingFlag = true;
+            }else{
+            }
+            GamePublic.g_Active_Map.MapTiledColorShow(false,null);
+            GamePublic.g_UserPicklObj.Type = GamePublic.e_UserControlType.Non;
+            break;
         }
-        GamePublic.g_Active_Map.MapTiledColorShow(false,null);
-        GamePublic.g_UserPicklObj.Type = GamePublic.e_UserControlType.Non;
-    }   
+        case GamePublic.e_UserControlType.Work_Felling:{
+            for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
+                var role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]);
+                console.log(role);
+            }
+            break;
+        }
+    }
+
     if (GamePublic.g_GameMenuManager && GamePublic.g_GameMenuManager.MenuNumber) {
         if (!GamePublic.g_MouseMoveFlag) GamePublic.g_GameMenuManager.MenuButtonCheck(_pos, GamePublic.e_ClickType.LeftUp);
     } else if (GamePublic.g_GamePageManager && GamePublic.g_GamePageManager.PageNumber) {
         GamePublic.g_GamePageManager.PageButtonCheck(_pos, GamePublic.e_ClickType.LeftUp);
     } else if (GamePublic.g_MouseLeftFlag == true && _pos.x >= 0 && _pos.x <= GamePublic.g_winSize.width && _pos.y >= 0 && _pos.y <= GamePublic.g_winSize.height) {
-        // if (GamePublic.g_MouseMoveFlag == false) {
-        //     ControlState = GamePublic.e_ControlState.MouseLeftNoMove;
-        // } else {
-        //     ControlState = GamePublic.e_ControlState.MouseLeftMove;
-        // }
     }
     if(GamePublic.g_GameRunUi && GamePublic.g_GameRunUi.ClickCheck(_pos,GamePublic.e_ClickType.LeftUp)){
         GamePublic.g_ButtonUsingFlag = true;
     }
 
     if (GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_ButtonUsingFlag == false){ //左键按下后移动   选择角色
-        
         switch (GamePublic.g_SelectStaus){
             case GamePublic.e_SelectStaus.NonSelect:{
                 if(GamePublic.g_MoveSelectStartPos){
@@ -280,7 +285,7 @@ C_GameControl.ControlMouseRightUpCall = function (_pos) {
         GamePublic.g_Active_Map.MapTiledColorShow(false,null);
         GamePublic.g_UserPicklObj.Type = GamePublic.e_UserControlType.Non;
     }   
-
+    GamePublic.g_UserPicklObj.Type = GamePublic.e_UserControlType.Non;
     GamePublic.g_MouseMoveFlag = false;
     GamePublic.g_MouseRightFlag = false;
     GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.Non;

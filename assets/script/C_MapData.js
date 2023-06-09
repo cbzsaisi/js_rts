@@ -21,9 +21,8 @@ var GamePublic = require("./F_GamePublic");
                 //var maptile = C_MapTile.New("MapTiledSprite003",node,GamePublic.s_Vec2d(i,j));
                 var maptile = C_MapTile.New("grass2",node,GamePublic.s_Vec2d(i,j));
                 if(GamePublic.g_GameRandom.GetRandom() > 990){
-                    //maptile.AddTileRes(GamePublic.e_ObjType.MapTileResTree1);
+                    maptile.AddTileRes(GamePublic.e_ObjType.MapTileResTree1);
                     maptile.AddRes(GamePublic.e_MaterialsType.Wood);
-                    
                 }
                 MapArray[j] = maptile;
             }
