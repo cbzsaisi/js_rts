@@ -17,9 +17,6 @@ var C_GameDataResManager = {
 
         GameDataRes.GetMap = function(_num) {
             for (var i = 0; i < GameDataRes.MapArray.length; i++) {
-                /* if (GameDataRes.MapArray[i].v_MapNumber == _num) {
-                    return GameDataRes.MapArray[i];
-                } */
                 if (GameDataRes.MapArray[i].obj.GetNumber() == _num) {
                     return GameDataRes.MapArray[i].obj;
                 }
@@ -55,6 +52,9 @@ var C_GameDataResManager = {
                 }
                 case GamePublic.e_BaseObjType.Build:{
                     return this.GetBuild;
+                }
+                case GamePublic.e_BaseObjType.MaptileAdditional:{
+                    return this.GetMap;
                 }
             }
             return null;

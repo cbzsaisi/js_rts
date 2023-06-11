@@ -1,15 +1,15 @@
 var GamePublic = require("./F_GamePublic");
-
+var GameArray = require("./A_GameArray");
 function C_MathLibStar() {
 };
 
-C_MathLibStar.TargePosPassTest = function (_RolePassStatu, _MapTile) { //检测是否可以通行
+C_MathLibStar.TargePosPassTest = function (_RolePassStatu, _MapTile, v_Type) { //检测是否可以通行
     var vpass = false;
     switch (_MapTile.v_TileType) {
         case GamePublic.e_ObjType.MapTileLand:
             //if(_RolePassStatu == "land")vpass = true;
-            for (var i = 0; i < GamePublic.s_MapTilePassLand.length; i++) {
-                if (_RolePassStatu == GamePublic.s_MapTilePassLand[i]) vpass = true;
+            for (var i = 0; i < GameArray.s_MapTilePassLand.length; i++) {
+                if (_RolePassStatu == GameArray.s_MapTilePassLand[i]) vpass = true;
             }
             break;
     }
@@ -28,8 +28,8 @@ C_MathLibStar.RoleTargePosPassTest = function (_RolePassStatu, _MapTile) {
     switch (_MapTile.v_TileType) {
         case GamePublic.e_ObjType.MapTileLand:
             //if(_RolePassStatu == GamePublic.e_RolePassStatu.land)vpass = true;
-            for (var i = 0; i < GamePublic.s_MapTilePassLand.length; i++) { //检测允许通过的类型
-                if (_RolePassStatu == GamePublic.s_MapTilePassLand[i]) vpass = GamePublic.e_ActionScriptFailType.Success;
+            for (var i = 0; i < GameArray.s_MapTilePassLand.length; i++) { //检测允许通过的类型
+                if (_RolePassStatu == GameArray.s_MapTilePassLand[i]) vpass = GamePublic.e_ActionScriptFailType.Success;
             }
             break;
     }
@@ -49,26 +49,6 @@ C_MathLibStar.RoleTargePosPassTest = function (_RolePassStatu, _MapTile) {
     }
     return vpass;
 } 
-
-/*  C_MathLibStar.StartTargePosPassTest = function (_RolePassStatu, _MapTile) {  //首次寻路
-    var vpass = false;
-    //if(e_RolePassStatu.nopass == _MapTile.v_MapPassStatus)return false;
-    //if(_RolePassStatu != _MapTile.v_MapPassStatus)return false;
-    switch (_MapTile.v_TileType) {
-        case GamePublic.e_ObjType.MapTileLand:
-            //if(_RolePassStatu == "land")vpass = true;
-            for (var i = 0; i < GamePublic.s_MapTilePassLand.length; i++) {
-                if (_RolePassStatu == GamePublic.s_MapTilePassLand[i]) vpass = true;
-            }
-            break;
-    }
-     for(var i=0;i < _MapTile.v_TileResArray.length;i++){
-        if(_MapTile.v_TileResArray[i].v_MapPassStatus == GamePublic.e_RolePassStatu.nopass)vpass=false;
-    } 
-    if (_MapTile.v_ExistRoleArray.length) vpass = false;
-    return vpass;
-}  */
-
 
 C_MathLibStar.CompWayPos = function(_OpenList,_CloseList,_CutPos)
 {
@@ -92,13 +72,13 @@ C_MathLibStar.CompWayPos = function(_OpenList,_CloseList,_CutPos)
 }
 
 
-C_MathLibStar.AddWayPoint = function(_Map,_sWayPos,_dPos,_OpenList,_CloseList,_RolePassStatu){
+C_MathLibStar.AddWayPoint = function(_Map,_sWayPos,_dPos,_OpenList,_CloseList,_RolePassStatu,v_Type){
     var left=false,right=false,up=false,down=false;
     if(_sWayPos.oPos.x >0){
         //console.log("左边");
         var tpos = GamePublic.s_Vec2d(_sWayPos.oPos.x-1,_sWayPos.oPos.y);
         var MapTile = _Map.MapRoomArray[tpos.x][tpos.y];
-        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile)){
+        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile,v_Type)){
             left = true;
             var WayPos = GamePublic.s_WayPoint(tpos,_dPos,_sWayPos,GamePublic.e_WayPointType.Type1);
             for(var i=0;i < _dPos.w;i++){
@@ -128,7 +108,7 @@ C_MathLibStar.AddWayPoint = function(_Map,_sWayPos,_dPos,_OpenList,_CloseList,_R
         //console.log("右边");//
         var tpos = GamePublic.s_Vec2d(_sWayPos.oPos.x+1,_sWayPos.oPos.y);
         var MapTile = _Map.MapRoomArray[tpos.x][tpos.y];
-        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile)){
+        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile,v_Type)){
             right = true;
             var WayPos = GamePublic.s_WayPoint(tpos,_dPos,_sWayPos,GamePublic.e_WayPointType.Type1);
             if(WayPos.oPos.x == _dPos.x && WayPos.oPos.y == _dPos.y) //如果是目标点 添加到开放列表最后  返回真
@@ -148,7 +128,7 @@ C_MathLibStar.AddWayPoint = function(_Map,_sWayPos,_dPos,_OpenList,_CloseList,_R
         //console.log("下边");//
         var tpos = GamePublic.s_Vec2d(_sWayPos.oPos.x,_sWayPos.oPos.y-1);
         var MapTile = _Map.MapRoomArray[tpos.x][tpos.y];
-        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile)){
+        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile,v_Type)){
             down = true;
             var WayPos = GamePublic.s_WayPoint(tpos,_dPos,_sWayPos,GamePublic.e_WayPointType.Type1);
             if(WayPos.oPos.x == _dPos.x && WayPos.oPos.y == _dPos.y) //如果是目标点 添加到开放列表最后  返回真
@@ -168,7 +148,7 @@ C_MathLibStar.AddWayPoint = function(_Map,_sWayPos,_dPos,_OpenList,_CloseList,_R
         //console.log("上边");//
         var tpos = GamePublic.s_Vec2d(_sWayPos.oPos.x,_sWayPos.oPos.y+1);
         var MapTile = _Map.MapRoomArray[tpos.x][tpos.y];
-        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile)){
+        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile,v_Type)){
             up = true;
             var WayPos = GamePublic.s_WayPoint(tpos,_dPos,_sWayPos,GamePublic.e_WayPointType.Type1);
             if(WayPos.oPos.x == _dPos.x && WayPos.oPos.y == _dPos.y) //如果是目标点 添加到开放列表最后  返回真
@@ -187,7 +167,7 @@ C_MathLibStar.AddWayPoint = function(_Map,_sWayPos,_dPos,_OpenList,_CloseList,_R
     if(left && up){
         var tpos = GamePublic.s_Vec2d(_sWayPos.oPos.x-1,_sWayPos.oPos.y+1);
         var MapTile = _Map.MapRoomArray[tpos.x][tpos.y];
-        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile)){
+        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile,v_Type)){
             var WayPos = GamePublic.s_WayPoint(tpos,_dPos,_sWayPos,GamePublic.e_WayPointType.Type1);
             if(WayPos.oPos.x == _dPos.x && WayPos.oPos.y == _dPos.y) //如果是目标点 添加到开放列表最后  返回真
             {
@@ -204,7 +184,7 @@ C_MathLibStar.AddWayPoint = function(_Map,_sWayPos,_dPos,_OpenList,_CloseList,_R
     if(right && up){
         var tpos = GamePublic.s_Vec2d(_sWayPos.oPos.x+1,_sWayPos.oPos.y+1);
         var MapTile = _Map.MapRoomArray[tpos.x][tpos.y];
-        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile)){
+        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile,v_Type)){
             var WayPos = GamePublic.s_WayPoint(tpos,_dPos,_sWayPos,GamePublic.e_WayPointType.Type1);
             if(WayPos.oPos.x == _dPos.x && WayPos.oPos.y == _dPos.y) //如果是目标点 添加到开放列表最后  返回真
             {
@@ -221,7 +201,7 @@ C_MathLibStar.AddWayPoint = function(_Map,_sWayPos,_dPos,_OpenList,_CloseList,_R
     if(left && down){
         var tpos = GamePublic.s_Vec2d(_sWayPos.oPos.x-1,_sWayPos.oPos.y-1);
         var MapTile = _Map.MapRoomArray[tpos.x][tpos.y];
-        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile)){
+        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile,v_Type)){
             var WayPos = GamePublic.s_WayPoint(tpos,_dPos,_sWayPos,GamePublic.e_WayPointType.Type1);
             if(WayPos.oPos.x == _dPos.x && WayPos.oPos.y == _dPos.y) //如果是目标点 添加到开放列表最后  返回真
             {
@@ -239,7 +219,7 @@ C_MathLibStar.AddWayPoint = function(_Map,_sWayPos,_dPos,_OpenList,_CloseList,_R
     if(right && down){
         var tpos = GamePublic.s_Vec2d(_sWayPos.oPos.x+1,_sWayPos.oPos.y-1);
         var MapTile = _Map.MapRoomArray[tpos.x][tpos.y];
-        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile)){
+        if(C_MathLibStar.TargePosPassTest(_RolePassStatu,MapTile,v_Type)){
             var WayPos = GamePublic.s_WayPoint(tpos,_dPos,_sWayPos,GamePublic.e_WayPointType.Type1);
             if(WayPos.oPos.x == _dPos.x && WayPos.oPos.y == _dPos.y) //如果是目标点 添加到开放列表最后  返回真
             {
@@ -273,7 +253,7 @@ C_MathLibStar.RunRoleStar = function(_RStar){
     if(!C_MathLibStar.MapTilePassTest(_RStar)){console.log("目标不能进入");return false;}
     
     var MapTile = CurrentMap.MapRoomArray[dPos.x][dPos.y];
-     if(!C_MathLibStar.TargePosPassTest(RolePassStatu,MapTile)){
+     if(!C_MathLibStar.TargePosPassTest(RolePassStatu,MapTile,_RStar.FindWayType)){
         console.log("目标无可行路径")
         return false};//目标点不能进入 
     //console.log("可以进入");
@@ -285,7 +265,7 @@ C_MathLibStar.RunRoleStar = function(_RStar){
     var whilenum = 1000;
     while(whilenum--){
         test++;
-        if(C_MathLibStar.AddWayPoint(CurrentMap,sWayPos,dPos,OpenList,CLoseList,RolePassStatu)){
+        if(C_MathLibStar.AddWayPoint(CurrentMap,sWayPos,dPos,OpenList,CLoseList,RolePassStatu,_RStar.FindWayType)){
             //cc.log("找到节点 跳出循环");
             sWayPos = OpenList.pop();
             bPass = true;
@@ -355,63 +335,58 @@ C_MathLibStar.RunRoleStar = function(_RStar){
     }
 }
 
-C_MathLibStar.RoleFindWay = function(_role,_d_Pos) {
-    var MapArray = [];
-    var RStar = GamePublic.s_RoleStar(_role.GameInfo.v_CurrentMap,_role.Info.v_MapPos,_d_Pos,MapArray,_role.Info.v_Number,_role.Info.v_RolePassStatu);
-    if(C_MathLibStar.RunRoleStar(RStar)){
-        _role.Command.v_ActionCommandArray.splice(0,_role.Command.v_ActionCommandArray.length);
-        /*_role.Info.v_ActionMovePos = _d_Pos;
-        //console.log("寻路结束 命令下达");
-        //console.log(_role.v_Number);*/
-        for(var i=0;i<MapArray.length;i++){ //把路径放到命令菜单里
-            var WayPos = MapArray[i];
-            //console.log(WayPos.oPos);
-            //var src = new s_NodeScript("RoleAction","RoleMove",_role.v_Number,'',WayPos.oPos);
-            //_role.v_NodeActionCommandArray.push(src);
-
-            var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleMove},{Num:_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
-            _role.Command.v_ActionCommandArray.push(src);
-        } 
-        return true;
-    }else{
-        console.log("寻路失败");
-        return false;
+C_MathLibStar.RoleFindWay = function(v_role,d_Pos,v_Type) {
+    let MapArray = [];
+    var RStar = GamePublic.s_RoleStar(v_role.GameInfo.v_CurrentMap,v_role.Info.v_MapPos,d_Pos,MapArray,v_role.Info.v_Number,v_role.Info.v_RolePassStatu,v_Type);
+    switch(v_Type){
+        case GamePublic.e_FindWayType.Move:{
+            if(C_MathLibStar.RunRoleStar(RStar)){
+                v_role.Command.v_ActionCommandArray.splice(0,v_role.Command.v_ActionCommandArray.length);
+                for(var i=0;i<MapArray.length;i++){ //把路径放到命令菜单里
+                    var WayPos = MapArray[i];
+                    var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleMove},{Num:v_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
+                    v_role.Command.v_ActionCommandArray.push(src);
+                } 
+                return true;
+            }else{
+                console.log("寻路失败");
+                return false;
+            }
+            break;
+        }
+        case GamePublic.e_FindWayType.Near:{
+            let map = v_role.GameInfo.v_CurrentMap.MapRoomArray;
+            let ExistRoleArray = map[d_Pos.x][d_Pos.y].v_ExistRoleArray;
+            let ExistBuildArray = map[d_Pos.x][d_Pos.y].v_ExistBuildArray;
+            map[d_Pos.x][d_Pos.y].v_ExistRoleArray = []; //暂时把目标点清空
+            map[d_Pos.x][d_Pos.y].v_ExistBuildArray = []; //暂时把目标点清空
+            if(C_MathLibStar.RunRoleStar(RStar)){
+                v_role.Command.v_ActionCommandArray.splice(0,v_role.Command.v_ActionCommandArray.length);
+                for(var i=0;i<MapArray.length;i++){ //把路径放到命令菜单里
+                    var WayPos = MapArray[i];
+                    var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleMove},{Num:v_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
+                    v_role.Command.v_ActionCommandArray.push(src);
+                }
+                map[d_Pos.x][d_Pos.y].v_ExistRoleArray = ExistRoleArray;
+                map[d_Pos.x][d_Pos.y].v_ExistBuildArray = ExistBuildArray;
+                return true;
+            }else{
+                map[d_Pos.x][d_Pos.y].v_ExistRoleArray = ExistRoleArray;
+                map[d_Pos.x][d_Pos.y].v_ExistBuildArray = ExistBuildArray;
+                console.log("寻路失败");
+                return false;
+            }
+            break;
+        }
+        case GamePublic.e_FindWayType.Range:{
+            break;
+        }
+        case GamePublic.e_FindWayType.Felling:{
+            break;
+        }
     }
-    //MapArray.splice(0,MapArray.length);
-}
-
-C_MathLibStar.RoleFindWay2 = function(_role,d_Pos) {
-    var MapArray = [];
-    let map = _role.GameInfo.v_CurrentMap.MapRoomArray;
-    var ExistRoleArray = map[d_Pos.x][d_Pos.y].v_ExistRoleArray;
-    var ExistBuildArray = map[d_Pos.x][d_Pos.y].v_ExistBuildArray;
-    map[d_Pos.x][d_Pos.y].v_ExistRoleArray = []; //暂时把目标点清空
-    map[d_Pos.x][d_Pos.y].v_ExistBuildArray = []; //暂时把目标点清空
-    var RStar = GamePublic.s_RoleStar(_role.GameInfo.v_CurrentMap,_role.Info.v_MapPos,d_Pos,MapArray,_role.Info.v_Number,_role.Info.v_RolePassStatu);
-    if(C_MathLibStar.RunRoleStar(RStar)){
-        map[d_Pos.x][d_Pos.y].v_ExistRoleArray = ExistRoleArray;
-        map[d_Pos.x][d_Pos.y].v_ExistBuildArray = ExistBuildArray;
-        _role.Command.v_ActionCommandArray.splice(0,_role.Command.v_ActionCommandArray.length);
-        /*_role.Info.v_ActionMovePos = _d_Pos;
-        //console.log("寻路结束 命令下达");
-        //console.log(_role.v_Number);*/
-        for(var i=0;i<MapArray.length;i++){ //把路径放到命令菜单里
-            var WayPos = MapArray[i];
-            //console.log(WayPos.oPos);
-            //var src = new s_NodeScript("RoleAction","RoleMove",_role.v_Number,'',WayPos.oPos);
-            //_role.v_NodeActionCommandArray.push(src);
-
-            var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleMove},{Num:_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
-            _role.Command.v_ActionCommandArray.push(src);
-        } 
-        return true;
-    }else{
-        map[d_Pos.x][d_Pos.y].v_ExistRoleArray = ExistRoleArray;
-        map[d_Pos.x][d_Pos.y].v_ExistBuildrray = ExistBuildArray;
-        console.log("寻路失败");
-        return false;
-    }
-    //MapArray.splice(0,MapArray.length);
+    
+    
 }
 
 C_MathLibStar.RunRoleStar2 = function(_RStar){

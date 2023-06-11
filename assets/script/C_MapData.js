@@ -2,6 +2,7 @@ var C_MapTile = require("./C_MapTile");
 var GamePublic = require("./F_GamePublic");
 //var g_MathLib = require("./script/C_MathLib");
 //var g_Random = g_MathLib.Random;
+
  var C_MapData = {
     New: function (_MapSize,_MapNumber,_MapSeccn) {
         var node = {};

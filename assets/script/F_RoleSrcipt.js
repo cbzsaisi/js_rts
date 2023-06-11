@@ -104,7 +104,7 @@ C_SrciptProc.CommandSrciptProc1 = function (_src) {
     var s_role = g_gamemangaer.GetRole(_src.ScrRole.Num);
     switch (_src.Script.Name) {
         case GamePublic.e_CommandType.RoleGoToPos:{
-            var hr = g_Astar.RoleFindWay(s_role, _src.TarRole.Pos);
+            var hr = g_Astar.RoleFindWay(s_role, _src.TarRole.Pos,GamePublic.e_FindWayType.Move);
             if (hr) {
                 SrcExeState = GamePublic.e_CommandSrcipt.Success;
             } else {
@@ -135,7 +135,7 @@ C_SrciptProc.CommandSrciptProc1 = function (_src) {
                     SrcExeState = GamePublic.e_CommandSrcipt.Success;
                 } else {
                     //console.log("范围外，要移动",t_role.Info.v_MapPos);
-                    var hr = g_Astar.RoleFindWay2(s_role,_src.TarRole.Pos);
+                    var hr = g_Astar.RoleFindWay(s_role,_src.TarRole.Pos,GamePublic.e_FindWayType.Near);
                     if (hr) {
                         SrcExeState = GamePublic.e_CommandSrcipt.Success;
                         //这个会被 命令栈pop掉
@@ -151,6 +151,26 @@ C_SrciptProc.CommandSrciptProc1 = function (_src) {
         }
         case GamePublic.e_CommandType.RoleDeath:{
             s_role.SetRoleStateChange(GamePublic.e_TypeState.Death);
+            break;
+        }
+        case GamePublic.e_CommandType.Work_Felling:{
+            let f_get = g_gamemangaer.GetObj(_src.Script.Info.TargetType);
+            let map = f_get(_src.TarRole.Num);
+            console.log(map);
+            if (Math.abs(s_role.Info.v_MapPos.x - _src.TarRole.Pos.x) < 2 && Math.abs(s_role.Info.v_MapPos.y - _src.TarRole.Pos.y) < 2) {
+                console.log("范围内 开始伐木");
+                // var src = new GamePublic.s_RoleScript({Info:{TargetType:_src.Script.Info.TargetType},Name:GamePublic.e_CommandBaseType.RoleAttacking},{Num:s_role.Info.v_Number,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:_src.TarRole.Pos});
+                // s_role.Command.v_ActionCommandArray.push(src);
+                // SrcExeState = GamePublic.e_CommandSrcipt.Success;
+            } else {
+                console.log("伐木范围外，要移动",_src.TarRole.Pos);
+                var hr = g_Astar.RoleFindWay(s_role,_src.TarRole.Pos,GamePublic.e_FindWayType.Felling);
+                if (hr) {
+                    SrcExeState = GamePublic.e_CommandSrcipt.Success;
+                } else {
+                    console.log("无法移动到攻击目标周围");
+                }
+            }
             break;
         }
     }

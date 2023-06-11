@@ -150,7 +150,7 @@ var G_Public = {
         return BuildPropertyData;
     },
 
-    s_RoleStar: function (_v_CurrentMap, _OMapPos, _DMapPos, _MapArray, _RoleNumber, _RolePassStatu) {
+    s_RoleStar: function (_v_CurrentMap, _OMapPos, _DMapPos, _MapArray, _RoleNumber, _RolePassStatu, v_FindWayType) {
         var RoleStar = {};
         RoleStar.CurrentMap = _v_CurrentMap;
         RoleStar.OMapPos = _OMapPos;
@@ -158,26 +158,27 @@ var G_Public = {
         RoleStar.MapArray = _MapArray;
         RoleStar.RoleNumber = _RoleNumber;
         RoleStar.RolePassStatu = _RolePassStatu;
+        RoleStar.FindWayType = v_FindWayType;
         return RoleStar;
     },
 
     s_RoleScript: function (_Scrtip_info,_ScrRole,_TarRole){
-        this.scr = {Script:{},ScrRole:{},TarRole:{}};
+        var scr = {Script:{},ScrRole:{},TarRole:{}};
         if(_Scrtip_info){
-            this.scr.Script.Info = _Scrtip_info.Info;
-            this.scr.Script.Name = _Scrtip_info.Name;
+            scr.Script.Info = _Scrtip_info.Info;
+            scr.Script.Name = _Scrtip_info.Name;
         };
         if(_ScrRole){
-            this.scr.ScrRole.Num = _ScrRole.Num;
-            this.scr.ScrRole.Array = _ScrRole.Array;
-            this.scr.ScrRole.Pos = _ScrRole.Pos;
+            scr.ScrRole.Num = _ScrRole.Num;
+            scr.ScrRole.Array = _ScrRole.Array;
+            scr.ScrRole.Pos = _ScrRole.Pos;
         }
         if(_TarRole){
-            this.scr.TarRole.Num = _TarRole.Num;
-            this.scr.TarRole.Array = _TarRole.Array;
-            this.scr.TarRole.Pos = _TarRole.Pos;
+            scr.TarRole.Num = _TarRole.Num;
+            scr.TarRole.Array = _TarRole.Array;
+            scr.TarRole.Pos = _TarRole.Pos;
         }
-        return this.scr;
+        return scr;
     },
 
     //角色状态
@@ -371,6 +372,7 @@ var G_Public = {
         RoleAttacking:2,
         RoleAttack:3,
         RoleDeath:4,
+        Work_Felling:5,
     },
 
     e_RoleToRoleType: {
@@ -444,11 +446,18 @@ var G_Public = {
         iRandomMax: 100,
     },
 
+    e_FindWayType: {
+        Move: 0,
+        Near: 1,
+        Range: 2,
+        Felling: 3,
+    },
+
     //地形通行
     e_RolePassStatu: {
-        nopass: "nopass",
-        land: "land",
-        pass: "pass",
+        nopass: 0,
+        land: 1,
+        pass: 2,
     },
 
     //游戏种族类型
@@ -521,14 +530,9 @@ var G_Public = {
         Build: 4,
     },
 
-    e_MapTilePassLand: {
-        land: 0,
-    },
-
-    s_MapTilePassLand: [
-        //this.e_RolePassStatu.land,
-        "land"
-    ],
+    // e_MapTilePassLand: {
+    //     land: 0,
+    // },
 
     e_ButtonCommand: {
         def: 0,
@@ -627,14 +631,12 @@ var G_Public = {
         Fire:1,
     },
     
-    e_UserControlType:
-    {
+    e_UserControlType:{
         Non:0,
         BuildPlace:1,
         Work_Felling:2,
     },
-    e_ControlState:
-    {
+    e_ControlState:{
         Non:0,
         MouseLeft:1,
         MouseLeftNoMove:2,

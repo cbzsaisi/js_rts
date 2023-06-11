@@ -98,7 +98,7 @@ cc.Class({
         GamePublic.g_MoveEndPos = GamePublic.s_Vec2d(0, 0);
         GamePublic.g_MoveOff = GamePublic.s_Vec2d(0, 0);
         GamePublic.g_MoveOffLast = GamePublic.s_Vec2d(0, 0);
-        GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.Non;
+        PlayerClickType = GamePublic.e_PlayerClickType.Non;
         GamePublic.g_GameRandom = g_MathLib.C_Random.New();
         
         GamePublic.g_SelectRoleArray = [];
@@ -299,7 +299,7 @@ cc.Class({
          } else {
             if (!this.SceenCreate) {
                 for (let i = 0; i < 1; i++) {
-                    for (let j = 0; j < 2; j++) {
+                    for (let j = 0; j < 1; j++) {
                         var role = new RoleSpineClass.New("role2", 1, GamePublic.s_Vec2d(i, j), ++GamePublic.Rolenum);                        
                     }
                 }

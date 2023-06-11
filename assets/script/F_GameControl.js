@@ -48,9 +48,10 @@ C_GameControl.GetMapXY = function(_pos){
     var map = GamePublic.g_Active_Map.v_MapTiledSize;
     var pos = GamePublic.s_Vec2d((_pos.x - GamePublic.g_MoveOff.x + map.x * 1) / (map.x * GamePublic.g_SceenScale),
     (_pos.y - GamePublic.g_MoveOff.y + map.y * 0.6) / (map.y * GamePublic.g_SceenScale));
-    //console.log(pos.x,pos.y);
     pos.x = Math.floor(pos.x);
     pos.y = Math.floor(pos.y);
+    if(pos.x < 0 || pos.x > map.x)pos.x = -1;
+    if(pos.y < 0 || pos.y > map.y)pos.y = -1;
     //console.log(pos.x,pos.y);
     return pos;
 }
@@ -104,12 +105,14 @@ C_GameControl.ControlMouseMiddleUpCall = function (_pos) {
 
 C_GameControl.ControlMouseLeftUpCall = function (_pos) {
     var mappos = C_GameControl.GetMapXY(_pos);
+    let go_end = false;
+    let PlayerClickType = GamePublic.e_PlayerClickType.Non;
     //var ControlState = GamePublic.e_ControlState.Non;
     GamePublic.g_ButtonUsingFlag = false;//检测UI点击
 
     switch(GamePublic.g_UserPicklObj.Type){
         case GamePublic.e_UserControlType.BuildPlace:{//当前状态是建筑检测
-            GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.BuildClick;
+            PlayerClickType = GamePublic.e_PlayerClickType.BuildClick;
             if(this.MapTiledCoverCheck(_pos,GamePublic.g_Active_Map,GamePublic.g_UserPicklObj.Size)){
                 var build = new BuildingClass.New("build1", 1, GamePublic.s_Vec2d(mappos.x, mappos.y), ++GamePublic.Buildnum);
                 GamePublic.g_ButtonUsingFlag = true;
@@ -120,9 +123,18 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
             break;
         }
         case GamePublic.e_UserControlType.Work_Felling:{
+            if(mappos.x < 0)break;
             for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
                 var role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]);
-                console.log(role);
+                if (role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ResArray.length) {
+                    //let ResArray = role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ResArray;
+                    role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
+                    role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
+                    var src = new GamePublic.s_RoleScript({Info:{TargetType:GamePublic.e_BaseObjType.MaptileAdditional}, Name:GamePublic.e_CommandType.Work_Felling}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: role.Info.v_CurrentMapNum, Array: [role.Info.v_CurrentMapNum], Pos: mappos});
+                    role.Command.v_ActionCommandArray1.push(src);
+                }
+                
+                go_end = true;
             }
             break;
         }
@@ -138,7 +150,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
         GamePublic.g_ButtonUsingFlag = true;
     }
 
-    if (GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_ButtonUsingFlag == false){ //左键按下后移动   选择角色
+    if (!go_end && GamePublic.g_GamePageManager.PageNumber == 0 && GamePublic.g_GameMenuManager.MenuNumber == 0 && GamePublic.g_ButtonUsingFlag == false){ //左键按下后移动   选择角色
         switch (GamePublic.g_SelectStaus){
             case GamePublic.e_SelectStaus.NonSelect:{
                 if(GamePublic.g_MoveSelectStartPos){
@@ -161,12 +173,12 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
             }
             case GamePublic.e_SelectStaus.MultiRole:{
                 if(GamePublic.g_MouseMoveFlag){//拉过框 取消框选
-                    GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.RoleSelectClick;
+                    PlayerClickType = GamePublic.e_PlayerClickType.RoleSelectClick;
                 }else if (mappos.x >= 0 && mappos.y >= 0 && mappos.x < GamePublic.e_MapSizeType1.width && mappos.y < GamePublic.e_MapSizeType1.height){
-                    GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.RoleTarget;
+                    PlayerClickType = GamePublic.e_PlayerClickType.RoleTarget;
                 }
 
-                switch(GamePublic.g_PlayerClickType){
+                switch(PlayerClickType){
                     case GamePublic.e_PlayerClickType.BuildClick:{
                         break;
                     }
@@ -269,7 +281,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
     GamePublic.g_MouseLeftFlag = false;
     GamePublic.g_MoveSelectStartPos = null;
     GamePublic.g_MoveSelectEndPos = null;
-    GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.Non;
+    PlayerClickType = GamePublic.e_PlayerClickType.Non;
 }
 
 C_GameControl.ControlMouseRightUpCall = function (_pos) {
@@ -288,7 +300,7 @@ C_GameControl.ControlMouseRightUpCall = function (_pos) {
     GamePublic.g_UserPicklObj.Type = GamePublic.e_UserControlType.Non;
     GamePublic.g_MouseMoveFlag = false;
     GamePublic.g_MouseRightFlag = false;
-    GamePublic.g_PlayerClickType = GamePublic.e_PlayerClickType.Non;
+    //PlayerClickType = GamePublic.e_PlayerClickType.Non;
     // GamePublic.g_MoveSelectStartPos = null;
     // GamePublic.g_MoveSelectEndPos = null;
 }

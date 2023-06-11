@@ -101,7 +101,7 @@ var C_RoleSpine = {
         node.Info.v_RoleBagSize = 20, //当前背包大小
         node.Info.v_CurrentMapNum = _MapNum;
         node.Info.v_RoleBag = Array(50), //背包
-        node.Info.v_RolePassStatu = "land";
+        node.Info.v_RolePassStatu = GamePublic.e_RolePassStatu.land;
         node.Info.v_RoleEquip = Array(10), //装备背包
         node.Info.v_State = GamePublic.s_RoleType();
 
