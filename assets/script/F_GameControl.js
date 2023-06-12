@@ -245,7 +245,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                 for(let i in build_point_array){
                                     let ExistBuildArray = role.GameInfo.v_CurrentMap.MapRoomArray[build_point_array[i].x][build_point_array[i].y].v_ExistBuildArray;
                                     role.GameInfo.v_CurrentMap.MapRoomArray[build_point_array[i].x][build_point_array[i].y].v_ExistBuildArray = [];
-                                    let res = g_Astar.FindWayCheck(role,build_point_array[i]);
+                                    let res = g_Astar.FindWayCheck(role,build_point_array[i],GamePublic.e_FindWayType.Range);
                                     if(res.SortNum > 0)point_array.push(res);
                                     role.GameInfo.v_CurrentMap.MapRoomArray[build_point_array[i].x][build_point_array[i].y].v_ExistBuildArray = ExistBuildArray;
                                 }

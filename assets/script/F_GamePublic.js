@@ -364,6 +364,7 @@ var G_Public = {
         RoleAttack:3,
         RoleDeath:4,
         RoleWait:5,
+        Work_Felling:6,
     },
     
     e_CommandType: {
