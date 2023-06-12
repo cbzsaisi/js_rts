@@ -486,6 +486,7 @@ var G_Public = {
         run: 2,
         jump: 3,
         attack: 4,
+        Work_Felling: 5,
     },
 
     e_RoleSpeed: {

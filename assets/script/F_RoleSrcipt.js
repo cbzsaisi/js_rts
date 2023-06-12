@@ -72,7 +72,6 @@ C_SrciptProc.CommandSrciptProc = function (_src) {
                     }
                 }
             }
-
             s_role.Command.v_TrarArray.splice(0,s_role.Command.v_TrarArray.length);
             for(var i in _src.TarRole.Array){
                 s_role.Command.v_TrarArray.push(_src.TarRole.Array[i]);
@@ -93,7 +92,19 @@ C_SrciptProc.CommandSrciptProc = function (_src) {
             break;
         }
         case GamePublic.e_CommandBaseType.Work_Felling:{
-            console.log("范围内 开始伐木",_src);
+            console.log("范围内 开始伐木",_src.TarRole.Pos);
+            s_role.Command.v_ActionLoop = false;
+            s_role.Command.v_TarNum = _src.TarRole.Num;
+            s_role.Command.v_ActionWaitTime = 1;
+            s_role.Command.v_ActionConsoleType = 2;
+            s_role.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
+            switch (s_role.GameInfo.v_SpriteType) {
+                case GamePublic.e_SpriteType.spine:
+                    s_role.Command.v_ActionEvent = GamePublic.e_RoleAction.Work_Felling;
+                    s_role.Info.v_TargetType = _src.Script.Info.TargetType;
+                    s_role.SetRoleAction(GamePublic.e_RoleAction.jump);
+                    break;
+            }
             break;
         }
         case "Non":
