@@ -236,7 +236,7 @@ var C_Building = {
                 case GamePublic.e_RoleCommandType.Command1:{
                     node.Command.v_ActionCommandArray1.splice(0, node.Command.v_ActionCommandArray1.length);
                     node.Command.v_ActionCommandArray1Number = 0;
-                    node.Command.v_ActionCommandArray1 = GamePublic.e_ActionCommandState.New;
+                    node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.New;
                     node.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
                     node.Command.v_ActionScriptFail = 0;
                     break;

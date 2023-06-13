@@ -357,6 +357,13 @@ var G_Public = {
         Fail: 2,
     },
 
+    e_CommandLevel: {
+        Level1:1,
+        Level2:2,
+        Level3:3,
+        Level4:4,
+    },
+
     e_CommandBaseType: {
         RoleMove: 0,
         RoleAttackHarm:1,

@@ -374,7 +374,7 @@ C_MathLibStar.RoleFindWay = function(v_role,d_Pos,v_Type) {
                 v_role.Command.v_ActionCommandArray.splice(0,v_role.Command.v_ActionCommandArray.length);
                 for(var i=0;i<MapArray.length;i++){ //把路径放到命令菜单里
                     var WayPos = MapArray[i];
-                    var src = new GamePublic.s_RoleScript({Info:{ComNum:MapArray.length - i,ComLevel:1,ComWeight:3},Name:GamePublic.e_CommandBaseType.RoleMove},{Num:v_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
+                    var src = new GamePublic.s_RoleScript({Info:{ComNum:MapArray.length - i,ComLevel:GamePublic.e_CommandLevel.Level1,ComWeight:3},Name:GamePublic.e_CommandBaseType.RoleMove},{Num:v_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
                     v_role.Command.v_ActionCommandArray.push(src);
                 }
                 ret = true;
@@ -395,7 +395,7 @@ C_MathLibStar.RoleFindWay = function(v_role,d_Pos,v_Type) {
         v_role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
         for(var i=0;i<MapArray.length;i++){ //把路径放到命令菜单里
             var WayPos = MapArray[i];
-            var src = new GamePublic.s_RoleScript({Info:{ComNum:MapArray.length - i,ComLevel:1,ComWeight:3},Name:GamePublic.e_CommandBaseType.RoleMove},{Num:v_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
+            var src = new GamePublic.s_RoleScript({Info:{ComNum:MapArray.length - i,ComLevel:GamePublic.e_CommandLevel.Level1,ComWeight:3},Name:GamePublic.e_CommandBaseType.RoleMove},{Num:v_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
             v_role.Command.v_ActionCommandArray.push(src);
         } 
         ret = true;

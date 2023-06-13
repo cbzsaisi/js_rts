@@ -130,8 +130,8 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                     //let ResArray = role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ResArray;
                     role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                     role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
-                    var src = new GamePublic.s_RoleScript({Info:{TargetType:GamePublic.e_BaseObjType.MaptileAdditional}, Name:GamePublic.e_CommandType.Work_Felling}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: role.Info.v_CurrentMapNum, Array: [role.Info.v_CurrentMapNum], Pos: mappos});
-                    role.Command.v_ActionCommandArray1.push(src);
+                    var src = new GamePublic.s_RoleScript({Info:{TargetType:GamePublic.e_BaseObjType.MaptileAdditional,ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level2,ComWeight:3}, Name:GamePublic.e_CommandType.Work_Felling}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: role.Info.v_CurrentMapNum, Array: [role.Info.v_CurrentMapNum], Pos: mappos});
+                    role.Command.v_ActionCommandArray.push(src);
                 }
                 
                 go_end = true;
@@ -224,8 +224,8 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                     case GamePublic.e_RoleTargetCheckResult.Success:{
                                         role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                                         role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
-                                        var src = new GamePublic.s_RoleScript({ Info:{TargetType:GamePublic.e_BaseObjType.Role}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: t_role.Info.v_Number, Array: [t_role.Info.v_Number], Pos: mappos });
-                                        role.Command.v_ActionCommandArray1.push(src);
+                                        var src = new GamePublic.s_RoleScript({ Info:{TargetType:GamePublic.e_BaseObjType.Role,ComNum:1,ComLevel:2,ComWeight:10}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: t_role.Info.v_Number, Array: [t_role.Info.v_Number], Pos: mappos });
+                                        role.Command.v_ActionCommandArray.push(src);
                                         //role.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.stop;
                                         break;
                                     }
@@ -254,15 +254,15 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                 if(point_array.length > 0){
                                     role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                                     role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
-                                    var src = new GamePublic.s_RoleScript({Info:{TargetType:GamePublic.e_BaseObjType.Build}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: build.Info.v_Number, Array: [build.Info.v_Number], Pos: {x:point_array[0].Obj.x,y:point_array[0].Obj.y}});
-                                    role.Command.v_ActionCommandArray1.push(src);
+                                    var src = new GamePublic.s_RoleScript({Info:{TargetType:GamePublic.e_BaseObjType.Build,ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level2,ComWeight:3}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: build.Info.v_Number, Array: [build.Info.v_Number], Pos: {x:point_array[0].Obj.x,y:point_array[0].Obj.y}});
+                                    role.Command.v_ActionCommandArray.push(src);
                                 }
                                 //console.log(point_array);
                             } else{ //移动
                                 role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                                 role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
-                                var src = new GamePublic.s_RoleScript({ Info: 1, Name: GamePublic.e_CommandType.RoleGoToPos }, { Num: role.Info.v_Number, Array: "111", Pos: 123 }, { Num: 0, Array: "22", Pos: mappos });
-                                role.Command.v_ActionCommandArray1.push(src);    
+                                var src = new GamePublic.s_RoleScript({ Info: {ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level2,ComWeight:10}, Name: GamePublic.e_CommandType.RoleGoToPos }, { Num: role.Info.v_Number, Array: "111", Pos: 123 }, { Num: 0, Array: "22", Pos: mappos });
+                                role.Command.v_ActionCommandArray.push(src);    
                                 //role.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.stop;
                                 //GamePublic.g_Active_Map.MapRoomArray[mappos.x][mappos.y].SetSelectFlag(true);
                             }

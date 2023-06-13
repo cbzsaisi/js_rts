@@ -64,6 +64,7 @@ var C_Spine = {
                 }
                 case GamePublic.e_RoleAction.attack:{
                     var src = new GamePublic.s_RoleScript({ Info:{TargetType:v_TarType}, Name:node.v_MainRole.Command.v_ActionEvent},{Num:node.v_MainRole.Info.v_Number, Array:"",Pos:123},{Num:v_TarNum});
+                    console.log(src);
                     RoleSrcipt.RoleActionSrciptProc(src);
                     break;
                 }
