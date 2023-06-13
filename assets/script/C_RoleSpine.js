@@ -249,12 +249,17 @@ var C_RoleSpine = {
                 //if(this.Info.v_Number == 1)console.log("命令数量",node.Command.v_ActionCommandArray.length);
                 if (node.Command.v_ActionCommandArray.length) {
                     let res = node.GetCommandNum(level,ComNum,node.Command.v_ActionCommandArray);
-                    console.log("**************",res.level,res.Num);
+                    console.log("**************",res.level,res.Num,node.Command.v_ActionCommandState1,node.Command.v_ActionLoop);
                     if(res.level != GamePublic.e_CommandLevel.Level1 && node.Command.v_ActionEvent != GamePublic.e_RoleAction.def && node.GameInfo.v_RoleSprite){
                         //console.log("无指令 停止动作");
                         // 无指令 停止动作
                         node.Command.v_ActionEvent = GamePublic.e_RoleAction.def;
                         node.Command.v_ActionLoop = false;
+                    }
+
+                    if(node.Command.v_ActionLoop == true && node.Command.v_ActionRunStage == GamePublic.e_SpriteActionRunStage.stop){
+                        //循环执行动作 直到v_ActionWaitTime 为0以下
+                        this.SetRoleAction(node.Command.v_ActionEvent);
                     }
 
                     switch(res.level){
@@ -307,6 +312,7 @@ var C_RoleSpine = {
                                 case GamePublic.e_ActionCommandState.End:
                                     //if(this.Info.v_Number == 1)console.log(node.Command.v_ActionCommandArray1.length);
                                     if(RoleSrcipt.Command1StateCheckSrciptProc(this.Info.v_Number) == GamePublic.e_CommandResultSrcipt.Success){
+                                        console.log("结束命令")
                                         for(let i = 0; i < node.Command.v_ActionCommandArray.length; i++){
                                             if(node.Command.v_ActionCommandArray[i].Script.Info.ComLevel == res.level && node.Command.v_ActionCommandArray[i].Script.Info.ComNum == res.Num){
                                                 node.Command.v_ActionCommandArray.splice(i, 1);
@@ -316,6 +322,7 @@ var C_RoleSpine = {
                                         
                                         //if(this.Info.v_Number == 1)console.log(node.Command.v_ActionCommandArray1.length);
                                     }
+                                    console.log("继续命令",node.Command.v_ActionCommandArray)
                                     node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.New;
                                     node.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
                                     node.Command.v_ActionScriptFail = 0;
