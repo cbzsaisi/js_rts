@@ -315,26 +315,26 @@ C_MathLibStar.RunRoleStar = function(_RStar){
                 }
         }
 
-        if(whilenum == 0 && CLoseList.length){
-            var gFval2 = 0;
+        // if(whilenum == 0 && CLoseList.length){
+        //     var gFval2 = 0;
 
-            for(var i=CLoseList.length;i>0;i--){
-                var waypos = CLoseList[i-1];
-                if(gFval2 == 0){
-                    gFval2 = waypos.Fval;
-                    sWayPos = waypos;
-                }else if(waypos.Fval != 0 && waypos.Fval < gFval2){
-                    gFval2 = waypos.Fval;
-                    sWayPos = waypos;
-                }
-            }
-            if(gFval2 != 0){
-                console.log("移动到距离最近一点");
-                _RStar.DMapPos.x = sWayPos.oPos.x;
-                _RStar.DMapPos.y = sWayPos.oPos.y;
-                break;
-            }
-        }
+        //     for(var i=CLoseList.length;i>0;i--){
+        //         var waypos = CLoseList[i-1];
+        //         if(gFval2 == 0){
+        //             gFval2 = waypos.Fval;
+        //             sWayPos = waypos;
+        //         }else if(waypos.Fval != 0 && waypos.Fval < gFval2){
+        //             gFval2 = waypos.Fval;
+        //             sWayPos = waypos;
+        //         }
+        //     }
+        //     if(gFval2 != 0){
+        //         console.log("移动到距离最近一点");
+        //         _RStar.DMapPos.x = sWayPos.oPos.x;
+        //         _RStar.DMapPos.y = sWayPos.oPos.y;
+        //         break;
+        //     }
+        // }
     }
     //console.log("寻路 循环:"+ test + "次");
     CLoseList.splice(0,CLoseList.length);
@@ -374,7 +374,7 @@ C_MathLibStar.RoleFindWay = function(v_role,d_Pos,v_Type) {
                 v_role.Command.v_ActionCommandArray.splice(0,v_role.Command.v_ActionCommandArray.length);
                 for(var i=0;i<MapArray.length;i++){ //把路径放到命令菜单里
                     var WayPos = MapArray[i];
-                    var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleMove},{Num:v_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
+                    var src = new GamePublic.s_RoleScript({Info:{ComNum:MapArray.length - i,ComLevel:1,ComWeight:3},Name:GamePublic.e_CommandBaseType.RoleMove},{Num:v_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
                     v_role.Command.v_ActionCommandArray.push(src);
                 }
                 ret = true;
@@ -395,7 +395,7 @@ C_MathLibStar.RoleFindWay = function(v_role,d_Pos,v_Type) {
         v_role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
         for(var i=0;i<MapArray.length;i++){ //把路径放到命令菜单里
             var WayPos = MapArray[i];
-            var src = new GamePublic.s_RoleScript({Info:1,Name:GamePublic.e_CommandBaseType.RoleMove},{Num:v_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
+            var src = new GamePublic.s_RoleScript({Info:{ComNum:MapArray.length - i,ComLevel:1,ComWeight:3},Name:GamePublic.e_CommandBaseType.RoleMove},{Num:v_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});
             v_role.Command.v_ActionCommandArray.push(src);
         } 
         ret = true;

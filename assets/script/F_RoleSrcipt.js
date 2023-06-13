@@ -145,7 +145,7 @@ C_SrciptProc.CommandSrciptProc1 = function (_src) {
                 if (Math.abs(s_role.Info.v_MapPos.x - _src.TarRole.Pos.x) < 2 && Math.abs(s_role.Info.v_MapPos.y - _src.TarRole.Pos.y) < 2) {
                     //console.log("范围内 开始攻击");
                     s_role.GameInfo.v_RoleAttackType = {AttackType:GamePublic.e_RoleAttackType.left_hand,Skill:"Left"};//修改攻击类型
-                    var src = new GamePublic.s_RoleScript({Info:{TargetType:_src.Script.Info.TargetType},Name:GamePublic.e_CommandBaseType.RoleAttacking},{Num:s_role.Info.v_Number,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:_src.TarRole.Pos});
+                    var src = new GamePublic.s_RoleScript({Info:{TargetType:_src.Script.Info.TargetType,ComNum:1,ComLevel:1,ComWeight:3},Name:GamePublic.e_CommandBaseType.RoleAttacking},{Num:s_role.Info.v_Number,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:_src.TarRole.Pos});
                     s_role.Command.v_ActionCommandArray.push(src);
                     SrcExeState = GamePublic.e_CommandSrcipt.Success;
                 } else {
@@ -172,7 +172,7 @@ C_SrciptProc.CommandSrciptProc1 = function (_src) {
             let f_get = g_gamemangaer.GetObj(_src.Script.Info.TargetType);
             let map = f_get(_src.TarRole.Num);
             if (Math.abs(s_role.Info.v_MapPos.x - _src.TarRole.Pos.x) < 2 && Math.abs(s_role.Info.v_MapPos.y - _src.TarRole.Pos.y) < 2) {
-                var src = new GamePublic.s_RoleScript({Info:{TargetType:_src.Script.Info},Name:GamePublic.e_CommandBaseType.Work_Felling},{Num:s_role.Info.v_Number,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:_src.TarRole.Pos});
+                var src = new GamePublic.s_RoleScript({Info:{TargetType:_src.Script.Info,ComNum:1,ComLevel:1,ComWeight:3},Name:GamePublic.e_CommandBaseType.Work_Felling},{Num:s_role.Info.v_Number,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:_src.TarRole.Pos});
                 s_role.Command.v_ActionCommandArray.push(src);
                 SrcExeState = GamePublic.e_CommandSrcipt.Success;
             } else {
@@ -258,7 +258,7 @@ C_SrciptProc.RoleActionSrciptProc = function (v_src) {  //动作处理
     }
 }
 
-C_SrciptProc.Command1StateCheckSrciptProc = function (RoleNum) {  //动作处理
+C_SrciptProc.Command1StateCheckSrciptProc = function (RoleNum) {  //判断命令是否执行到位
     let g_gdrm = GamePublic.g_GameDataResManger;
     let CommandState = GamePublic.e_CommandResultSrcipt.Success;
     let role = g_gdrm.GetRole(RoleNum);
