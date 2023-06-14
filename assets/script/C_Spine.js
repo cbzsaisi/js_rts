@@ -68,7 +68,8 @@ var C_Spine = {
                     break;
                 }
                 case GamePublic.e_RoleAction.Work_Felling:{
-                    console.log("范围内 开始伐木",v_TarNum);
+                    var src = new GamePublic.s_RoleScript({ Info:{TargetType:v_TarType}, Name:node.v_MainRole.Command.v_ActionEvent},{Num:node.v_MainRole.Info.v_Number, Array:"",Pos:123},{Num:v_TarNum});
+                    RoleSrcipt.RoleActionSrciptProc(src);
                     break;
                 }
             }

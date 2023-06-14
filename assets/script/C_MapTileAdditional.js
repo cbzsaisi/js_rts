@@ -54,9 +54,6 @@ C_MapTileAdditional.New = function (){
         v_ActionCurScriptArray: null,
         v_ActionCommandArray: [],
         v_ActionCommandState: null,
-        v_ActionCommandArray1: [],
-        v_ActionCommandState1: null,
-        v_ActionCommandArray1Number: null,
         v_ActionCommandPassive: [],
         v_ActionCommandPassiveState: null,
         //脚本执行

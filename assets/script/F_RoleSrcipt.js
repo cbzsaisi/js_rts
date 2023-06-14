@@ -76,11 +76,8 @@ C_SrciptProc.CommandSrciptProc = function (_src) {
             for(var i in _src.TarRole.Array){
                 s_role.Command.v_TrarArray.push(_src.TarRole.Array[i]);
             }
-            s_role.Command.v_ActionLoop = false;
+            s_role.SwitchRoleCommand(GamePublic.e_RoleCommandType.Command1,1);
             s_role.Command.v_TarNum = _src.TarRole.Num;
-            s_role.Command.v_ActionWaitTime = 1;
-            s_role.Command.v_ActionConsoleType = 2;
-            s_role.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
             switch (s_role.GameInfo.v_SpriteType) {
                 case GamePublic.e_SpriteType.spine:
                     s_role.Command.v_ActionEvent = GamePublic.e_RoleAction.attack;
@@ -92,12 +89,9 @@ C_SrciptProc.CommandSrciptProc = function (_src) {
             break;
         }
         case GamePublic.e_CommandBaseType.Work_Felling:{
-            console.log("范围内 开始伐木",_src.TarRole.Pos);
-            s_role.Command.v_ActionLoop = false;
+            console.log("范围内 开始伐木",_src.TarRole.Pos,_src.Script.Info);
+            s_role.SwitchRoleCommand(GamePublic.e_RoleCommandType.Command1,1);
             s_role.Command.v_TarNum = _src.TarRole.Num;
-            s_role.Command.v_ActionWaitTime = 1;
-            s_role.Command.v_ActionConsoleType = 2;
-            s_role.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
             switch (s_role.GameInfo.v_SpriteType) {
                 case GamePublic.e_SpriteType.spine:
                     s_role.Command.v_ActionEvent = GamePublic.e_RoleAction.Work_Felling;
@@ -172,7 +166,8 @@ C_SrciptProc.CommandSrciptProc1 = function (_src) {
             let f_get = g_gamemangaer.GetObj(_src.Script.Info.TargetType);
             let map = f_get(_src.TarRole.Num);
             if (Math.abs(s_role.Info.v_MapPos.x - _src.TarRole.Pos.x) < 2 && Math.abs(s_role.Info.v_MapPos.y - _src.TarRole.Pos.y) < 2) {
-                var src = new GamePublic.s_RoleScript({Info:{TargetType:_src.Script.Info,ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level1,ComWeight:3},Name:GamePublic.e_CommandBaseType.Work_Felling},{Num:s_role.Info.v_Number,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:_src.TarRole.Pos});
+                var src = new GamePublic.s_RoleScript({Info:{TargetType:_src.Script.Info.TargetType,ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level1,ComWeight:3},Name:GamePublic.e_CommandBaseType.Work_Felling},{Num:s_role.Info.v_Number,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:_src.TarRole.Pos});
+                console.log("伐木范围外，要移动",_src.Script.Info);
                 s_role.Command.v_ActionCommandArray.push(src);
                 SrcExeState = GamePublic.e_CommandSrcipt.Success;
             } else {
@@ -239,7 +234,13 @@ C_SrciptProc.RoleActionSrciptProc = function (v_src) {  //动作处理
             r_to_r = GamePublic.e_RoleToRoleType.RoleToBuild;
             break;
         }
+        case GamePublic.e_BaseObjType.MaptileAdditional:{
+            f_get = g_gamemangaer.GetMap;
+            r_to_r = GamePublic.e_RoleToRoleType.RoleToBuild;
+            break;
+        }
     }
+    console.log(v_src.Script.Info.TargetType,f_get);
     switch (v_src.Script.Name) {
         case GamePublic.e_RoleAction.attack:{
             let role = g_gamemangaer.GetRole(v_src.ScrRole.Num);
@@ -257,6 +258,13 @@ C_SrciptProc.RoleActionSrciptProc = function (v_src) {  //动作处理
             }
             break;
         }
+        case GamePublic.e_RoleAction.Work_Felling:{
+            let role = g_gamemangaer.GetRole(v_src.ScrRole.Num);
+            let t_role = f_get(v_src.TarRole.Num);
+            role.Command.v_ActionWaitTime = 0;
+            console.log(t_role);
+            break;
+        }
     }
 }
 
@@ -270,9 +278,13 @@ C_SrciptProc.Command1StateCheckSrciptProc = function (RoleNum) {  //判断命令
             let t_role = g_gdrm.GetObj(role.Command.v_ActionCurScriptArray1.Script.Info.TargetType)(role.Command.v_ActionCurScriptArray1.TarRole.Num);
             //if(t_role.Info.v_State.TypeState != GamePublic.e_TypeState.Death){
             if(t_role.Info.v_PropertyData.NowHP > 0){
-                console.log("456");
                 CommandState = GamePublic.e_CommandResultSrcipt.Continue;
             }
+            break;
+        }
+        case GamePublic.e_CommandType.Work_Felling:{
+            console.log("Work_Felling one over");
+            //CommandState = GamePublic.e_CommandResultSrcipt.Continue;
             break;
         }
     }
