@@ -299,7 +299,7 @@ C_MathLibStar.RunRoleStar = function(_RStar){
             }
         }
         if(OpenList.length == 0){
-            console.log("Open空了");
+            //console.log("Open空了");
             break; //如果空了退出
         }
 
@@ -350,7 +350,7 @@ C_MathLibStar.RunRoleStar = function(_RStar){
         while(sWayPos.FatherWayPoint != null)
         return true;
     }else{
-        cc.log("最终没找到");
+        //cc.log("最终没找到");
         return false;
     }
 }
@@ -371,7 +371,7 @@ C_MathLibStar.RoleFindWay = function(v_role,d_Pos,v_Type) {
             map[d_Pos.x][d_Pos.y].v_ExistRoleArray = []; //暂时把目标点清空
             map[d_Pos.x][d_Pos.y].v_ExistBuildArray = []; //暂时把目标点清空
             if(C_MathLibStar.RunRoleStar(RStar)){
-                v_role.Command.v_ActionCommandArray.splice(0,v_role.Command.v_ActionCommandArray.length);
+                v_role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                 for(var i=0;i<MapArray.length;i++){ //把路径放到命令菜单里
                     var WayPos = MapArray[i];
                     var src = new GamePublic.s_RoleScript({Info:{ComNum:MapArray.length - i,ComLevel:GamePublic.e_CommandLevel.Level1,ComWeight:3},Name:GamePublic.e_CommandBaseType.RoleMove},{Num:v_role.Info.v_Number,Array:"22",Pos:123},{Num:0,Array:"22",Pos:WayPos.oPos});

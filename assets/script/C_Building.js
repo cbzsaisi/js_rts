@@ -62,9 +62,9 @@ var C_Building = {
             v_ActionCurScriptArray: null,
             v_ActionCommandArray: [],
             v_ActionCommandState: null,
-            v_ActionCommandArray1: [],
-            v_ActionCommandState1: null,
-            v_ActionCommandArray1Number: 0,
+            // v_ActionCommandArray1: [],
+            // v_ActionCommandState1: null,
+            // v_ActionCommandArray1Number: 0,
             v_ActionCommandPassive: [],
             v_ActionCommandPassiveState: null,
             //脚本执行
@@ -230,11 +230,19 @@ var C_Building = {
                 case GamePublic.e_RoleCommandType.Command:{
                     //node.GameInfo.v_DtNumber = GamePublic.e_RoleSpeed.fps;
                     node.Command.v_ActionWaitTime = 0;
-                    node.Command.v_ActionCommandArray.splice(0,node.Command.v_ActionCommandArray.length);
+                    for(let i = 0; i < node.Command.v_ActionCommandArray.length; i++){
+                        if(node.Command.v_ActionCommandArray[i].Script.Info.ComLevel == GamePublic.e_CommandLevel.Level1){
+                            node.Command.v_ActionCommandArray.splice(i, 1);
+                        }
+                    }
                     break;
                 }
                 case GamePublic.e_RoleCommandType.Command1:{
-                    node.Command.v_ActionCommandArray1.splice(0, node.Command.v_ActionCommandArray1.length);
+                    for(let i = 0; i < node.Command.v_ActionCommandArray.length; i++){
+                        if(node.Command.v_ActionCommandArray[i].Script.Info.ComLevel == GamePublic.e_CommandLevel.Level2){
+                            node.Command.v_ActionCommandArray.splice(i, 1);
+                        }
+                    }
                     node.Command.v_ActionCommandArray1Number = 0;
                     node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.New;
                     node.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;

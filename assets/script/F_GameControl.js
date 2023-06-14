@@ -211,11 +211,11 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                     case GamePublic.e_PlayerClickType.RoleTarget:{
                         for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
                             var role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]);
-                            if (role.Command.v_ActionCommandArray1.length) {                    
-                                role.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.End;
-                            } else {
-                                role.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.New;
-                            }
+                            // if (role.Command.v_ActionCommandArray1.length) {                    
+                            //     role.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.End;
+                            // } else {
+                            //     role.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.New;
+                            // }
                             if (role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray.length) { //如果目标点有单位
                                 let t_role = GamePublic.g_GameDataResManger.GetRole(role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ExistRoleArray[0]);
                                 var csrc = new GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_RoleTargetCheck.RoleAttack}, { Num: role.Info.v_Number, Array: [], Pos: 123 }, { Num: t_role.Info.v_Number, Array: [], Pos: 123 });

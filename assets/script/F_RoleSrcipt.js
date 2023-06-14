@@ -149,7 +149,7 @@ C_SrciptProc.CommandSrciptProc1 = function (_src) {
                     s_role.Command.v_ActionCommandArray.push(src);
                     SrcExeState = GamePublic.e_CommandSrcipt.Success;
                 } else {
-                    console.log("范围外，要移动",s_role,_src.TarRole.Pos);
+                    //console.log("范围外，要移动",s_role,_src.TarRole.Pos);
                     var hr = g_Astar.RoleFindWay(s_role,_src.TarRole.Pos,GamePublic.e_FindWayType.Near);
                     if (hr) {
                         SrcExeState = GamePublic.e_CommandSrcipt.Success;
@@ -264,13 +264,10 @@ C_SrciptProc.Command1StateCheckSrciptProc = function (RoleNum) {  //判断命令
     let g_gdrm = GamePublic.g_GameDataResManger;
     let CommandState = GamePublic.e_CommandResultSrcipt.Success;
     let role = g_gdrm.GetRole(RoleNum);
-    console.log(role.Command.v_ActionCommandArray1);
     //if(role.Command.v_ActionCommandArray1.length < 1) return CommandState;
     switch (role.Command.v_ActionCurScriptArray1.Script.Name) {
         case GamePublic.e_CommandType.RoleAttack:{
             let t_role = g_gdrm.GetObj(role.Command.v_ActionCurScriptArray1.Script.Info.TargetType)(role.Command.v_ActionCurScriptArray1.TarRole.Num);
-            console.log(t_role,t_role.Info.v_PropertyData.NowHP);
-
             //if(t_role.Info.v_State.TypeState != GamePublic.e_TypeState.Death){
             if(t_role.Info.v_PropertyData.NowHP > 0){
                 console.log("456");
@@ -299,14 +296,20 @@ C_SrciptProc.RoleTargetCheck = function(v_src) {  //角色目标检测
                 State = GamePublic.e_RoleTargetCheckResult.Is_Self;
                 break;
             }
-            if(role.Command.v_ActionCommandArray1.length){
-                let command = role.Command.v_ActionCommandArray1[role.Command.v_ActionCommandArray1Number  - 1];
-                if(!command)console.log(command,role.Command.v_ActionCommandArray1Number,role.Command.v_ActionCommandArray1);
-                if(command != null && command.Script.Name == GamePublic.e_CommandType.RoleAttack && command.TarRole.Num == v_src.TarRole.Num){
+            if(node.Command.v_ActionCurScriptArray1){
+                if(node.Command.v_ActionCurScriptArray1.Script.Name == GamePublic.e_CommandType.RoleAttack && node.Command.v_ActionCurScriptArray1.TarRole.Num == v_src.TarRole.Num){
                     //console.log(v_src.ScrRole.Num,"攻击目标相同");
                     State = GamePublic.e_RoleTargetCheckResult.Is_Self;
                 }
             }
+            // if(role.Command.v_ActionCommandArray1.length){
+            //     let command = role.Command.v_ActionCommandArray1[role.Command.v_ActionCommandArray1Number  - 1];
+            //     if(!command)console.log(command,role.Command.v_ActionCommandArray1Number,role.Command.v_ActionCommandArray1);
+            //     if(command != null && command.Script.Name == GamePublic.e_CommandType.RoleAttack && command.TarRole.Num == v_src.TarRole.Num){
+            //         //console.log(v_src.ScrRole.Num,"攻击目标相同");
+            //         State = GamePublic.e_RoleTargetCheckResult.Is_Self;
+            //     }
+            // }
             if(t_role.Info.v_PropertyData.NowHP < 1){
                 console.log(v_src.ScrRole.Num,"攻击目标已亡:",v_src.TarRole.Num);
                 State = GamePublic.e_RoleTargetCheckResult.Tar_Is_Death;
