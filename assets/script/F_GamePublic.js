@@ -700,7 +700,7 @@ var G_Public = {
     },
 
     //物资资源数据
-    s_MaterialData: function (v_Name,v_TotalValue,v_NowValue,v_Level,v_Difficulty,v_Growth,v_Tech){
+    s_MaterialData: function (v_Name,v_TotalValue,v_NowValue,v_Level,v_Difficulty,v_Growth,v_Tech,v_ProgressCount){
         let MaterialData = {};
         MaterialData.Name = v_Name;
         MaterialData.TotalValue = v_TotalValue;
@@ -709,6 +709,7 @@ var G_Public = {
         MaterialData.Difficulty = v_Difficulty;
         MaterialData.Growth = v_Growth;
         MaterialData.Tech = v_Tech;
+        MaterialData.ProgressCount = v_ProgressCount;
         return MaterialData;
     },
     

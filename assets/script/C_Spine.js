@@ -26,7 +26,7 @@ var C_Spine = {
                     // ske.clearTracks();
                     node.v_MainRole.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.play;
                     ske.setStartListener((trackEntry, LoopCount) =>{node.RoleActionStartEner(_ActionName);});
-                    ske.setCompleteListener((trackEntry, LoopCount) =>{node.RoleActionCompleteEner(node.v_MainRole.Command.v_ActionEvent,node.v_MainRole.Info.v_TargetType,node.v_MainRole.Command.v_TarNum);});
+                    ske.setCompleteListener((trackEntry, LoopCount) =>{node.RoleActionCompleteEner(node.v_MainRole.Command.v_ActionEvent,node.v_MainRole.Info.v_TargetType,node.v_MainRole.Command.v_TarNum, node.v_MainRole.Command.v_ActionCurScriptArray1.TarRole.Pos);});
                     ske.setAnimation(0, "walk", false);
                     //this.SetRoleActionSpeed(0.5);
                     break;
@@ -36,7 +36,7 @@ var C_Spine = {
                     // ske.clearTracks();
                     node.v_MainRole.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.play;
                     ske.setStartListener((trackEntry, LoopCount) =>{node.RoleActionStartEner(node.v_MainRole.Command.v_ActionEvent);});
-                    ske.setCompleteListener((trackEntry, LoopCount) =>{node.RoleActionCompleteEner(node.v_MainRole.Command.v_ActionEvent,node.v_MainRole.Info.v_TargetType,node.v_MainRole.Command.v_TarNum);});
+                    ske.setCompleteListener((trackEntry, LoopCount) =>{node.RoleActionCompleteEner(node.v_MainRole.Command.v_ActionEvent,node.v_MainRole.Info.v_TargetType,node.v_MainRole.Command.v_TarNum, node.v_MainRole.Command.v_ActionCurScriptArray1.TarRole.Pos);});
                     ske.setAnimation(0, "jump", false);
                     //this.SetRoleActionSpeed(0.5);
                     break;
@@ -49,7 +49,7 @@ var C_Spine = {
             //console.log("RoleActionStartEner");
         };
 
-        node.RoleActionCompleteEner = function(v_ActionEvent,v_TarType,v_TarNum) {
+        node.RoleActionCompleteEner = function(v_ActionEvent,v_TarType,v_TarNum,v_TarPos) {
             if(node.v_MainRole.Command.v_ActionRunStage == GamePublic.e_SpriteActionRunStage.stop){
                 node.v_MainRole.Command.v_ActionWaitTime = 0;
                 return;
@@ -63,12 +63,12 @@ var C_Spine = {
                     break;
                 }
                 case GamePublic.e_RoleAction.attack:{
-                    var src = new GamePublic.s_RoleScript({ Info:{TargetType:v_TarType}, Name:node.v_MainRole.Command.v_ActionEvent},{Num:node.v_MainRole.Info.v_Number, Array:"",Pos:123},{Num:v_TarNum});
+                    var src = new GamePublic.s_RoleScript({ Info:{TargetType:v_TarType}, Name:node.v_MainRole.Command.v_ActionEvent},{Num:node.v_MainRole.Info.v_Number, Array:"",Pos:123},{Num:v_TarNum,Pos:v_TarPos});
                     RoleSrcipt.RoleActionSrciptProc(src);
                     break;
                 }
                 case GamePublic.e_RoleAction.Work_Felling:{
-                    var src = new GamePublic.s_RoleScript({ Info:{TargetType:v_TarType}, Name:node.v_MainRole.Command.v_ActionEvent},{Num:node.v_MainRole.Info.v_Number, Array:"",Pos:123},{Num:v_TarNum});
+                    var src = new GamePublic.s_RoleScript({ Info:{TargetType:v_TarType}, Name:node.v_MainRole.Command.v_ActionEvent},{Num:node.v_MainRole.Info.v_Number, Array:"",Pos:123},{Num:v_TarNum,Pos:v_TarPos});
                     RoleSrcipt.RoleActionSrciptProc(src);
                     break;
                 }

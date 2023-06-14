@@ -4,7 +4,7 @@ var GamePublic = require("./F_GamePublic");
 function C_MapTileAdditional() {
 };
 
-C_MapTileAdditional.New = function (){
+C_MapTileAdditional.New = function (v_TileType){
     var node = {};
 
     node.Info = { //写入保存数据
@@ -70,8 +70,8 @@ C_MapTileAdditional.New = function (){
         v_TrarArray: [],
         v_TradeShopNum: 0, //交易商店编号
     }
-    node.Info.v_RaceType = GamePublic.e_MaterialsType.Iron_Ore;
-    node.Info.v_PropertyData = GamePublic.s_MaterialData(node.Info.v_RaceType,10000,10000,1,1,10,[]);
+    node.Info.v_RaceType = v_TileType;
+    node.Info.v_PropertyData = GamePublic.s_MaterialData(node.Info.v_RaceType,10000,10000,1,1,10,[],0);
 
     return node;
 

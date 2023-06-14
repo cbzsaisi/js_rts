@@ -89,7 +89,7 @@ C_SrciptProc.CommandSrciptProc = function (_src) {
             break;
         }
         case GamePublic.e_CommandBaseType.Work_Felling:{
-            console.log("范围内 开始伐木",_src.TarRole.Pos,_src.Script.Info);
+            //console.log("范围内 开始伐木",_src.TarRole.Pos,_src.Script.Info);
             s_role.SwitchRoleCommand(GamePublic.e_RoleCommandType.Command1,1);
             s_role.Command.v_TarNum = _src.TarRole.Num;
             switch (s_role.GameInfo.v_SpriteType) {
@@ -167,7 +167,7 @@ C_SrciptProc.CommandSrciptProc1 = function (_src) {
             let map = f_get(_src.TarRole.Num);
             if (Math.abs(s_role.Info.v_MapPos.x - _src.TarRole.Pos.x) < 2 && Math.abs(s_role.Info.v_MapPos.y - _src.TarRole.Pos.y) < 2) {
                 var src = new GamePublic.s_RoleScript({Info:{TargetType:_src.Script.Info.TargetType,ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level1,ComWeight:3},Name:GamePublic.e_CommandBaseType.Work_Felling},{Num:s_role.Info.v_Number,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:_src.TarRole.Pos});
-                console.log("伐木范围外，要移动",_src.Script.Info);
+                //console.log("伐木范围外，要移动",_src.Script.Info);
                 s_role.Command.v_ActionCommandArray.push(src);
                 SrcExeState = GamePublic.e_CommandSrcipt.Success;
             } else {
@@ -240,7 +240,6 @@ C_SrciptProc.RoleActionSrciptProc = function (v_src) {  //动作处理
             break;
         }
     }
-    console.log(v_src.Script.Info.TargetType,f_get);
     switch (v_src.Script.Name) {
         case GamePublic.e_RoleAction.attack:{
             let role = g_gamemangaer.GetRole(v_src.ScrRole.Num);
@@ -260,9 +259,10 @@ C_SrciptProc.RoleActionSrciptProc = function (v_src) {  //动作处理
         }
         case GamePublic.e_RoleAction.Work_Felling:{
             let role = g_gamemangaer.GetRole(v_src.ScrRole.Num);
-            let t_role = f_get(v_src.TarRole.Num);
+            let t_res = f_get(v_src.TarRole.Num);
             role.Command.v_ActionWaitTime = 0;
-            console.log(t_role);
+            t_res.MapRoomArray[v_src.TarRole.Pos.x][v_src.TarRole.Pos.y].v_ResArray[0].Info.v_PropertyData.ProgressCount += 1;
+            console.log(t_res.MapRoomArray[v_src.TarRole.Pos.x][v_src.TarRole.Pos.y].v_ResArray[0].Info.v_PropertyData.ProgressCount);
             break;
         }
     }
@@ -283,8 +283,7 @@ C_SrciptProc.Command1StateCheckSrciptProc = function (RoleNum) {  //判断命令
             break;
         }
         case GamePublic.e_CommandType.Work_Felling:{
-            console.log("Work_Felling one over");
-            //CommandState = GamePublic.e_CommandResultSrcipt.Continue;
+            CommandState = GamePublic.e_CommandResultSrcipt.Continue;
             break;
         }
     }

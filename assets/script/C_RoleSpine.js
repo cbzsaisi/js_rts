@@ -313,10 +313,9 @@ var C_RoleSpine = {
                             case GamePublic.e_ActionCommandState.Stop:
                                 //console.log("e_ActionCommandState.Stop");
                                 break;
-                            case GamePublic.e_ActionCommandState.End:
-                                //if(this.Info.v_Number == 1)console.log(node.Command.v_ActionCommandArray.length);
+                            case GamePublic.e_ActionCommandState.End:{
                                 if(RoleSrcipt.Command1StateCheckSrciptProc(this.Info.v_Number) == GamePublic.e_CommandResultSrcipt.Success){
-                                    console.log("结束命令")
+                                    //console.log("结束命令");
                                     for(let i = 0; i < node.Command.v_ActionCommandArray.length; i++){
                                         if(node.Command.v_ActionCommandArray[i].Script.Info.ComLevel == res.level && node.Command.v_ActionCommandArray[i].Script.Info.ComNum == res.Num){
                                             node.Command.v_ActionCommandArray.splice(i, 1);
@@ -324,13 +323,14 @@ var C_RoleSpine = {
                                         }
                                     }
                                 }
-                                console.log("继续命令",node.Command.v_ActionCommandArray)
+                                //console.log("复位命令",node.Command.v_ActionCommandArray);
                                 node.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.New;
                                 node.Command.v_ActionScriptFailType = GamePublic.e_ActionScriptFailType.Success;
                                 node.Command.v_ActionScriptFail = 0;
                                 node.Command.v_ActionCurScriptArray1 = null;
                                 //if(this.Info.v_Number == 1)console.log(node.Command.v_ActionCommandArray.length);
                                 break;
+                            }                                
                         }
                         break;
                     }

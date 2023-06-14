@@ -93,10 +93,10 @@ var C_MapTile = {
             }
         }
 
-        node.AddRes = function (_TileResName) {
-            switch (_TileResName) {
+        node.AddRes = function (v_TileResName) {
+            switch (v_TileResName) {
                 case GamePublic.e_MaterialsType.Wood:
-                    var Res = G_MapTileAdditional.New();
+                    var Res = G_MapTileAdditional.New(v_TileResName);
                     node.v_ResArray.push(Res);
                     break;
             }
