@@ -114,7 +114,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
         case GamePublic.e_UserControlType.BuildPlace:{//当前状态是建筑检测
             PlayerClickType = GamePublic.e_PlayerClickType.BuildClick;
             if(this.MapTiledCoverCheck(_pos,GamePublic.g_Active_Map,GamePublic.g_UserPicklObj.Size)){
-                var build = new BuildingClass.New("build1", 1, GamePublic.s_Vec2d(mappos.x, mappos.y), ++GamePublic.Buildnum);
+                var build = new BuildingClass.New("build1", 1, GamePublic.s_Vec2d(mappos.x, mappos.y), ++GamePublic.BuildNum);
                 GamePublic.g_ButtonUsingFlag = true;
             }else{
             }
@@ -130,7 +130,8 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                     //let ResArray = role.GameInfo.v_CurrentMap.MapRoomArray[mappos.x][mappos.y].v_ResArray;
                     role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                     role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
-                    var src = new GamePublic.s_RoleScript({Info:{TargetType:GamePublic.e_BaseObjType.MaptileAdditional,ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level2,ComWeight:3}, Name:GamePublic.e_CommandType.Work_Felling}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: role.Info.v_CurrentMapNum, Array: [role.Info.v_CurrentMapNum], Pos: mappos});
+                    let task_value = new GamePublic.s_RoleScript({Info:{Task:{SourceType:GamePublic.e_BaseObjType.Role,TargetType:GamePublic.e_BaseObjType.MaptileAdditional,ValueObjType:GamePublic.e_CommandTaskValueType.GetItemValue,ValueType:GamePublic.e_CommandTaskValueName.Wood,SourceValue:1,TargetValue:1}}, Name:GamePublic.e_CommandTaskType.Work_Felling}, { Num: role.Info.v_Number}, { Num: role.Info.v_CurrentMapNum, Pos: mappos});
+                    var src = new GamePublic.s_RoleScript({Info:{TargetType:GamePublic.e_BaseObjType.MaptileAdditional,ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level2,ComWeight:3,Task:task_value}, Name:GamePublic.e_CommandType.Work_Felling}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: role.Info.v_CurrentMapNum, Array: [role.Info.v_CurrentMapNum], Pos: mappos});
                     role.Command.v_ActionCommandArray.push(src);
                 }
                 

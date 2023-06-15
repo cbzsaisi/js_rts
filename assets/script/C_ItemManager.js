@@ -9,11 +9,15 @@ var C_ItemManager = {
             var ItemUsageValue = GamePublic.s_EquipUsageValue(1,1,1,1,1,1,1);//装备条件
             var ItemIncreaseValue = GamePublic.s_EquipIncreaseValue(5,0,0,0,0,0,0,0,0,0,[],GamePublic.e_EquipAdditionalType.Fire);//装备数值
             var OccupationRestrict = [GamePublic.e_RoleOccupationType.Warrior];
-            var item = GamePublic.s_Item(GamePublic.e_ItemName.Sword1,"铁剑", "铁制剑","Itemimage002",GamePublic.e_ItemClass.RoleEquip,GamePublic.e_ItemType.Sword,GamePublic.e_EquipType.Hand,100,10,false,false,ItemUsageValue,ItemIncreaseValue,OccupationRestrict);
+            var item = GamePublic.s_Item(GamePublic.e_ItemName.Sword1,"铁剑", "铁制剑","Itemimage002",GamePublic.e_ItemClass.RoleEquip,GamePublic.e_ItemType.Sword,GamePublic.e_EquipType.Hand,100,5,false,false,ItemUsageValue,ItemIncreaseValue,OccupationRestrict);
             node.ItemObjArray.push(item);
 
             var OccupationRestrict = [GamePublic.e_RoleOccupationType.All];
             var item = GamePublic.s_Item(GamePublic.e_ItemName.Gold,"金币", "货币","Itemimage001",GamePublic.e_ItemClass.Gold,null,null,1,0,false,true,null,{},OccupationRestrict);
+            node.ItemObjArray.push(item);
+
+            var OccupationRestrict = [GamePublic.e_RoleOccupationType.All];
+            var item = GamePublic.s_Item(GamePublic.e_ItemName.Wood_Material,"材料", "木头","Itemimage001",GamePublic.e_ItemClass.Material,null,null,1,10,false,true,null,{},OccupationRestrict);
             node.ItemObjArray.push(item);
         }
        
@@ -35,7 +39,7 @@ var C_ItemManager = {
             var BagSize = 0;
             var Role = null;
 
-            switch(_ObjType)
+            switch(_ObjType) //背包类型
             {
                 case "Role":
                 Role = GamePublic.g_GameDataResManger.GetRole(_ObjNum); 
@@ -48,32 +52,33 @@ var C_ItemManager = {
                 BagSize = Role.ItemBar.length;
                 break;
             }
-            
-            for(var i=0;i<node.ItemObjArray.length;i++){
+            for(var i=0;i<node.ItemObjArray.length;i++){ //从物品库找到对应物品
                 if(node.ItemObjArray[i].Name == _ItemName){
                     item = node.ItemObjArray[i];
                     break;
                 }
             }
 
-            for (var i = 0; i < _ItemNum; i++) {
+            for (var i = 0; i < _ItemNum; i++) { //物品个数
                 var IsDone = false;
-                if (item.Plural) {
+                if (item.Plural) { //如果是复数物品 就加一
                     for (var i1 = 0; i1 < BagSize;i1++) {
                         if (Bag[i1] == null)break;
                         if (Bag[i1].Name == item.Name) {
                             if (Bag[i1].ItemNum < 999) {
                                 Bag[i1].ItemNum++;
-                                IsDone = true;
-                                break;
                             }
+                            IsDone = true;
+                            res = true;
+                            break;
                         }
                     }
                 }
-                if (!IsDone) {
+                if (!IsDone) {  //否则就重新创建一个
                     for (var i2 = 0; i2 < BagSize;i2++) {
                         if (Bag[i2] == null) {
                             Bag[i2] = node.CreateItem(_ItemName);
+                            res = true;
                             break;
                         }
                     }
@@ -129,6 +134,33 @@ var C_ItemManager = {
             }
             return res;
         }
+
+        node.GetItemQuantity = function (v_ItemName,v_ObjNum,v_ObjType) {
+            let Num = 0;
+            switch(v_ObjType) //背包类型
+            {
+                case "Role":
+                Role = GamePublic.g_GameDataResManger.GetRole(v_ObjNum); 
+                Bag = Role.Info.v_RoleBag;
+                BagSize = Role.Info.v_RoleBagSize;
+                break;
+                case "Shop":
+                Role = GamePublic.g_ShopManager.GetStore(v_ObjNum); 
+                Bag = Role.ItemBar;
+                BagSize = Role.ItemBar.length;
+                break;
+            }
+
+            for (let i = 0; i < BagSize;i++) {
+                if (Bag[i] == null)break;
+                if (Bag[i].Name == v_ItemName) {
+                    Num = Bag[i].ItemNum;
+                    break;
+                }
+            }
+            return Num;
+        }
+
         node.Create();
         return node;
     }

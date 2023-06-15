@@ -73,6 +73,21 @@ C_MapTileAdditional.New = function (v_TileType){
     node.Info.v_RaceType = v_TileType;
     node.Info.v_PropertyData = GamePublic.s_MaterialData(node.Info.v_RaceType,10000,10000,1,1,10,[],0);
 
+    node.PropertyDataValueRecast = function(v_type) {
+        let ret = 0;
+        if(node.Info.v_PropertyData.ProgressCount > 9){
+            node.Info.v_PropertyData.ProgressCount = 0;
+            if(node.Info.v_PropertyData.NowValue > 0){
+                node.Info.v_PropertyData.NowValue -= 1;
+                ret = 1
+            }
+        }
+        return ret;
+    }
+    node.MyUpdate = function() {
+        //node.PropertyDataValueRecast(1);
+    }
+
     return node;
 
 }

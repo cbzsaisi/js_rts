@@ -591,17 +591,19 @@ var G_Public = {
         return ObjInfo;
     },
 
-    e_ItemName: {
+    e_ItemName: { //物品名字
         Gold:100,
+        Wood_Material:111,
         Sword1:1001,
     },
 
-    e_ItemClass: {
+    e_ItemClass: { //物品类型
         Non: 0,
         RoleEquip: 1,
         Item: 2,
         Medicant: 3,
         Gold: 4,
+        Material: 5,
     },
 
      e_ItemType:
@@ -686,6 +688,20 @@ var G_Public = {
         Command1:1,
         Command2:2,
         Passive:3
+    },
+
+    e_CommandTaskType:{
+        RoleAttackRole:1,
+        Work_Felling:2,
+    },
+
+    e_CommandTaskValueType:{
+        AttackRoleValue:1,
+        GetItemValue:2,
+    },
+    e_CommandTaskValueName:{
+        RoleHp:1,
+        Wood:2,
     },
 
     //角色技能
@@ -878,8 +894,8 @@ var G_Public = {
 
     g_DrawRect : null,
 
-    Rolenum : 0,
-    Buildnum : 100000,
+    RoleNum : 0,
+    BuildNum : 100000,
 }
 
 

@@ -131,4 +131,33 @@ F_RoleManager.GetCareerSkill = function (v_Type) {
     return SkillArray;
 },
 
+F_RoleManager.TaskCheck = function (v_src) {
+    let s_get = GamePublic.g_GameDataResManger.GetObj(v_src.Script.Info.Task.SourceType);
+    let t_get = GamePublic.g_GameDataResManger.GetObj(v_src.Script.Info.Task.TargetType);
+    var ret = {res:false,info:null};
+    //console.log(v_src.Script.Name,s_get);
+    switch(v_src.Script.Name){
+        case GamePublic.e_CommandTaskType.RoleAttackRole:{
+            //let s_role = s_get(v_src.ScrRole.Num);
+            let t_role = t_get(v_src.TarRole.Num);
+            if(t_role.Info.v_PropertyData.NowHP < 1){
+                ret.res = true;
+            }
+            //var src = new GamePublic.s_RoleScript({Info:{TargetType:_src.Script.Info.TargetType,ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level1,ComWeight:3},Name:GamePublic.e_CommandBaseType.RoleAttacking},{Num:s_role.Info.v_Number,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:_src.TarRole.Pos});
+            break;
+        }
+        case GamePublic.e_CommandTaskType.Work_Felling:{
+            let s_role = s_get(v_src.ScrRole.Num);
+            //let t_role = t_get(v_src.TarRole.Num);
+            let ret1 = GamePublic.g_ItemManager.GetItemQuantity(GamePublic.e_ItemName.Wood_Material, s_role.Info.v_Number, "Role");
+            if(ret1 >= v_src.Script.Info.Task.TargetValue){
+                ret.res = true;
+            }
+            //console.log(ret1,v_src.Script.Info.Task.TargetValue,ret.res);
+            break;
+        }
+    }
+    return ret;
+},
+
 module.exports = F_RoleManager;

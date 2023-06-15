@@ -147,7 +147,6 @@ var C_RoleSpine = {
 
             GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Sword1, 1, node.Info.v_Number, "Role");
             GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 10, node.Info.v_Number, "Role");
-            GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 2, node.Info.v_Number, "Role");
             //GamePublic.g_ItemManager.RoleEquip(node.Info.v_Number,3); //装备
             //this.SetRoleAction(GamePublic.e_RoleAction.walk);
             node.GameInfo.v_RoleCreate = true;

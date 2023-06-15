@@ -167,7 +167,7 @@ C_SrciptProc.CommandSrciptProc1 = function (_src) {
             let map = f_get(_src.TarRole.Num);
             if (Math.abs(s_role.Info.v_MapPos.x - _src.TarRole.Pos.x) < 2 && Math.abs(s_role.Info.v_MapPos.y - _src.TarRole.Pos.y) < 2) {
                 var src = new GamePublic.s_RoleScript({Info:{TargetType:_src.Script.Info.TargetType,ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level1,ComWeight:3},Name:GamePublic.e_CommandBaseType.Work_Felling},{Num:s_role.Info.v_Number,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:_src.TarRole.Pos});
-                //console.log("伐木范围外，要移动",_src.Script.Info);
+                //console.log("伐木开始",_src.Script.Info);
                 s_role.Command.v_ActionCommandArray.push(src);
                 SrcExeState = GamePublic.e_CommandSrcipt.Success;
             } else {
@@ -261,8 +261,13 @@ C_SrciptProc.RoleActionSrciptProc = function (v_src) {  //动作处理
             let role = g_gamemangaer.GetRole(v_src.ScrRole.Num);
             let t_res = f_get(v_src.TarRole.Num);
             role.Command.v_ActionWaitTime = 0;
-            t_res.MapRoomArray[v_src.TarRole.Pos.x][v_src.TarRole.Pos.y].v_ResArray[0].Info.v_PropertyData.ProgressCount += 1;
-            console.log(t_res.MapRoomArray[v_src.TarRole.Pos.x][v_src.TarRole.Pos.y].v_ResArray[0].Info.v_PropertyData.ProgressCount);
+            let MapTile = t_res.MapRoomArray[v_src.TarRole.Pos.x][v_src.TarRole.Pos.y].v_ResArray[0];
+            MapTile.Info.v_PropertyData.ProgressCount += 1;
+            let m_value = MapTile.PropertyDataValueRecast(1);
+            if(m_value != 0){
+                GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Wood_Material, m_value, role.Info.v_Number, "Role");
+            }
+            console.log(GamePublic.g_ItemManager.GetItemQuantity(GamePublic.e_ItemName.Wood_Material, role.Info.v_Number, "Role"));
             break;
         }
     }
@@ -276,14 +281,14 @@ C_SrciptProc.Command1StateCheckSrciptProc = function (RoleNum) {  //判断命令
     switch (role.Command.v_ActionCurScriptArray1.Script.Name) {
         case GamePublic.e_CommandType.RoleAttack:{
             let t_role = g_gdrm.GetObj(role.Command.v_ActionCurScriptArray1.Script.Info.TargetType)(role.Command.v_ActionCurScriptArray1.TarRole.Num);
-            //if(t_role.Info.v_State.TypeState != GamePublic.e_TypeState.Death){
             if(t_role.Info.v_PropertyData.NowHP > 0){
                 CommandState = GamePublic.e_CommandResultSrcipt.Continue;
             }
             break;
         }
         case GamePublic.e_CommandType.Work_Felling:{
-            CommandState = GamePublic.e_CommandResultSrcipt.Continue;
+            let ret = g_RoleManager.TaskCheck(role.Command.v_ActionCurScriptArray1.Script.Info.Task);
+            if(ret.res == false)CommandState = GamePublic.e_CommandResultSrcipt.Continue;
             break;
         }
     }

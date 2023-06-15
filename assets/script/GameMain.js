@@ -127,7 +127,7 @@ cc.Class({
         GamePublic.g_ItemManager = ItemManager.New();
         GamePublic.g_TipPage = TipPageClass.New(this.Page_sceen_root);
         GamePublic.g_ShopManager = ShopManager.New();
-        GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 1, GamePublic.g_ShopManager.StoreNum, "Shop");
+        //GamePublic.g_ItemManager.BagAddItem(GamePublic.e_ItemName.Gold, 1, GamePublic.g_ShopManager.StoreNum, "Shop");
         GamePublic.g_ShopManager.AddGoldToStore(GamePublic.g_ShopManager.GetStore(1).ItemBar, 200);
         GamePublic.g_BuildManager = BuildManager.C_BuildManager.New();
         // //GamePublic.g_Build = Building.New();
@@ -300,7 +300,7 @@ cc.Class({
             if (!this.SceenCreate) {
                 for (let i = 0; i < 1; i++) {
                     for (let j = 0; j < 1; j++) {
-                        var role = new RoleSpineClass.New("role2", 1, GamePublic.s_Vec2d(i, j), ++GamePublic.Rolenum);                        
+                        var role = new RoleSpineClass.New("role2", 1, GamePublic.s_Vec2d(i, j), ++GamePublic.RoleNum);                        
                     }
                 }
                 GamePublic.g_GameRunUi = GameRunUiClass.New({ x: 20, y: 20 }, "GameRunUi", 0, {}, {}, this.Page_sceen_root, 8);

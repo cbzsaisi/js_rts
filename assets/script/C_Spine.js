@@ -26,7 +26,7 @@ var C_Spine = {
                     // ske.clearTracks();
                     node.v_MainRole.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.play;
                     ske.setStartListener((trackEntry, LoopCount) =>{node.RoleActionStartEner(_ActionName);});
-                    ske.setCompleteListener((trackEntry, LoopCount) =>{node.RoleActionCompleteEner(node.v_MainRole.Command.v_ActionEvent,node.v_MainRole.Info.v_TargetType,node.v_MainRole.Command.v_TarNum, node.v_MainRole.Command.v_ActionCurScriptArray1.TarRole.Pos);});
+                    ske.setCompleteListener((trackEntry, LoopCount) =>{node.RoleActionCompleteEner(node.v_MainRole.Command.v_ActionEvent,node.v_MainRole.Info.v_TargetType,node.v_MainRole.Command.v_TarNum, {x:0,y:0});});
                     ske.setAnimation(0, "walk", false);
                     //this.SetRoleActionSpeed(0.5);
                     break;
