@@ -212,7 +212,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                     case GamePublic.e_PlayerClickType.RoleTarget:{
                         for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
                             var role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]);
-                            // if (role.Command.v_ActionCommandArray1.length) {                    
+                            // if (role.Command.v_ActionCommandArray1.length) {           //待测试         
                             //     role.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.End;
                             // } else {
                             //     role.Command.v_ActionCommandState1 = GamePublic.e_ActionCommandState.New;
@@ -225,7 +225,8 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                     case GamePublic.e_RoleTargetCheckResult.Success:{
                                         role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                                         role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
-                                        var src = new GamePublic.s_RoleScript({ Info:{TargetType:GamePublic.e_BaseObjType.Role,ComNum:1,ComLevel:2,ComWeight:10}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: t_role.Info.v_Number, Array: [t_role.Info.v_Number], Pos: mappos });
+                                        let task_value = new GamePublic.s_RoleScript({Info:{Task:{SourceType:GamePublic.e_BaseObjType.Role,TargetType:GamePublic.e_BaseObjType.Role,ValueObjType:GamePublic.e_CommandTaskValueType.AttackRoleValue,ValueType:GamePublic.e_CommandTaskValueName.RoleHp,SourceValue:0,TargetValue:0}}, Name:GamePublic.e_CommandTaskType.RoleAttackRole}, { Num: role.Info.v_Number}, { Num: t_role.Info.v_Number, Pos: mappos});
+                                        var src = new GamePublic.s_RoleScript({ Info:{TargetType:GamePublic.e_BaseObjType.Role,ComNum:1,ComLevel:2,ComWeight:10,Task:task_value}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: t_role.Info.v_Number, Array: [t_role.Info.v_Number], Pos: mappos });
                                         role.Command.v_ActionCommandArray.push(src);
                                         //role.Command.v_ActionRunStage = GamePublic.e_SpriteActionRunStage.stop;
                                         break;
@@ -255,7 +256,8 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
                                 if(point_array.length > 0){
                                     role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                                     role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
-                                    var src = new GamePublic.s_RoleScript({Info:{TargetType:GamePublic.e_BaseObjType.Build,ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level2,ComWeight:3}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: build.Info.v_Number, Array: [build.Info.v_Number], Pos: {x:point_array[0].Obj.x,y:point_array[0].Obj.y}});
+                                    let task_value = new GamePublic.s_RoleScript({Info:{Task:{SourceType:GamePublic.e_BaseObjType.Role,TargetType:GamePublic.e_BaseObjType.Build,ValueObjType:GamePublic.e_CommandTaskValueType.AttackRoleValue,ValueType:GamePublic.e_CommandTaskValueName.RoleHp,SourceValue:0,TargetValue:0}}, Name:GamePublic.e_CommandTaskType.RoleAttackRole}, { Num: role.Info.v_Number}, { Num: build.Info.v_Number, Pos: {x:point_array[0].Obj.x,y:point_array[0].Obj.y}});
+                                    var src = new GamePublic.s_RoleScript({Info:{TargetType:GamePublic.e_BaseObjType.Build,ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level2,ComWeight:3,Task:task_value}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: role.Info.v_Number, Array: "222", Pos: 123 }, { Num: build.Info.v_Number, Array: [build.Info.v_Number], Pos: {x:point_array[0].Obj.x,y:point_array[0].Obj.y}});
                                     role.Command.v_ActionCommandArray.push(src);
                                 }
                                 //console.log(point_array);

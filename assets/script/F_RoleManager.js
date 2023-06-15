@@ -132,15 +132,18 @@ F_RoleManager.GetCareerSkill = function (v_Type) {
 },
 
 F_RoleManager.TaskCheck = function (v_src) {
-    let s_get = GamePublic.g_GameDataResManger.GetObj(v_src.Script.Info.Task.SourceType);
-    let t_get = GamePublic.g_GameDataResManger.GetObj(v_src.Script.Info.Task.TargetType);
+    //console.log(v_src);
     var ret = {res:false,info:null};
-    //console.log(v_src.Script.Name,s_get);
-    switch(v_src.Script.Name){
+    if(v_src.Script.Info.Task == null)return ret;
+
+    let s_get = GamePublic.g_GameDataResManger.GetObj(v_src.Script.Info.Task.Script.Info.Task.SourceType);
+    let t_get = GamePublic.g_GameDataResManger.GetObj(v_src.Script.Info.Task.Script.Info.Task.TargetType);
+    //console.log(v_src.Script.Info.Task);
+    switch(v_src.Script.Info.Task.Script.Name){
         case GamePublic.e_CommandTaskType.RoleAttackRole:{
             //let s_role = s_get(v_src.ScrRole.Num);
             let t_role = t_get(v_src.TarRole.Num);
-            if(t_role.Info.v_PropertyData.NowHP < 1){
+            if(t_role.Info.v_PropertyData.NowHP <= v_src.Script.Info.Task.Script.Info.Task.TargetValue){
                 ret.res = true;
             }
             //var src = new GamePublic.s_RoleScript({Info:{TargetType:_src.Script.Info.TargetType,ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level1,ComWeight:3},Name:GamePublic.e_CommandBaseType.RoleAttacking},{Num:s_role.Info.v_Number,Array:"332111",Pos:123},{Num:_src.TarRole.Num,Array:_src.TarRole.Array,Pos:_src.TarRole.Pos});
@@ -150,7 +153,7 @@ F_RoleManager.TaskCheck = function (v_src) {
             let s_role = s_get(v_src.ScrRole.Num);
             //let t_role = t_get(v_src.TarRole.Num);
             let ret1 = GamePublic.g_ItemManager.GetItemQuantity(GamePublic.e_ItemName.Wood_Material, s_role.Info.v_Number, "Role");
-            if(ret1 >= v_src.Script.Info.Task.TargetValue){
+            if(ret1 >= v_src.Script.Info.Task.Script.Info.Task.TargetValue){
                 ret.res = true;
             }
             //console.log(ret1,v_src.Script.Info.Task.TargetValue,ret.res);

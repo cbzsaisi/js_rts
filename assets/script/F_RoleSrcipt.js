@@ -199,7 +199,6 @@ C_SrciptProc.RoleActionCommandPassiveProc = function (_src) { //被动处理
                 break;
             }
             g_RoleManager.RoleAttackCalc(_src.ScrRole.Num,_src.TarRole.Num,_src.Script.Info.Type);
-            //t_role.Info.v_PropertyData.NowHP -= 5;
 
             //反击
             var res = this.RoleTargetCheck(GamePublic.s_RoleScript({ Info:1, Name:GamePublic.e_RoleTargetCheck.RoleAttack}, { Num: _src.TarRole.Num, Array: [], Pos: 123 }, { Num: _src.ScrRole.Num, Array: [], Pos: 123 }));
@@ -207,12 +206,12 @@ C_SrciptProc.RoleActionCommandPassiveProc = function (_src) { //被动处理
                 case GamePublic.e_RoleTargetCheckResult.Success:{
                     t_role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command);
                     t_role.ClearRoleCommand(GamePublic.e_RoleCommandType.Command1);
-                    let src = new GamePublic.s_RoleScript({ Info:{TargetType:GamePublic.e_BaseObjType.Role,ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level2,ComWeight:3}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: _src.TarRole.Num, Array: "222", Pos: _src.TarRole.Pos }, { Num: _src.ScrRole.Num, Array: [_src.ScrRole.Num], Pos: s_role.Info.v_MapPos });
-                    //t_role.Command.v_ActionCommandArray.push(src);
+                    let task_value = new GamePublic.s_RoleScript({Info:{Task:{SourceType:GamePublic.e_BaseObjType.Role,TargetType:GamePublic.e_BaseObjType.Role,ValueObjType:GamePublic.e_CommandTaskValueType.AttackRoleValue,ValueType:GamePublic.e_CommandTaskValueName.RoleHp,SourceValue:0,TargetValue:0}}, Name:GamePublic.e_CommandTaskType.RoleAttackRole}, { Num: _src.TarRole.Num}, { Num: _src.ScrRole.Num, Pos: s_role.Info.v_MapPos});
+                    let src = new GamePublic.s_RoleScript({ Info:{TargetType:GamePublic.e_BaseObjType.Role,ComNum:1,ComLevel:GamePublic.e_CommandLevel.Level2,ComWeight:3,Task:task_value}, Name:GamePublic.e_CommandType.RoleAttack}, { Num: _src.TarRole.Num, Array: "222", Pos: _src.TarRole.Pos }, { Num: _src.ScrRole.Num, Array: [_src.ScrRole.Num], Pos: s_role.Info.v_MapPos });
+                    t_role.Command.v_ActionCommandArray.push(src);
                     break;
                 }
             }
-            
             break;
         }
     }
@@ -280,14 +279,13 @@ C_SrciptProc.Command1StateCheckSrciptProc = function (RoleNum) {  //判断命令
     //if(role.Command.v_ActionCommandArray1.length < 1) return CommandState;
     switch (role.Command.v_ActionCurScriptArray1.Script.Name) {
         case GamePublic.e_CommandType.RoleAttack:{
-            let t_role = g_gdrm.GetObj(role.Command.v_ActionCurScriptArray1.Script.Info.TargetType)(role.Command.v_ActionCurScriptArray1.TarRole.Num);
-            if(t_role.Info.v_PropertyData.NowHP > 0){
-                CommandState = GamePublic.e_CommandResultSrcipt.Continue;
-            }
+            //let t_role = g_gdrm.GetObj(role.Command.v_ActionCurScriptArray1.Script.Info.TargetType)(role.Command.v_ActionCurScriptArray1.TarRole.Num);
+            let ret = g_RoleManager.TaskCheck(role.Command.v_ActionCurScriptArray1);
+            if(ret.res == false)CommandState = GamePublic.e_CommandResultSrcipt.Continue;
             break;
         }
         case GamePublic.e_CommandType.Work_Felling:{
-            let ret = g_RoleManager.TaskCheck(role.Command.v_ActionCurScriptArray1.Script.Info.Task);
+            let ret = g_RoleManager.TaskCheck(role.Command.v_ActionCurScriptArray1);
             if(ret.res == false)CommandState = GamePublic.e_CommandResultSrcipt.Continue;
             break;
         }
@@ -312,8 +310,8 @@ C_SrciptProc.RoleTargetCheck = function(v_src) {  //角色目标检测
                 State = GamePublic.e_RoleTargetCheckResult.Is_Self;
                 break;
             }
-            if(node.Command.v_ActionCurScriptArray1){
-                if(node.Command.v_ActionCurScriptArray1.Script.Name == GamePublic.e_CommandType.RoleAttack && node.Command.v_ActionCurScriptArray1.TarRole.Num == v_src.TarRole.Num){
+            if(role.Command.v_ActionCurScriptArray1){
+                if(role.Command.v_ActionCurScriptArray1.Script.Name == GamePublic.e_CommandType.RoleAttack && role.Command.v_ActionCurScriptArray1.TarRole.Num == v_src.TarRole.Num){
                     //console.log(v_src.ScrRole.Num,"攻击目标相同");
                     State = GamePublic.e_RoleTargetCheckResult.Is_Self;
                 }
