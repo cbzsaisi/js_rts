@@ -704,6 +704,14 @@ var G_Public = {
         Wood:2,
     },
 
+    e_FightDemand:{
+        AttackRole:1,
+    },
+
+    e_WorkDemand:{
+        Work_Felling:1,
+    },
+
     //角色技能
     s_WorkSkillType: function (v_Skill_Name,v_LEVEL,v_Attribute){
         let WorkSkill = {};
@@ -803,7 +811,19 @@ var G_Public = {
         RoleValueAlter.Mp = v_Mp;
         return RoleValueAlter;
     },
-    
+
+    s_Health: function (v_Satiety, v_Water, v_Energy, v_Endurance, v_Interest, v_Strong, v_Social)//身体数值
+    {
+        var Health = {};
+        Health.Satiety = v_Satiety;  //食物
+        Health.Water = v_Water;      //水
+        Health.Energy = v_Energy;    //精力
+        Health.Endurance = v_Endurance;//耐力
+        Health.Interest = v_Interest;  //心情
+        Health.Strong = v_Strong;     //体貌
+        Health.Social = v_Social;     //社交
+        return Health;
+    },
 
     s_ItemCopy: function (Item)  //节点对象
     {
