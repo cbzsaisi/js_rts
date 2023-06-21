@@ -101,12 +101,8 @@ var C_RoleSpine = {
             v_CurrentDecision: null,
             v_SelfDemand: [],
             v_SelfTask: [],
-            v_WorkDemand: g_GameArray.A_WorkDemand,
-            v_WorkTask: g_GameArray.A_WorkDemand,
-            v_SocialDemand: [],
-            v_SocialTask: [],
-            v_FightDemand: g_GameArray.A_FightDemand,
-            v_FightTask: g_GameArray.A_FightDemand,
+            v_Demand: g_GameArray.A_Demand,
+            v_Task: null,
         }
             //初始化
         node.Info.v_Number = _RoleNumber;

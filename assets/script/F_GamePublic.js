@@ -704,12 +704,9 @@ var G_Public = {
         Wood:2,
     },
 
-    e_FightDemand:{
-        AttackRole:1,
-    },
-
-    e_WorkDemand:{
-        Work_Felling:1,
+    e_Demand:{
+        Work_Felling:201,
+        AttackRole:301,
     },
 
     //角色技能
