@@ -699,12 +699,21 @@ var G_Public = {
         AttackRoleValue:1,
         GetItemValue:2,
     },
+
+    e_CommandTaskState:{
+        Stop:0,
+        Start:1,
+        Gain:2,
+        Fail:3,
+    },
+
     e_CommandTaskValueName:{
         RoleHp:1,
         Wood:2,
     },
 
     e_Demand:{
+        Not:0,
         Work_Felling:201,
         AttackRole:301,
     },

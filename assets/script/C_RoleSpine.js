@@ -8,6 +8,7 @@ var g_GameArray = require("./A_GameArray");
 
 //var g_3dSprite = require("./C_3DSprite");
 var g_Spine = require("./C_Spine");
+const G_Public = require("./F_GamePublic");
 
 var C_RoleSpine = {
     New: function(_RoleResName, _MapNum, _MapPoint, _RoleNumber) {
@@ -102,7 +103,7 @@ var C_RoleSpine = {
             v_SelfDemand: [],
             v_SelfTask: [],
             v_Demand: g_GameArray.A_Demand,
-            v_Task: null,
+            v_CurDemand: G_Public.e_Demand.Not,
         }
             //初始化
         node.Info.v_Number = _RoleNumber;

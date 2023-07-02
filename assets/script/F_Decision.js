@@ -3,18 +3,34 @@ var g_GameArray = require("./A_GameArray");
 
 function F_Decision() {};
 
+// case G_P.e_CommandTaskState.Stop:{
+//     break;   
+// }
+// case G_P.e_CommandTaskState.Start:{
+
+//     break;
+// }
+// case G_P.e_CommandTaskState.Gain:{
+    
+//     break;   
+// }
+// case G_P.e_CommandTaskState.Stop:{
+//     break;
+// }
+
 F_Decision.RoleAi = function(v_RoleNum,v_D_Time) {
 
     var Demand = []
     var s_Role = G_P.g_GameDataResManger.GetRole(v_RoleNum);
 
-    this.RoleAiWorkDemand(s_Role,Demand);
-    //console.log(s_Role.Decision.v_Health,s_Role.Decision.v_Demand,v_D_Time);
-   
+    this.RoleAiUpDemand(s_Role);
+    this.DealDemand(s_Role);
+    
+
     return null;
 }
 
-F_Decision.RoleAiWorkDemand = function(v_Role, v_Demand) {
+F_Decision.RoleAiUpDemand = function(v_Role) {
     for(let i = 0; i < v_Role.Decision.v_Demand.length; i++){
         switch(v_Role.Decision.v_Demand[i].Type){
             case G_P.e_Demand.Work_Felling:{
@@ -34,7 +50,7 @@ F_Decision.RoleAiWorkDemand = function(v_Role, v_Demand) {
                         v_Role.Decision.v_Demand[i].StepValue = 0;
                     }
                 };
-                console.log("Value:",v_Role.Decision.v_Demand[i].Value,"level:",v_Role.Decision.v_Demand[i].Level)
+                //console.log("Value:",v_Role.Decision.v_Demand[i].Value,"level:",v_Role.Decision.v_Demand[i].Level)
                 break;
             }
         }
@@ -42,15 +58,64 @@ F_Decision.RoleAiWorkDemand = function(v_Role, v_Demand) {
     return null;
 }
 
-F_Decision.RoleAiFightDemand = function(v_Role, v_Demand) {
-    for(let i = 0; i < v_Role.Decision.v_FightDemand.length; i++){
-        switch(v_Role.Decision.v_FightDemand[i].Type){
-            case G_P.e_Demand.AttackRole:{
-                //console.log("e_WorkDemand.Work_Felling")
-                break;
-            }
+F_Decision.GetCurDemand = function(v_Role, v_CurDemand) {
+    var CurDemand = null;
+    for(let i = 0; i < v_Role.Decision.v_Demand.length; i++){
+        if(v_Role.Decision.v_Demand[i].Type == v_CurDemand){
+            CurDemand = v_Role.Decision.v_Demand[i];
+            break;
         }
     }
-    return null;
+    return CurDemand;
+}
+
+F_Decision.SetCurDemand = function(v_Role, v_CurDemand) {
+    for(let i = 0; i < v_Role.Decision.v_Demand.length; i++){
+        if(v_Role.Decision.v_Demand[i].Type == v_CurDemand){
+            v_Role.Decision.v_Demand[i] = v_CurDemand;
+            break;
+        }
+    }
+    return;
+}
+
+F_Decision.DealDemand = function(v_Role) {
+    var CurDemand = F_Decision.GetCurDemand(v_Role,v_Role.Decision.v_CurDemand);
+    switch(CurDemand.Type){
+        case G_P.e_Demand.Not:{
+            for(let i = 0; i < v_Role.Decision.v_Demand.length; i++){
+                if(v_Role.Decision.v_Demand[i].Level > 5){
+                    v_Role.Decision.v_Demand[i].State = G_P.e_CommandTaskState.Start;
+                    v_Role.Decision.v_CurDemand = v_Role.Decision.v_Demand[i].Type;
+                    console.log("G_P.e_Demand.Not",v_Role.Decision.v_Demand[i].Type)
+                }
+            }
+            break;
+        }
+        case G_P.e_Demand.Work_Felling:{
+            switch(CurDemand.State){
+                case G_P.e_CommandTaskState.Stop:{
+                    break;   
+                }
+                case G_P.e_CommandTaskState.Start:{
+                    console.log("G_P.e_Demand.Work_Felling Start")
+                    CurDemand.State = G_P.e_CommandTaskState.Gain;
+                    break;
+                }
+                case G_P.e_CommandTaskState.Gain:{
+                    console.log("G_P.e_Demand.Work_Felling Gain")
+                    CurDemand.State = G_P.e_CommandTaskState.Stop;
+                    break;   
+                }
+                case G_P.e_CommandTaskState.Stop:{
+
+                    break;
+                }
+                
+            }
+            break;
+        }
+    }
+    this.SetCurDemand(v_Role,CurDemand);
 }
 module.exports = F_Decision;
