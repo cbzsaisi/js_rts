@@ -64,4 +64,15 @@ F_MathLib.Sort = function (v_Array,v_type) {
     return v_Array;
 };
 
+
+F_MathLib.Copy = function (obj) {
+    var newArr = obj.constructor === Array ? [] : {};
+    if (typeof obj !== 'object') {
+        return;
+    }
+    for (var i in obj) {
+        newArr[i] = typeof obj[i] === 'object' ? this.Copy(obj[i]) : obj[i];
+    }
+    return newArr
+}
 module.exports = F_MathLib;

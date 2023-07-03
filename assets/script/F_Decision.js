@@ -80,14 +80,15 @@ F_Decision.SetCurDemand = function(v_Role, v_CurDemand) {
 }
 
 F_Decision.DealDemand = function(v_Role) {
-    var CurDemand = F_Decision.GetCurDemand(v_Role,v_Role.Decision.v_CurDemand);
+    //var CurDemand = F_Decision.GetCurDemand(v_Role,v_Role.Decision.v_CurDemand);
+    var CurDemand = v_Role.Decision.v_CurDemand;
     switch(CurDemand.Type){
         case G_P.e_Demand.Not:{
             for(let i = 0; i < v_Role.Decision.v_Demand.length; i++){
                 if(v_Role.Decision.v_Demand[i].Level > 5){
                     v_Role.Decision.v_Demand[i].State = G_P.e_CommandTaskState.Start;
-                    v_Role.Decision.v_CurDemand = v_Role.Decision.v_Demand[i].Type;
-                    console.log("G_P.e_Demand.Not",v_Role.Decision.v_Demand[i].Type)
+                    v_Role.Decision.v_CurDemand = v_Role.Decision.v_Demand[i];
+                    console.log("G_P.e_Demand.Not",v_Role.Decision.v_Demand[i].Type,v_Role.Info.v_Number)
                 }
             }
             break;
@@ -98,12 +99,11 @@ F_Decision.DealDemand = function(v_Role) {
                     break;   
                 }
                 case G_P.e_CommandTaskState.Start:{
-                    console.log("G_P.e_Demand.Work_Felling Start")
                     CurDemand.State = G_P.e_CommandTaskState.Gain;
                     break;
                 }
                 case G_P.e_CommandTaskState.Gain:{
-                    console.log("G_P.e_Demand.Work_Felling Gain")
+                    console.log("G_P.e_Demand.Work_Felling Gain",v_Role.Info.v_Number)
                     CurDemand.State = G_P.e_CommandTaskState.Stop;
                     break;   
                 }
@@ -116,6 +116,6 @@ F_Decision.DealDemand = function(v_Role) {
             break;
         }
     }
-    this.SetCurDemand(v_Role,CurDemand);
+    //this.SetCurDemand(v_Role,CurDemand);
 }
 module.exports = F_Decision;

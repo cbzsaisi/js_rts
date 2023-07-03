@@ -21,7 +21,7 @@ function F_RoleManager() {
     }
 } */
 
-F_RoleManager.InitRoleRacePropertyData = function (_RoleNumber) {
+F_RoleManager.InitRoleRacePropertyData = function (_RoleNumber) { //种族属性
     var Role = GamePublic.g_GameDataResManger.GetRole(_RoleNumber);
     var RoleRacePropertyData = {};
 
@@ -33,6 +33,8 @@ F_RoleManager.InitRoleRacePropertyData = function (_RoleNumber) {
             RoleRacePropertyData.LER = 5; //学识
             RoleRacePropertyData.MEN = 5; //精神
             RoleRacePropertyData.LUK = 5; //运气
+            RoleRacePropertyData.Vision = 5; //寻敌视力
+            RoleRacePropertyData.WorkVision = 5; //工作视力
             break;
     }
     return RoleRacePropertyData;
@@ -112,7 +114,7 @@ F_RoleManager.RoleValueAlter = function (v_Number, v_value) {
     return;
 },
 
-F_RoleManager.GetCareerSkill = function (v_Type) {
+F_RoleManager.GetCareerSkill = function (v_Type) { //获取职业技能
     var SkillArray = [];
     switch(v_Type){
         case GamePublic.e_RoleOccupationType.Worker:{

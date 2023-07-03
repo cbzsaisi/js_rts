@@ -118,7 +118,7 @@ var G_Public = {
         return s_MenuInfo;
     },
 
-    s_RolePropertyData: function (RoleType) {
+    s_RolePropertyData: function (RoleType) { //角色当前能力
         var RolePropertyData = {};
         RolePropertyData.HP = 1;
         RolePropertyData.NowHP = RolePropertyData.HP;
@@ -126,6 +126,8 @@ var G_Public = {
         RolePropertyData.NowMP = RolePropertyData.MP;
         RolePropertyData.ATT = 1;
         RolePropertyData.DEF = 1;
+        RolePropertyData.Vision = 5; //寻敌视力
+        RolePropertyData.WorkVision = 5; //工作视力
         return RolePropertyData;
     },
 
