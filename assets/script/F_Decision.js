@@ -34,19 +34,24 @@ F_Decision.RoleAiUpDemand = function(v_Role) {
     for(let i = 0; i < v_Role.Decision.v_Demand.length; i++){
         switch(v_Role.Decision.v_Demand[i].Type){
             case G_P.e_Demand.Work_Felling:{
-                v_Role.Decision.v_Demand[i].Value += v_Role.Decision.v_Demand[i].StepValue;
+                v_Role.Decision.v_Demand[i].Value += v_Role.Decision.v_Demand[i].StepValue;//每次都更新单步值
                 if(v_Role.Decision.v_Demand[i].Value > 9999){
                     v_Role.Decision.v_Demand[i].Value = 0;
+                    console.log(v_Role.Decision.v_Demand[i].Level)
                     if(v_Role.Decision.v_Demand[i].Level < 10){
                         v_Role.Decision.v_Demand[i].Level += 1;
                     }else{
+                        console.log("StepValue = 0;11111111111111")
                         v_Role.Decision.v_Demand[i].StepValue = 0;
                     }
                 }else if(v_Role.Decision.v_Demand[i].Value < 0){
+                    console.log(v_Role.Decision.v_Demand[i].Level)
                     v_Role.Decision.v_Demand[i].Value = 0;
                     if(v_Role.Decision.v_Demand[i].Level > 1){
                         v_Role.Decision.v_Demand[i].Level -= 1;
+                        v_Role.Decision.v_Demand[i].Value = 9999;
                     }else{
+                        console.log("StepValue = 0;2222222222222")
                         v_Role.Decision.v_Demand[i].StepValue = 0;
                     }
                 };
@@ -88,7 +93,6 @@ F_Decision.DealDemand = function(v_Role) {
                 if(v_Role.Decision.v_Demand[i].Level > 5){
                     v_Role.Decision.v_Demand[i].State = G_P.e_CommandTaskState.Start;
                     v_Role.Decision.v_CurDemand = v_Role.Decision.v_Demand[i];
-                    console.log("G_P.e_Demand.Not",v_Role.Decision.v_Demand[i].Type,v_Role.Info.v_Number)
                 }
             }
             break;
@@ -96,6 +100,12 @@ F_Decision.DealDemand = function(v_Role) {
         case G_P.e_Demand.Work_Felling:{
             switch(CurDemand.State){
                 case G_P.e_CommandTaskState.Stop:{
+                    for(let i = 0; i < v_Role.Decision.v_Demand.length; i++){
+                        if(v_Role.Decision.v_Demand[i].Level > 5){
+                            v_Role.Decision.v_Demand[i].State = G_P.e_CommandTaskState.Start;
+                            v_Role.Decision.v_CurDemand = v_Role.Decision.v_Demand[i];
+                        }
+                    }
                     break;   
                 }
                 case G_P.e_CommandTaskState.Start:{
@@ -103,11 +113,20 @@ F_Decision.DealDemand = function(v_Role) {
                     break;
                 }
                 case G_P.e_CommandTaskState.Gain:{
-                    console.log("G_P.e_Demand.Work_Felling Gain",v_Role.Info.v_Number)
-                    CurDemand.State = G_P.e_CommandTaskState.Stop;
+                    if(CurDemand.Level >= 10){
+                        CurDemand.State = G_P.e_CommandTaskState.End;
+                        CurDemand.StepValue = -500;
+                    }
                     break;   
                 }
-                case G_P.e_CommandTaskState.Stop:{
+                case G_P.e_CommandTaskState.End:{
+                    if(CurDemand.Level <= 1){
+                        CurDemand.State = G_P.e_CommandTaskState.Stop;
+                        CurDemand.StepValue = 500;
+                    }
+                    break;
+                }
+                case G_P.e_CommandTaskState.Fail:{
 
                     break;
                 }

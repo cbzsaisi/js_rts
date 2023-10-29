@@ -706,7 +706,8 @@ var G_Public = {
         Stop:0,
         Start:1,
         Gain:2,
-        Fail:3,
+        End:3,
+        Fail:4,
     },
 
     e_CommandTaskValueName:{
