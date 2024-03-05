@@ -98,7 +98,7 @@ C_GameControl.ControlMouseRightDownCall = function (_pos) {
 // }
 
 C_GameControl.ControlMouseMiddleUpCall = function (_pos) {
-    if (GamePublic.g_SelectRoleArray.length){
+    if (GamePublic.g_SelectRoleArray.length){ //切换到伐木状态  左键点击木头  右键取消
         GamePublic.g_UserPicklObj = GamePublic.s_UserPicklObj(GamePublic.g_SelectRoleArray,1,GamePublic.e_UserControlType.Work_Felling);
     }
 }
@@ -123,6 +123,7 @@ C_GameControl.ControlMouseLeftUpCall = function (_pos) {
             break;
         }
         case GamePublic.e_UserControlType.Work_Felling:{
+            console.log("GamePublic.e_UserControlType.Work_Felling");
             if(mappos.x < 0)break;
             for (var i = 0; i < GamePublic.g_SelectRoleArray.length; i++) {
                 var role = GamePublic.g_GameDataResManger.GetRole(GamePublic.g_SelectRoleArray[i]);
